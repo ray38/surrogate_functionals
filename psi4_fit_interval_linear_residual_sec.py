@@ -155,15 +155,15 @@ def fit_with_KerasNN(X,y,functional, target, gamma, num_desc_deri, num_desc_deri
         if count_epochs >=early_stop_trials:
             keep_going = False
     
-##    plt.scatter(X, y-model.predict(X),  color='black')
-#    
-#    
-#    plt.scatter(X[:,0], y,  color='black')
-#    plt.scatter(X[:,0], model.predict(X), color='blue',
-#             linewidth=3)
-#    test_x = np.linspace(-6., 5., 10000)
-#    plt.plot(test_x, model.predict(test_x),color='blue')
-#    plt.show()
+#    plt.scatter(X, y-model.predict(X),  color='black')
+    
+    
+    plt.scatter(X[:,0], y,  color='black')
+    plt.scatter(X[:,0], model.predict(X), color='blue',
+             linewidth=3)
+    test_x = np.linspace(-6., 5., 10000)
+    plt.plot(test_x, model.predict(test_x),color='blue')
+    plt.show()
     return model
 
 

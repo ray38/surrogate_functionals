@@ -177,8 +177,8 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_option
     
     if psi4_options == None:
         psi4_options = {"BASIS": "aug-cc-pvtz",
-                    "D_CONVERGENCE":1e-13,
-                    "E_CONVERGENCE":1e-13,
+                    "D_CONVERGENCE":1e-11,
+                    "E_CONVERGENCE":1e-11,
                   'DFT_BLOCK_MAX_POINTS': 500000,
                   'DFT_BLOCK_MIN_POINTS': 100000,
 #                  'DFT_SPHERICAL_POINTS': 302,
@@ -299,10 +299,7 @@ if __name__ == "__main__":
                         process_system(molecules[mol],mol,xc,h,L,N)
                     except:
                         log(failed_filename, '\n' + mol)
-    #            else:
-    #                data = h5py.File(filename,'r')
-    #            all_data[mol+'_'+xc] = data
-#        print('Finished')
+
         
         
     elif choice == 'single':
@@ -312,10 +309,7 @@ if __name__ == "__main__":
         L = float(sys.argv[5])
         N = int(sys.argv[6])
         
-        
-#        with open(list_molecule_filename) as f:
-#            molecule_names = f.readlines()
-#        molecule_names = [x.strip() for x in molecule_names]
+    
         molecule_names = [molecule_name]
         
         try:
@@ -352,4 +346,3 @@ if __name__ == "__main__":
                     except:
                         log(failed_filename, '\n' + mol)
 
-#        print('Finished')
