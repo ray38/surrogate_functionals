@@ -216,6 +216,7 @@ def process_each_block(molecule, model_dict, functional,i,j,k,h,N,log_filename, 
     y_sum = np.sum(y)
     y_predict_sum = np.sum(y_predict)
     error = y-y_predict
+    
 #    fraction_error = np.divide(error, y)
     sum_error = y_sum - y_predict_sum
 
