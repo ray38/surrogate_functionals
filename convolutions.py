@@ -517,7 +517,6 @@ def calc_integration_stencil(hx, hy, hz, r, accuracy):
     
     # normalize the stencil with the volume of dV
     stencil *= hx*hy*hz
-#    print stencil
     
     padx = int(math.ceil(float(dim_x)/2.))
     pady = int(math.ceil(float(dim_y)/2.))
@@ -556,9 +555,7 @@ def calc_integration_stencil2(hx, hy, hz, r, accuracy):
     dim_y = int(2.* math.ceil( r/hy )) + 1
     dim_z = int(2.* math.ceil( r/hz )) + 1
        
-#    stencil = np.zeros((dim_x, dim_y, dim_z))
     temp_stencil = np.zeros((int((dim_x + 1 )/2), int((dim_y + 1 )/2), int((dim_z + 1 )/2)))
-#    coord_arr = get_coordinate_array(dim_x, dim_y, dim_z, hx, hy, hz)
     
     temp_coord_arr = get_coordinate_array((dim_x + 1 )/2, (dim_y + 1 )/2, (dim_z + 1 )/2, hx, hy, hz)
     
@@ -581,7 +578,6 @@ def calc_integration_stencil2(hx, hy, hz, r, accuracy):
     # normalize the stencil with the volume of dV
     stencil = from_temp_stencil_to_stencil(dim_x, dim_y, dim_z, temp_stencil)
     stencil *= hx*hy*hz
-#    print stencil
     
     padx = int(math.ceil(float(dim_x)/2.))
     pady = int(math.ceil(float(dim_y)/2.))
@@ -638,7 +634,6 @@ def get_integration_fftconv(n, hx, hy, hz, r, accuracy = 4):
 def get_integral_fftconv_with_known_stencil(n, hx, hy, hz, r, stencil, pad):
     # get the stencil and do the convolution
 
-#    stencil, pad = get_integration_stencil(hx, hy, hz, r, accuracy)
     pad_temp = int(math.ceil(r*2. / min([hx,hy,hz])))
     wrapped_n = np.pad(n, pad_temp, mode='wrap')
     temp_result = fftconvolve(wrapped_n,stencil, mode = 'same')
@@ -648,4 +643,47 @@ def get_integral_fftconv_with_known_stencil(n, hx, hy, hz, r, stencil, pad):
 def get_fftconv_with_known_stencil_no_wrap(n, hx, hy, hz, r, stencil, pad):
     temp_result = fftconvolve(n,stencil, mode = 'same')
     return temp_result, pad
+
+
+
+"""
+Asymmetric Integration 
+"""
+
+def get_asym_integration_stencil(hx, hy, hz, r, axis):
+    
+    axis_choice_list = {'x':0,'y':1,'z':2}
+    if axis not in axis_choice_list:
+        raise NotImplementedError
+    axis_index = axis_choice_list[axis]
+    standard_acc = get_auto_accuracy(hx,hy,hz, r)
+    temp_stencil, pad = calc_integration_stencil2(hx, hy, hz, r, standard_acc)
+    
+    size = temp_stencil.shape
+    target_axis_dim_div_2 = (size[axis_index] - 1) / 2
+    stencil = np.zeros_like(temp_stencil)
+    for index, x in np.ndenumerate(temp_stencil):
+        stencil[index] = x * float(index[axis_index] - target_axis_dim_div_2)
+    
+    return stencil, pad
+
+def get_asym_integration_fftconv(n, hx, hy, hz, r, axis):
+    # get the stencil and do the convolution
+    
+    axis_choice_list = {'x':0,'y':1,'z':2}
+    if axis not in axis_choice_list:
+        raise NotImplementedError
+    stencil, pad = get_asym_integration_stencil(hx, hy, hz, r, axis)
+    pad_temp = int(math.ceil(r*2. / min([hx,hy,hz])))
+    wrapped_n = np.pad(n, pad_temp, mode='wrap')
+    temp_result = fftconvolve(wrapped_n,stencil, mode = 'same')
+    return temp_result[pad_temp:-pad_temp, pad_temp:-pad_temp, pad_temp:-pad_temp], pad
+
+def get_asym_integral_fftconv_with_known_stencil(n, hx, hy, hz, r, stencil, pad):
+    # get the stencil and do the convolution
+
+    pad_temp = int(math.ceil(r*2. / min([hx,hy,hz])))
+    wrapped_n = np.pad(n, pad_temp, mode='wrap')
+    temp_result = fftconvolve(wrapped_n,stencil, mode = 'same')
+    return temp_result[pad_temp:-pad_temp, pad_temp:-pad_temp, pad_temp:-pad_temp], pad
 

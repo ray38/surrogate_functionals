@@ -9,7 +9,7 @@ import numpy as np
 import sys
 import math
 
-from convolutions import get_differenciation_conv, get_integration_stencil,get_auto_accuracy,get_fftconv_with_known_stencil_no_wrap
+from convolutions import get_differenciation_conv, get_integration_stencil,get_auto_accuracy,get_fftconv_with_known_stencil_no_wrap,get_asym_integration_stencil,get_asym_integration_fftconv,get_asym_integral_fftconv_with_known_stencil
 import h5py
 import os
 #from joblib import Parallel, delayed
@@ -44,6 +44,7 @@ def read_system(mol,xc,Nx_center,Ny_center,Nz_center,Nx,Ny,Nz,data_name):
     
     temp_x = None
     x_start = True
+    print Nx_list, Ny_list,Nz_list
     for i in Nx_list:
         
         temp_y = None
@@ -121,6 +122,7 @@ def process_normal_descriptors(molecule, functional,i,j,k):
 
 
     with h5py.File(result_filename,'a') as data:
+        print 'get normal'
         data.create_dataset('V_xc',data=V_xc)
         data.create_dataset('epsilon_xc',data=ep_xc)
         data.create_dataset('rho',data=n)
@@ -129,32 +131,54 @@ def process_normal_descriptors(molecule, functional,i,j,k):
         
     return
 
-def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list):
+def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list,asym_stencil_list,asym_pad_list):
+    
     result_filename = "{}_{}_{}_{}_{}_all_descriptors.hdf5".format(molecule,functional,i,j,k)
     Nx = Ny = Nz = N
+#    print 'get range1'
     extented_n = read_system(molecule,functional,i,j,k,Nx,Ny,Nz,'rho')
 
-
+#    print 'get range2'
     with h5py.File(result_filename,'a') as data:
+        
 #        temp_first_deri = np.gradient(extented_n.copy())
         ave_dens_grp = data.create_group('average_density')
+        asym_integral_grp = data.create_group('asym_integral')
         derivative_grp = data.create_group('derivative')
         for index, r in enumerate(r_list):
             dataset_name = 'average_density_{}'.format(str(r).replace('.','-'))
             if dataset_name not in ave_dens_grp.keys():
                 temp_data, temp_pad = calculate_ave_density_desc(extented_n.copy(),r,h,h,h,stencil_list[index],pad_list[index])
                 ave_dens_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
+        
+        for index, r in enumerate(r_list):
+            dataset_name = 'asym_integral_x_{}'.format(str(r).replace('.','-'))
+            if dataset_name not in asym_integral_grp.keys():
+                temp_data, temp_pad = get_asym_integral_fftconv_with_known_stencil(extented_n.copy(), h ,h ,h , r, asym_stencil_list[0][index], asym_pad_list[0][index] )
+                asym_integral_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
+        
+        for index, r in enumerate(r_list):
+            dataset_name = 'asym_integral_y_{}'.format(str(r).replace('.','-'))
+            if dataset_name not in asym_integral_grp.keys():
+                temp_data, temp_pad = get_asym_integral_fftconv_with_known_stencil(extented_n.copy(), h ,h ,h , r, asym_stencil_list[1][index], asym_pad_list[1][index] )
+                asym_integral_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
+                
+        for index, r in enumerate(r_list):
+            dataset_name = 'asym_integral_z_{}'.format(str(r).replace('.','-'))
+            if dataset_name not in asym_integral_grp.keys():
+                temp_data, temp_pad = get_asym_integral_fftconv_with_known_stencil(extented_n.copy(), h ,h ,h , r, asym_stencil_list[2][index], asym_pad_list[2][index] )
+                asym_integral_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
 
                 
         temp_first_deri, temp_pad = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'first',
                                                stencil_type = 'mid', accuracy = '2')
         temp_sec_deri, temp_pad   = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'second',
                                                stencil_type = 'times2', accuracy = '2')
-#        temp_third_deri, temp_pad = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'third',
-#                                               stencil_type = 'times2', accuracy = '2')
+        temp_third_deri, temp_pad = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'third',
+                                               stencil_type = 'times2', accuracy = '2')
         derivative_grp.create_dataset('derivative_1',data=carve_out_matrix(temp_first_deri))
         derivative_grp.create_dataset('derivative_2',data=carve_out_matrix(temp_sec_deri))
-#        derivative_grp.create_dataset('derivative_3',data=carve_out_matrix(temp_third_deri))
+        derivative_grp.create_dataset('derivative_3',data=carve_out_matrix(temp_third_deri))
         print data.keys()
         print derivative_grp.keys()
         print ave_dens_grp.keys()
@@ -173,12 +197,38 @@ def prepare_integral_stencils(r_list,h):
         pad_list.append(temp_pad)
     return stencil_list, pad_list
 
-def process(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list):
+
+def prepare_asym_integral_stencils(r_list,h):
+    print 'start preparing integral stencils'
+    stencil_x_list = []
+    stencil_y_list = []
+    stencil_z_list = []
+    pad_x_list = []
+    pad_y_list = []
+    pad_z_list = []
+    for r in r_list:
+        temp_stencil,temp_pad = get_asym_integration_stencil(h, h, h, r, 'x')
+        stencil_x_list.append(temp_stencil)
+        pad_x_list.append(temp_pad)
+        
+        temp_stencil,temp_pad = get_asym_integration_stencil(h, h, h, r, 'y')
+        stencil_y_list.append(temp_stencil)
+        pad_y_list.append(temp_pad)
+        
+        temp_stencil,temp_pad = get_asym_integration_stencil(h, h, h, r, 'z')
+        stencil_z_list.append(temp_stencil)
+        pad_z_list.append(temp_pad)
+    
+    asym_stencil_list = [stencil_x_list, stencil_y_list, stencil_z_list]
+    asym_pad_list = [pad_x_list, pad_y_list, pad_z_list]
+    return asym_stencil_list,asym_pad_list
+
+def process(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list,asym_stencil_list,asym_pad_list):
     result_filename = "{}_{}_{}_{}_{}_all_descriptors.hdf5".format(molecule,functional,i,j,k)
     if os.path.isfile(result_filename) == False:
         print 'start {} {} {}'.format(i,j,k)
         process_normal_descriptors(molecule, functional,i,j,k)
-        process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list)
+        process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list,asym_stencil_list,asym_pad_list)
     
 
 def process_one_molecule(molecule, functional,h,L,N):
@@ -193,8 +243,10 @@ def process_one_molecule(molecule, functional,h,L,N):
     os.chdir(cwd + '/' + dir_name)
 #    r_list = np.linspace(0.05, 0.1, 2)
 #    r_list = [0.01]
-    r_list = [0.01,0.02,0.03,0.04,0.05,0.06,0.08,0.1,0.15,0.2,0.3,0.4,0.5]
+#    r_list = [0.01,0.02,0.03,0.04,0.05,0.06,0.08,0.1,0.15,0.2,0.3,0.4,0.5]
+    r_list = [0.04,0.06,0.08,0.1,0.2,0.3,0.4,0.5]
     stencil_list,pad_list = prepare_integral_stencils(r_list,h)
+    asym_stencil_list,asym_pad_list = prepare_asym_integral_stencils(r_list,h)
     
     num_cores = multiprocessing.cpu_count()
     print "number of cores: {}".format(num_cores)
@@ -210,7 +262,7 @@ def process_one_molecule(molecule, functional,h,L,N):
     
     pool = multiprocessing.Pool()
     for i,j,k in paramlist:
-        pool.apply_async(process, args=(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list))
+        pool.apply_async(process, args=(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list,asym_stencil_list,asym_pad_list))
     pool.close()
     pool.join()
         

@@ -177,8 +177,8 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_option
     
     if psi4_options == None:
         psi4_options = {"BASIS": "aug-cc-pvtz",
-                    "D_CONVERGENCE":1e-11,
-                    "E_CONVERGENCE":1e-11,
+                    "D_CONVERGENCE":1e-13,
+                    "E_CONVERGENCE":1e-13,
                   'DFT_BLOCK_MAX_POINTS': 500000,
                   'DFT_BLOCK_MIN_POINTS': 100000,
 #                  'DFT_SPHERICAL_POINTS': 302,

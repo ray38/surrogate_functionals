@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Aug 20 17:20:15 2017
+Created on Mon Oct 23 17:34:20 2017
 
 @author: ray
 """
@@ -111,6 +111,14 @@ def process_each_block(molecule,functional,i,j,k, target, gamma, num_desc_deri, 
         result_list.append(temp_data.flatten().tolist())
     elif desc_transform == 'log':
         result_list.append(np.log10(temp_data.flatten()).tolist())
+        
+    temp_data = np.asarray(data['tau'])
+#        print 'gamma'
+#        print temp_data.shape
+    if desc_transform == 'real':
+            result_list.append(temp_data.flatten().tolist())
+    elif desc_transform == 'log':
+        result_list.append(np.log10(temp_data.flatten()).tolist())
     
     if gamma == 1:
         temp_data = np.asarray(data['gamma'])
@@ -160,7 +168,7 @@ def process_each_block(molecule,functional,i,j,k, target, gamma, num_desc_deri, 
     result = zip(*result_list)
     
     parent = os.getcwd()
-    dir_name = "{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}".format(functional, target, gamma,num_desc_deri,num_desc_deri_squa,num_desc_ave_dens,desc_transform,target_transform)    
+    dir_name = "{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_tau".format(functional, target, gamma,num_desc_deri,num_desc_deri_squa,num_desc_ave_dens,desc_transform,target_transform)    
     if os.path.isdir(dir_name) == False:
         os.makedirs(parent + '/' + dir_name)      
     os.chdir(parent + '/' + dir_name)

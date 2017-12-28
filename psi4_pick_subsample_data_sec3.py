@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Aug 20 17:20:15 2017
+Created on Mon Oct 23 17:34:20 2017
 
 @author: ray
 """
@@ -111,6 +111,14 @@ def process_each_block(molecule,functional,i,j,k, target, gamma, num_desc_deri, 
         result_list.append(temp_data.flatten().tolist())
     elif desc_transform == 'log':
         result_list.append(np.log10(temp_data.flatten()).tolist())
+        
+    temp_data = np.asarray(data['tau'])
+#        print 'gamma'
+#        print temp_data.shape
+    if desc_transform == 'real':
+            result_list.append(temp_data.flatten().tolist())
+    elif desc_transform == 'log':
+        result_list.append(np.log10(temp_data.flatten()).tolist())
     
     if gamma == 1:
         temp_data = np.asarray(data['gamma'])
@@ -148,19 +156,54 @@ def process_each_block(molecule,functional,i,j,k, target, gamma, num_desc_deri, 
             
             dataset_name = 'average_density_{}'.format(str(r_list[desc_ave_dens_count]).replace('.','-'))
             temp_data = np.asarray(data[group_name][dataset_name])
-#            print 'ave_dens'
-#            print temp_data.shape
             if desc_transform == 'real':
                 result_list.append(temp_data.flatten().tolist())
             elif desc_transform == 'log':
                 result_list.append(np.log10(temp_data.flatten()).tolist())
+                
+    if num_desc_ave_dens > 0:
+        group_name = 'asym_integral'
+        for desc_ave_dens_count in range(num_desc_ave_dens):
+            
+            dataset_name = 'asym_integral_x_{}'.format(str(r_list[desc_ave_dens_count]).replace('.','-'))
+            temp_data = np.asarray(data[group_name][dataset_name])
+            result_list.append(temp_data.flatten().tolist())
+#            if desc_transform == 'real':
+#                result_list.append(temp_data.flatten().tolist())
+#            elif desc_transform == 'log':
+#                result_list.append(np.log10(temp_data.flatten()).tolist())
+    
+    if num_desc_ave_dens > 0:
+        group_name = 'asym_integral'
+        for desc_ave_dens_count in range(num_desc_ave_dens):
+            
+            dataset_name = 'asym_integral_y_{}'.format(str(r_list[desc_ave_dens_count]).replace('.','-'))
+            temp_data = np.asarray(data[group_name][dataset_name])
+            result_list.append(temp_data.flatten().tolist())
+#            if desc_transform == 'real':
+#                result_list.append(temp_data.flatten().tolist())
+#            elif desc_transform == 'log':
+#                result_list.append(np.log10(temp_data.flatten()).tolist())
+                
+    if num_desc_ave_dens > 0:
+        group_name = 'asym_integral'
+        for desc_ave_dens_count in range(num_desc_ave_dens):
+            
+            dataset_name = 'asym_integral_z_{}'.format(str(r_list[desc_ave_dens_count]).replace('.','-'))
+            temp_data = np.asarray(data[group_name][dataset_name])
+            result_list.append(temp_data.flatten().tolist())
+#            if desc_transform == 'real':
+#                result_list.append(temp_data.flatten().tolist())
+#            elif desc_transform == 'log':
+#                result_list.append(np.log10(temp_data.flatten()).tolist())
+                
         
     
     
     result = zip(*result_list)
     
     parent = os.getcwd()
-    dir_name = "{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}".format(functional, target, gamma,num_desc_deri,num_desc_deri_squa,num_desc_ave_dens,desc_transform,target_transform)    
+    dir_name = "{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_tau".format(functional, target, gamma,num_desc_deri,num_desc_deri_squa,num_desc_ave_dens,desc_transform,target_transform)    
     if os.path.isdir(dir_name) == False:
         os.makedirs(parent + '/' + dir_name)      
     os.chdir(parent + '/' + dir_name)

@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Thu Oct 26 16:12:24 2017
+
+@author: ray
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Thu Oct 12 13:56:12 2017
 
 @author: ray
@@ -71,6 +78,15 @@ def load_data_each_block(molecule,functional,i,j,k, target, gamma, num_desc_deri
     elif desc_transform == 'log':
         result_list.append(np.log10(temp_data.flatten()).tolist())
     
+    
+    temp_data = np.asarray(data['tau'])
+#        print 'gamma'
+#        print temp_data.shape
+    if desc_transform == 'real':
+            result_list.append(temp_data.flatten().tolist())
+    elif desc_transform == 'log':
+        result_list.append(np.log10(temp_data.flatten()).tolist())    
+    
     if gamma == 1:
         temp_data = np.asarray(data['gamma'])
         if desc_transform == 'real':
@@ -89,7 +105,7 @@ def load_data_each_block(molecule,functional,i,j,k, target, gamma, num_desc_deri
     if num_desc_deri_squa > 0:
         group_name = 'derivative'
         for desc_deri_count in range(num_desc_deri_squa):
-            print str(i) + ' start' 
+#            print str(i) + ' start' 
             dataset_name = 'derivative_{}'.format(desc_deri_count+1)
             temp_data = np.asarray(data[group_name][dataset_name])
             temp = np.power(temp_data,2.)
@@ -253,7 +269,7 @@ def read_model_inputfile(input_filename,h,L,N,target, gamma, num_desc_deri, num_
             temp_info = model_name.replace('.','_').split('_')
             
             cwd = os.getcwd()
-            result_dir = "{}_{}_{}_{}_{}_gamma{}_dev{}_devsq{}_inte{}_log_log_models".format(functional,str(L).replace('.','-'),str(h).replace('.','-'),N,target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,temp_info[10],temp_info[11])
+            result_dir = "{}_{}_{}_{}_{}_gamma{}_dev{}_devsq{}_inte{}_log_log_models_tau".format(functional,str(L).replace('.','-'),str(h).replace('.','-'),N,target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,temp_info[10],temp_info[11])
             os.chdir(cwd + '/' + result_dir)            
             temp_model = load_model(model_name)
             li_model = pickle.load(open(li_model_name, 'rb'))
@@ -314,7 +330,6 @@ error_list = []
 for molecule in molecule_names:
     try:
         temp_error,temp_y_predict,temp_y = process_one_molecule(molecule, model_dict, functional,h,N,log_filename, target,gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,parent_dir)
-        
         error_list.append(temp_error)
     except:
         log(log_filename,"\n\n Failed") 

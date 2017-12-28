@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Tue Oct 24 09:43:05 2017
+
+@author: ray
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Thu Aug 24 14:13:59 2017
 
 @author: ray
@@ -119,7 +126,7 @@ def fit_with_KerasNN(X,y,functional, target, gamma, num_desc_deri, num_desc_deri
     print model.get_config()
     
     est_start = time.time()
-    history_callback = model.fit(X, y, nb_epoch=1, batch_size=500000)
+    history_callback = model.fit(X, y, nb_epoch=1, batch_size=50000)
     est_epoch_time = time.time()-est_start
     if est_epoch_time >= 30.:
         num_epoch = 1
@@ -143,7 +150,7 @@ def fit_with_KerasNN(X,y,functional, target, gamma, num_desc_deri, num_desc_deri
     count_epochs = 0
     while keep_going:
         count_epochs += 1
-        history_callback = model.fit(X, y, nb_epoch=num_epoch, batch_size=500000, shuffle=True)
+        history_callback = model.fit(X, y, nb_epoch=num_epoch, batch_size=50000, shuffle=True)
         loss_history = history_callback.history["loss"]
         new_loss = np.array(loss_history)[-1]
         if new_loss < old_loss:
@@ -172,7 +179,7 @@ def fit_with_KerasNN(X,y,functional, target, gamma, num_desc_deri, num_desc_deri
 def process_one_molecule(molecule, functional,h,L,N, target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform):
     temp_cwd = os.getcwd()
     molecule_dir_name = "{}_{}_{}_{}_{}".format(molecule,functional,str(L).replace('.','-'),str(h).replace('.','-'),N)
-    subsampled_data_dir = "{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}".format(functional, target, gamma,num_desc_deri,num_desc_deri_squa,num_desc_ave_dens,desc_transform,target_transform) 
+    subsampled_data_dir = "{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_tau".format(functional, target, gamma,num_desc_deri,num_desc_deri_squa,num_desc_ave_dens,desc_transform,target_transform) 
     
     if os.path.isdir(molecule_dir_name + '/' + subsampled_data_dir) == False:
         print '\n****Error: Cant find the directory! ****\n'
@@ -200,15 +207,16 @@ def process_one_molecule(molecule, functional,h,L,N, target, gamma, num_desc_der
                 molecule_raw_overall += temp
             except:
                 print temp_filename + " load failed! passed!"
+                
         
 #        for k in range(Nz):
 #            temp_filename = "{}_{}_{}_{}_{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_subsampled_data.p".format(molecule,functional,k,k,k, target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform)
 #            temp = pickle.load(open(temp_filename,'rb'))
 #            molecule_raw_overall += temp
             
-        molecule_overall = random_subsampling(molecule_raw_overall,50000)
+#        molecule_overall = molecule_raw_overall
 #        molecule_overall = subsampling_system_with_PCA(molecule_raw_overall, list_desc = [], cutoff_sig = 0.002, rate = 0.2,start_trial_component = 9)
-        
+        molecule_overall = random_subsampling(molecule_raw_overall,50000)
 #        with open(molecule_overall_filename, 'wb') as handle:
 #            pickle.dump(molecule_overall, handle, protocol=2)
 
@@ -509,7 +517,7 @@ if __name__ == "__main__":
     
     #print device_lib.list_local_devices()
     cwd = os.getcwd()
-    result_dir = "{}_{}_{}_{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_models".format(functional,str(L).replace('.','-'),str(h).replace('.','-'),N,target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform)
+    result_dir = "{}_{}_{}_{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_models_tau".format(functional,str(L).replace('.','-'),str(h).replace('.','-'),N,target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform)
     if os.path.isdir(result_dir) == False:
         os.makedirs(cwd + '/' + result_dir)     
     
@@ -534,13 +542,6 @@ if __name__ == "__main__":
 #    plt.savefig('test.png')
 #    plt.show()
     
-    
-#    plt.title('log(exc) vs log(density)')
-#    plt.scatter(dens, y + li_model.predict(dens),color='blue')
-#    plt.savefig('test.png')
-#    plt.show()    
-    
-    
     predict_y_log = model.predict(X_train) + li_model.predict(dens)
     y_log = y
     error_log = y_log-predict_y_log
@@ -548,7 +549,6 @@ if __name__ == "__main__":
 #    plt.hist(model.predict(X_train)-y, 50, normed=1, facecolor='green', alpha=0.75)
 #    plt.savefig('error distribution.png')
 #    plt.show()
-
     
 #    error = np.multiply(-1.,(np.power(10.,model.predict(X_train)-y)))
     predict_y_real = np.multiply(-1.,(np.power(10.,model.predict(X_train) + li_model.predict(dens) )))

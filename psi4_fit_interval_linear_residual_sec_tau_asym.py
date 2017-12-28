@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Tue Oct 24 09:43:05 2017
+
+@author: ray
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Thu Aug 24 14:13:59 2017
 
 @author: ray
@@ -77,16 +84,7 @@ def fit_with_Linear(X,y, functional, target, gamma, num_desc_deri, num_desc_deri
     return residual, li_model
 
 def fit_with_KerasNN(X,y,functional, target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform, lower, upper, n_per_layer, n_layers, activation,tol, slowdown_factor, early_stop_trials):
-    
-#    colors = map_to_0_1(y, max(y),min(y))
-#    fig = plt.figure()
-#    ax = p3.Axes3D(fig)    
-#    ax.scatter(X[:,0],X[:,1],y,  c=colors, cmap='hsv', linewidth = 0, alpha=1,s=3)
-##    ax.scatter(X_train[:,0],X_train[:,1],y_train,linewidth = 0, alpha=1,s=3)
-##    ax.set_ylim(-10.,10.)
-#    plt.savefig('error_test2.png')    
-#    plt.show()
-    
+
     
     filename = 'NN_{}_linear_residual_{}_{}_{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_{}_{}.h5'.format(functional, n_per_layer,n_layers,activation, target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform, target_transform, str(int(lower)).replace('-','n').replace('.','-'), str(int(upper)).replace('-','n').replace('.','-'))
     log_filename = 'NN_{}_linear_residual_{}_{}_{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_{}_{}_log.log'.format(functional, n_per_layer,n_layers,activation, target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform, target_transform, str(int(lower)).replace('-','n').replace('.','-'), str(int(upper)).replace('-','n').replace('.','-'))
@@ -119,7 +117,7 @@ def fit_with_KerasNN(X,y,functional, target, gamma, num_desc_deri, num_desc_deri
     print model.get_config()
     
     est_start = time.time()
-    history_callback = model.fit(X, y, nb_epoch=1, batch_size=500000)
+    history_callback = model.fit(X, y, nb_epoch=1, batch_size=50000)
     est_epoch_time = time.time()-est_start
     if est_epoch_time >= 30.:
         num_epoch = 1
@@ -143,7 +141,7 @@ def fit_with_KerasNN(X,y,functional, target, gamma, num_desc_deri, num_desc_deri
     count_epochs = 0
     while keep_going:
         count_epochs += 1
-        history_callback = model.fit(X, y, nb_epoch=num_epoch, batch_size=500000, shuffle=True)
+        history_callback = model.fit(X, y, nb_epoch=num_epoch, batch_size=50000, shuffle=True)
         loss_history = history_callback.history["loss"]
         new_loss = np.array(loss_history)[-1]
         if new_loss < old_loss:
@@ -157,22 +155,13 @@ def fit_with_KerasNN(X,y,functional, target, gamma, num_desc_deri, num_desc_deri
         if count_epochs >=early_stop_trials:
             keep_going = False
     
-#    plt.scatter(X, y-model.predict(X),  color='black')
-    
-    
-#    plt.scatter(X[:,0], y,  color='black')
-#    plt.scatter(X[:,0], model.predict(X), color='blue',
-#             linewidth=3)
-#    test_x = np.linspace(-6., 5., 10000)
-#    plt.plot(test_x, model.predict(test_x),color='blue')
-#    plt.show()
     return model
 
 
 def process_one_molecule(molecule, functional,h,L,N, target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform):
     temp_cwd = os.getcwd()
     molecule_dir_name = "{}_{}_{}_{}_{}".format(molecule,functional,str(L).replace('.','-'),str(h).replace('.','-'),N)
-    subsampled_data_dir = "{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}".format(functional, target, gamma,num_desc_deri,num_desc_deri_squa,num_desc_ave_dens,desc_transform,target_transform) 
+    subsampled_data_dir = "{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_tau".format(functional, target, gamma,num_desc_deri,num_desc_deri_squa,num_desc_ave_dens,desc_transform,target_transform) 
     
     if os.path.isdir(molecule_dir_name + '/' + subsampled_data_dir) == False:
         print '\n****Error: Cant find the directory! ****\n'
@@ -180,7 +169,7 @@ def process_one_molecule(molecule, functional,h,L,N, target, gamma, num_desc_der
     
     os.chdir(temp_cwd + '/' + molecule_dir_name + '/' + subsampled_data_dir)
     
-    molecule_overall_filename = "{}_{}_all_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_random_data.p".format(molecule,functional, target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform)
+    molecule_overall_filename = "{}_{}_all_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_subsampled_data.p".format(molecule,functional, target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform)
     
     try:
         molecule_overall = pickle.load(open(molecule_overall_filename,'rb'))
@@ -194,23 +183,24 @@ def process_one_molecule(molecule, functional,h,L,N, target, gamma, num_desc_der
         
         molecule_raw_overall = []
         for i,j,k in paramlist:
-            temp_filename = "{}_{}_{}_{}_{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_random_data.p".format(molecule,functional,i,j,k, target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform)
+            temp_filename = "{}_{}_{}_{}_{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_subsampled_data.p".format(molecule,functional,i,j,k, target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform)
             try:
                 temp = pickle.load(open(temp_filename,'rb'))
                 molecule_raw_overall += temp
             except:
                 print temp_filename + " load failed! passed!"
+                
         
 #        for k in range(Nz):
 #            temp_filename = "{}_{}_{}_{}_{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_subsampled_data.p".format(molecule,functional,k,k,k, target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform)
 #            temp = pickle.load(open(temp_filename,'rb'))
 #            molecule_raw_overall += temp
             
-        molecule_overall = random_subsampling(molecule_raw_overall,50000)
-#        molecule_overall = subsampling_system_with_PCA(molecule_raw_overall, list_desc = [], cutoff_sig = 0.002, rate = 0.2,start_trial_component = 9)
-        
-#        with open(molecule_overall_filename, 'wb') as handle:
-#            pickle.dump(molecule_overall, handle, protocol=2)
+#        molecule_overall = molecule_raw_overall
+        molecule_overall = subsampling_system_with_PCA(molecule_raw_overall, list_desc = [], cutoff_sig = 0.002, rate = 0.2,start_trial_component = 9)
+#        molecule_overall = random_subsampling(molecule_raw_overall,50000)
+        with open(molecule_overall_filename, 'wb') as handle:
+            pickle.dump(molecule_overall, handle, protocol=2)
 
 
     os.chdir(temp_cwd)
@@ -257,40 +247,7 @@ def get_training_data(list_molecule_filename,functional, h,L,N,target, gamma, nu
     print dens.shape
     return X_train, y_train, dens
 
-#def process_error(X,error,num_intervals=100):
-#    
-#    temp_x = np.linspace(min(X),max(X),num_intervals+1)
-#    dx = temp_x[1] - temp_x[0]
-#    
-#    x_labels = []
-#    for i in range(len(temp_x)-1):
-#        x_labels.append(str(temp_x[i] + 0.5*dx))
-#    
-#    sae_list = np.zeros(len(x_labels))
-#    sse_list = np.zeros(len(x_labels))
-#    count_list = np.zeros(len(x_labels))
-#    ave_ae_list = np.zeros(len(x_labels))
-#    ave_se_list = np.zeros(len(x_labels))
-#    
-#    print temp_x[0]
-#    for i in range(len(X)):
-#
-#        index = abs(int((X[i]-temp_x[0])//dx))
-#
-#        
-#        if index >num_intervals-1:
-#            index = num_intervals-1
-#        sae_list[index] += abs(error[i])
-#        sse_list[index] += error[i]
-#        count_list[index] += 1.
-#    
-#    for i in range(len(ave_ae_list)):
-#        ave_ae_list[i] = sae_list[i] / count_list[i]
-#        ave_se_list[i] = sse_list[i] / count_list[i]
-#    
-# 
-#    return x_labels, sae_list, sse_list, count_list, ave_ae_list, ave_se_list
-    
+
 
 def process_error2(X,num_intervals=40):
     
@@ -348,125 +305,6 @@ def process_error3(X,num_intervals=40):
     return x_labels, count_list
 
 
-#def plot_error_distribution(figure_filename,p1_x, p1_y1, p1_y2, p1_y3, p1_y4, p1_y5, p2_x, p2_y1, p2_y2, p2_y3, p2_y4, p2_y5, p3_x, p3_y1, p3_y2, p3_y3, p3_y4, p3_y5, p4_x, p4_y1, p4_y2, p4_y3, p4_y4, p4_y5):
-##    fig = plt.figure(figsize = (40,20))
-##    ax1 = fig.add_subplot(241)
-#    fig, axes = plt.subplots(4, 5,figsize = (50,40))
-#    ((ax1, ax2, ax3, ax4, ax5), (ax6, ax7, ax8, ax9, ax10), (ax11, ax12, ax13, ax14, ax15), (ax16, ax17, ax18, ax19, ax20)) = axes
-#    
-#    y_pos1 = np.arange(len(p1_x))
-#    ax1.bar(y_pos1, p1_y1, align = 'center', alpha = 0.5)
-#    ax2.bar(y_pos1, p1_y2, align = 'center', alpha = 0.5)
-#    ax3.bar(y_pos1, p1_y3, align = 'center', alpha = 0.5)
-#    ax4.bar(y_pos1, p1_y4, align = 'center', alpha = 0.5)
-#    ax5.bar(y_pos1, p1_y5, align = 'center', alpha = 0.5)
-#    ax1.set_xticks(y_pos1)
-#    ax2.set_xticks(y_pos1)
-#    ax3.set_xticks(y_pos1)
-#    ax4.set_xticks(y_pos1)
-#    ax5.set_xticks(y_pos1)
-#    ax1.set_xticklabels(p1_x, rotation=90, fontsize=5)
-#    ax2.set_xticklabels(p1_x, rotation=90, fontsize=5)
-#    ax3.set_xticklabels(p1_x, rotation=90, fontsize=5)
-#    ax4.set_xticklabels(p1_x, rotation=90, fontsize=5)
-#    ax5.set_xticklabels(p1_x, rotation=90, fontsize=5)
-#    ax1.set_xlabel('electron density')
-#    ax2.set_xlabel('electron density')
-#    ax3.set_xlabel('electron density')
-#    ax4.set_xlabel('electron density')
-#    ax5.set_xlabel('electron density')
-#    ax1.set_ylabel('sum absolute error')
-#    ax2.set_ylabel('sum signed error')
-#    ax3.set_ylabel('count points')
-#    ax4.set_ylabel('average absolute error')
-#    ax5.set_ylabel('average signed error')
-#    
-#    
-#    y_pos2 = np.arange(len(p2_x))
-#    ax6.bar(y_pos2, p2_y1, align = 'center', alpha = 0.5)
-#    ax7.bar(y_pos2, p2_y2, align = 'center', alpha = 0.5)
-#    ax8.bar(y_pos2, p2_y3, align = 'center', alpha = 0.5)
-#    ax9.bar(y_pos2, p2_y4, align = 'center', alpha = 0.5)
-#    ax10.bar(y_pos2, p2_y5, align = 'center', alpha = 0.5)
-#    ax6.set_xticks(y_pos2)
-#    ax7.set_xticks(y_pos2)
-#    ax8.set_xticks(y_pos2)
-#    ax9.set_xticks(y_pos2)
-#    ax10.set_xticks(y_pos2)
-#    ax6.set_xticklabels(p2_x, rotation=90, fontsize=5)
-#    ax7.set_xticklabels(p2_x, rotation=90, fontsize=5)
-#    ax8.set_xticklabels(p2_x, rotation=90, fontsize=5)
-#    ax9.set_xticklabels(p2_x, rotation=90, fontsize=5)
-#    ax10.set_xticklabels(p2_x, rotation=90, fontsize=5)
-#    ax6.set_xlabel('electron density')
-#    ax7.set_xlabel('electron density')
-#    ax8.set_xlabel('electron density')
-#    ax9.set_xlabel('electron density')
-#    ax10.set_xlabel('electron density')
-#    ax6.set_ylabel('sum absolute frac error')
-#    ax7.set_ylabel('sum signed frac error')
-#    ax8.set_ylabel('count points')
-#    ax9.set_ylabel('average absolute frac error')
-#    ax10.set_ylabel('average signed frac error')
-#    
-#    
-#    
-#    y_pos3 = np.arange(len(p3_x))
-#    ax11.bar(y_pos3, p3_y1, align = 'center', alpha = 0.5)
-#    ax12.bar(y_pos3, p3_y2, align = 'center', alpha = 0.5)
-#    ax13.bar(y_pos3, p3_y3, align = 'center', alpha = 0.5)
-#    ax14.bar(y_pos3, p3_y4, align = 'center', alpha = 0.5)
-#    ax15.bar(y_pos3, p3_y5, align = 'center', alpha = 0.5)
-#    ax11.set_xticks(y_pos3)
-#    ax12.set_xticks(y_pos3)
-#    ax13.set_xticks(y_pos3)
-#    ax14.set_xticks(y_pos3)
-#    ax15.set_xticks(y_pos3)
-#    ax11.set_xticklabels(p3_x, rotation=90, fontsize=5)
-#    ax12.set_xticklabels(p3_x, rotation=90, fontsize=5)
-#    ax13.set_xticklabels(p3_x, rotation=90, fontsize=5)
-#    ax14.set_xticklabels(p3_x, rotation=90, fontsize=5)
-#    ax15.set_xticklabels(p3_x, rotation=90, fontsize=5)
-#    ax11.set_xlabel('log10(electron density)')
-#    ax12.set_xlabel('log10(electron density)')
-#    ax13.set_xlabel('log10(electron density)')
-#    ax14.set_xlabel('log10(electron density)')
-#    ax15.set_xlabel('log10(electron density)')
-#    ax11.set_ylabel('sum absolute error')
-#    ax12.set_ylabel('sum signed error')
-#    ax13.set_ylabel('count points')
-#    ax14.set_ylabel('average absolute error')
-#    ax15.set_ylabel('average signed error')
-#    
-#    
-#    y_pos4 = np.arange(len(p4_x))
-#    ax16.bar(y_pos4, p4_y1, align = 'center', alpha = 0.5)
-#    ax17.bar(y_pos4, p4_y2, align = 'center', alpha = 0.5)
-#    ax18.bar(y_pos4, p4_y3, align = 'center', alpha = 0.5)
-#    ax19.bar(y_pos4, p4_y4, align = 'center', alpha = 0.5)
-#    ax20.bar(y_pos4, p4_y5, align = 'center', alpha = 0.5)
-#    ax16.set_xticks(y_pos4)
-#    ax17.set_xticks(y_pos4)
-#    ax18.set_xticks(y_pos4)
-#    ax19.set_xticks(y_pos4)
-#    ax20.set_xticks(y_pos4)
-#    ax16.set_xticklabels(p4_x, rotation=90, fontsize=5)
-#    ax17.set_xticklabels(p4_x, rotation=90, fontsize=5)
-#    ax18.set_xticklabels(p4_x, rotation=90, fontsize=5)
-#    ax19.set_xticklabels(p4_x, rotation=90, fontsize=5)
-#    ax20.set_xticklabels(p4_x, rotation=90, fontsize=5)
-#    ax16.set_xlabel('log10(electron density)')
-#    ax17.set_xlabel('log10(electron density)')
-#    ax18.set_xlabel('log10(electron density)')
-#    ax19.set_xlabel('log10(electron density)')
-#    ax20.set_xlabel('log10(electron density)')
-#    ax16.set_ylabel('sum absolute frac error')
-#    ax17.set_ylabel('sum signed frac error')
-#    ax18.set_ylabel('count points')
-#    ax19.set_ylabel('average absolute frac error')
-#    ax20.set_ylabel('average signed frac error')
-#    
-#    plt.savefig(figure_filename)
     
     return
 if __name__ == "__main__":
@@ -509,7 +347,7 @@ if __name__ == "__main__":
     
     #print device_lib.list_local_devices()
     cwd = os.getcwd()
-    result_dir = "{}_{}_{}_{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_models".format(functional,str(L).replace('.','-'),str(h).replace('.','-'),N,target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform)
+    result_dir = "{}_{}_{}_{}_{}_gamma{}_dev{}_devsq{}_inte{}_{}_{}_models_asym".format(functional,str(L).replace('.','-'),str(h).replace('.','-'),N,target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform)
     if os.path.isdir(result_dir) == False:
         os.makedirs(cwd + '/' + result_dir)     
     
@@ -527,27 +365,12 @@ if __name__ == "__main__":
     
     
     os.chdir(cwd)
-#    plt.title('Parity plot, prediction vs training data')
-#    plt.scatter(y, model.predict(X_train) + li_model.predict(dens),color='blue')
-##    plt.scatter(y, model.predict(X_train)-y + li_model.predict(dens),color='blue')
-#    plt.plot([-20,5],[-20,5],'r--')
-#    plt.savefig('test.png')
-#    plt.show()
-    
-    
-#    plt.title('log(exc) vs log(density)')
-#    plt.scatter(dens, y + li_model.predict(dens),color='blue')
-#    plt.savefig('test.png')
-#    plt.show()    
-    
+
     
     predict_y_log = model.predict(X_train) + li_model.predict(dens)
     y_log = y
     error_log = y_log-predict_y_log
     
-#    plt.hist(model.predict(X_train)-y, 50, normed=1, facecolor='green', alpha=0.75)
-#    plt.savefig('error distribution.png')
-#    plt.show()
 
     
 #    error = np.multiply(-1.,(np.power(10.,model.predict(X_train)-y)))
