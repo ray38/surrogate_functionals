@@ -181,6 +181,7 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_option
                     "E_CONVERGENCE":1e-13,
                   'DFT_BLOCK_MAX_POINTS': 500000,
                   'DFT_BLOCK_MIN_POINTS': 100000,
+                  'MAXITER': 500,
 #                  'DFT_SPHERICAL_POINTS': 302,
 #                  'DFT_RADIAL_POINTS':    75,
                   "SAVE_JK": True, }
@@ -288,6 +289,7 @@ if __name__ == "__main__":
             
         failed_filename = "failed_molecule.log"
         succ_filename = "successful_molecule.log"
+        cwd = os.getcwd()
     
         for xc in xc_funcs:
             for mol in molecules:
@@ -298,6 +300,7 @@ if __name__ == "__main__":
                     try:
                         process_system(molecules[mol],mol,xc,h,L,N)
                     except:
+                        os.chdir(cwd)
                         log(failed_filename, '\n' + mol)
 
         
@@ -334,6 +337,7 @@ if __name__ == "__main__":
             
         failed_filename = "failed_molecule.log"
         succ_filename = "successful_molecule.log"
+        cwd = os.getcwd()
     
         for xc in xc_funcs:
             for mol in molecules:
@@ -344,5 +348,6 @@ if __name__ == "__main__":
                     try:
                         process_system(molecules[mol],mol,xc,h,L,N)
                     except:
+                        os.chdir(cwd)
                         log(failed_filename, '\n' + mol)
 
