@@ -294,7 +294,7 @@ if __name__ == "__main__":
         functionals = setup['functionals']
         r_list = setup['r_list']
 
-        if functional in functionals:
+        for functional in functionals:
             process_one_molecule(molecule, functional,h,L,N,r_list)
 
     elif choice == 'set':
