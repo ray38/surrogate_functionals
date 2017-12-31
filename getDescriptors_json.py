@@ -277,8 +277,11 @@ if __name__ == "__main__":
     setup_filename = sys.argv[1]
     choice = sys.argv[2]
 
-    with open(setup_filename, encoding='utf-8') as f:
+    #with open(setup_filename, encoding='utf-8') as f:
+    with open(setup_filename) as f:
         setup = json.load(f)
+
+    print setup
 
     if choice not in ['single','set']:
         raise NotImplementedError
@@ -301,7 +304,7 @@ if __name__ == "__main__":
         N = int(setup['number_segment_per_side'])
         functionals = setup['functionals']
         r_list = setup['r_list']
-        
+
         with open(list_molecule_filename) as f:
             molecule_names = f.readlines()
         molecule_names = [x.strip() for x in molecule_names]
