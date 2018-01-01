@@ -107,6 +107,11 @@ def calculate_ave_density_desc(n,r,hx,hy,hz,stencil,pad):
     ave_density = get_homo_nondimensional_nave(integration, 1.0, r)
     return ave_density, temp_pad
 
+def create_dataset(database, dataset_name, data):
+    if dataset_name not in database.keys():
+        database.create_dataset(dataset_name,data=data)
+    return
+
 
 def process_normal_descriptors(molecule, functional,i,j,k):
     
@@ -121,13 +126,19 @@ def process_normal_descriptors(molecule, functional,i,j,k):
     raw_data.close()
 
 
-    with h5py.File(result_filename,'a') as data:
+    with h5py.File(result_filename,'a') as database:
         print 'get normal'
-        data.create_dataset('V_xc',data=V_xc)
-        data.create_dataset('epsilon_xc',data=ep_xc)
-        data.create_dataset('rho',data=n)
-        data.create_dataset('gamma',data=gamma)
-        data.create_dataset('tau',data=tau)
+#        data.create_dataset('V_xc',data=V_xc)
+#        data.create_dataset('epsilon_xc',data=ep_xc)
+#        data.create_dataset('rho',data=n)
+#        data.create_dataset('gamma',data=gamma)
+#        data.create_dataset('tau',data=tau)
+
+        create_dataset(database, 'V_xc', V_xc)
+        create_dataset(database, 'epsilon_xc', ep_xc)
+        create_dataset(database, 'rho', n)
+        create_dataset(database, 'gamma', gamma)
+        create_dataset(database, 'tau', tau)
         
     return
 
@@ -170,15 +181,32 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,
                 asym_integral_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
 
                 
-        temp_first_deri, temp_pad = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'first',
+#        temp_first_deri, temp_pad = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'first',
+#                                               stencil_type = 'mid', accuracy = '2')
+#        temp_sec_deri, temp_pad   = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'second',
+#                                               stencil_type = 'times2', accuracy = '2')
+#        temp_third_deri, temp_pad = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'third',
+#                                               stencil_type = 'times2', accuracy = '2')
+#        derivative_grp.create_dataset('derivative_1',data=carve_out_matrix(temp_first_deri))
+#        derivative_grp.create_dataset('derivative_2',data=carve_out_matrix(temp_sec_deri))
+#        derivative_grp.create_dataset('derivative_3',data=carve_out_matrix(temp_third_deri))
+
+        if 'derivative_1' not in derivative_grp.keys():
+            temp_first_deri, temp_pad = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'first',
                                                stencil_type = 'mid', accuracy = '2')
-        temp_sec_deri, temp_pad   = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'second',
+            derivative_grp.create_dataset('derivative_1',data=carve_out_matrix(temp_first_deri))
+
+        if 'derivative_2' not in derivative_grp.keys():
+            temp_sec_deri, temp_pad   = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'second',
                                                stencil_type = 'times2', accuracy = '2')
-        temp_third_deri, temp_pad = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'third',
+            derivative_grp.create_dataset('derivative_2',data=carve_out_matrix(temp_sec_deri))
+
+
+        if 'derivative_3' not in derivative_grp.keys():
+            temp_third_deri, temp_pad = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'third',
                                                stencil_type = 'times2', accuracy = '2')
-        derivative_grp.create_dataset('derivative_1',data=carve_out_matrix(temp_first_deri))
-        derivative_grp.create_dataset('derivative_2',data=carve_out_matrix(temp_sec_deri))
-        derivative_grp.create_dataset('derivative_3',data=carve_out_matrix(temp_third_deri))
+            derivative_grp.create_dataset('derivative_3',data=carve_out_matrix(temp_third_deri))
+
         print data.keys()
         print derivative_grp.keys()
         print ave_dens_grp.keys()
@@ -291,11 +319,11 @@ if __name__ == "__main__":
         h = float(setup['grid_spacing'])
         L = float(setup['box_dimension'])
         N = int(setup['number_segment_per_side'])
-        functionals = setup['functionals']
+        functional = setup['functionals']
         r_list = setup['r_list']
 
-        for functional in functionals:
-            process_one_molecule(molecule, functional,h,L,N,r_list)
+        #for functional in functionals:
+        process_one_molecule(molecule, functional,h,L,N,r_list)
 
     elif choice == 'set':
         list_molecule_filename = sys.argv[3]
