@@ -264,7 +264,7 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "NN_linear_residual_{}_{}_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
+    model_save_dir = working_dir + "/" + "NN_linear_residual_{}_{}_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
    
     setup["model_save_dir"] = model_save_dir
 
@@ -274,7 +274,7 @@ if __name__ == "__main__":
    
     if os.path.isdir(model_save_dir) == False:
         os.makedirs(model_save_dir)
-        
+
     os.chdir(model_save_dir)
     
     residual,li_model = fit_with_Linear(dens,y)
