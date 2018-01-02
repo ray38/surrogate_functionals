@@ -55,8 +55,8 @@ def process_data(i,j,k,log_filename,setup,processed_data):
     list_subsample = setup["subsample_feature_list"]
     temp_list_subsample = setup["subsample_feature_list"]
     if temp_list_subsample == []:
-        for i in range(len(processed_data[0])):
-            temp_list_subsample.append(i)
+        for m in range(len(processed_data[0])):
+            temp_list_subsample.append(m)
     print temp_list_subsample
 
 
@@ -178,18 +178,15 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
     if os.path.isdir(molecule_dir) == False:
         os.makedirs(molecule_dir)
     os.chdir(molecule_dir)
-    
-    
+        
     subsample_one_molecule(result,i,j,k,setup)
 
-    
     os.chdir(data_dir_full)
     return
 
 
-        
-        
-        
+
+
 def process_one_molecule(molecule, functional,h,L,N, setup):
     database_name = setup["database_directory"]
     sub_database_name = "{}_{}_{}".format(str(L).replace('.','-'),str(h).replace('.','-'),N)
@@ -212,13 +209,63 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
     
     paramlist = list(itertools.product(i_li,j_li,k_li))
     
-#    pool = multiprocessing.Pool()
-#    for i,j,k in paramlist:
-#        pool.apply_async(process_each_block, args=(molecule,functional,i,j,k, setup, data_dir_full))
-#    pool.close()
-#    pool.join()
+    pool = multiprocessing.Pool()
+    for i,j,k in paramlist:
+        pool.apply_async(process_each_block, args=(molecule,functional,i,j,k, setup, data_dir_full))
+    pool.close()
+    pool.join()
 
-    process_each_block(molecule,functional,0,0,0, setup, data_dir_full)
+#    process_each_block(molecule,functional,0,0,0, setup, data_dir_full)
+
+    molecule_dir = setup["working_dir"] + '/' + molecule
+    os.chdir(molecule_dir)
+
+
+    subsample_data_overall = []
+    random_data_overall = []
+    for i,j,k in paramlist:
+        temp_subsample_filename = "{}_{}_{}_subsampled_data.p".format(i,j,k)
+        temp_random_filename = "{}_{}_{}_random_data.p".format(i,j,k)
+        try:
+            temp_subsample = pickle.load(open(temp_subsample_filename,'rb'))
+            subsample_data_overall += temp_subsample
+        except:
+            print temp_subsample_filename + " load failed! passed!"
+
+        try:
+            temp_random = pickle.load(open(temp_random_filename,'rb'))
+            random_data_overall += temp_random
+        except:
+            print temp_random_filename + " load failed! passed!"
+
+    overall_random_filename = "overall_random_data.p"
+    overall_subsample_filename = "overall_subsampled_data.p"
+    overall_subsample_log_filename = "overall_subsample_log.log"
+
+    with open(overall_random_filename, 'wb') as handle:
+        pickle.dump(random_data_overall, protocol=2)
+
+
+    list_subsample = setup["subsample_feature_list"]
+    temp_list_subsample = setup["subsample_feature_list"]
+    if temp_list_subsample == []:
+        for m in range(len(processed_data[0])):
+            temp_list_subsample.append(m)
+    print temp_list_subsample
+
+
+    log(overall_subsample_log_filename,"\nstart overall sub-sampling") 
+    sample_start = time.time() 
+    log(overall_subsample_log_filename,"\nlength before: " + str(len(processed_data)))
+    if len(temp_list_subsample) <= 10:
+        subsample_data_overall = subsampling_system(subsample_data_overall, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
+    else:
+        subsample_data_overall = subsampling_system_with_PCA(subsample_data_overall, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
+    log(overall_subsample_log_filename,"\nmolecule overall length after: " + str(len(processed_data)))  
+    log(overall_subsample_log_filename,"\nfinished overall sampling, took: " + str(time.time()-sample_start))
+
+    with open(overall_subsample_filename, 'wb') as handle:
+        pickle.dump(subsample_data_overall, protocol=2)
 
     return
 
