@@ -15,6 +15,7 @@ from subsampling import subsampling_system_with_PCA, random_subsampling, subsamp
 import math
 import time
 import os
+import json
 
 import itertools
 import multiprocessing
@@ -223,7 +224,13 @@ if __name__ == "__main__":
         setup_database = json.load(f)
 
     setup = setup_database[setup_name]
-    working_dir = os.getcwd() + '/' + setup_name
+    h = float(setup['grid_spacing'])
+    L = float(setup['box_dimension'])
+    N = int(setup['number_segment_per_side'])
+    dir_name = "{}_{}_{}".format(str(L).replace('.','-'),str(h).replace('.','-'),N)
+
+
+    working_dir = os.getcwd() + '/' + dir_name + '/' + setup_name
 
     if os.path.isdir(working_dir) == False:
         os.makedirs(working_dir)    
@@ -232,9 +239,7 @@ if __name__ == "__main__":
     
     if choice == 'single':
         molecule = sys.argv[4]
-        h = float(setup['grid_spacing'])
-        L = float(setup['box_dimension'])
-        N = int(setup['number_segment_per_side'])
+        
         functional = setup['functional']
         
 
