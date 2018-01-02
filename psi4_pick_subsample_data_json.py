@@ -148,7 +148,7 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
     temp_list = setup["average_density_r_list"]
     if len(temp_list) > 0:
         for r_list_count in temp_list:
-            dataset_name = 'average_density_{}'.format(r_list_count.replace('.','-'))
+            dataset_name = 'average_density_{}'.format(str(r_list_count).replace('.','-'))
             temp_data = np.asarray(data[group_name][dataset_name])
             result_list.append(transform_data(temp_data, setup['average_density_transform']))
 
@@ -157,15 +157,15 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
     temp_list = setup["asym_desc_r_list"]
     if len(temp_list) > 0:
         for r_list_count in temp_list:
-            dataset_name = 'asym_integral_x_{}'.format(r_list_count.replace('.','-'))
+            dataset_name = 'asym_integral_x_{}'.format(str(r_list_count).replace('.','-'))
             temp_data = np.asarray(data[group_name][dataset_name])
             result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
 
-            dataset_name = 'asym_integral_y_{}'.format(r_list_count.replace('.','-'))
+            dataset_name = 'asym_integral_y_{}'.format(str(r_list_count).replace('.','-'))
             temp_data = np.asarray(data[group_name][dataset_name])
             result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
 
-            dataset_name = 'asym_integral_z_{}'.format(r_list_count.replace('.','-'))
+            dataset_name = 'asym_integral_z_{}'.format(str(r_list_count).replace('.','-'))
             temp_data = np.asarray(data[group_name][dataset_name])
             result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
 
