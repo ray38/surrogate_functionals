@@ -209,11 +209,11 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
     
     paramlist = list(itertools.product(i_li,j_li,k_li))
     
-    pool = multiprocessing.Pool()
-    for i,j,k in paramlist:
-        pool.apply_async(process_each_block, args=(molecule,functional,i,j,k, setup, data_dir_full))
-    pool.close()
-    pool.join()
+#    pool = multiprocessing.Pool()
+#    for i,j,k in paramlist:
+#        pool.apply_async(process_each_block, args=(molecule,functional,i,j,k, setup, data_dir_full))
+#    pool.close()
+#    pool.join()
 
 #    process_each_block(molecule,functional,0,0,0, setup, data_dir_full)
 
@@ -243,7 +243,7 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
     overall_subsample_log_filename = "overall_subsample_log.log"
 
     with open(overall_random_filename, 'wb') as handle:
-        pickle.dump(random_data_overall, protocol=2)
+        pickle.dump(random_data_overall, handle, protocol=2)
 
 
     list_subsample = setup["subsample_feature_list"]
@@ -265,7 +265,7 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
     log(overall_subsample_log_filename,"\nfinished overall sampling, took: " + str(time.time()-sample_start))
 
     with open(overall_subsample_filename, 'wb') as handle:
-        pickle.dump(subsample_data_overall, protocol=2)
+        pickle.dump(subsample_data_overall, handle, protocol=2)
 
     return
 
