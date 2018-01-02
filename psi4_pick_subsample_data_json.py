@@ -209,13 +209,13 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
     
     paramlist = list(itertools.product(i_li,j_li,k_li))
     
-#    pool = multiprocessing.Pool()
-#    for i,j,k in paramlist:
-#        pool.apply_async(process_each_block, args=(molecule,functional,i,j,k, setup, data_dir_full))
-#    pool.close()
-#    pool.join()
+    pool = multiprocessing.Pool()
+    for i,j,k in paramlist:
+        pool.apply_async(process_each_block, args=(molecule,functional,i,j,k, setup, data_dir_full))
+    pool.close()
+    pool.join()
 
-    process_each_block(molecule,functional,0,0,0, setup, data_dir_full)
+#    process_each_block(molecule,functional,0,0,0, setup, data_dir_full)
 
     molecule_dir = setup["working_dir"] + '/' + molecule
     os.chdir(molecule_dir)
