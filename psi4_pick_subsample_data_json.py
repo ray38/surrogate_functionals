@@ -91,7 +91,8 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
     
 
     result_list = []
-  
+    
+    target = setup['target']
     
     if target == 'Vxc':
         target_set_name = 'V_xc'   
