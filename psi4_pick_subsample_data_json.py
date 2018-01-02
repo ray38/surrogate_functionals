@@ -64,7 +64,7 @@ def process_data(i,j,k,log_filename,setup):
     return
     
     
-def subsample_one_molecule(data,i,j,k,molecule,functional, setup):
+def subsample_one_molecule(data,i,j,k, setup):
     log_filename = "{}_{}_{}_subsample_log.log".format(i,j,k)
     with open(log_filename, "w") as myfile:
         myfile.write('')
@@ -161,7 +161,7 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
     os.chdir(molecule_dir)
     
     
-    subsample_one_molecule(result,i,j,k,molecule,functional, target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform)
+    subsample_one_molecule(result,i,j,k,setup)
 
     
     os.chdir(data_dir_full)
@@ -176,7 +176,7 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
     sub_database_name = "{}_{}_{}".format(str(L).replace('.','-'),str(h).replace('.','-'),N)
     data_dir_name = "{}_{}_{}_{}_{}".format(molecule,functional,str(L).replace('.','-'),str(h).replace('.','-'),N)
 
-    data_dir_full = database_directory + '/' + sub_database_name + '/' + dir_name
+    data_dir_full = database_name + '/' + sub_database_name + '/' + dir_name
     print data_dir_full
     
     if os.path.isdir(data_dir_full) == False:
