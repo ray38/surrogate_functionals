@@ -48,12 +48,21 @@ def write_data_to_file_random(i,j,k,random_data):
 def process_data(i,j,k,log_filename,setup,processed_data):
     random_pick_number = int(math.ceil((float(len(processed_data)) * float(setup["random_pick_rate"]))))
     temp_random_data = random_subsampling(processed_data, random_pick_number)
+    
+
     write_data_to_file_random(i,j,k,temp_random_data)
     
+    temp_list_subsample = setup["subsample_feature_list"]
+    if temp_list_subsample == []:
+        for i in range(len(processed_data[0])):
+            temp_list_subsample.append(i)
+    print temp_list_subsample
+
+
     log(log_filename,"\nstart sub-sampling") 
     sample_start = time.time() 
     log(log_filename,"\nmolecule length before: " + str(len(processed_data)))
-    if len(list_subsample) <= 10:
+    if len(temp_list_subsample) <= 10:
         processed_data = subsampling_system(processed_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
     else:
         processed_data = subsampling_system_with_PCA(processed_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
