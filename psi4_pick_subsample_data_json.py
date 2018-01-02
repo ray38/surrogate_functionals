@@ -256,7 +256,7 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
 
     log(overall_subsample_log_filename,"\nstart overall sub-sampling") 
     sample_start = time.time() 
-    log(overall_subsample_log_filename,"\nlength before: " + str(len(processed_data)))
+    log(overall_subsample_log_filename,"\nlength before: " + str(len(subsample_data_overall)))
     if len(temp_list_subsample) <= 10:
         subsample_data_overall = subsampling_system(subsample_data_overall, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
     else:
