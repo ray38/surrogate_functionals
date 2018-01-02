@@ -119,37 +119,45 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
 
 
     group_name = 'derivative'
-    for derivative_count in setup["derivative_list"]:
-        dataset_name = 'derivative_{}'.format(derivative_count)
-        temp_data = np.asarray(data[group_name][dataset_name])
-        result_list.append(transform_data(temp_data, setup['derivative_transform']))
+    temp_list = setup["derivative_list"]
+    if len(temp_list) > 0: 
+        for derivative_count in temp_list:
+            dataset_name = 'derivative_{}'.format(derivative_count)
+            temp_data = np.asarray(data[group_name][dataset_name])
+            result_list.append(transform_data(temp_data, setup['derivative_transform']))
 
-    for derivative_count in setup["derivative_square_list"]:
-        dataset_name = 'derivative_{}'.format(derivative_count)
-        temp_data = np.power(np.asarray(data[group_name][dataset_name]), 2.)
-        result_list.append(transform_data(temp_data, setup['derivative_square_transform']))
+    temp_list = setup["derivative_square_list"]
+    if len(temp_list) > 0: 
+        for derivative_count in temp_list:
+            dataset_name = 'derivative_{}'.format(derivative_count)
+            temp_data = np.power(np.asarray(data[group_name][dataset_name]), 2.)
+            result_list.append(transform_data(temp_data, setup['derivative_square_transform']))
     
    
     group_name = 'average_density'
-    for r_list_count in data["average_density_r_list"]:
-        dataset_name = 'average_density_{}'.format(r_list_count.replace('.','-'))
-        temp_data = np.asarray(data[group_name][dataset_name])
-        result_list.append(transform_data(temp_data, setup['average_density_transform']))
+    temp_list = setup["average_density_r_list"]
+    if len(temp_list) > 0:
+        for r_list_count in temp_list:
+            dataset_name = 'average_density_{}'.format(r_list_count.replace('.','-'))
+            temp_data = np.asarray(data[group_name][dataset_name])
+            result_list.append(transform_data(temp_data, setup['average_density_transform']))
 
 
     group_name = 'asym_integral'
-    for r_list_count in data["asym_desc_r_list"]:
-        dataset_name = 'asym_integral_x_{}'.format(r_list_count.replace('.','-'))
-        temp_data = np.asarray(data[group_name][dataset_name])
-        result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
+    temp_list = setup["asym_desc_r_list"]
+    if len(temp_list) > 0:
+        for r_list_count in temp_list:
+            dataset_name = 'asym_integral_x_{}'.format(r_list_count.replace('.','-'))
+            temp_data = np.asarray(data[group_name][dataset_name])
+            result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
 
-        dataset_name = 'asym_integral_y_{}'.format(r_list_count.replace('.','-'))
-        temp_data = np.asarray(data[group_name][dataset_name])
-        result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
+            dataset_name = 'asym_integral_y_{}'.format(r_list_count.replace('.','-'))
+            temp_data = np.asarray(data[group_name][dataset_name])
+            result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
 
-        dataset_name = 'asym_integral_z_{}'.format(r_list_count.replace('.','-'))
-        temp_data = np.asarray(data[group_name][dataset_name])
-        result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
+            dataset_name = 'asym_integral_z_{}'.format(r_list_count.replace('.','-'))
+            temp_data = np.asarray(data[group_name][dataset_name])
+            result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
 
     
     result = zip(*result_list)
