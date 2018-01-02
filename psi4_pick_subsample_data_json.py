@@ -45,7 +45,7 @@ def write_data_to_file_random(i,j,k,random_data):
 
 
 
-def process_data(i,j,k,log_filename,setup):
+def process_data(i,j,k,log_filename,setup,processed_data):
     random_pick_number = int(math.ceil((float(len(processed_data)) * float(setup["random_pick_rate"]))))
     temp_random_data = random_subsampling(processed_data, random_pick_number)
     write_data_to_file_random(i,j,k,temp_random_data)
@@ -70,7 +70,7 @@ def subsample_one_molecule(data,i,j,k, setup):
         myfile.write('')
     log(log_filename,"\nstart reading: " + molecule) 
     print "start reading: " + molecule
-    process_data(i,j,k,log_filename,setup)
+    process_data(i,j,k,log_filename,setup,data)
     return
 
 
