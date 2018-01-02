@@ -166,16 +166,20 @@ def read_data_from_one_dir(directory):
     temp_cwd = os.getcwd()
     os.chdir(directory)
 
+    print directory
+
     subsampled_filename = "overall_subsampled_data.p"
     random_filename = "overall_random_data.p"
 
     try:
         molecule_subsampled_data = pickle.load(open(subsampled_filename,'rb'))
+        print "read subsampled data"
     except:
         molecule_subsampled_data = []
 
     try:
         molecule_random_data = pickle.load(open(random_filename,'rb'))
+        print "read random data"
     except:
         molecule_random_data = []
 
@@ -187,7 +191,7 @@ def read_data_from_one_dir(directory):
 
 def get_training_data(dataset_name,setup):
 
-    data_dir_name = setup["working_dir"] + "/data/" 
+    data_dir_name = setup["working_dir"] + "/data/*/" 
     data_paths = glob(data_dir_name)
 
     overall_subsampled_data = []
