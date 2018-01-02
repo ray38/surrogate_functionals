@@ -256,8 +256,7 @@ if __name__ == "__main__":
     N = int(setup['number_segment_per_side'])
     dir_name = "{}_{}_{}".format(str(L).replace('.','-'),str(h).replace('.','-'),N)
 
-    working_dir = os.getcwd() + '/' + dir_name + '/' + setup_name
-    setup["working_dir"] = working_dir
+    working_dir = os.getcwd() + '/' + dir_name + '/' + dataset_name
 
     model_save_dir = working_dir + "NN_linear_residual_{}_{}_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
    
