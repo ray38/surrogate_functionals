@@ -272,7 +272,9 @@ if __name__ == "__main__":
     
     X_train,y, dens = get_training_data(dataset_name,setup)
    
-    
+    if os.path.isdir(model_save_dir) == False:
+        os.makedirs(model_save_dir)
+        
     os.chdir(model_save_dir)
     
     residual,li_model = fit_with_Linear(dens,y)
