@@ -176,7 +176,7 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
     sub_database_name = "{}_{}_{}".format(str(L).replace('.','-'),str(h).replace('.','-'),N)
     data_dir_name = "{}_{}_{}_{}_{}".format(molecule,functional,str(L).replace('.','-'),str(h).replace('.','-'),N)
 
-    data_dir_full = database_name + '/' + sub_database_name + '/' + dir_name
+    data_dir_full = database_name + '/' + sub_database_name + '/' + data_dir_name
     print data_dir_full
     
     if os.path.isdir(data_dir_full) == False:
