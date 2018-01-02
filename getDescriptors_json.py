@@ -269,10 +269,6 @@ def process_one_molecule(molecule, functional,h,L,N,r_list):
         raise NotImplementedError
     
     os.chdir(cwd + '/' + dir_name)
-#    r_list = np.linspace(0.05, 0.1, 2)
-#    r_list = [0.01]
-#    r_list = [0.01,0.02,0.03,0.04,0.05,0.06,0.08,0.1,0.15,0.2,0.3,0.4,0.5]
-#    r_list = [0.04,0.06,0.08,0.1,0.2,0.3,0.4,0.5]
     stencil_list,pad_list = prepare_integral_stencils(r_list,h)
     asym_stencil_list,asym_pad_list = prepare_asym_integral_stencils(r_list,h)
     
