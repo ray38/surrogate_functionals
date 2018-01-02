@@ -249,7 +249,7 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
     list_subsample = setup["subsample_feature_list"]
     temp_list_subsample = setup["subsample_feature_list"]
     if temp_list_subsample == []:
-        for m in range(len(processed_data[0])):
+        for m in range(len(subsample_data_overall[0])):
             temp_list_subsample.append(m)
     print temp_list_subsample
 
@@ -261,7 +261,7 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
         subsample_data_overall = subsampling_system(subsample_data_overall, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
     else:
         subsample_data_overall = subsampling_system_with_PCA(subsample_data_overall, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
-    log(overall_subsample_log_filename,"\nmolecule overall length after: " + str(len(processed_data)))  
+    log(overall_subsample_log_filename,"\nmolecule overall length after: " + str(len(subsample_data_overall)))  
     log(overall_subsample_log_filename,"\nfinished overall sampling, took: " + str(time.time()-sample_start))
 
     with open(overall_subsample_filename, 'wb') as handle:
