@@ -52,6 +52,7 @@ def process_data(i,j,k,log_filename,setup,processed_data):
 
     write_data_to_file_random(i,j,k,temp_random_data)
     
+    list_subsample = setup["subsample_feature_list"]
     temp_list_subsample = setup["subsample_feature_list"]
     if temp_list_subsample == []:
         for i in range(len(processed_data[0])):
