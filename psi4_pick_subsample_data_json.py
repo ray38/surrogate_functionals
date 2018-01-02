@@ -186,13 +186,6 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
     os.chdir(data_dir_full)
     
     Nx = Ny = Nz = N
-#    for i in range(Nx):
-#        for j in range(Ny):
-#            pool = multiprocessing.Pool() #use all available cores, otherwise specify the number you want as an argument
-#            for k in range(Nz):
-#                pool.apply_async(process_each_block, args=(molecule,functional,k,k,k, target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform))
-#            pool.close()
-#            pool.join()
     
     i_li = range(Nx)
     j_li = range(Ny)
@@ -200,13 +193,13 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
     
     paramlist = list(itertools.product(i_li,j_li,k_li))
     
-    pool = multiprocessing.Pool()
-    for i,j,k in paramlist:
-        pool.apply_async(process_each_block, args=(molecule,functional,i,j,k, setup, data_dir_full))
-    pool.close()
-    pool.join()
+#    pool = multiprocessing.Pool()
+#    for i,j,k in paramlist:
+#        pool.apply_async(process_each_block, args=(molecule,functional,i,j,k, setup, data_dir_full))
+#    pool.close()
+#    pool.join()
 
-#    process_each_block(molecule,functional,0,0,0, target, gamma, num_desc_deri, num_desc_deri_squa, num_desc_ave_dens,desc_transform,target_transform)
+    process_each_block(molecule,functional,0,0,0, setup, data_dir_full)
 
     return
 
