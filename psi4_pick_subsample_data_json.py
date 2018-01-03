@@ -235,7 +235,7 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
 
 #    process_each_block(molecule,functional,0,0,0, setup, data_dir_full)
 
-    molecule_dir = setup["working_dir"] + '/' + molecule
+    molecule_dir = setup["working_dir"] + '/data/' + molecule
     os.chdir(molecule_dir)
 
 
