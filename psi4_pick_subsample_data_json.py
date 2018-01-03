@@ -110,6 +110,8 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
         target_set_name = 'epsilon_xc'
     if target == 'tau':
         target_set_name = 'tau'
+    if target == 'gamma':
+        target_set_name = 'gamma'
     
     temp_data = np.asarray(data[target_set_name])
 #    print np.sum(np.sort(temp_data))*0.1*0.1*0.1
