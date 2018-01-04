@@ -193,16 +193,21 @@ def get_training_data(dataset_name,setup):
 
     data_dir_name = setup["working_dir"] + "/data/*/" 
     data_paths = glob(data_dir_name)
+    print data_paths
+
 
     overall_subsampled_data = []
     overall_random_data = []
+    num_samples = len(data_paths)
+    num_random_per_molecule = int(math.ceil(float(setup["random_pick"])/float(num_samples)))
     for directory in data_paths:
         temp_molecule_subsampled_data, temp_molecule_random_data = read_data_from_one_dir(directory)
         overall_subsampled_data += temp_molecule_subsampled_data
-        overall_random_data += temp_molecule_random_data
+#        overall_random_data += temp_molecule_random_data
+        overall_random_data += random_subsampling(temp_molecule_random_data, num_random_per_molecule)
 
 
-    overall_random_data = random_subsampling(overall_random_data, setup["random_pick"])
+#    overall_random_data = random_subsampling(overall_random_data, setup["random_pick"])
 
     list_subsample = setup["subsample_feature_list"]
     temp_list_subsample = setup["subsample_feature_list"]
