@@ -293,9 +293,13 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
 
 if __name__ == "__main__":
 
+    print "started"
+
     setup_database_filename = sys.argv[1]
     setup_name = sys.argv[2]
     choice = sys.argv[3]
+
+    print sys.argv
 
     if choice not in ['single','set']:
         raise NotImplementedError
