@@ -264,9 +264,9 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
             except:
                 print temp_random_filename + " load failed! passed!"
 
-        overall_random_filename = "overall_random_data.p"
-        overall_subsample_filename = "overall_subsampled_data.p"
-        overall_subsample_log_filename = "overall_subsample_log.log"
+#        overall_random_filename = "overall_random_data.p"
+#        overall_subsample_filename = "overall_subsampled_data.p"
+#        overall_subsample_log_filename = "overall_subsample_log.log"
 
         with open(overall_random_filename, 'wb') as handle:
             pickle.dump(random_data_overall, handle, protocol=2)
