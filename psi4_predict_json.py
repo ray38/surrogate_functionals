@@ -275,11 +275,12 @@ def initialize(setup):
 
 if __name__ == "__main__":
 
+    print "start"
     predict_setup_filename = sys.argv[1]
     dataset_setup_database_filename = sys.argv[2]
     dataset_name = sys.argv[3]
 
-    with open(setup_filename) as f:
+    with open(predict_setup_filename) as f:
         setup = json.load(f)
 
 
