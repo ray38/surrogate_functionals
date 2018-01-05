@@ -239,7 +239,7 @@ def process_one_molecule(molecule, setup):
     paramlist = list(itertools.product(i_li,j_li,k_li))
     for i,j,k in paramlist:
         
-        sum_error, y_predict_sum, y_sum = process_each_block(molecule, i,j,k, setup, data_dir_ful)
+        sum_error, y_predict_sum, y_sum = process_each_block(molecule, i,j,k, setup, data_dir_full)
         system_sum_error += sum_error
         system_y_predict_sum += y_predict_sum
         system_y_sum += y_sum
