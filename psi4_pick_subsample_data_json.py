@@ -246,6 +246,11 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
     overall_subsample_log_filename = "overall_subsample_log.log"
 
     if os.path.isfile(overall_random_filename) and os.path.isfile(overall_subsample_filename) and os.path.isfile(overall_subsample_log_filename):
+        return
+    
+
+
+    else:
 
         subsample_data_overall = []
         random_data_overall = []
