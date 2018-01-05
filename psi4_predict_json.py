@@ -185,7 +185,7 @@ def process_each_block(molecule, i,j,k, setup, data_dir_full):
     L = float(setup['box_dimension'])
     N = int(setup['number_segment_per_side'])
     functional = setup['functional']
-    log_name = setup["predict_log_name"]
+    log_filename = setup["predict_log_name"]
 
     start = time.time()
     dens, X,y = load_data_each_block(molecule,functional,i,j,k, setup["dataset_setup"], data_dir_full)
@@ -218,7 +218,7 @@ def process_one_molecule(molecule, setup):
 
     functional = setup['functional']  
 
-    log_name = setup["predict_log_name"]
+    log_filename = setup["predict_log_name"]
     
     data_dir_name = "{}_{}_{}_{}_{}".format(molecule,functional,str(L).replace('.','-'),str(h).replace('.','-'),N)
 
