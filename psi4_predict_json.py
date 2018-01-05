@@ -91,6 +91,9 @@ def load_data_each_block(molecule,functional,i,j,k, dataset_setup, data_dir_full
 
     os.chdir(data_dir_full)
 
+    print data_dir_full
+    print os.getcwd()
+
     data =  h5py.File(data_filename,'r')
     
 
