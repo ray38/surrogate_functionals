@@ -4,7 +4,7 @@
 	"box_dimension": 10.0,
 	"number_segment_per_side": 5,
 	"fit_type": "linear_residual",
-	"functionals": "B3LYP",
+	"functional": "B3LYP",
 	"NN_setup": {
 		"number_layers": 5,
 		"number_neuron_per_layer": 40,
