@@ -10,7 +10,7 @@
 		"activation": "relu"
 	},
 
-	"molecule_list": ["C2H2","C2H4","C2H6","CH3OH","CH4","CO","CO2","H2","H2O","HCN","HNC","N2","N2O","NH3","O3"]
+	"molecule_list": ["CH3OH","CH4","CO","CO2","H2","H2O","HCN","HNC","N2","N2O","NH3","O3"]
 
 
 }
