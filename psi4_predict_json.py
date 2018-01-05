@@ -320,15 +320,15 @@ if __name__ == "__main__":
 
     error_list = []
     for molecule in setup["molecule_list"]:
-        try:
-            temp_error,temp_y_predict,temp_y = process_one_molecule(molecule, setup)
-            error_list.append(temp_error)
-        except:
-            log(log_filename,"\n\n Failed") 
+#        try:
+        temp_error,temp_y_predict,temp_y = process_one_molecule(molecule, setup)
+        error_list.append(temp_error)
+#        except:
+#            log(setup["predict_log_name"],"\n\n Failed") 
     
 
-    log(log_filename,"\n\naverage error: " + str(np.mean(error_list)) + "\tstddev error: " + str(np.std(error_list))) 
-    log(log_filename,"\n\naverage abs error: " + str(np.mean(np.abs(error_list))) + "\tstddev abs error: " + str(np.std(np.abs(error_list)))) 
+    log(setup["predict_log_name"],"\n\naverage error: " + str(np.mean(error_list)) + "\tstddev error: " + str(np.std(error_list))) 
+    log(setup["predict_log_name"],"\n\naverage abs error: " + str(np.mean(np.abs(error_list))) + "\tstddev abs error: " + str(np.std(np.abs(error_list)))) 
 
 
 
