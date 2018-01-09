@@ -186,47 +186,61 @@ def get_training_data(dataset_name,setup):
 
 def plot_2Dplots(title, x_list, y_list, label_list):
 
-#    fig=plt.figure()
-#    colors = cm.rainbow(np.linspace(0, 1, molecule_counter+1))
-
-    #colors = ['b','g','r','c','m','y','k','turquoise','navy', 'darkorange']
-
-#    for color, i, target_name, z_order in zip(colors, range(molecule_counter+1), Overall_Molecule_Name_List, z_order_list):
-#        plt.scatter(X_pca[Overall_Molecule_counter_List == i, 0],X_pca[Overall_Molecule_counter_List == i, 1], 
-#                        c= color,  lw = 0,label=target_name,alpha=0.6, zorder = z_order)
 
     fig=plt.figure(figsize=(40,40))
     colors = cm.rainbow(np.linspace(0, 1, len(label_list)))
     for x, y, label, color in zip(x_list,y_list,label_list,colors):
-        plt.scatter(x, y,  c= color,  lw = 0,label=label,alpha=0.6)
+        plt.scatter(x, y,  c= color,  lw = 0,label=label,alpha=1.0)
 
 
     plt.title(title)
-    plt.legend(loc="best", shadow=False, scatterpoints=1)
+    plt.legend(loc="best", shadow=False, scatterpoints=1, size=20)
+    plt.savefig(title + '.png')
+
+    return
+
+def plot_2Dplots_NH3(title, x_list, y_list, label_list):
+
+
+    fig=plt.figure(figsize=(40,40))
+    colors = cm.rainbow(np.linspace(0, 1, len(label_list)))
+    for x, y, label, color in zip(x_list,y_list,label_list,colors):
+        if label.strip() != 'NH3':
+            plt.scatter(x, y,  c= 'black',  lw = 0,label=label,alpha=1.0)
+
+    for x, y, label, color in zip(x_list,y_list,label_list,colors):
+        if label.strip() == 'NH3':
+            plt.scatter(x, y,  c= 'red',  lw = 0,label=label,alpha=1.0)
+
+
+    plt.title(title)
+    plt.legend(loc="best", shadow=False, scatterpoints=1, size=20)
     plt.savefig(title + '.png')
 
     return
 
 
 
-def plot_3Dplots():
-    fig=plt.figure()
+def plot_3Dplots(title, x_list, y_list, label_list):
+
+    fig=plt.figure(figsize=(40,40))
     ax = p3.Axes3D(fig)
-    for color, i, target_name, z_order in zip(colors, range(molecule_counter+1), Overall_Molecule_Name_List, z_order_list):
+    colors = cm.rainbow(np.linspace(0, 1, len(label_list)))
+    i = 0
+    for x, y, label, color in zip(x_list,y_list,label_list,colors):
         temp_z = np.ones_like(X_pca[Overall_Molecule_counter_List  == i, 0].copy()) * float(i+1)*0.5
-        ax.scatter(X_pca[Overall_Molecule_counter_List  == i, 0],temp_z, X_pca[Overall_Molecule_counter_List  == i, 1], 
-                        c= color,  facecolor='0.5', lw = 0,label=target_name,alpha=0.6)
+        ax.scatter(x, temp_z, y,  c= color,  lw = 0,label=label,alpha=1.0)
+        i = i+1
 
-                        
 
-    #                '''[color] * len(temp_z)'''
 
-    plt.title("PCA Test")
-    plt.legend(loc="best", shadow=False, scatterpoints=1)
-    ax.set_xlabel('X Label')
-    ax.set_ylabel('Y Label')
-    ax.set_zlabel('Z Label')
-    plt.savefig('PCA_3d_plot.png')
+    plt.title(title)
+    plt.legend(loc="best", shadow=False, scatterpoints=1, size=20)
+#    ax.set_xlabel('X Label')
+#    ax.set_ylabel('Y Label')
+#    ax.set_zlabel('Z Label')
+    plt.savefig(title + '.png')
+    return
 
 
 
@@ -285,6 +299,14 @@ if __name__ == "__main__":
     plot_2Dplots('target_vs_dens', plot_molecule_dens_list, plot_molecule_target_list, plot_molecule_name_list)
 
     plot_2Dplots('residual_vs_dens', plot_molecule_dens_list, plot_molecule_residual_list, plot_molecule_name_list)
+
+    plot_2Dplots_NH3('target_vs_dens', plot_molecule_dens_list, plot_molecule_target_list, plot_molecule_name_list)
+
+    plot_2Dplots_NH3('residual_vs_dens', plot_molecule_dens_list, plot_molecule_residual_list, plot_molecule_name_list)
+
+    plot_3Dplots('target_vs_dens_3D', plot_molecule_dens_list, plot_molecule_target_list, plot_molecule_name_list)
+
+    plot_3Dplots('residual_vs_dens_3D', plot_molecule_dens_list, plot_molecule_residual_list, plot_molecule_name_list)
 
 
     
