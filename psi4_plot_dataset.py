@@ -130,7 +130,7 @@ def get_training_data(dataset_name,setup):
         print temp_molecule_name
         plot_molecule_name_list.append(temp_molecule_name)
         temp_molecule_data = temp_molecule_subsampled_data + temp_added_random_data
-        plot_molecule_plot_list.append(temp_molecule_data)
+        plot_molecule_plot_list.append(np.asarray(temp_molecule_data))
 
         temp_target = []
         temp_dens = []
@@ -140,8 +140,8 @@ def get_training_data(dataset_name,setup):
 
         print len(temp_target)
         print len(temp_dens)
-        plot_molecule_dens_list.append(temp_dens)
-        plot_molecule_target_list.append(temp_target)
+        plot_molecule_dens_list.append(np.asarray(temp_dens).reshape((len(temp_dens),1)))
+        plot_molecule_target_list.append(np.asarray(temp_target).reshape((len(temp_target),1)))
 
 
         
