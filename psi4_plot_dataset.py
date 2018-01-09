@@ -20,10 +20,10 @@ import math
 import json
 from glob import glob
 from sklearn import linear_model
-from keras.models import Sequential
-from keras.models import load_model
-from keras.layers import Dense, Activation
-import keras
+#from keras.models import Sequential
+#from keras.models import load_model
+#from keras.layers import Dense, Activation
+#import keras
 
 
 import itertools
@@ -127,6 +127,7 @@ def get_training_data(dataset_name,setup):
         overall_random_data += temp_added_random_data
 
         temp_molecule_name = directory.split('/')[-2] + directory.split('/')[-1]
+        print temp_molecule_name
         plot_molecule_name_list.append(temp_molecule_name)
         temp_molecule_data = temp_molecule_subsampled_data + temp_added_random_data
         plot_molecule_plot_list.append(temp_molecule_data)
