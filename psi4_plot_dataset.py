@@ -276,7 +276,7 @@ if __name__ == "__main__":
     os.chdir(model_save_dir)
     
     residual,li_model = fit_with_Linear(dens,y)
-    model = fit_with_KerasNN(X_train,residual, tol, slowdown_factor, early_stop_trials)
+    #model = fit_with_KerasNN(X_train,residual, tol, slowdown_factor, early_stop_trials)
 
     plot_molecule_residual_list = prepare_linear_residual_data(li_model, plot_molecule_target_list, plot_molecule_dens_list)
 
