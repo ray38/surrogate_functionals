@@ -194,10 +194,7 @@ def plot_2Dplots(title, x_list, y_list, label_list):
 
 
     plt.title(title)
-    legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=20, markerscale=5)
-
-    #for legend_handle in legend.legendHandles:
-    #    legend_handle._legmarker.set_markersize(15)
+    legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=30, markerscale=3)
 
     plt.savefig(title + '.png')
 
@@ -218,10 +215,8 @@ def plot_2Dplots_NH3(title, x_list, y_list, label_list):
 
 
     plt.title(title)
-    legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=20, markerscale=5)
+    legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=30, markerscale=3)
 
-    #for legend_handle in legend.legendHandles:
-    #    legend_handle._legmarker.set_markersize(15)
 
     plt.savefig(title + '.png')
 
@@ -236,17 +231,15 @@ def plot_3Dplots(title, x_list, y_list, label_list):
     colors = cm.rainbow(np.linspace(0, 1, len(label_list)))
     i = 0
     for x, y, label, color in zip(x_list,y_list,label_list,colors):
-        temp_z = np.ones_like(X_pca[Overall_Molecule_counter_List  == i, 0].copy()) * float(i+1)*0.5
+        temp_z = np.ones_like(x.copy()) * float(i+1)*0.5
         ax.scatter(x, temp_z, y,  c= color,  lw = 0,label=label,alpha=1.0)
         i = i+1
 
 
 
     plt.title(title)
-    legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=20, markerscale=5)
+    legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=30, markerscale=3)
 
-    #for legend_handle in legend.legendHandles:
-    #    legend_handle._legmarker.set_markersize(15)
 
     plt.savefig(title + '.png')
     return
@@ -309,9 +302,9 @@ if __name__ == "__main__":
 
     plot_2Dplots('residual_vs_dens', plot_molecule_dens_list, plot_molecule_residual_list, plot_molecule_name_list)
 
-    plot_2Dplots_NH3('target_vs_dens', plot_molecule_dens_list, plot_molecule_target_list, plot_molecule_name_list)
+    plot_2Dplots_NH3('target_vs_dens_NH3', plot_molecule_dens_list, plot_molecule_target_list, plot_molecule_name_list)
 
-    plot_2Dplots_NH3('residual_vs_dens', plot_molecule_dens_list, plot_molecule_residual_list, plot_molecule_name_list)
+    plot_2Dplots_NH3('residual_vs_dens_NH3', plot_molecule_dens_list, plot_molecule_residual_list, plot_molecule_name_list)
 
     plot_3Dplots('target_vs_dens_3D', plot_molecule_dens_list, plot_molecule_target_list, plot_molecule_name_list)
 
