@@ -194,10 +194,10 @@ def plot_2Dplots(title, x_list, y_list, label_list):
 
 
     plt.title(title)
-    legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=20)
+    legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=20, markerscale=5)
 
-    for legend_handle in legend.legendHandles:
-        legend_handle._legmarker.set_markersize(15)
+    #for legend_handle in legend.legendHandles:
+    #    legend_handle._legmarker.set_markersize(15)
 
     plt.savefig(title + '.png')
 
@@ -218,10 +218,10 @@ def plot_2Dplots_NH3(title, x_list, y_list, label_list):
 
 
     plt.title(title)
-    legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=20)
+    legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=20, markerscale=5)
 
-    for legend_handle in legend.legendHandles:
-        legend_handle._legmarker.set_markersize(15)
+    #for legend_handle in legend.legendHandles:
+    #    legend_handle._legmarker.set_markersize(15)
 
     plt.savefig(title + '.png')
 
@@ -243,10 +243,10 @@ def plot_3Dplots(title, x_list, y_list, label_list):
 
 
     plt.title(title)
-    legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=20)
+    legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=20, markerscale=5)
 
-    for legend_handle in legend.legendHandles:
-        legend_handle._legmarker.set_markersize(15)
+    #for legend_handle in legend.legendHandles:
+    #    legend_handle._legmarker.set_markersize(15)
 
     plt.savefig(title + '.png')
     return
