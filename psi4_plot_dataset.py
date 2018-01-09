@@ -138,6 +138,8 @@ def get_training_data(dataset_name,setup):
             temp_dens.append(entry[1])
             temp_target.append(entry[0])
 
+        print len(temp_target)
+        print len(temp_dens)
         plot_molecule_dens_list.append(temp_dens)
         plot_molecule_target_list.append(temp_target)
 
@@ -233,6 +235,9 @@ def prepare_linear_residual_data(li_model, plot_molecule_target_list, plot_molec
     
     result = []
     for i in range(len(plot_molecule_target_list)):
+        print plot_molecule_target_list[i]
+        print plot_molecule_dens_list[i]
+        print li_model.predict(plot_molecule_dens_list[i])
         temp_residual = plot_molecule_target_list[i] - li_model.predict(plot_molecule_dens_list[i])
         result.append(temp_residual)
 
