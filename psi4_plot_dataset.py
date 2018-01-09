@@ -198,7 +198,7 @@ def plot_2Dplots(title, x_list, y_list, label_list):
     fig=plt.figure(figsize=(40,40))
     colors = cm.rainbow(np.linspace(0, 1, len(label_list)))
     for x, y, label, color in zip(x_list,y_list,label_list,colors):
-        plt.scatter(x, y,  c= color,  lw = 0,label=target_name,alpha=0.6)
+        plt.scatter(x, y,  c= color,  lw = 0,label=label,alpha=0.6)
 
 
     plt.title(title)
