@@ -280,7 +280,7 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "Plot_linear_residual_{}".format(setup["random_pick"])
+    model_save_dir = working_dir + "/" + "Plot_linear_residual_{}_log10dens".format(setup["random_pick"])
    
     setup["model_save_dir"] = model_save_dir
 
