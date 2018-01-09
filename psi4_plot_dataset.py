@@ -235,9 +235,6 @@ def prepare_linear_residual_data(li_model, plot_molecule_target_list, plot_molec
     
     result = []
     for i in range(len(plot_molecule_target_list)):
-        print plot_molecule_target_list[i]
-        print plot_molecule_dens_list[i]
-        print li_model.predict(plot_molecule_dens_list[i])
         temp_residual = plot_molecule_target_list[i] - li_model.predict(plot_molecule_dens_list[i])
         result.append(temp_residual)
 
