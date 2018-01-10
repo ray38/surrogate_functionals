@@ -188,7 +188,7 @@ def process_each_block(molecule, i,j,k, setup, data_dir_full):
     L = float(setup['box_dimension'])
     N = int(setup['number_segment_per_side'])
     functional = setup['functional']
-    log_filename = setup["predict_log_name"]
+    #log_filename = setup["predict_full_log_name"]
 
     start = time.time()
     dens, X,y = load_data_each_block(molecule,functional,i,j,k, setup["dataset_setup"], data_dir_full)
@@ -204,8 +204,9 @@ def process_each_block(molecule, i,j,k, setup, data_dir_full):
     sum_error = y_sum - y_predict_sum
     
     os.chdir(setup["model_save_dir"])
-    log(log_filename,"\ndone predicting: " + molecule + "\t took time: " + str(time.time()-start)+ "\t" + str(i) + "\t" + str(j) + "\t" + str(k))
-    log(log_filename,"\nenergy: " + str(y_sum) + "\tpredicted energy: " + str(y_predict_sum) + "\tpredicted error: " + str(sum_error)) 
+    log(setup["predict_full_log_name"],"\ndone predicting: " + molecule + "\t took time: " + str(time.time()-start)+ "\t" + str(i) + "\t" + str(j) + "\t" + str(k))
+    log(setup["predict_full_log_name"],"\nenergy: " + str(y_sum) + "\tpredicted energy: " + str(y_predict_sum) + "\tpredicted error: " + str(sum_error)) 
+
     os.chdir(setup["model_save_dir"])
 
     return sum_error, y_predict_sum, y_sum   
@@ -221,7 +222,7 @@ def process_one_molecule(molecule, setup):
 
     functional = setup['functional']  
 
-    log_filename = setup["predict_log_name"]
+#    log_filename = setup["predict_log_name"]
     
     data_dir_name = "{}_{}_{}_{}_{}".format(molecule,functional,str(L).replace('.','-'),str(h).replace('.','-'),N)
 
@@ -249,8 +250,11 @@ def process_one_molecule(molecule, setup):
 
 
     os.chdir(setup["model_save_dir"])
-    log(log_filename,"\n\ndone predicting: " + molecule )
-    log(log_filename,"\nenergy: " + str(system_y_sum) + "\tpredicted energy: " + str(system_y_predict_sum) + "\tpredicted error: " + str(system_sum_error)+ "\n") 
+    log(setup["predict_log_name"],"\n\ndone predicting: " + molecule )
+    log(setup["predict_log_name"],"\nenergy: " + str(system_y_sum) + "\tpredicted energy: " + str(system_y_predict_sum) + "\tpredicted error: " + str(system_sum_error)+ "\n")
+
+    log(setup["predict_full_log_name"],"\n\ndone predicting: " + molecule )
+    log(setup["predict_full_log_name"],"\nenergy: " + str(system_y_sum) + "\tpredicted energy: " + str(system_y_predict_sum) + "\tpredicted error: " + str(system_sum_error)+ "\n") 
     return system_sum_error, system_y_predict_sum,system_y_sum
 
     
@@ -265,12 +269,14 @@ def initialize(setup):
 
     start_loss = get_start_loss(fit_log_name)
     predict_log_name = "predict_{}_log.log".format(start_loss)
+    predict_full_log_name = "predict_{}_full_log.log".format(start_loss)
     NN_model = load_model(NN_model_name)
     linear_model = pickle.load(open(linear_model_name , 'rb'))
 
     setup["NN_model"] = NN_model
     setup["linear_model"] = linear_model
     setup["predict_log_name"] = predict_log_name
+    setup["predict_full_log_name"] = predict_full_log_name
 
     os.chdir(setup["working_dir"])
     return
@@ -323,15 +329,19 @@ if __name__ == "__main__":
 
     error_list = []
     for molecule in setup["molecule_list"]:
-#        try:
-        temp_error,temp_y_predict,temp_y = process_one_molecule(molecule, setup)
-        error_list.append(temp_error)
-#        except:
-#            log(setup["predict_log_name"],"\n\n Failed") 
+        try:
+            temp_error,temp_y_predict,temp_y = process_one_molecule(molecule, setup)
+            error_list.append(temp_error)
+        except:
+            log(setup["predict_log_name"],"\n\n Failed")
+            log(setup["predict_full_log_name"],"\n\n Failed") 
     
 
     log(setup["predict_log_name"],"\n\naverage error: " + str(np.mean(error_list)) + "\tstddev error: " + str(np.std(error_list))) 
-    log(setup["predict_log_name"],"\n\naverage abs error: " + str(np.mean(np.abs(error_list))) + "\tstddev abs error: " + str(np.std(np.abs(error_list)))) 
+    log(setup["predict_log_name"],"\n\naverage abs error: " + str(np.mean(np.abs(error_list))) + "\tstddev abs error: " + str(np.std(np.abs(error_list))))
+
+    log(setup["predict_full_log_name"],"\n\naverage error: " + str(np.mean(error_list)) + "\tstddev error: " + str(np.std(error_list))) 
+    log(setup["predict_full_log_name"],"\n\naverage abs error: " + str(np.mean(np.abs(error_list))) + "\tstddev abs error: " + str(np.std(np.abs(error_list))))
 
 
 
