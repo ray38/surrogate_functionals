@@ -5,8 +5,8 @@
 	"number_segment_per_side": 5,
 	"fit_type": "linear_residual",
 	"NN_setup": {
-		"number_layers": 6,
-		"number_neuron_per_layer": 100,
+		"number_layers": 2,
+		"number_neuron_per_layer": 20,
 		"activation": "relu"
 	},
 

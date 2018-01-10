@@ -5,9 +5,9 @@
 	"number_segment_per_side": 5,
 	"fit_type": "linear_residual",
 	"NN_setup": {
-		"number_layers": 6,
-		"number_neuron_per_layer": 100,
-		"activation": "relu"
+		"number_layers": 2,
+		"number_neuron_per_layer": 20,
+		"activation": "tanh"
 	},
 
 	"molecule_list": ["C2H2","C2H4","C2H6","CH3OH","CH4","CO","CO2","H2","H2O","HCN","HNC","N2","N2O","NH3","O3"]
