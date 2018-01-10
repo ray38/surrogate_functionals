@@ -16,22 +16,29 @@ import math
 import json
 import random
 import pprint
+import time
+import copy
 
 def generate_random_conformer_control(original_molecule_data, molecule_name,number_random):
 
     result = {}
 
     for i in range(number_random):
+        #random.seed(i)
         temp_molecule_name = "{}_{}".format(molecule_name,str(i))
         result[temp_molecule_name] = {}
         result[temp_molecule_name]['atoms'] = original_molecule_data['atoms']
         result[temp_molecule_name]['symmetry'] = 'c1'
-        temp_coordinates = original_molecule_data["coordinates"]
+        temp_coordinates = copy.deepcopy(original_molecule_data["coordinates"])
         #print temp_coordinates
+        #print temp_coordinates[1]
         for j in range(len(temp_coordinates)):
-            temp_coordinates[j][0] += random.gauss(0,0.05)
-            temp_coordinates[j][1] += random.gauss(0,0.05)
-            temp_coordinates[j][2] += random.gauss(0,0.05)
+            #print random.gauss(0,0.01)
+            
+            temp_coordinates[j][0] += random.gauss(0,0.01)
+            temp_coordinates[j][1] += random.gauss(0,0.01)
+            temp_coordinates[j][2] += random.gauss(0,0.01)
+        #print temp_coordinates[1]
 
         result[temp_molecule_name]['coordinates'] = temp_coordinates
 
