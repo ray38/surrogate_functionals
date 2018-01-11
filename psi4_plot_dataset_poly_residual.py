@@ -69,9 +69,9 @@ def fit_with_Poly(X,y,degree):
     # The coefficients
     #print 'Coefficients: \n', li_model.coef_
     # The mean squared error
-    print "Mean squared error: %.20f" % np.mean((li_model.predict(X) - y) ** 2)
+    print "Mean squared error: %.20f" % np.mean((poly_model.predict(X) - y) ** 2)
     # Explained variance score: 1 is perfect prediction
-    print 'Variance score: %.20f' % li_model.score(X, y)
+    print 'Variance score: %.20f' % poly_model.score(X, y)
     
     residual = y-poly_model.predict(X)
 #    plt.scatter(X, residual,  color='black')
