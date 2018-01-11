@@ -55,6 +55,29 @@ def get_start_loss(log_filename):
     else:
         raise ValueError
 
+def fit_with_Linear(X,y):
+
+    filename = "Linear_model.sav"
+
+    try:
+        li_model = pickle.load(open(filename, 'rb'))
+        print 'model loaded'
+    except:
+        li_model = linear_model.LinearRegression()
+        li_model.fit(X, y)
+        pickle.dump(li_model, open(filename, 'wb'))
+    
+    # The coefficients
+    print 'Coefficients: \n', li_model.coef_
+    # The mean squared error
+    print "Mean squared error: %.20f" % np.mean((li_model.predict(X) - y) ** 2)
+    # Explained variance score: 1 is perfect prediction
+    print 'Variance score: %.20f' % li_model.score(X, y)
+    
+    residual = y-li_model.predict(X)
+#    plt.scatter(X, residual,  color='black')
+#    plt.show()
+    return residual, li_model
 
 def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
 
@@ -246,7 +269,7 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "NN_original_{}_{}_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
+    model_save_dir = working_dir + "/" + "NN_linear_residual_{}_{}_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
    
     setup["model_save_dir"] = model_save_dir
 
@@ -259,8 +282,8 @@ if __name__ == "__main__":
 
     os.chdir(model_save_dir)
     
-    #residual,li_model = fit_with_Linear(dens,y)
-    model = fit_with_KerasNN(X_train,y, tol, slowdown_factor, early_stop_trials)
+    residual,li_model = fit_with_Linear(dens,y)
+    model = fit_with_KerasNN(X_train,residual, tol, slowdown_factor, early_stop_trials)
 
 
     

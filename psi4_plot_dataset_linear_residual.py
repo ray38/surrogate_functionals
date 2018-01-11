@@ -49,6 +49,30 @@ def map_back(arr, maxx, minn):
     return np.add(np.multiply(arr,(maxx-minn)),minn)
 
 
+def fit_with_Linear(X,y):
+
+    filename = "Linear_model.sav"
+
+    try:
+        li_model = pickle.load(open(filename, 'rb'))
+        print 'model loaded'
+    except:
+        li_model = linear_model.LinearRegression()
+        li_model.fit(X, y)
+        pickle.dump(li_model, open(filename, 'wb'))
+    
+    # The coefficients
+    print 'Coefficients: \n', li_model.coef_
+    # The mean squared error
+    print "Mean squared error: %.20f" % np.mean((li_model.predict(X) - y) ** 2)
+    # Explained variance score: 1 is perfect prediction
+    print 'Variance score: %.20f' % li_model.score(X, y)
+    
+    residual = y-li_model.predict(X)
+#    plt.scatter(X, residual,  color='black')
+#    plt.show()
+    return residual, li_model
+
 
 def read_data_from_one_dir(directory):
     temp_cwd = os.getcwd()
@@ -256,7 +280,7 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "Plot_original_{}".format(setup["random_pick"])
+    model_save_dir = working_dir + "/" + "Plot_linear_residual_{}".format(setup["random_pick"])
    
     setup["model_save_dir"] = model_save_dir
 
@@ -269,14 +293,22 @@ if __name__ == "__main__":
 
     os.chdir(model_save_dir)
     
+    residual,li_model = fit_with_Linear(dens,y)
+    #model = fit_with_KerasNN(X_train,residual, tol, slowdown_factor, early_stop_trials)
 
     plot_molecule_residual_list = prepare_linear_residual_data(li_model, plot_molecule_target_list, plot_molecule_dens_list)
 
     plot_2Dplots('target_vs_dens', plot_molecule_dens_list, plot_molecule_target_list, plot_molecule_name_list)
 
+    plot_2Dplots('residual_vs_dens', plot_molecule_dens_list, plot_molecule_residual_list, plot_molecule_name_list)
+
     plot_2Dplots_NH3('target_vs_dens_NH3', plot_molecule_dens_list, plot_molecule_target_list, plot_molecule_name_list)
 
+    plot_2Dplots_NH3('residual_vs_dens_NH3', plot_molecule_dens_list, plot_molecule_residual_list, plot_molecule_name_list)
+
     plot_3Dplots('target_vs_dens_3D', plot_molecule_dens_list, plot_molecule_target_list, plot_molecule_name_list)
+
+    plot_3Dplots('residual_vs_dens_3D', plot_molecule_dens_list, plot_molecule_residual_list, plot_molecule_name_list)
 
 
     
