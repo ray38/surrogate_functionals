@@ -136,7 +136,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
         loss_history = history_callback.history["loss"]
         start_loss = np.array(loss_history)[0]
     
-    log(log_filename, "\n start: "+ str(start_loss))
+    log(log_filename, "\n start: {} \t slowdown: {} \t early stop: {} \t target tolerence: {}".format(str(start_loss), slowdown_factor, early_stop_trials, tol))
     
     old_loss = start_loss
     keep_going = True
