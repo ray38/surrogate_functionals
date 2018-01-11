@@ -253,7 +253,7 @@ if __name__ == "__main__":
 
     setup_filename = sys.argv[1]
     dataset_name = sys.argv[2]
-    degree = sys.argv[3]
+    degree = int(sys.argv[3])
     slowdown_factor = float(sys.argv[4])
     tol = float(sys.argv[5])
     try:
