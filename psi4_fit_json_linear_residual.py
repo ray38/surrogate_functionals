@@ -142,6 +142,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
     keep_going = True
     
     count_epochs = 0
+    log(log_filename, "\n updated best: "+ str(start_loss) + " \t epochs since last update: " + str(count_epochs))
     while keep_going:
         count_epochs += 1
         history_callback = model.fit(X, y, nb_epoch=num_epoch, batch_size=50000, shuffle=True)
