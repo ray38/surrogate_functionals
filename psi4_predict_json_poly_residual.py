@@ -63,12 +63,12 @@ def get_start_loss(log_filename):
 def predict_each_block(setup,dens,X,y):
 
     NN_model = setup["NN_model"]
-    linear_model = setup["linear_model"]
+    poly_model = setup["poly_model"]
     y_transform  = setup["dataset_setup"]["target_transform"]
 
     original_y = detransform_data(y, y_transform)
 
-    raw_predict_y = linear_model.predict(dens) + NN_model.predict(X)
+    raw_predict_y = poly_model.predict(dens) + NN_model.predict(X)
     predict_y = detransform_data(raw_predict_y, y_transform)
 
     return original_y, predict_y
@@ -268,17 +268,17 @@ def initialize(setup):
     os.chdir(setup["model_save_dir"])
     fit_log_name = "NN_fit_log.log"
     
-    linear_model_name = "Linear_model.sav"
+    poly_model_name = "Poly_2_model.sav"
     NN_model_name = "NN.h5"
 
     start_loss = get_start_loss(fit_log_name)
     predict_log_name = "predict_{}_log.log".format(start_loss)
     predict_full_log_name = "predict_{}_full_log.log".format(start_loss)
     NN_model = load_model(NN_model_name)
-    linear_model = pickle.load(open(linear_model_name , 'rb'))
+    poly_model = pickle.load(open(poly_model_name , 'rb'))
 
     setup["NN_model"] = NN_model
-    setup["linear_model"] = linear_model
+    setup["poly_model"] = poly_model
     setup["predict_log_name"] = predict_log_name
     setup["predict_full_log_name"] = predict_full_log_name
 

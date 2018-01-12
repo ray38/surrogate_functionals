@@ -92,9 +92,9 @@ def generate_random_conformer_control(original_molecule_data, molecule_name,numb
         for j in range(len(temp_coordinates)):
             #print random.gauss(0,0.01)
             
-            #temp_coordinates[j][0] += random.gauss(0,0.01)
-            #temp_coordinates[j][1] += random.gauss(0,0.01)
-            #temp_coordinates[j][2] += random.gauss(0,0.01)
+            temp_coordinates[j][0] += random.gauss(0,0.01)
+            temp_coordinates[j][1] += random.gauss(0,0.01)
+            temp_coordinates[j][2] += random.gauss(0,0.01)
             #print temp_coordinates[j]
             #print np.dot(random_rot_matrix,np.asarray(temp_coordinates[j]).reshape(3,1)).reshape(1,3).tolist() == np.dot(random_rot_matrix,temp_coordinates[j])
             temp_coordinates[j] = np.dot(random_rot_matrix,temp_coordinates[j]).tolist()[0]
