@@ -252,11 +252,11 @@ def plot_3Dplots(title, x_list, y_list, label_list):
 
 
 
-def prepare_linear_residual_data(li_model, plot_molecule_target_list, plot_molecule_dens_list):
+def prepare_linear_residual_data(poly_model, plot_molecule_target_list, plot_molecule_dens_list):
     
     result = []
     for i in range(len(plot_molecule_target_list)):
-        temp_residual = plot_molecule_target_list[i] - li_model.predict(plot_molecule_dens_list[i])
+        temp_residual = plot_molecule_target_list[i] - poly_model.predict(plot_molecule_dens_list[i])
         result.append(temp_residual)
 
     return result
@@ -299,10 +299,10 @@ if __name__ == "__main__":
 
     os.chdir(model_save_dir)
     
-    residual,li_model = fit_with_Poly(dens,y,degree)
+    residual,poly_model = fit_with_Poly(dens,y,degree)
     #model = fit_with_KerasNN(X_train,residual, tol, slowdown_factor, early_stop_trials)
 
-    plot_molecule_residual_list = prepare_linear_residual_data(li_model, plot_molecule_target_list, plot_molecule_dens_list)
+    plot_molecule_residual_list = prepare_linear_residual_data(poly_model, plot_molecule_target_list, plot_molecule_dens_list)
 
     plot_2Dplots('target_vs_dens', plot_molecule_dens_list, plot_molecule_target_list, plot_molecule_name_list)
 

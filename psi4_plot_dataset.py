@@ -223,11 +223,11 @@ def plot_3Dplots(title, x_list, y_list, label_list):
 
 
 
-def prepare_linear_residual_data(li_model, plot_molecule_target_list, plot_molecule_dens_list):
+def prepare_linear_residual_data(plot_molecule_target_list, plot_molecule_dens_list):
     
     result = []
     for i in range(len(plot_molecule_target_list)):
-        temp_residual = plot_molecule_target_list[i] - li_model.predict(plot_molecule_dens_list[i])
+        temp_residual = plot_molecule_target_list[i]# - li_model.predict(plot_molecule_dens_list[i])
         result.append(temp_residual)
 
     return result
@@ -270,7 +270,7 @@ if __name__ == "__main__":
     os.chdir(model_save_dir)
     
 
-    plot_molecule_residual_list = prepare_linear_residual_data(li_model, plot_molecule_target_list, plot_molecule_dens_list)
+    plot_molecule_residual_list = prepare_linear_residual_data(plot_molecule_target_list, plot_molecule_dens_list)
 
     plot_2Dplots('target_vs_dens', plot_molecule_dens_list, plot_molecule_target_list, plot_molecule_name_list)
 
