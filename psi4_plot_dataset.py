@@ -172,6 +172,8 @@ def plot_2Dplots(title, x_list, y_list, label_list):
     plt.title(title)
     legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=30, markerscale=3)
 
+    plt.tick_params(labelsize=60)
+    
     plt.savefig(title + '.png')
 
     return
@@ -193,6 +195,7 @@ def plot_2Dplots_NH3(title, x_list, y_list, label_list):
     plt.title(title)
     legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=30, markerscale=3)
 
+    plt.tick_params(labelsize=60)
 
     plt.savefig(title + '.png')
 
@@ -216,6 +219,7 @@ def plot_3Dplots(title, x_list, y_list, label_list):
     plt.title(title)
     legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=30, markerscale=3)
 
+    ax.tick_params(labelsize=60)
 
     plt.savefig(title + '.png')
     return
