@@ -1,0 +1,25 @@
+{
+	"database_directory": "/nv/hp13/xlei38/medford-shared/users/xlei38/psi4_molecule_sec_database",
+	"grid_spacing": 0.05,
+	"box_dimension": 10.0,
+	"number_segment_per_side": 2,
+	"fit_type": "original",
+	"NN_setup": {
+		"number_layers": 7,
+		"number_neuron_per_layer": 100,
+		"activation": "relu"
+	},
+
+	"molecule_list": ["NH3","NH3_0","NH3_1","NH3_2","NH3_3","NH3_4","NH3_5","NH3_6","NH3_7","NH3_8","NH3_9",
+							"NH3_10","NH3_11","NH3_12","NH3_13","NH3_14","NH3_15","NH3_16","NH3_17","NH3_18","NH3_19",
+							"NH3_20","NH3_21","NH3_22","NH3_23","NH3_24","NH3_25","NH3_26","NH3_27","NH3_28","NH3_29",
+							"NH3_30","NH3_31","NH3_32","NH3_33","NH3_34","NH3_35","NH3_36","NH3_37","NH3_38","NH3_39",
+							"NH3_40","NH3_41","NH3_42","NH3_43","NH3_44","NH3_45","NH3_46","NH3_47","NH3_48","NH3_49",
+							"NH3_50","NH3_51","NH3_52","NH3_53","NH3_54","NH3_55","NH3_56","NH3_57","NH3_58","NH3_59",
+							"NH3_60","NH3_61","NH3_62","NH3_63","NH3_64","NH3_65","NH3_66","NH3_67","NH3_68","NH3_69",
+							"NH3_70","NH3_71","NH3_72","NH3_73","NH3_74","NH3_75","NH3_76","NH3_77","NH3_78","NH3_79",
+							"NH3_80","NH3_81","NH3_82","NH3_83","NH3_84","NH3_85","NH3_86","NH3_87","NH3_88","NH3_89",
+							"NH3_90","NH3_91","NH3_92","NH3_93","NH3_94","NH3_95","NH3_96","NH3_97","NH3_98","NH3_99"]
+
+
+}
