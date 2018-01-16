@@ -18,6 +18,7 @@ import h5py
 import json
 import sys
 import numpy as np
+from numpy import mean, sqrt, square, arange
 try: import cPickle as pickle
 except: import pickle
 import time
@@ -259,6 +260,8 @@ def process_one_molecule(molecule, setup):
 
     log(setup["predict_full_log_name"],"\n\ndone predicting: " + molecule )
     log(setup["predict_full_log_name"],"\nenergy: " + str(system_y_sum) + "\tpredicted energy: " + str(system_y_predict_sum) + "\tpredicted error: " + str(system_sum_error)+ "\n") 
+    
+    log(setup["predict_error_log_name"], "\n{}\t{}\t{}\t{}".format(molecule, system_y_sum, system_y_predict_sum, system_sum_error))
     return system_sum_error, system_y_predict_sum,system_y_sum
 
     
@@ -274,6 +277,7 @@ def initialize(setup):
     start_loss = get_start_loss(fit_log_name)
     predict_log_name = "predict_{}_log.log".format(start_loss)
     predict_full_log_name = "predict_{}_full_log.log".format(start_loss)
+    predict_error_log_name = "predict_{}_error_log.log".format(start_loss)
     NN_model = load_model(NN_model_name)
     poly_model = pickle.load(open(poly_model_name , 'rb'))
 
@@ -281,6 +285,7 @@ def initialize(setup):
     setup["poly_model"] = poly_model
     setup["predict_log_name"] = predict_log_name
     setup["predict_full_log_name"] = predict_full_log_name
+    setup["predict_error_log_name"] = predict_error_log_name
 
     os.chdir(setup["working_dir"])
     return
@@ -343,10 +348,11 @@ if __name__ == "__main__":
 
     log(setup["predict_log_name"],"\n\naverage error: " + str(np.mean(error_list)) + "\tstddev error: " + str(np.std(error_list))) 
     log(setup["predict_log_name"],"\n\naverage abs error: " + str(np.mean(np.abs(error_list))) + "\tstddev abs error: " + str(np.std(np.abs(error_list))))
+    log(setup["predict_log_name"],"\n\naverage abs error: " + str(sqrt(mean(square(error_list)))) 
 
     log(setup["predict_full_log_name"],"\n\naverage error: " + str(np.mean(error_list)) + "\tstddev error: " + str(np.std(error_list))) 
     log(setup["predict_full_log_name"],"\n\naverage abs error: " + str(np.mean(np.abs(error_list))) + "\tstddev abs error: " + str(np.std(np.abs(error_list))))
-
+    log(setup["predict_full_log_name"],"\n\naverage abs error: " + str(sqrt(mean(square(error_list)))) 
 
 
 

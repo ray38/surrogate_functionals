@@ -1,0 +1,25 @@
+{
+	"database_directory": "/nv/hp13/xlei38/medford-shared/users/xlei38/psi4_molecule_sec_database",
+	"grid_spacing": 0.05,
+	"box_dimension": 10.0,
+	"number_segment_per_side": 2,
+	"fit_type": "linear_residual",
+	"NN_setup": {
+		"number_layers": 7,
+		"number_neuron_per_layer": 100,
+		"activation": "relu"
+	},
+
+	"molecule_list": ["NH3","NH3_noise_rot_0","NH3_noise_rot_1","NH3_noise_rot_2","NH3_noise_rot_3","NH3_noise_rot_4","NH3_noise_rot_5","NH3_noise_rot_6","NH3_noise_rot_7","NH3_noise_rot_8","NH3_noise_rot_9",
+							"NH3_noise_rot_10","NH3_noise_rot_11","NH3_noise_rot_12","NH3_noise_rot_13","NH3_noise_rot_14","NH3_noise_rot_15","NH3_noise_rot_16","NH3_noise_rot_17","NH3_noise_rot_18","NH3_noise_rot_19",
+							"NH3_noise_rot_20","NH3_noise_rot_21","NH3_noise_rot_22","NH3_noise_rot_23","NH3_noise_rot_24","NH3_noise_rot_25","NH3_noise_rot_26","NH3_noise_rot_27","NH3_noise_rot_28","NH3_noise_rot_29",
+							"NH3_noise_rot_30","NH3_noise_rot_31","NH3_noise_rot_32","NH3_noise_rot_33","NH3_noise_rot_34","NH3_noise_rot_35","NH3_noise_rot_36","NH3_noise_rot_37","NH3_noise_rot_38","NH3_noise_rot_39",
+							"NH3_noise_rot_40","NH3_noise_rot_41","NH3_noise_rot_42","NH3_noise_rot_43","NH3_noise_rot_44","NH3_noise_rot_45","NH3_noise_rot_46","NH3_noise_rot_47","NH3_noise_rot_48","NH3_noise_rot_49",
+							"NH3_noise_rot_50","NH3_noise_rot_51","NH3_noise_rot_52","NH3_noise_rot_53","NH3_noise_rot_54","NH3_noise_rot_55","NH3_noise_rot_56","NH3_noise_rot_57","NH3_noise_rot_58","NH3_noise_rot_59",
+							"NH3_noise_rot_60","NH3_noise_rot_61","NH3_noise_rot_62","NH3_noise_rot_63","NH3_noise_rot_64","NH3_noise_rot_65","NH3_noise_rot_66","NH3_noise_rot_67","NH3_noise_rot_68","NH3_noise_rot_69",
+							"NH3_noise_rot_70","NH3_noise_rot_71","NH3_noise_rot_72","NH3_noise_rot_73","NH3_noise_rot_74","NH3_noise_rot_75","NH3_noise_rot_76","NH3_noise_rot_77","NH3_noise_rot_78","NH3_noise_rot_79",
+							"NH3_noise_rot_80","NH3_noise_rot_81","NH3_noise_rot_82","NH3_noise_rot_83","NH3_noise_rot_84","NH3_noise_rot_85","NH3_noise_rot_86","NH3_noise_rot_87","NH3_noise_rot_88","NH3_noise_rot_89",
+							"NH3_noise_rot_90","NH3_noise_rot_91","NH3_noise_rot_92","NH3_noise_rot_93","NH3_noise_rot_94","NH3_noise_rot_95","NH3_noise_rot_96","NH3_noise_rot_97","NH3_noise_rot_98","NH3_noise_rot_99"]
+
+
+}

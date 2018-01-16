@@ -82,7 +82,7 @@ def generate_random_conformer_control(original_molecule_data, molecule_name,numb
     for i in range(number_random):
         #random.seed(i)
         random_rot_matrix = generate(3)
-        temp_molecule_name = "{}_rot_{}".format(molecule_name,str(i))
+        temp_molecule_name = "{}_{}".format(molecule_name,str(i))
         result[temp_molecule_name] = {}
         result[temp_molecule_name]['atoms'] = original_molecule_data['atoms']
         result[temp_molecule_name]['symmetry'] = 'c1'

@@ -4,9 +4,9 @@
 	"box_dimension": 10.0,
 	"number_segment_per_side": 2,
 	"NN_setup": {
-		"number_layers": 2,
-		"number_neuron_per_layer": 20,
-		"activation": "tanh"
+		"number_layers": 1,
+		"number_neuron_per_layer": 120,
+		"activation": "relu"
 	},
 
 	"random_pick": 50000,
