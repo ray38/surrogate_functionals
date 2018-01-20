@@ -99,13 +99,15 @@ def fit_with_LDA(density,energy):
     density = np.asarray(density)
     energy = np.asarray(energy)
 
-    res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='nelder-mead',options={'xtol': 1e-12, 'disp': True, 'maxiter': 1000000})
+    res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='nelder-mead',options={'xtol': 1e-12, 'disp': True, 'maxiter': 100000})
 
     print res.x
     pickle.dump(res, open(filename, 'wb'))
 
     log(text_filename, str(res.x))
-
+    log(text_filename, '\nMSE: {}'.format(np.mean(np.square(lda_x(density,res.x) + lda_c(density,res.x) - energy))))
+    log(text_filename, '\nMAE: {}'.format(np.mean(np.abs(lda_x(density,res.x) + lda_c(density,res.x) - energy))))
+    log(text_filename, '\nMSD: {}'.format(np.mean(lda_x(density,res.x) + lda_c(density,res.x) - energy)))
     return res
 def LDA_least_suqare_fit(x,density,energy):
 
@@ -113,7 +115,7 @@ def LDA_least_suqare_fit(x,density,energy):
     #for n, e in density, energy:
     #    result += (lda_x(n,x) + lda_c(n,x) - e)**2
 
-    result = np.sum(np.square(lda_x(density,x) + lda_c(density,x) - energy))
+    result = np.mean(np.square(lda_x(density,x) + lda_c(density,x) - energy))
     return result
 
 
