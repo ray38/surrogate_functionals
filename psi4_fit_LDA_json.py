@@ -99,7 +99,7 @@ def fit_with_LDA(density,energy):
     density = np.asarray(density)
     energy = np.asarray(energy)
 
-    res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='nelder-mead',options={'xtol': 1e-8, 'disp': True})
+    res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='nelder-mead',options={'xtol': 1e-12, 'disp': True, 'maxiter': 1000000})
 
     print res.x
     pickle.dump(res, open(filename, 'wb'))
@@ -306,7 +306,7 @@ if __name__ == "__main__":
 
     plt.scatter(dens, y,            c= 'red',  lw = 0,label='original',alpha=1.0)
     plt.scatter(dens, predict_y,    c= 'blue',  lw = 0,label='predict',alpha=1.0)
-    plt.scatter(dens, y,            c= 'yellow',  lw = 0,label='error',alpha=1.0)
+    plt.scatter(dens, error,            c= 'yellow',  lw = 0,label='error',alpha=1.0)
 
     legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=30, markerscale=3)
 
