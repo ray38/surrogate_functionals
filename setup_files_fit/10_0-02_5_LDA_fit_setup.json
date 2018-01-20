@@ -1,0 +1,13 @@
+{
+	
+	"grid_spacing": 0.02,
+	"box_dimension": 10.0,
+	"number_segment_per_side": 5,
+
+
+	"random_pick": 500000,
+	"subsample_cutoff_sig": 0.005,
+	"subsample_rate": 0.2,
+	"subsample_feature_list": []
+
+}
