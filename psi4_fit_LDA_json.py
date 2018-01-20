@@ -113,7 +113,7 @@ def LDA_least_suqare_fit(x,density,energy):
     #for n, e in density, energy:
     #    result += (lda_x(n,x) + lda_c(n,x) - e)**2
 
-    result = np.sum(np.square(lda_x(n,x) + lda_c(n,x) - e))
+    result = np.sum(np.square(lda_x(density,x) + lda_c(density,x) - energy))
     return result
 
 
