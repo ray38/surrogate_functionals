@@ -315,3 +315,13 @@ if __name__ == "__main__":
     plt.tick_params(labelsize=60)
     
     plt.savefig('result_plot.png')
+
+    fig=plt.figure(figsize=(40,40))
+
+    plt.scatter(dens, error,            c= 'red',  lw = 0,label='error',alpha=1.0)
+
+    legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=30, markerscale=3)
+
+    plt.tick_params(labelsize=60)
+    
+    plt.savefig('error_plot.png')
