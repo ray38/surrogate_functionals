@@ -4,6 +4,12 @@ Created on Tue Oct 24 09:43:05 2017
 
 @author: ray
 """
+import matplotlib
+matplotlib.use('Agg') 
+import matplotlib.cm as cm
+from mpl_toolkits.mplot3d import Axes3D
+import mpl_toolkits.mplot3d.axes3d as p3
+import matplotlib.pyplot as plt
 
 import numpy as np
 import sys
@@ -18,9 +24,6 @@ from sklearn import linear_model
 #from keras.layers import Dense, Activation
 #import keras
 import scipy
-import matplotlib.cm as cm
-from mpl_toolkits.mplot3d import Axes3D
-import mpl_toolkits.mplot3d.axes3d as p3
 
 import itertools
 import multiprocessing
@@ -87,7 +90,14 @@ def fit_with_LDA(density,energy):
     filename = "LDA_model.sav"
     text_filename = "LDA_model_result.txt"
 
-    x0 = get_x0()
+    try: 
+        temp_res = pickle.load(open(filename, 'rb'))
+        x0 = temp_res.x
+    except:
+        x0 = get_x0()
+
+    density = np.asarray(density)
+    energy = np.asarray(energy)
 
     res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='Nelder-Mead', tol=None, callback=None, options={'disp': False, 'initial_simplex': None, 'maxiter': None, 'xatol': 0.0001, 'return_all': False, 'fatol': 0.0001, 'func': None, 'maxfev': None})
 
@@ -99,10 +109,11 @@ def fit_with_LDA(density,energy):
     return res
 def LDA_least_suqare_fit(x,density,energy):
 
-    result = 0
-    for n, e in density, energy:
-        result += (lda_x(n,x) + lda_c(n,x) - e)**2
+    #result = 0
+    #for n, e in density, energy:
+    #    result += (lda_x(n,x) + lda_c(n,x) - e)**2
 
+    result = np.sum(np.square(lda_x(n,x) + lda_c(n,x) - e))
     return result
 
 
@@ -156,9 +167,16 @@ def lda_c( n, x):
     #C0I, C1, CC1, CC2, IF2 = lda_constants()
     C0I, C1, CC1, CC2, IF2, gamma, alpha1, beta1, beta2, beta3, beta4 = optimization_constants(x)
     rs = (C0I / n) ** (1 / 3.)
-    ec, = G(rs ** 0.5, gamma, alpha1, beta1, beta2, beta3, beta4)
+    ec = G(rs ** 0.5, gamma, alpha1, beta1, beta2, beta3, beta4)
     return n*ec
     #e[:] += n * ec
+
+def predict(n,x):
+
+    n = np.asarray(n)
+
+    return lda_x(n,x) + lda_c(n,x)
+
 
 
 def read_data_from_one_dir(directory):
@@ -248,12 +266,6 @@ if __name__ == "__main__":
 
     setup_filename = sys.argv[1]
     dataset_name = sys.argv[2]
-    slowdown_factor = float(sys.argv[3])
-    tol = float(sys.argv[4])
-    try:
-        early_stop_trials = int(sys.argv[5])
-    except:
-        early_stop_trials = 100
 
     with open(setup_filename) as f:
         setup = json.load(f)
@@ -268,7 +280,7 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "NN_linear_residual_{}_{}_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
+    model_save_dir = working_dir + "/" + "LDA_fit"
    
     setup["model_save_dir"] = model_save_dir
 
@@ -286,5 +298,18 @@ if __name__ == "__main__":
     result = fit_with_LDA(dens,y)
     #model = fit_with_KerasNN(X_train,residual, tol, slowdown_factor, early_stop_trials)
 
+    predict_y = predict(dens,result.x)
 
+    error = y - predict_y
+
+    fig=plt.figure(figsize=(40,40))
+
+    plt.scatter(dens, y,            c= 'red',  lw = 0,label='original',alpha=1.0)
+    plt.scatter(dens, predict_y,    c= 'blue',  lw = 0,label='predict',alpha=1.0)
+    plt.scatter(dens, y,            c= 'yellow',  lw = 0,label='error',alpha=1.0)
+
+    legend = plt.legend(loc="best", shadow=False, scatterpoints=1, fontsize=30, markerscale=3)
+
+    plt.tick_params(labelsize=60)
     
+    plt.savefig('result_plot.png')
