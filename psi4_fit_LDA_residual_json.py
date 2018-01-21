@@ -149,11 +149,11 @@ def fit_with_LDA(density,energy):
     filename = "LDA_model.sav"
     text_filename = "LDA_model_result.txt"
 
-    #try: 
-    temp_res = pickle.load(open(filename, 'rb'))
-    x0 = temp_res.x
-    #except:
-    #    x0 = get_x0()
+    try: 
+        temp_res = pickle.load(open(filename, 'rb'))
+        x0 = temp_res.x
+    except:
+        x0 = get_x0()
 
     density = np.asarray(density)
     energy = np.asarray(energy)
