@@ -19,10 +19,10 @@ import math
 import json
 from glob import glob
 from sklearn import linear_model
-#from keras.models import Sequential
-#from keras.models import load_model
-#from keras.layers import Dense, Activation
-#import keras
+from keras.models import Sequential
+from keras.models import load_model
+from keras.layers import Dense, Activation
+import keras
 import scipy
 
 import itertools
@@ -149,11 +149,11 @@ def fit_with_LDA(density,energy):
     filename = "LDA_model.sav"
     text_filename = "LDA_model_result.txt"
 
-    try: 
-        temp_res = pickle.load(open(filename, 'rb'))
-        x0 = temp_res.x
-    except:
-        x0 = get_x0()
+    #try: 
+    temp_res = pickle.load(open(filename, 'rb'))
+    x0 = temp_res.x
+    #except:
+    #    x0 = get_x0()
 
     density = np.asarray(density)
     energy = np.asarray(energy)
