@@ -176,7 +176,7 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_option
     os.chdir(cwd + '/' + dir_name)
     
     if psi4_options == None:
-        psi4_options = {"BASIS": "aug-cc-pvtz",
+        psi4_options = {"BASIS": "aug-cc-pv5z",
                     "D_CONVERGENCE":1e-12,
                     "E_CONVERGENCE":1e-12,
                   'DFT_BLOCK_MAX_POINTS': 500000,

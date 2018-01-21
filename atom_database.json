@@ -1,0 +1,237 @@
+{
+	"H": {
+        "atoms": [
+            "H"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "He": {
+        "atoms": [
+            "He"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "Li": {
+        "atoms": [
+            "Li"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "Be": {
+        "atoms": [
+            "Be"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "B": {
+        "atoms": [
+            "B"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "C": {
+        "atoms": [
+            "C"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "N": {
+        "atoms": [
+            "N"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "O": {
+        "atoms": [
+            "O"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "F": {
+        "atoms": [
+            "F"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "Ne": {
+        "atoms": [
+            "Ne"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "Na": {
+        "atoms": [
+            "Na"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "Mg": {
+        "atoms": [
+            "Mg"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "Al": {
+        "atoms": [
+            "Al"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "Si": {
+        "atoms": [
+            "Si"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "P": {
+        "atoms": [
+            "P"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "S": {
+        "atoms": [
+            "S"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "Cl": {
+        "atoms": [
+            "Cl"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    },
+    "Ar": {
+        "atoms": [
+            "Ar"
+        ], 
+        "coordinates": [
+            [
+                0.0, 
+                0.0, 
+                0.0
+            ]
+        ], 
+        "symmetry": "c1"
+    }
+
+}
