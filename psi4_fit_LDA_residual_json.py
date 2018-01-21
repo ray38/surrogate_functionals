@@ -153,17 +153,17 @@ def fit_with_LDA(density,energy):
 
     try: 
         temp_res = pickle.load(open(filename, 'rb'))
-        x0 = temp_res.x
+        res = temp_res
     except:
         x0 = get_x0()
 
-    density = np.asarray(density)
-    energy = np.asarray(energy)
+        density = np.asarray(density)
+        energy = np.asarray(energy)
 
-    res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='nelder-mead',options={'xtol': 1e-12, 'disp': True, 'maxiter': 50000})
+        res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='nelder-mead',options={'xtol': 1e-13, 'disp': True, 'maxiter': 100000})
 
-    print res.x
-    pickle.dump(res, open(filename, 'wb'))
+        print res.x
+        pickle.dump(res, open(filename, 'wb'))
 
     log(text_filename, str(res.x))
     log(text_filename, '\nMSE: {}'.format(np.mean(np.square(lda_x(density,res.x) + lda_c(density,res.x) - energy))))
