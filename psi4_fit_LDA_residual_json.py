@@ -121,6 +121,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
     log(log_filename, "\n start: {} \t slowdown: {} \t early stop: {} \t target tolerence: {}".format(str(start_loss), slowdown_factor, early_stop_trials, tol))
     
     old_loss = start_loss
+    best_model = model
     keep_going = True
     
     count_epochs = 0
@@ -133,6 +134,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
         if new_loss < old_loss:
             model.save(filename)
             print 'model saved'
+            best_model = model
             log(log_filename, "\n updated best: "+ str(new_loss) + " \t epochs since last update: " + str(count_epochs))
             old_loss = new_loss
             count_epochs = 0
@@ -141,7 +143,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
         if count_epochs >=early_stop_trials:
             keep_going = False
     
-    return model
+    return best_model
 
 
 def fit_with_LDA(density,energy):
