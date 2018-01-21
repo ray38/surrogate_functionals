@@ -245,7 +245,7 @@ def predict_LDA_residual(n,LDA_x,X,NN_model):
 
 def save_resulting_figure(n,LDA_x,X,NN_model,y):
 
-    predict_y = predict(n,LDA_x,X,NN_model)
+    predict_y = predict_LDA_residual(n,LDA_x,X,NN_model)
 
     error = y - predict_y
 
