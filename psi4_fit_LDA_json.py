@@ -76,7 +76,7 @@ def fit_with_LDA(density,energy):
     density = np.asarray(density)
     energy = np.asarray(energy)
 
-    res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='nelder-mead',options={'fatol': 1, 'disp': True, 'maxiter': 500000})
+    res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='nelder-mead',options={'xatol': 1e-15, 'disp': True, 'maxiter': 10000})
 
     print res.x
     pickle.dump(res, open(filename, 'wb'))
