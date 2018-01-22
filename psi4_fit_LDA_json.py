@@ -88,7 +88,7 @@ def fit_with_LDA(density,energy):
 
         if np.mean(np.square(lda_x(density,res.x) + lda_c(density,res.x) - energy)) < 10:
             keep_going = False
-        if iter_count >= 1:
+        if iter_count >= 50:
             keep_going = False
 
 
