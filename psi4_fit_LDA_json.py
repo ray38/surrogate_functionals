@@ -76,7 +76,7 @@ def fit_with_LDA(density,energy):
     density = np.asarray(density)
     energy = np.asarray(energy)
 
-    res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='nelder-mead',options={'xtol': 1e-12, 'disp': True, 'maxiter': 50000})
+    res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='nelder-mead',options={'xtol': 1e-15, 'disp': True, 'maxiter': 500000})
 
     print res.x
     pickle.dump(res, open(filename, 'wb'))
@@ -97,7 +97,7 @@ def LDA_least_suqare_fit(x,density,energy):
 
 
 def get_x0():
-    x = [0.238732414637843, -0.45816529328314287, 1.9236610509315362, 2.5648814012420482, 0.58482236226346462, 0.031091, 0.21370, 7.5957, 3.5876, 1.6382, 0.49294]
+    x = [ 0.031091, 0.21370, 7.5957, 3.5876, 1.6382, 0.49294]
     return x
 
 def optimization_constants(x):
@@ -127,8 +127,10 @@ def G(rtrs, gamma, alpha1, beta1, beta2, beta3, beta4):
 
 def lda_x( n, x):
 #    C0I, C1, CC1, CC2, IF2 = lda_constants()
-    C0I, C1, CC1, CC2, IF2, gamma, alpha1, beta1, beta2, beta3, beta4 = optimization_constants(x)
+    gamma, alpha1, beta1, beta2, beta3, beta4 = optimization_constants(x)
 
+    C0I = 0.238732414637843
+    C1 = -0.45816529328314287
     rs = (C0I / n) ** (1 / 3.)
     ex = C1 / rs
     return n*ex
@@ -136,7 +138,10 @@ def lda_x( n, x):
 
 def lda_c( n, x):
     #C0I, C1, CC1, CC2, IF2 = lda_constants()
-    C0I, C1, CC1, CC2, IF2, gamma, alpha1, beta1, beta2, beta3, beta4 = optimization_constants(x)
+    gamma, alpha1, beta1, beta2, beta3, beta4 = optimization_constants(x)
+
+    C0I = 0.238732414637843
+    C1 = -0.45816529328314287
     rs = (C0I / n) ** (1 / 3.)
     ec = G(rs ** 0.5, gamma, alpha1, beta1, beta2, beta3, beta4)
     return n*ec
