@@ -76,10 +76,19 @@ def fit_with_LDA(density,energy):
     density = np.asarray(density)
     energy = np.asarray(energy)
 
-    res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='nelder-mead',options={'xatol': 0.000001, 'disp': True, 'maxiter': 10000})
+    keep_going = True
+    iter_count = 0
 
-    print res.x
-    pickle.dump(res, open(filename, 'wb'))
+    while keep_going:
+        res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='nelder-mead',options={'xatol': 0.000001, 'disp': True, 'maxiter': 10000})
+        print res.x
+        pickle.dump(res, open(filename, 'wb'))
+
+        if np.mean(np.square(lda_x(density,res.x) + lda_c(density,res.x) - energy)) < 10:
+            keep_going = False
+        if iter_count > 100:
+            keep_going = False
+
 
     log(text_filename, str(res.x))
     log(text_filename, '\nMSE: {}'.format(np.mean(np.square(lda_x(density,res.x) + lda_c(density,res.x) - energy))))
