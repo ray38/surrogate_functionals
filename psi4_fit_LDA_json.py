@@ -101,20 +101,21 @@ def get_x0():
     return x
 
 def optimization_constants(x):
-    C0I = x[0]
-    C1  = x[1]
-    CC1 = x[2]
-    CC2 = x[3]
-    IF2 = x[4]
+    #C0I = x[0]
+    #C1  = x[1]
+    #CC1 = x[2]
+    #CC2 = x[3]
+    #IF2 = x[4]
 
-    gamma = x[5]
-    alpha1 = x[6]
-    beta1 = x[7]
-    beta2 = x[8]
-    beta3 = x[9]
-    beta4 = x[10]
+    gamma = x[0]
+    alpha1 = x[1]
+    beta1 = x[2]
+    beta2 = x[3]
+    beta3 = x[4]
+    beta4 = x[5]
 
-    return C0I, C1, CC1, CC2, IF2, gamma, alpha1, beta1, beta2, beta3, beta4
+    #return C0I, C1, CC1, CC2, IF2, gamma, alpha1, beta1, beta2, beta3, beta4
+    return gamma, alpha1, beta1, beta2, beta3, beta4
 
 def G(rtrs, gamma, alpha1, beta1, beta2, beta3, beta4):
     Q0 = -2.0 * gamma * (1.0 + alpha1 * rtrs * rtrs)
