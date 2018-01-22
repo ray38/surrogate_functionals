@@ -108,7 +108,7 @@ def LDA_least_suqare_fit(x,density,energy):
 
 
 def get_x0():
-    x = [ 0.031091, 0.21370, 7.5957, 3.5876, 1.6382, 0.49294]
+    x = [ -0.45816529328314287, 0.031091, 0.21370, 7.5957, 3.5876, 1.6382, 0.49294]
     return x
 
 def optimization_constants(x):
@@ -118,15 +118,16 @@ def optimization_constants(x):
     #CC2 = x[3]
     #IF2 = x[4]
 
-    gamma = x[0]
-    alpha1 = x[1]
-    beta1 = x[2]
-    beta2 = x[3]
-    beta3 = x[4]
-    beta4 = x[5]
+    C1  = x[0]
+    gamma = x[1]
+    alpha1 = x[2]
+    beta1 = x[3]
+    beta2 = x[4]
+    beta3 = x[5]
+    beta4 = x[6]
 
     #return C0I, C1, CC1, CC2, IF2, gamma, alpha1, beta1, beta2, beta3, beta4
-    return gamma, alpha1, beta1, beta2, beta3, beta4
+    return C1, gamma, alpha1, beta1, beta2, beta3, beta4
 
 def G(rtrs, gamma, alpha1, beta1, beta2, beta3, beta4):
     Q0 = -2.0 * gamma * (1.0 + alpha1 * rtrs * rtrs)
@@ -139,10 +140,10 @@ def G(rtrs, gamma, alpha1, beta1, beta2, beta3, beta4):
 
 def lda_x( n, x):
 #    C0I, C1, CC1, CC2, IF2 = lda_constants()
-    gamma, alpha1, beta1, beta2, beta3, beta4 = optimization_constants(x)
+    C1, gamma, alpha1, beta1, beta2, beta3, beta4 = optimization_constants(x)
 
     C0I = 0.238732414637843
-    C1 = -0.45816529328314287
+    #C1 = -0.45816529328314287
     rs = (C0I / n) ** (1 / 3.)
     ex = C1 / rs
     return n*ex
@@ -150,10 +151,10 @@ def lda_x( n, x):
 
 def lda_c( n, x):
     #C0I, C1, CC1, CC2, IF2 = lda_constants()
-    gamma, alpha1, beta1, beta2, beta3, beta4 = optimization_constants(x)
+    C1, gamma, alpha1, beta1, beta2, beta3, beta4 = optimization_constants(x)
 
     C0I = 0.238732414637843
-    C1 = -0.45816529328314287
+    #C1 = -0.45816529328314287
     rs = (C0I / n) ** (1 / 3.)
     ec = G(rs ** 0.5, gamma, alpha1, beta1, beta2, beta3, beta4)
     return n*ec
