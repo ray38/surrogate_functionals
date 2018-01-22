@@ -83,6 +83,7 @@ def fit_with_LDA(density,energy):
         res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='nelder-mead',options={'xatol': 0.000001, 'disp': True, 'maxiter': 10000})
         print res.x
         pickle.dump(res, open(filename, 'wb'))
+        x0 = res.x
 
         if np.mean(np.square(lda_x(density,res.x) + lda_c(density,res.x) - energy)) < 10:
             keep_going = False
