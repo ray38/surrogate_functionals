@@ -171,11 +171,12 @@ def read_data_from_one_dir(directory):
     except:
         molecule_subsampled_data = []
 
-    try:
-        molecule_random_data = pickle.load(open(random_filename,'rb'))
-        print "read random data"
-    except:
-        molecule_random_data = []
+    #try:
+    #    molecule_random_data = pickle.load(open(random_filename,'rb'))
+    #    print "read random data"
+    #except:
+    #    molecule_random_data = []
+    molecule_random_data = []
 
     os.chdir(temp_cwd)
 
@@ -197,11 +198,8 @@ def get_training_data(dataset_name,setup):
     for directory in data_paths:
         temp_molecule_subsampled_data, temp_molecule_random_data = read_data_from_one_dir(directory)
         overall_subsampled_data += temp_molecule_subsampled_data
-#        overall_random_data += temp_molecule_random_data
-        overall_random_data += random_subsampling(temp_molecule_random_data, num_random_per_molecule)
+        #overall_random_data += random_subsampling(temp_molecule_random_data, num_random_per_molecule)
 
-
-#    overall_random_data = random_subsampling(overall_random_data, setup["random_pick"])
 
     list_subsample = setup["subsample_feature_list"]
     temp_list_subsample = setup["subsample_feature_list"]
@@ -215,7 +213,7 @@ def get_training_data(dataset_name,setup):
         overall_subsampled_data = subsampling_system_with_PCA(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
 
 
-    overall = overall_random_data + overall_subsampled_data
+    overall = overall_random_data #+ overall_subsampled_data
 
 
 
