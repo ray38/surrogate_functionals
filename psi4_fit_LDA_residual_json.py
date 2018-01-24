@@ -299,12 +299,12 @@ def read_data_from_one_dir(directory):
     except:
         molecule_subsampled_data = []
 
-    #try:
-    #    molecule_random_data = pickle.load(open(random_filename,'rb'))
-    #    print "read random data"
-    #except:
-    #    molecule_random_data = []
-    molecule_random_data = []
+    try:
+        molecule_random_data = pickle.load(open(random_filename,'rb'))
+        print "read random data"
+    except:
+        molecule_random_data = []
+    #molecule_random_data = []
 
     os.chdir(temp_cwd)
 
@@ -326,7 +326,7 @@ def get_training_data(dataset_name,setup):
     for directory in data_paths:
         temp_molecule_subsampled_data, temp_molecule_random_data = read_data_from_one_dir(directory)
         overall_subsampled_data += temp_molecule_subsampled_data
-        #overall_random_data += random_subsampling(temp_molecule_random_data, num_random_per_molecule)
+        overall_random_data += random_subsampling(temp_molecule_random_data, num_random_per_molecule)
 
 
 
@@ -336,14 +336,14 @@ def get_training_data(dataset_name,setup):
         for m in range(len(overall_subsampled_data[0])):
             temp_list_subsample.append(m)
 
-    if len(temp_list_subsample) <= 10:
-        overall_subsampled_data = subsampling_system(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
-    else:
-        overall_subsampled_data = subsampling_system_with_PCA(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
+    #if len(temp_list_subsample) <= 10:
+    #    overall_subsampled_data = subsampling_system(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
+    #else:
+    #    overall_subsampled_data = subsampling_system_with_PCA(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
 
 
-    #overall = overall_random_data + overall_subsampled_data
-    overall = overall_subsampled_data
+    overall = overall_random_data + overall_subsampled_data
+    #overall = overall_subsampled_data
 
 
 
