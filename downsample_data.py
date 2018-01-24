@@ -116,7 +116,7 @@ def process_normal_descriptors(molecule, functional,i,j,k):
 
     LDA_x = [-0.33080996,  0.02474374,  1.4517462,   0.3657363,  -2.31230322,  3.56469899, 0.3858979 ]
 
-    LDA_residual = predic(n,LDA_x) - ep_xc
+    LDA_residual = predict(n,LDA_x) - ep_xc
 
     result.append( np.around(x,2).flatten().tolist())
     result.append( np.around(y,2).flatten().tolist())
