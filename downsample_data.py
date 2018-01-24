@@ -81,7 +81,7 @@ def process(molecule, functional,i,j,k,h,N):
     return result
     
 
-def process_one_molecule(molecule, functional,h,L,N,r_list):
+def process_one_molecule(molecule, functional,h,L,N):
     cwd = os.getcwd()
     dir_name = "{}_{}_{}_{}_{}".format(molecule,functional,str(L).replace('.','-'),str(h).replace('.','-'),N)
     print dir_name
@@ -133,5 +133,5 @@ if __name__ == "__main__":
     functional = setup['functionals']
 
     #for functional in functionals:
-    process_one_molecule(molecule, functional,h,L,N,r_list)
+    process_one_molecule(molecule, functional,h,L,N)
 
