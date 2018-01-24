@@ -122,11 +122,12 @@ def predict_each_block(setup,dens,X,y):
 
     original_y = detransform_data(y, y_transform)
 
-    for num in dens:
-        if num < 1e-30:
-            log(setup["predict_full_log_name"],"\n corrected: {}".format(num))
 
     raw_predict_y = predict_LDA(dens,LDA_model.x)# + NN_model.predict(X)
+
+    for den, num in dens, raw_predict_y:
+        if np.isnan(num):
+            log(setup["predict_full_log_name"],"\n need corrected: {} \t {}".format(den,num))
     predict_y = detransform_data(raw_predict_y, y_transform)
 
     return original_y, predict_y
