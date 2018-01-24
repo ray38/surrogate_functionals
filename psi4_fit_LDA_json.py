@@ -225,6 +225,7 @@ def get_training_data(dataset_name,setup):
 
 
     overall = overall_random_data + overall_subsampled_data
+    print len(overall)
 
     #overall =  overall_subsampled_data
 
