@@ -126,15 +126,12 @@ if __name__ == "__main__":
 
     print setup
 
+    molecule = sys.argv[2]
+    h = float(setup['grid_spacing'])
+    L = float(setup['box_dimension'])
+    N = int(setup['number_segment_per_side'])
+    functional = setup['functionals']
 
-    
-    if choice == 'single':
-        molecule = sys.argv[2]
-        h = float(setup['grid_spacing'])
-        L = float(setup['box_dimension'])
-        N = int(setup['number_segment_per_side'])
-        functional = setup['functionals']
-
-        #for functional in functionals:
-        process_one_molecule(molecule, functional,h,L,N,r_list)
+    #for functional in functionals:
+    process_one_molecule(molecule, functional,h,L,N,r_list)
 
