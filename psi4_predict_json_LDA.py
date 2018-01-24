@@ -22,9 +22,7 @@ from numpy import mean, sqrt, square, arange
 try: import cPickle as pickle
 except: import pickle
 import time
-from keras.models import Sequential
-from keras.models import load_model
-from keras.layers import Dense, Activation
+
 import matplotlib.pyplot as plt
 import pprint
 from sklearn import linear_model
@@ -333,10 +331,9 @@ def initialize(setup):
     LDA_model_name = "LDA_model.sav"
     NN_model_name = "NN.h5"
 
-    start_loss = get_start_loss(fit_log_name)
-    predict_log_name = "predict_{}_log.log".format(start_loss)
-    predict_full_log_name = "predict_{}_full_log.log".format(start_loss)
-    predict_error_log_name = "predict_{}_error_log.log".format(start_loss)
+    predict_log_name = "predict_log.log"
+    predict_full_log_name = "predict_full_log.log"
+    predict_error_log_name = "predict_error_log.log"
     #NN_model = load_model(NN_model_name)
     LDA_model = pickle.load(open(LDA_model_name, 'rb'))
 
