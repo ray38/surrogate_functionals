@@ -80,7 +80,7 @@ def fit_with_LDA(density,energy):
     iter_count = 0
 
     #while keep_going:
-    res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='Nelder-Mead',options={'xatol': 1e-10, 'disp': True, 'maxiter': 100000})
+    res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='Nelder-Mead',options={'xatol': 1e-12, 'disp': True, 'maxiter': 100000})
     print res.x
     pickle.dump(res, open(filename, 'wb'))
         #x0 = res.x
