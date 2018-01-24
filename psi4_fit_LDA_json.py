@@ -104,6 +104,7 @@ def LDA_least_suqare_fit(x,density,energy):
     #    result += (lda_x(n,x) + lda_c(n,x) - e)**2
 
     result = np.mean(np.square(lda_x(density,x) + lda_c(density,x) - energy))
+    log('fit_log.log', "\n{} \t{}".format(x,result))
     return result
 
 
