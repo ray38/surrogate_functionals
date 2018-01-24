@@ -125,9 +125,10 @@ def predict_each_block(setup,dens,X,y):
 
     raw_predict_y = predict_LDA(dens,LDA_model.x)# + NN_model.predict(X)
 
-    for den, num in dens, raw_predict_y:
+    for index, num in enumerate(raw_predict_y):
         if np.isnan(num):
-            log(setup["predict_full_log_name"],"\n need corrected: {} \t {}".format(den,num))
+            log(setup["predict_full_log_name"],"\n need corrected: {} \t {}".format(dens[index],num))
+            raw_predict_y[index] = 0.0
     predict_y = detransform_data(raw_predict_y, y_transform)
 
     return original_y, predict_y
