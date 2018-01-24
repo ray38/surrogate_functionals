@@ -9,7 +9,7 @@
 		"activation": "relu"
 	},
 
-	"random_pick": 100000,
+	"random_pick": 500000,
 	"subsample_cutoff_sig": 0.005,
 	"subsample_rate": 0.2,
 	"subsample_feature_list": []
