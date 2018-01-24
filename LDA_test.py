@@ -40,12 +40,16 @@ def optimization_constants(x):
     return C1, gamma, alpha1, beta1, beta2, beta3, beta4
 
 def G(rtrs, gamma, alpha1, beta1, beta2, beta3, beta4):
+    print rtrs
     Q0 = -2.0 * gamma * (1.0 + alpha1 * rtrs * rtrs)
     Q1 = 2.0 * gamma * rtrs * (beta1 +
                            rtrs * (beta2 +
                                    rtrs * (beta3 +
                                            rtrs * beta4)))
+    print Q1
+    print Q0
     G1 = Q0 * np.log(1.0 + 1.0 / Q1)
+    print 1.0 + 1.0 / Q1
     return G1
 
 def lda_x( n, x):
@@ -67,11 +71,12 @@ def lda_c( n, x):
 
 def predict(n,x):
 
-    n = np.asarray(n)
+    n = 3.39*np.asarray(n)
 
     return lda_x(n,x) + lda_c(n,x)
 
 
 x0 = get_x0()
-n=[0.,1e-20,1e-19,1e-18,1e-17,1e-16,1e-15, 1e-14, 1e-12, 1e-11, 1e-10, 1e-9, 1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1, 1e1, 1e2,1e3,1e4,1e5]
+n=[1e-20,1e-19,1e-18,1e-17,1e-16,1e-15, 1e-14, 1e-12, 1e-11, 1e-10, 1e-9, 1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1, 1e1, 1e2,1e3,1e4,1e5]
+#n = [1e-7]
 print predict(n,x0)
