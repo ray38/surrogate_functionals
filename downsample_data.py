@@ -130,6 +130,7 @@ def process_normal_descriptors(molecule, functional,i,j,k):
         
     return result
 
+    return np.around(x,2).flatten().tolist(), np.around(y,2).flatten().tolist(), np.around(z,2).flatten().tolist(), np.around(n,2).flatten().tolist(), np.around(gamma,2).flatten().tolist(), np.around(ep_xc,2).flatten().tolist(), np.around(LDA_residual,2).flatten().tolist()
 
 
 
@@ -162,10 +163,33 @@ def process_one_molecule(molecule, functional,h,L,N):
 
 
     overall_list = []
+    x = []
+    y = []
+    z = []
+    n = []
+    gamma = []
+    epxc = []
+    LDA_residual = []
     for i,j,k in paramlist:
-        overall_list += process(molecule, functional,i,j,k,h,N)
-        
-    with open("downsampled_data.csv", "wb") as f:
+        temp_x, temp_y, temp_z,  temp_n,  temp_gamma,  temp_epxc,  temp_LDAresidual = process(molecule, functional,i,j,k,h,N)
+        x += temp_x
+        y += temp_y
+        z += temp_z
+        n += temp_n
+        gamma += temp_gamma
+        epxc += temp_epxc
+        LDA_residual += temp_LDAresidual
+
+    overall_list.append(x)
+    overall_list.append(y)
+    overall_list.append(z)
+    overall_list.append(n)
+    overall_list.append(gamma)
+    overall_list.append(epxc)
+    overall_list.append(LDA_residual)
+    
+    overall_list = np.stack(overall_list,axis=1).tolist()
+    with open("{}_{}_downsampled_data.csv".format(molecule,functional), "wb") as f:
         writer = csv.writer(f)
 #            writer.writerow(['x','y','z','rho','gamma','tau','Vxc','epxc','ad_0-01','ad_0-02','ad_0-03','ad_0-04','ad_0-05','ad_0-06','ad_0-08','ad_0-1','ad_0-15','ad_0-2','ad_0-3','ad_0-4','ad_0-5','deriv_1','deriv_2'])
         writer.writerow(['x','y','z','rho','gamma','epxc','LDA_residual'])
