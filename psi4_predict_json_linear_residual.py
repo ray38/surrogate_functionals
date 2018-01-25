@@ -69,10 +69,11 @@ def predict_each_block(setup,dens,X,y):
 
     original_y = detransform_data(y, y_transform)
 
-    #raw_predict_y = linear_model.predict(dens) + NN_model.predict(X)
+    raw_predict_y = linear_model.predict(dens) #+ NN_model.predict(X)
     #predict_y = detransform_data(raw_predict_y, y_transform)
+    predict_y = raw_predict_y
 
-    return original_y, np.zeors_like(original_y)#, predict_y
+    return original_y, predict_y
 
 
 def detransform_data(temp_data, transform):
@@ -338,12 +339,12 @@ if __name__ == "__main__":
 
     error_list = []
     for molecule in setup["molecule_list"]:
-        try:
-            temp_error,temp_y_predict,temp_y = process_one_molecule(molecule, setup)
-            error_list.append(temp_error)
-        except:
-            log(setup["predict_log_name"],"\n\n Failed")
-            log(setup["predict_full_log_name"],"\n\n Failed") 
+        #try:
+        temp_error,temp_y_predict,temp_y = process_one_molecule(molecule, setup)
+        error_list.append(temp_error)
+        #except:
+        #    log(setup["predict_log_name"],"\n\n Failed")
+        #    log(setup["predict_full_log_name"],"\n\n Failed") 
     
 
     log(setup["predict_log_name"],"\n\naverage error: " + str(np.mean(error_list)) + "\tstddev error: " + str(np.std(error_list))) 
