@@ -69,10 +69,10 @@ def predict_each_block(setup,dens,X,y):
 
     original_y = detransform_data(y, y_transform)
 
-    raw_predict_y = linear_model.predict(dens) + NN_model.predict(X)
-    predict_y = detransform_data(raw_predict_y, y_transform)
+    #raw_predict_y = linear_model.predict(dens) + NN_model.predict(X)
+    #predict_y = detransform_data(raw_predict_y, y_transform)
 
-    return original_y, predict_y
+    return original_y, np.zeors_like(original_y)#, predict_y
 
 
 def detransform_data(temp_data, transform):
