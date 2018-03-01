@@ -203,11 +203,11 @@ print '{:10}\t{}\t{}'.format('name', 'form. E. 1', 'form. E. 2')
 print '--------- 1: predicted xc energy  2: psi4 xc energy projected on fd-grid\n'
 for key in formation_energies_original_en.keys():
     #print '{:10}\t{:8.5f}\t{:8.5f}'.format(key,formation_energies_original_en[key],formation_energies_predict_en[key])
-    print '{}\t{}\t{}'.format(key,formation_energies_original_en[key][0],formation_energies_predict_en[key][0])
+    print '{}\t{}\t{}\t{}\t{}'.format(key,compound_original_en_dict[key][0],compound_predict_en_dict[key][0],formation_energies_original_en[key][0],formation_energies_predict_en[key][0])
 
 
 with open("formation_energies.csv", "wb") as f:
     writer = csv.writer(f)
     for key in formation_energies_original_en.keys():
-        temp = [key,formation_energies_original_en[key][0],formation_energies_predict_en[key][0]]
+        temp = [key,compound_original_en_dict[key][0],compound_predict_en_dict[key][0],formation_energies_original_en[key][0],formation_energies_predict_en[key][0]]
         writer.writerow(temp)
