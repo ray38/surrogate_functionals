@@ -12,6 +12,7 @@ import mpl_toolkits.mplot3d.axes3d as p3
 import matplotlib.pyplot as plt
 
 import numpy as np
+import csv
 import sys
 import os
 import time
@@ -257,6 +258,8 @@ def save_resulting_figure(n,LDA_x,X,NN_model,y):
 
     predict_y = predict_LDA_residual(n,LDA_x,X,NN_model)
 
+    LDA_predict_y = predict_LDA(n,LDA_x)
+
     error = y - predict_y
 
     fig=plt.figure(figsize=(40,40))
@@ -280,6 +283,19 @@ def save_resulting_figure(n,LDA_x,X,NN_model,y):
     plt.tick_params(labelsize=60)
     
     plt.savefig('error_plot.png')
+
+    csv_result = []
+    csv_result.append(dens.tolist())
+    csv_result.append(y.tolist())
+    csv_result.append(LDA_predict_y.tolist())
+    csv_result.append(predict_y.tolist())
+    csv_result.append(error.tolist())
+
+    result = np.stack(csv_result,axis=1).tolist()
+        with open(result_csv_filename, "wb") as f:
+            writer = csv.writer(f)
+            writer.writerow(['density','y','LDA_predict_y','predict_y','error'])
+            writer.writerows(result)
 
     return
 
