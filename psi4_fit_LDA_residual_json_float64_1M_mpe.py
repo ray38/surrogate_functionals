@@ -23,6 +23,7 @@ from sklearn import linear_model
 from keras.models import Sequential
 from keras.models import load_model
 from keras.layers import Dense, Activation
+from keras import backend as K
 import keras
 import scipy
 
@@ -66,7 +67,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
 
 
     filename = "NN.h5"
-    log_filename = "NN_fit_log.log"
+    log_filename = "NN_fit_log_mean_percentage_error.log"
 
     n_layers = setup["NN_setup"]["number_layers"]
     n_per_layer = setup["NN_setup"]["number_neuron_per_layer"]
@@ -96,7 +97,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
     print 'model set'
     default_lr = 0.001
     adam = keras.optimizers.Adam(lr=default_lr / slowdown_factor)
-    model.compile(loss='mse',#custom_loss,
+    model.compile(loss='mean_absolute_percentage_error',#loss='mse',#loss='mean_absolute_percentage_error',#custom_loss,
               optimizer=adam)
               #metrics=['mae'])
     print model.summary()
@@ -252,7 +253,7 @@ def predict_LDA_residual(n,LDA_x,X,NN_model):
 
     n = np.asarray(n)
 
-    return lda_x(n,LDA_x) + lda_c(n,LDA_x) + NN_model.predict(X)
+    return lda_x(n,LDA_x) + lda_c(n,LDA_x) + ((NN_model.predict(X*1e6))/1e6)
 
 def save_resulting_figure(n,LDA_x,X,NN_model,y):
 
@@ -477,6 +478,8 @@ if __name__ == "__main__":
     with open(setup_filename) as f:
         setup = json.load(f)
 
+    K.set_floatx('float64')
+    K.floatx()
 
     h = float(setup['grid_spacing'])
     L = float(setup['box_dimension'])
@@ -487,7 +490,7 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "NN_LDA_residual_{}_{}_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
+    model_save_dir = working_dir + "/" + "NN_LDA_residual_1M_{}_{}_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
    
     setup["model_save_dir"] = model_save_dir
 
@@ -504,7 +507,7 @@ if __name__ == "__main__":
 
     residual, result = fit_with_LDA(dens,y)
     setup['LDA_model'] = result
-    NN_model = fit_with_KerasNN(X_train,residual, tol, slowdown_factor, early_stop_trials)
+    NN_model = fit_with_KerasNN(X_train * 1e6, residual * 1e6, tol, slowdown_factor, early_stop_trials)
     save_resulting_figure(dens,result.x,X_train,NN_model,y)
 
 

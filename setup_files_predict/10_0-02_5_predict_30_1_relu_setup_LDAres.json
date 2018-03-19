@@ -1,0 +1,16 @@
+{
+	"database_directory": "/nv/hp13/xlei38/medford-shared/users/xlei38/psi4_molecule_sec_database",
+	"grid_spacing": 0.02,
+	"box_dimension": 10.0,
+	"number_segment_per_side": 5,
+	"fit_type": "LDA_residual",
+	"NN_setup": {
+		"number_layers": 1,
+		"number_neuron_per_layer": 30,
+		"activation": "relu"
+	},
+
+	"molecule_list": ["C2H2","C2H4","C2H6","CH3OH","CH4","CO","CO2","H2","H2O","HCN","HNC","N2","N2O","NH3","O3"]
+
+
+}

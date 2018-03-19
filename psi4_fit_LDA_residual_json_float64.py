@@ -23,6 +23,7 @@ from sklearn import linear_model
 from keras.models import Sequential
 from keras.models import load_model
 from keras.layers import Dense, Activation
+from keras import backend as K
 import keras
 import scipy
 
@@ -96,7 +97,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
     print 'model set'
     default_lr = 0.001
     adam = keras.optimizers.Adam(lr=default_lr / slowdown_factor)
-    model.compile(loss='mse',#custom_loss,
+    model.compile(loss='mse',#loss='mean_absolute_percentage_error',#custom_loss,
               optimizer=adam)
               #metrics=['mae'])
     print model.summary()
@@ -477,6 +478,8 @@ if __name__ == "__main__":
     with open(setup_filename) as f:
         setup = json.load(f)
 
+    K.set_floatx('float64')
+    K.floatx()
 
     h = float(setup['grid_spacing'])
     L = float(setup['box_dimension'])

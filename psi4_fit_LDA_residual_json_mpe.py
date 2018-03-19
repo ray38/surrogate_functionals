@@ -66,7 +66,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
 
 
     filename = "NN.h5"
-    log_filename = "NN_fit_log.log"
+    log_filename = "NN_fit_log_mean_percentage_error.log"
 
     n_layers = setup["NN_setup"]["number_layers"]
     n_per_layer = setup["NN_setup"]["number_neuron_per_layer"]
@@ -96,7 +96,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
     print 'model set'
     default_lr = 0.001
     adam = keras.optimizers.Adam(lr=default_lr / slowdown_factor)
-    model.compile(loss='mse',#custom_loss,
+    model.compile(loss='mean_absolute_percentage_error',#loss='mse',#custom_loss,
               optimizer=adam)
               #metrics=['mae'])
     print model.summary()
