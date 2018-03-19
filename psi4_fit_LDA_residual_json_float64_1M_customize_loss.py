@@ -80,7 +80,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
 
 
     try:
-        model = load_model(filename)
+        model = load_model(filename, custom_objects={'customLoss': customLoss})
         restart = True
         print 'model loaded: ' + filename
     except:
@@ -134,6 +134,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
     log(log_filename, "\n updated best: "+ str(start_loss) + " \t epochs since last update: " + str(count_epochs))
     while keep_going:
         count_epochs += 1
+        print count_epochs
         history_callback = model.fit(X, y, nb_epoch=num_epoch, batch_size=50000, shuffle=True)
         loss_history = history_callback.history["loss"]
         new_loss = np.array(loss_history)[-1]
