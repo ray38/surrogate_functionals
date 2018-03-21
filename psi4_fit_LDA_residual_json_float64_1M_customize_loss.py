@@ -71,7 +71,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
 
 
     filename = "NN.h5"
-    log_filename = "NN_fit_log_mean_percentage_error.log"
+    log_filename = "NN_fit_log.log"
 
     n_layers = setup["NN_setup"]["number_layers"]
     n_per_layer = setup["NN_setup"]["number_neuron_per_layer"]
@@ -142,7 +142,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
             model.save(filename)
             print 'model saved'
             best_model = model
-            log(log_filename, "\n updated best: "+ str(new_loss) + " \t epochs since last update: " + str(count_epochs))
+            log(log_filename, "\n updated best: "+ str(new_loss) + " \t epochs since last update: " + str(count_epochs) + " \t loss: sae")
             old_loss = new_loss
             count_epochs = 0
         if new_loss < tol:
