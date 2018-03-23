@@ -1,0 +1,39 @@
+{
+	
+	"grid_spacing": 0.02,
+	"box_dimension": 10.0,
+	"number_segment_per_side": 5,
+	"NN_setup": {
+		"number_layers": 1,
+		"number_neuron_per_layer": 100,
+		"activation": "relu"
+	},
+
+	"fit_setup": [
+		{
+			"loss": "mse",
+			"tol": 1e-10,
+			"slowdown": 1.0, 
+			"early_stop": 2
+		},
+		{
+			"loss": "mean_absolute_percentage_error",
+			"tol": 1e-10,
+			"slowdown": 1.0, 
+			"early_stop": 1
+		},
+		{
+			"loss": "sae",
+			"tol": 1e-10,
+			"slowdown": 1.0, 
+			"early_stop": 1
+		}
+
+	],
+
+	"random_pick": 3000000,
+	"subsample_cutoff_sig": 0.005,
+	"subsample_rate": 0.2,
+	"subsample_feature_list": []
+
+}
