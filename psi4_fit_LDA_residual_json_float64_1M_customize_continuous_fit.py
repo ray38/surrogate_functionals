@@ -162,6 +162,8 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
         if count_epochs >=early_stop_trials:
             keep_going = False
     
+
+    best_model.save("NN_{}_{}_backup.h5".format(loss,best_loss))
     return best_model, best_loss
 
 
@@ -492,6 +494,7 @@ if __name__ == "__main__":
 
     setup_filename = sys.argv[1]
     dataset_name = sys.argv[2]
+    fit_setup_filename = sys.argv[3]
     #loss = sys.argv[3]
     #slowdown_factor = float(sys.argv[4])
     #tol = float(sys.argv[5])
@@ -502,6 +505,9 @@ if __name__ == "__main__":
 
     with open(setup_filename) as f:
         setup = json.load(f)
+
+    with open(fit_setup_filename) as f:
+        fit_setup = json.load(f)
 
     K.set_floatx('float64')
     K.floatx()
@@ -534,7 +540,7 @@ if __name__ == "__main__":
     setup['LDA_model'] = result
 
 
-    for fit_setup in setup['fit_setup']:
+    for fit_setup in fit_setup['fit_setup']:
         loss = fit_setup['loss']
         slowdown_factor = fit_setup['slowdown']
         early_stop_trials = fit_setup['early_stop']
