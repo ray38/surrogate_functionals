@@ -17,6 +17,12 @@
 			"early_stop": 2
 		},
 		{
+			"loss": "mse",
+			"tol": 1e-10,
+			"slowdown": 100.0, 
+			"early_stop": 1
+		},
+		{
 			"loss": "mean_absolute_percentage_error",
 			"tol": 1e-10,
 			"slowdown": 1.0, 
