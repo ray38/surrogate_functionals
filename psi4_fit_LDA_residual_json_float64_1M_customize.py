@@ -125,7 +125,7 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
         num_epoch = int(math.floor(30./est_epoch_time))
     if restart == True:
         try:
-            start_loss = get_start_loss(log_filename)
+            start_loss = get_start_loss(log_filename,loss)
         except:
             loss_history = history_callback.history["loss"]
             start_loss = np.array(loss_history)[0]
@@ -133,14 +133,14 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
         loss_history = history_callback.history["loss"]
         start_loss = np.array(loss_history)[0]
     
-    log(log_filename, "\n start: {} \t slowdown: {} \t early stop: {} \t target tolerence: {}".format(str(start_loss), slowdown_factor, early_stop_trials, tol))
+    log(log_filename, "\n loss: {} \t start: {} \t slowdown: {} \t early stop: {} \t target tolerence: {}".format(loss, str(start_loss), slowdown_factor, early_stop_trials, tol))
     
     best_loss = start_loss
     best_model = model
     keep_going = True
     
     count_epochs = 0
-    log(log_filename, "\n updated best: "+ str(start_loss) + " \t epochs since last update: " + str(count_epochs))
+    log(log_filename, "\n updated best: "+ str(start_loss) + " \t epochs since last update: " + str(count_epochs) + " \t loss: " + loss)
     while keep_going:
         count_epochs += 1
         print count_epochs
@@ -153,7 +153,7 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
             best_model = model
             if loss == "sae":
                 log(log_filename, "\n updated best: "+ str(new_loss) + " \t epochs since last update: " + str(count_epochs) + " \t loss: " + loss + " \t projected error: " + str(((new_loss/1e6)*0.02*0.02*0.02*27.2114)*125/3)  )
-            else
+            else:
                 log(log_filename, "\n updated best: "+ str(new_loss) + " \t epochs since last update: " + str(count_epochs) + " \t loss: " + loss)
             best_loss = new_loss
             count_epochs = 0
@@ -162,6 +162,8 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
         if count_epochs >=early_stop_trials:
             keep_going = False
     
+
+    best_model.save("NN_{}_{}_backup.h5".format(loss,best_loss))
     return best_model, best_loss
 
 
