@@ -84,7 +84,7 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
 
 
     try:
-        model = load_model(filename, custom_objects={'customLoss': sae})
+        model = load_model(filename, custom_objects={'sae': sae})
         restart = True
         print 'model loaded: ' + filename
     except:

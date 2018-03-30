@@ -1,0 +1,43 @@
+{
+	
+	"fit_setup": [
+		{
+			"loss": "mean_absolute_percentage_error",
+			"tol": 1e-10,
+			"slowdown": 100.0, 
+			"early_stop": 200
+		},
+		{
+			"loss": "sae",
+			"tol": 1e-10,
+			"slowdown": 100.0, 
+			"early_stop": 200
+		},
+		{
+			"loss": "mean_absolute_percentage_error",
+			"tol": 1e-10,
+			"slowdown": 1000.0, 
+			"early_stop": 500
+		},
+		{
+			"loss": "sae",
+			"tol": 1e-10,
+			"slowdown": 1000.0, 
+			"early_stop": 500
+		},
+		{
+			"loss": "mean_absolute_percentage_error",
+			"tol": 1e-10,
+			"slowdown": 10000.0, 
+			"early_stop": 1000
+		},
+		{
+			"loss": "sae",
+			"tol": 1e-10,
+			"slowdown": 10000.0, 
+			"early_stop": 1000
+		}
+
+	]
+
+}
