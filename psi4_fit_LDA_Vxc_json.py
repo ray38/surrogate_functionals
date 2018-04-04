@@ -91,7 +91,7 @@ def fit_with_LDA(density,energy):
         #if iter_count >= 50:
         #    keep_going = False
 
-
+    res = temp_res
     log(text_filename, str(res.x))
     log(text_filename, '\nMSE: {}'.format(np.mean(np.square(lda_x(density,res.x) + lda_c(density,res.x) - energy))))
     log(text_filename, '\nMAE: {}'.format(np.mean(np.abs(lda_x(density,res.x) + lda_c(density,res.x) - energy))))
