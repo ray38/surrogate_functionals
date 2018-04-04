@@ -80,9 +80,9 @@ def fit_with_LDA(density,energy):
     iter_count = 0
 
     #while keep_going:
-   # res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='Nelder-Mead',options={'xatol': 1e-12, 'disp': True, 'maxiter': 100000})
-    #print res.x
-    #pickle.dump(res, open(filename, 'wb'))
+    res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='Nelder-Mead',options={'xatol': 1e-12, 'disp': True, 'maxiter': 100000})
+    print res.x
+    pickle.dump(res, open(filename, 'wb'))
         #x0 = res.x
         #iter_count += 1
 
@@ -91,7 +91,7 @@ def fit_with_LDA(density,energy):
         #if iter_count >= 50:
         #    keep_going = False
 
-    res = temp_res
+    #res = temp_res
     log(text_filename, str(res.x))
     log(text_filename, '\nMSE: {}'.format(np.mean(np.square(lda_x(density,res.x) + lda_c(density,res.x) - energy))))
     log(text_filename, '\nMAE: {}'.format(np.mean(np.abs(lda_x(density,res.x) + lda_c(density,res.x) - energy))))
