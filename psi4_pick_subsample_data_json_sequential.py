@@ -187,6 +187,22 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
                 temp_data = np.asarray(data[group_name][dataset_name])
                 result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
 
+        group_name = 'asym_integral'
+        try:
+            temp_list = setup["asymsum_desc_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'asym_integral_x_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data1 = np.asarray(data[group_name][dataset_name])
+
+                    dataset_name = 'asym_integral_y_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data2 = np.asarray(data[group_name][dataset_name])
+
+                    dataset_name = 'asym_integral_z_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data3 = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data1 + temp_data2 + temp_data3 , setup['asymsum_desc_transform']))
+        except:
+            pass
         
         result = zip(*result_list)
         print "done picking: {} {} {}".format(i,j,k)
