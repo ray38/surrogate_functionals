@@ -34,6 +34,9 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 import csv
 
+def sae(y_true, y_pred):
+    return K.sum(K.abs(y_pred - y_true))
+
 def map_to_0_1(arr, maxx, minn):
     return np.divide(np.subtract(arr,minn),(maxx-minn))
     
@@ -420,7 +423,10 @@ def initialize(setup):
     predict_log_name = "predict_{}_viz_log.log".format(start_loss)
     predict_full_log_name = "predict_{}_viz_full_log.log".format(start_loss)
     predict_error_log_name = "predict_{}_viz_error_log.log".format(start_loss)
-    NN_model = load_model(NN_model_name)
+    try:
+        NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
+    except:
+        NN_model = load_model(NN_model_name)
     LDA_model = pickle.load(open(LDA_model_name, 'rb'))
 
     setup["NN_model"] = NN_model
