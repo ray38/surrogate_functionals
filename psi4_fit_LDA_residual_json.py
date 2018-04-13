@@ -43,6 +43,10 @@ def log(log_filename, text):
     return
 
 
+def write(log_filename, text):
+    with open(log_filename, "w") as myfile:
+        myfile.write(text)
+    return
 
 def map_to_0_1(arr, maxx, minn):
     return np.divide(np.subtract(arr,minn),(maxx-minn))
@@ -67,6 +71,8 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
 
     filename = "NN.h5"
     log_filename = "NN_fit_log.log"
+    temp_check_filename = "NN_fit_checkpoint.log"
+    num_samples = len(y)
 
     n_layers = setup["NN_setup"]["number_layers"]
     n_per_layer = setup["NN_setup"]["number_neuron_per_layer"]
@@ -103,7 +109,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
     print model.get_config()
     
     est_start = time.time()
-    history_callback = model.fit(X, y, nb_epoch=1, batch_size=50000)
+    history_callback = model.fit(X, y, nb_epoch=1, batch_size=50000, shuffle=True)
     est_epoch_time = time.time()-est_start
     if est_epoch_time >= 30.:
         num_epoch = 1
@@ -132,6 +138,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
         history_callback = model.fit(X, y, nb_epoch=num_epoch, batch_size=50000, shuffle=True)
         loss_history = history_callback.history["loss"]
         new_loss = np.array(loss_history)[-1]
+        write(temp_check_filename, "\n updated best: "+ str(new_loss) + " \t epochs since last update: " + str(count_epochs) + " \t loss: " + loss + "\t num_samples: " + str(num_samples))
         if new_loss < old_loss:
             model.save(filename)
             print 'model saved'

@@ -103,7 +103,7 @@ def fit_with_KerasNN(X, y, tol, slowdown_factor, early_stop_trials):
     print model.get_config()
     
     est_start = time.time()
-    history_callback = model.fit(X, y, nb_epoch=1, batch_size=50000)
+    history_callback = model.fit(X, y, nb_epoch=1, batch_size=50000, shuffle=True)
     est_epoch_time = time.time()-est_start
     if est_epoch_time >= 30.:
         num_epoch = 1
