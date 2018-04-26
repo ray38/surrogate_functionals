@@ -447,7 +447,7 @@ if __name__ == "__main__":
         slowdown_factor = fit_setup['slowdown']
         early_stop_trials = fit_setup['early_stop']
         tol = fit_setup['tol']
-        fit_model(dens, X_train, y, loss, tol, slowdown_factor, early_stop_trials*5)
+        fit_model(dens, X_train, y, loss, tol, slowdown_factor, early_stop_trials*10)
 
 
 
