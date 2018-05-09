@@ -550,7 +550,7 @@ if __name__ == "__main__":
 
     setup["sub_database"] = database_name + '/' + sub_database_name
 
-    initialize(setup)
+    initialize(setup,NN_model_filename)
 
 
     data = {}
