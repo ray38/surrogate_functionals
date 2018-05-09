@@ -387,7 +387,7 @@ def initialize(setup,NN_model_filename):
     NN_model_name = NN_model_filename
     #NN_model_name = "NN.h5"
 
-    if NN_model_name == "NN.h5"
+    if NN_model_name == "NN.h5":
 
         loss_value,loss = get_start_loss(fit_log_name)
         predict_log_name = "predict_{}_{}_log.log".format(loss,loss_value)
