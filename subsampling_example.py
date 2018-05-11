@@ -2,6 +2,7 @@ from subsampling import subsampling_system_with_PCA, random_subsampling, subsamp
 import random
 import sklearn
 import seaborn as sns
+import numpy as np
 
 mean = [0, 0]
 cov = [[1, 0], [0, 100]]
