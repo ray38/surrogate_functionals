@@ -112,6 +112,23 @@ def process_normal_descriptors(molecule, functional,i,j,k):
     ep_xc =  np.asarray(raw_data['epsilon_xc'])[::5,::5,::5]
     gamma =  np.asarray(raw_data['gamma'])[::5,::5,::5]
     tau =  np.asarray(raw_data['tau'])[::5,::5,::5]
+    deriv_1 =  np.asarray(raw_data['derivative']['derivative_1'])[::5,::5,::5]
+    deriv_2 =  np.asarray(raw_data['derivative']['derivative_2'])[::5,::5,::5]
+    deriv_3 =  np.asarray(raw_data['derivative']['derivative_3'])[::5,::5,::5]
+    ave_dens_004 =  np.asarray(raw_data['average_density']['average_density_0-04'])[::5,::5,::5]
+    ave_dens_006 =  np.asarray(raw_data['average_density']['average_density_0-06'])[::5,::5,::5]
+    ave_dens_008 =  np.asarray(raw_data['average_density']['average_density_0-08'])[::5,::5,::5]
+    ave_dens_010 =  np.asarray(raw_data['average_density']['average_density_0-10'])[::5,::5,::5]
+    ave_dens_012 =  np.asarray(raw_data['average_density']['average_density_0-12'])[::5,::5,::5]
+    ave_dens_014 =  np.asarray(raw_data['average_density']['average_density_0-14'])[::5,::5,::5]
+    ave_dens_016 =  np.asarray(raw_data['average_density']['average_density_0-16'])[::5,::5,::5]
+    ave_dens_018 =  np.asarray(raw_data['average_density']['average_density_0-18'])[::5,::5,::5]
+    ave_dens_020 =  np.asarray(raw_data['average_density']['average_density_0-20'])[::5,::5,::5]
+    ave_dens_022 =  np.asarray(raw_data['average_density']['average_density_0-22'])[::5,::5,::5]
+    ave_dens_024 =  np.asarray(raw_data['average_density']['average_density_0-24'])[::5,::5,::5]
+    ave_dens_026 =  np.asarray(raw_data['average_density']['average_density_0-26'])[::5,::5,::5]
+    ave_dens_028 =  np.asarray(raw_data['average_density']['average_density_0-28'])[::5,::5,::5]
+    ave_dens_030 =  np.asarray(raw_data['average_density']['average_density_0-30'])[::5,::5,::5]
     raw_data.close()
 
     LDA_x = [-0.33080996,  0.02474374,  1.4517462,   0.3657363,  -2.31230322,  3.56469899, 0.3858979 ]
@@ -122,15 +139,32 @@ def process_normal_descriptors(molecule, functional,i,j,k):
     result.append( np.around(y,2).flatten().tolist())
     result.append( np.around(z,2).flatten().tolist())
     result.append( np.around(n,9).flatten().tolist())
-    result.append(np.around(gamma,9).flatten().tolist())
-#    result.append(tau.flatten().tolist())
-#    result.append(V_xc.flatten().tolist())
+    result.append(np.around(V_xc,9).flatten().tolist())
     result.append(np.around(ep_xc,9).flatten().tolist())
+    result.append(np.around(gamma,9).flatten().tolist())
+    result.append(np.around(tau,9).flatten().tolist())
     result.append(np.around(LDA_residual,9).flatten().tolist())
+    result.append(np.around(deriv_1,9).flatten().tolist())
+    result.append(np.around(deriv_2,9).flatten().tolist())
+    result.append(np.around(deriv_3,9).flatten().tolist())
+    result.append(np.around(ave_dens_004,9).flatten().tolist())
+    result.append(np.around(ave_dens_006,9).flatten().tolist())
+    result.append(np.around(ave_dens_008,9).flatten().tolist())
+    result.append(np.around(ave_dens_010,9).flatten().tolist())
+    result.append(np.around(ave_dens_012,9).flatten().tolist())
+    result.append(np.around(ave_dens_014,9).flatten().tolist())
+    result.append(np.around(ave_dens_016,9).flatten().tolist())
+    result.append(np.around(ave_dens_018,9).flatten().tolist())
+    result.append(np.around(ave_dens_020,9).flatten().tolist())
+    result.append(np.around(ave_dens_022,9).flatten().tolist())
+    result.append(np.around(ave_dens_024,9).flatten().tolist())
+    result.append(np.around(ave_dens_026,9).flatten().tolist())
+    result.append(np.around(ave_dens_028,9).flatten().tolist())
+    result.append(np.around(ave_dens_030,9).flatten().tolist())
         
     return result
 
-    return np.around(x,2).flatten().tolist(), np.around(y,2).flatten().tolist(), np.around(z,2).flatten().tolist(), np.around(n,2).flatten().tolist(), np.around(gamma,2).flatten().tolist(), np.around(ep_xc,2).flatten().tolist(), np.around(LDA_residual,2).flatten().tolist()
+#    return np.around(x,2).flatten().tolist(), np.around(y,2).flatten().tolist(), np.around(z,2).flatten().tolist(), np.around(n,2).flatten().tolist(), np.around(gamma,2).flatten().tolist(), np.around(ep_xc,2).flatten().tolist(), np.around(LDA_residual,2).flatten().tolist()
 
 
 
@@ -167,32 +201,110 @@ def process_one_molecule(molecule, functional,h,L,N):
     y = []
     z = []
     n = []
-    gamma = []
+    Vxc = []
     epxc = []
+    gamma = []
+    tau = []
     LDA_residual = []
+    derivative_1 = []
+    derivative_2 = []
+    derivative_3 = []
+    ad_004 = []
+    ad_006 = []
+    ad_008 = []
+    ad_010 = []
+    ad_012 = []
+    ad_014 = []
+    ad_016 = []
+    ad_018 = []
+    ad_020 = []
+    ad_022 = []
+    ad_024 = []
+    ad_026 = []
+    ad_028 = []
+    ad_030 = []
     for i,j,k in paramlist:
-        temp_x, temp_y, temp_z,  temp_n,  temp_gamma,  temp_epxc,  temp_LDAresidual = process(molecule, functional,i,j,k,h,N)
-        x += temp_x
-        y += temp_y
-        z += temp_z
-        n += temp_n
-        gamma += temp_gamma
-        epxc += temp_epxc
-        LDA_residual += temp_LDAresidual
+        #temp_x, temp_y, temp_z,  temp_n,  temp_gamma,  temp_epxc,  temp_LDAresidual = process(molecule, functional,i,j,k,h,N)
+        #x += temp_x
+        #y += temp_y
+        #z += temp_z
+        #n += temp_n
+        #gamma += temp_gamma
+        #epxc += temp_epxc
+        #LDA_residual += temp_LDAresidual
+
+        temp_result = process(molecule, functional,i,j,k,h,N)
+        x = temp_result[0]
+        y = temp_result[1]
+        z = temp_result[2]
+        n = temp_result[3]
+        Vxc = temp_result[4]
+        epxc = temp_result[5]
+        gamma = temp_result[6]
+        tau = temp_result[7]
+        LDA_residual = temp_result[8]
+        derivative_1 = temp_result[9]
+        derivative_2 = temp_result[10]
+        derivative_3 = temp_result[11]
+        ad_004 = temp_result[12]
+        ad_006 = temp_result[13]
+        ad_008 = temp_result[14]
+        ad_010 = temp_result[15]
+        ad_012 = temp_result[16]
+        ad_014 = temp_result[17]
+        ad_016 = temp_result[18]
+        ad_018 = temp_result[19]
+        ad_020 = temp_result[20]
+        ad_022 = temp_result[21]
+        ad_024 = temp_result[22]
+        ad_026 = temp_result[23]
+        ad_028 = temp_result[24]
+        ad_030 = temp_result[25]
+
+    #overall_list.append(x)
+    #overall_list.append(y)
+    #overall_list.append(z)
+    #overall_list.append(n)
+    #overall_list.append(gamma)
+    #overall_list.append(epxc)
+    #overall_list.append(LDA_residual)
 
     overall_list.append(x)
     overall_list.append(y)
     overall_list.append(z)
     overall_list.append(n)
-    overall_list.append(gamma)
+    overall_list.append(Vxc)
     overall_list.append(epxc)
+    overall_list.append(gamma)
+    overall_list.append(tau)
     overall_list.append(LDA_residual)
+    overall_list.append(derivative_1)
+    overall_list.append(derivative_2)
+    overall_list.append(derivative_3)
+    overall_list.append(ad_004)
+    overall_list.append(ad_006)
+    overall_list.append(ad_008)
+    overall_list.append(ad_010)
+    overall_list.append(ad_012)
+    overall_list.append(ad_014)
+    overall_list.append(ad_016)
+    overall_list.append(ad_018)
+    overall_list.append(ad_020)
+    overall_list.append(ad_022)
+    overall_list.append(ad_024)
+    overall_list.append(ad_026)
+    overall_list.append(ad_028)
+    overall_list.append(ad_030)
     
     overall_list = np.stack(overall_list,axis=1).tolist()
     with open("{}_{}_downsampled_data.csv".format(molecule,functional), "wb") as f:
         writer = csv.writer(f)
 #            writer.writerow(['x','y','z','rho','gamma','tau','Vxc','epxc','ad_0-01','ad_0-02','ad_0-03','ad_0-04','ad_0-05','ad_0-06','ad_0-08','ad_0-1','ad_0-15','ad_0-2','ad_0-3','ad_0-4','ad_0-5','deriv_1','deriv_2'])
-        writer.writerow(['x','y','z','rho','gamma','epxc','LDA_residual'])
+        writer.writerow(['x','y','z','rho','Vxc','epxc','gamma','tau','LDA_residual',\
+                         'deriv_1','deriv_2','deriv_3',\
+                         'ad_0-04','ad_0-06','ad_0-08','ad_0-10',\
+                         'ad_0-12','ad_0-14','ad_0-16','ad_0-18','ad_0-20',\
+                         'ad_0-22','ad_0-24','ad_0-26','ad_0-28','ad_0-30'])
         writer.writerows(overall_list)
     
     os.chdir(cwd)

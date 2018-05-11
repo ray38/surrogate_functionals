@@ -422,6 +422,9 @@ def initialize(setup,NN_model_filename):
     setup["predict_log_name"] = predict_log_name
     setup["predict_full_log_name"] = predict_full_log_name
     setup["predict_error_log_name"] = predict_error_log_name
+    setup["predict_formation_log_name"] = predict_formation_log_name
+
+
 
     os.chdir(setup["working_dir"])
     return
@@ -552,21 +555,46 @@ if __name__ == "__main__":
 
     initialize(setup,NN_model_filename)
 
-
-    data = {}
+    setup["result_data"] = {}
 
     error_list = []
-    for molecule in setup["molecule_list"]:
-        try:
-            temp_error,temp_y_predict,temp_y = process_one_molecule(molecule, setup)
-            error_list.append(temp_error)
 
-            data[molecule] = {}
-            data[molecule]['predict_exc'] = temp_y_predict
-            data[molecule]['original_exc'] = temp_y
-        except:
-            log(setup["predict_log_name"],"\n\n Failed")
-            log(setup["predict_full_log_name"],"\n\n Failed") 
+    for molecule in setup["molecule_list"]:
+        setup["result_data"][molecule] = {}
+        setup["result_data"]["exist"] = False
+
+    try:
+        with open(predict_formation_log_name,'rb') as f:
+            for line in f:
+                if line.strip() != '':
+                    temp = line.strip().split()
+                    temp_name = temp[0]
+                    temp_original_energy = float(temp[1])
+                    temp_predict_energy  = float(temp[2])
+                    temp_error  = float(temp[3])
+                    setup["result_data"][temp_name] = {}
+                    setup["result_data"][temp_name]['predict_exc'] = temp_predict_energy
+                    setup["result_data"][temp_name]['original_exc'] = temp_original_energy
+                    setup["result_data"]["exist"] = True
+                    error_list.append(temp_error)
+
+
+#    data = {}
+
+    
+    for molecule in setup["molecule_list"]:
+        if setup["result_data"][molecule]["exist"] == False:
+            try:
+                
+                temp_error,temp_y_predict,temp_y = process_one_molecule(molecule, setup)
+                error_list.append(temp_error)
+
+                #setup["result_data"][molecule] = {}
+                setup["result_data"][molecule]['predict_exc'] = temp_y_predict
+                setup["result_data"][molecule]['original_exc'] = temp_y
+            except:
+                log(setup["predict_log_name"],"\n\n Failed")
+                log(setup["predict_full_log_name"],"\n\n Failed") 
     
 
     log(setup["predict_log_name"],"\n\naverage error: " + str(np.mean(error_list)) + "\tstddev error: " + str(np.std(error_list))) 
@@ -579,23 +607,23 @@ if __name__ == "__main__":
 
 
 
-    for molecule in data:
-        if 'composition' not in data[molecule]:
+    for molecule in setup["result_data"]:
+        if 'composition' not in setup["result_data"][molecule]:
             if molecule in composition_dict:
-                data[molecule]['composition'] = composition_dict[molecule]
+                setup["result_data"][molecule]['composition'] = composition_dict[molecule]
 
     original_energy_dict = {}
     predict_energy_dict = {}
     composition_dict = {}
     for molecule in data:
-        if 'composition' in data[molecule] and 'predict_exc' in data[molecule] and 'original_exc' in data[molecule]:
+        if 'composition' in setup["result_data"][molecule] and 'predict_exc' in setup["result_data"][molecule] and 'original_exc' in setup["result_data"][molecule]:
             print molecule
-            original_energy_dict[molecule] = data[molecule]['original_exc']
+            original_energy_dict[molecule] = setup["result_data"][molecule]['original_exc']
 
                                     
-            predict_energy_dict[molecule] = data[molecule]['predict_exc']
+            predict_energy_dict[molecule] = setup["result_data"][molecule]['predict_exc']
 
-            composition_dict[molecule] = data[molecule]['composition']
+            composition_dict[molecule] = setup["result_data"][molecule]['composition']
 
 
     #atomic_references = {'O':'CH3CH2OH','H':'C2H2','C':'C2H6'}
