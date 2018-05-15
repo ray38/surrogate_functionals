@@ -578,6 +578,9 @@ if __name__ == "__main__":
                     setup["result_data"]["exist"] = True
                     error_list.append(temp_error)
 
+    except:
+        pass
+
 
 #    data = {}
 
