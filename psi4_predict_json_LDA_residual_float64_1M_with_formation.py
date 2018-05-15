@@ -564,6 +564,9 @@ if __name__ == "__main__":
         setup["result_data"][molecule]["exist"] = False
 
     
+
+    os.chdir(setup["model_save_dir"])
+
     with open(setup["predict_error_log_name"],'rb') as f:
         for line in f:
             if line.strip() != '':
