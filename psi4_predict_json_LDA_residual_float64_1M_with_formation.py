@@ -561,7 +561,7 @@ if __name__ == "__main__":
 
     for molecule in setup["molecule_list"]:
         setup["result_data"][molecule] = {}
-        setup["result_data"]["exist"] = False
+        setup["result_data"][molecule]["exist"] = False
 
     try:
         with open(predict_formation_log_name,'rb') as f:
@@ -575,7 +575,7 @@ if __name__ == "__main__":
                     setup["result_data"][temp_name] = {}
                     setup["result_data"][temp_name]['predict_exc'] = temp_predict_energy
                     setup["result_data"][temp_name]['original_exc'] = temp_original_energy
-                    setup["result_data"]["exist"] = True
+                    setup["result_data"][temp_name]["exist"] = True
                     error_list.append(temp_error)
 
     except:
