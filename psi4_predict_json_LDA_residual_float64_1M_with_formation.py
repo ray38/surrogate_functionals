@@ -564,7 +564,7 @@ if __name__ == "__main__":
         setup["result_data"][molecule]["exist"] = False
 
     try:
-        with open(predict_formation_log_name,'rb') as f:
+        with open(setup["predict_error_log_name"],'rb') as f:
             for line in f:
                 if line.strip() != '':
                     temp = line.strip().split()
