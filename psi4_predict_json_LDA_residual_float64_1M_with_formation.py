@@ -620,7 +620,7 @@ if __name__ == "__main__":
     original_energy_dict = {}
     predict_energy_dict = {}
     composition_dict = {}
-    for molecule in data:
+    for molecule in setup["result_data"]:
         if 'composition' in setup["result_data"][molecule] and 'predict_exc' in setup["result_data"][molecule] and 'original_exc' in setup["result_data"][molecule]:
             print molecule
             original_energy_dict[molecule] = setup["result_data"][molecule]['original_exc']
