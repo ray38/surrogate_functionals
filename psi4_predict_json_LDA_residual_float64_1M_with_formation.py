@@ -17,6 +17,7 @@ import itertools
 import h5py
 import json
 import sys
+import csv
 import numpy as np
 from numpy import mean, sqrt, square, arange
 try: import cPickle as pickle
