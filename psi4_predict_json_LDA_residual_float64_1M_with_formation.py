@@ -572,7 +572,6 @@ if __name__ == "__main__":
                     temp_original_energy = float(temp[1])
                     temp_predict_energy  = float(temp[2])
                     temp_error  = float(temp[3])
-                    setup["result_data"][temp_name] = {}
                     setup["result_data"][temp_name]['predict_exc'] = temp_predict_energy
                     setup["result_data"][temp_name]['original_exc'] = temp_original_energy
                     setup["result_data"][temp_name]["exist"] = True
@@ -581,6 +580,7 @@ if __name__ == "__main__":
     except:
         pass
 
+    print setup["result_data"]
 
 #    data = {}
 
