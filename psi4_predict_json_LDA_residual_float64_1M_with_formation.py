@@ -563,22 +563,21 @@ if __name__ == "__main__":
         setup["result_data"][molecule] = {}
         setup["result_data"][molecule]["exist"] = False
 
-    try:
-        with open(setup["predict_error_log_name"],'rb') as f:
-            for line in f:
-                if line.strip() != '':
-                    temp = line.strip().split()
-                    temp_name = temp[0]
-                    temp_original_energy = float(temp[1])
-                    temp_predict_energy  = float(temp[2])
-                    temp_error  = float(temp[3])
-                    setup["result_data"][temp_name]['predict_exc'] = temp_predict_energy
-                    setup["result_data"][temp_name]['original_exc'] = temp_original_energy
-                    setup["result_data"][temp_name]["exist"] = True
-                    error_list.append(temp_error)
+    
+    with open(setup["predict_error_log_name"],'rb') as f:
+        for line in f:
+            if line.strip() != '':
+                temp = line.strip().split()
+                temp_name = temp[0]
+                temp_original_energy = float(temp[1])
+                temp_predict_energy  = float(temp[2])
+                temp_error  = float(temp[3])
+                setup["result_data"][temp_name]['predict_exc'] = temp_predict_energy
+                setup["result_data"][temp_name]['original_exc'] = temp_original_energy
+                setup["result_data"][temp_name]["exist"] = True
+                error_list.append(temp_error)
 
-    except:
-        pass
+
 
     print setup["result_data"]
 
