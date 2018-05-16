@@ -103,7 +103,7 @@ def process_normal_descriptors(molecule, functional,i,j,k):
     
     raw_data_filename = "{}_{}_{}_{}_{}.hdf5".format(molecule,functional,i,j,k)
     result_filename = "{}_{}_{}_{}_{}_all_descriptors.hdf5".format(molecule,functional,i,j,k)
-    raw_data =  h5py.File(raw_data_filename,'r')
+    raw_data =  h5py.File(result_filename,'r')
     x = np.asarray(raw_data['x'])[::5,::5,::5]
     y = np.asarray(raw_data['y'])[::5,::5,::5]
     z = np.asarray(raw_data['z'])[::5,::5,::5]
