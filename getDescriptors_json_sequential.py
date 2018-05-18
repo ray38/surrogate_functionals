@@ -324,7 +324,7 @@ if __name__ == "__main__":
 
         #for functional in functionals:
         process_one_molecule(molecule, functional,h,L,N,r_list)
-
+"""
     elif choice == 'set':
         list_molecule_filename = sys.argv[3]
         h = float(setup['grid_spacing'])
@@ -346,3 +346,4 @@ if __name__ == "__main__":
                         print result_filename + ' already exist'
                 except:
                     print "failed: {}\t{}".format(molecule,functional)
+"""
