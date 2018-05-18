@@ -13,7 +13,7 @@ from convolutions import get_differenciation_conv, get_integration_stencil,get_a
 import h5py
 import os
 #from joblib import Parallel, delayed
-import multiprocessing
+#import multiprocessing
 import itertools
 import json
 
@@ -316,6 +316,7 @@ if __name__ == "__main__":
     
     if choice == 'single':
         molecule = sys.argv[3]
+        print "start"
         h = float(setup['grid_spacing'])
         L = float(setup['box_dimension'])
         N = int(setup['number_segment_per_side'])
@@ -323,6 +324,7 @@ if __name__ == "__main__":
         r_list = setup['r_list']
 
         #for functional in functionals:
+        print "start process molecule"
         process_one_molecule(molecule, functional,h,L,N,r_list)
 """
     elif choice == 'set':
