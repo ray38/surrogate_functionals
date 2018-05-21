@@ -399,6 +399,7 @@ def initialize(setup,NN_model_filename):
             NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
         except:
             NN_model = load_model(NN_model_name)
+        NN_model.save("NN_{}_{}_backup.h5".format(loss,loss_value))
 
 
     else:
