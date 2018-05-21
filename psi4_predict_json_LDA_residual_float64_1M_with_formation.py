@@ -403,8 +403,12 @@ def initialize(setup,NN_model_filename):
 
     else:
         temp = NN_model_name.split("_")
-        loss = temp[1]
-        loss_value = temp[2]
+        if temp[1] == "mean" && temp[2] == "absolute" && temp[3] == "percentage":
+            loss = "mean_absolute_percentage_error"
+            loss_value = temp[5]
+        else:
+            loss = temp[1]
+            loss_value = temp[2]
         predict_log_name = "predict_{}_{}_log.log".format(loss,loss_value)
         predict_full_log_name = "predict_{}_{}_full_log.log".format(loss,loss_value)
         predict_error_log_name = "predict_{}_{}_error_log.log".format(loss,loss_value)
