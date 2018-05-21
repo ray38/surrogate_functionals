@@ -670,7 +670,8 @@ if __name__ == "__main__":
 
 
     with open(setup["predict_formation_log_name"], "wb") as f:
-        writer = csv.writer(f)
+        #writer = csv.writer(f)
+        writer = csv.writer(f, delimiter='\t')
         for key in formation_energies_original_en.keys():
             temp = [key,compound_original_en_dict[key][0],compound_predict_en_dict[key][0],(compound_original_en_dict[key][0]-compound_predict_en_dict[key][0]),formation_energies_original_en[key][0],formation_energies_predict_en[key][0],(formation_energies_original_en[key][0]-formation_energies_predict_en[key][0])]
             writer.writerow(temp)
