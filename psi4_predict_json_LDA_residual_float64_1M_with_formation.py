@@ -404,7 +404,7 @@ def initialize(setup,NN_model_filename):
 
     else:
         temp = NN_model_name.split("_")
-        if temp[1] == "mean" && temp[2] == "absolute" && temp[3] == "percentage":
+        if temp[1] == "mean" and temp[2] == "absolute" and temp[3] == "percentage":
             loss = "mean_absolute_percentage_error"
             loss_value = temp[5]
         else:
