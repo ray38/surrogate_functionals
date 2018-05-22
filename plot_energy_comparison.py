@@ -158,8 +158,8 @@ if __name__ == "__main__":
     #setup['functional'] = functional
 #    functional = setup['functional']
 
-    with open(dataset_setup_database_filename) as f:
-        setup_database = json.load(f)
+    #with open(dataset_setup_database_filename) as f:
+    #    setup_database = json.load(f)
 
 
     main_dir = os.getcwd()
