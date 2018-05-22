@@ -151,7 +151,7 @@ if __name__ == "__main__":
 
 
 
-    with open(predict_setup_filename) as f:
+    with open(setup_filename) as f:
         setup = json.load(f)
 
 
