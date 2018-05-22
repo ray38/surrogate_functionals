@@ -14,7 +14,7 @@ Created on Thu Oct 12 13:56:12 2017
 
 import os
 import itertools
-import h5py
+#import h5py
 import json
 import sys
 import csv
