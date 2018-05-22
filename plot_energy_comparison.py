@@ -69,7 +69,7 @@ def read_formation_energy_file(key,setup):
     setup[key]["exc_error_list"] = []
     setup[key]["formation_exc_error_list"] = []
 
-    with open(setup[key][filename],'rb') as f:
+    with open(setup[key]["filename"],'rb') as f:
         for line in f:
             if line.strip() != '':
                 temp = line.strip().split()
