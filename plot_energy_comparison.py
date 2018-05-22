@@ -177,7 +177,7 @@ if __name__ == "__main__":
 
     for key in setup:
         os.chdir(main_dir)
-        read_formation_energy_file(key,setup):
+        read_formation_energy_file(key,setup)
     os.chdir(main_dir)
 
     data = prepare_pandas_dataframe(setup)
