@@ -140,7 +140,7 @@ def prepare_pandas_dataframe(setup):
 
 
 
-def plot_result(setup):
+#def plot_result(setup):
 
 if __name__ == "__main__":
 
