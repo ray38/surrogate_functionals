@@ -7,14 +7,14 @@
 			"model":"NN_LDA_residual_1M_80_2_relu", 
 			"filename":"predict_mean_absolute_percentage_error_99.999625236_formation_log.log"},
 
-	"3":{	"dataset": "epxc_mGGA_midrange_real_real_numerical",
-			"model":"NN_LDA_residual_1M_200_2_relu", 
-			"filename":"predict_mean_absolute_percentage_error_50.4528394715_formation_log.log"},
-
-	"4":{	"dataset": "epxc_mGGA_real_real_numerical",
+	"3":{	"dataset": "epxc_mGGA_real_real_numerical",
 			"model":"NN_LDA_residual_1M_80_2_relu", 
 			"filename":"predict_mean_absolute_percentage_error_35.6853287981_formation_log.log"},
 
+	"4":{	"dataset": "epxc_mGGA_midrange_real_real_numerical",
+			"model":"NN_LDA_residual_1M_200_2_relu", 
+			"filename":"predict_mean_absolute_percentage_error_50.4528394715_formation_log.log"},
+	
 	"5":{	"dataset": "epxc_mGGA_allrange_real_real_numerical",
 			"model":"NN_LDA_residual_1M_40_2_relu", 
 			"filename":"predict_mean_absolute_percentage_error_297.429945477_formation_log.log"}

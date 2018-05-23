@@ -37,3 +37,26 @@ if __name__ == "__main__":
 	sns.despine(left=True)
 
 	plt.savefig("energy_grouped_violin_plot.png")
+
+
+	plt.figure()
+
+	sns.set(style="whitegrid", palette="pastel", color_codes=True)
+
+	sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
+	sns.despine(left=True)
+	sns.swarmplot(x="model_name",y="formation_exc_error",hue="molecule_name",data=data, alpha=0.7) 
+
+	plt.savefig("formation_energy_violin_swarm_plot.png")
+
+
+
+	plt.figure()
+
+	sns.set(style="whitegrid", palette="pastel", color_codes=True)
+
+	sns.violinplot(x="model_name",y="exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
+	sns.despine(left=True)
+	sns.swarmplot(x="model_name",y="exc_error",hue="molecule_name",data=data, alpha=0.7) 
+
+	plt.savefig("energy_violin_swarm_plot.png")
