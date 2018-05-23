@@ -83,14 +83,14 @@ if __name__ == "__main__":
 
 
 	plt.figure()
-	sns.swarmplot(x="model_name",y="exc_error",data=data, hue='molecule_name', split=True) # 3. Use Pokemon palette
+	sns.swarmplot(x="model_name",y="exc_error",data=data, hue='molecule_name', split=True, palette=("Dark2")) # 3. Use Pokemon palette
  
 	# 5. Place legend to the right
 	plt.legend(bbox_to_anchor=(1, 1), loc=2)
 	plt.savefig("energy_swarm_plot.png")
 
 	plt.figure()
-	sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='molecule_name', split=True) # 3. Use Pokemon palette
+	sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='molecule_name', split=True, palette=("Dark2")) # 3. Use Pokemon palette
  
 	# 5. Place legend to the right
 	plt.legend(bbox_to_anchor=(1, 1), loc=2)
