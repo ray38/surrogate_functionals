@@ -95,3 +95,61 @@ if __name__ == "__main__":
 	# 5. Place legend to the right
 	plt.legend(bbox_to_anchor=(1, 1), loc=2)
 	plt.savefig("formation_energy_swarm_plot.png")
+
+
+	plt.figure()
+	sns.swarmplot(x="model_name",y="exc_error",data=data, hue='training_test', split=True, palette=("Dark2")) # 3. Use Pokemon palette
+ 
+	# 5. Place legend to the right
+	plt.legend(bbox_to_anchor=(1, 1), loc=2)
+	plt.savefig("energy_swarm_plot2.png")
+
+	plt.figure()
+	sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='training_test', split=True, palette=("Dark2")) # 3. Use Pokemon palette
+ 
+	# 5. Place legend to the right
+	plt.legend(bbox_to_anchor=(1, 1), loc=2)
+	plt.savefig("formation_energy_swarm_plot2.png")
+
+
+	plt.figure()
+
+	sns.set(style="whitegrid", palette="pastel", color_codes=True)
+
+	sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
+	sns.despine(left=True)
+	sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='training_test', color='k', alpha=0.7) 
+
+	plt.savefig("formation_energy_violin_swarm_plot2.png")
+
+
+
+	plt.figure()
+
+	sns.set(style="whitegrid", palette="pastel", color_codes=True)
+
+	sns.violinplot(x="model_name",y="exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
+	sns.despine(left=True)
+	sns.swarmplot(x="model_name",y="exc_error",data=data, hue='training_test', color='k', alpha=0.7) 
+
+	plt.savefig("energy_violin_swarm_plot2.png")
+
+
+
+	plt.figure()
+
+	sns.factorplot(x="molecule_name", y="formation_exc_error", hue="model_name", data=data,
+                   capsize=.2, palette="YlGnBu_d", size=6)
+	sns.despine(left=True)
+
+	plt.savefig("formation_factor_plot.png")
+
+
+
+	plt.figure()
+
+	sns.factorplot(x="molecule_name", y="exc_error", hue="model_name", data=data,
+                   capsize=.2, palette="YlGnBu_d", size=6)
+	sns.despine(left=True)
+
+	plt.savefig("energy_factor_plot.png")
