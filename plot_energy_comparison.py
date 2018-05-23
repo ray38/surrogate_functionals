@@ -186,8 +186,7 @@ if __name__ == "__main__":
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
     # Draw a nested violinplot and split the violins for easier comparison
-    sns.violinplot(x="model_name", y="formation_exc_error", hue="training_test", data=data, split=True,
-                   inner="quartile")
+    sns.violinplot(x="model_name", y="formation_exc_error", hue="training_test", data=data, split=True)
     sns.despine(left=True)
 
     plt.savefig("formation_energy_grouped_violin_plot.png")
