@@ -83,14 +83,14 @@ if __name__ == "__main__":
 
 
 	plt.figure(figsize=(10,15))
-	sns.swarmplot(x="model_name",y="exc_error",data=data, hue='molecule_name', split=True, palette=("Dark2")) # 3. Use Pokemon palette
+	sns.swarmplot(x="model_name",y="exc_error",data=data, hue='molecule_name', split=True, palette=("Dark2"),hue_order = ["C2H2","C2H4","C2H6","CH3OH","CH4","CO","CO2","H2","H2O","HCN","HNC","N2","N2O","NH3","O3","CH3CN","CH3CHO","CH3NO2","glycine","H2CCO","H2CO","H2O2","HCOOH","N2H4","NCCN"]) # 3. Use Pokemon palette
  
 	# 5. Place legend to the right
 	plt.legend(bbox_to_anchor=(1, 1), loc=2)
 	plt.savefig("energy_swarm_plot.png")
 
 	plt.figure(figsize=(10,15))
-	sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='molecule_name', split=True, palette=("Dark2")) # 3. Use Pokemon palette
+	sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='molecule_name', split=True, palette=("Dark2"),hue_order = ["C2H2","C2H4","C2H6","CH3OH","CH4","CO","CO2","H2","H2O","HCN","HNC","N2","N2O","NH3","O3","CH3CN","CH3CHO","CH3NO2","glycine","H2CCO","H2CO","H2O2","HCOOH","N2H4","NCCN"]) # 3. Use Pokemon palette
  
 	# 5. Place legend to the right
 	plt.legend(bbox_to_anchor=(1, 1), loc=2)
@@ -136,10 +136,12 @@ if __name__ == "__main__":
 
 
 
-	plt.figure(figsize=(20,10))
+	plt.figure()
+	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-	sns.factorplot(x="molecule_name", y="formation_exc_error", hue="model_name", data=data,
-                   capsize=.2, palette="YlGnBu_d", size=6)
+	g = sns.factorplot(x="molecule_name", y="formation_exc_error", hue="model_name", data=data,
+                   capsize=.2, palette="YlGnBu_d", size=12,order = ["C2H2","C2H4","C2H6","CH3OH","CH4","CO","CO2","H2","H2O","HCN","HNC","N2","N2O","NH3","O3","CH3CN","CH3CHO","CH3NO2","glycine","H2CCO","H2CO","H2O2","HCOOH","N2H4","NCCN"])
+        g.set_xticklabels(rotation=45)
 	sns.despine(left=True)
 	plt.legend(bbox_to_anchor=(1, 1), loc=2)
 
@@ -147,10 +149,12 @@ if __name__ == "__main__":
 
 
 
-	plt.figure(figsize=(20,10))
+	plt.figure()
+	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-	sns.factorplot(x="molecule_name", y="exc_error", hue="model_name", data=data,
-                   capsize=.2, palette="YlGnBu_d", size=6)
+	g = sns.factorplot(x="molecule_name", y="exc_error", hue="model_name", col="training_test", data=data,
+                   capsize=.2, palette="YlGnBu_d", size=12,order = ["C2H2","C2H4","C2H6","CH3OH","CH4","CO","CO2","H2","H2O","HCN","HNC","N2","N2O","NH3","O3","CH3CN","CH3CHO","CH3NO2","glycine","H2CCO","H2CO","H2O2","HCOOH","N2H4","NCCN"])
+        g.set_xticklabels(rotation=45)
 	sns.despine(left=True)
 	plt.legend(bbox_to_anchor=(1, 1), loc=2)
 
