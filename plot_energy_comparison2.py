@@ -19,7 +19,7 @@ if __name__ == "__main__":
 	filename = sys.argv[1]
 
 	with open(filename, 'rb') as handle:
-    	data = pickle.load(handle)
+		data = pickle.load(handle)
 
 
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
