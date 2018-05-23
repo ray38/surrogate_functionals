@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
 	filename = sys.argv[1]
 
-	with open('filename.pickle', 'rb') as handle:
+	with open(filename, 'rb') as handle:
     	data = pickle.load(handle)
 
 
