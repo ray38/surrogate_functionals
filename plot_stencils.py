@@ -51,7 +51,7 @@ plt.savefig("gradient_stencil_plot_1.png")
 temp_sec_deri, temp_pad   = get_differenciation_conv_stencil(h, h, h, gradient = 'second',
                                        stencil_type = 'times2', accuracy = '2')
 plt.figure()
-sns.heatmap(pad(temp_sec_deri[(temp_sec_dderi.shape[1]-1)/2],21), cmap="RdBu_r", center=0.)
+sns.heatmap(pad(temp_sec_deri[(temp_sec_deri.shape[1]-1)/2],21), cmap="RdBu_r", center=0.)
 plt.savefig("gradient_stencil_plot_2.png")
 
 
@@ -59,7 +59,7 @@ plt.savefig("gradient_stencil_plot_2.png")
 temp_third_deri, temp_pad = get_differenciation_conv_stencil(h, h, h, gradient = 'third',
                                        stencil_type = 'times2', accuracy = '2')
 plt.figure()
-sns.heatmap(pad(temp_third_deri[(temp_third_dderi.shape[1]-1)/2],21), cmap="RdBu_r", center=0.)
+sns.heatmap(pad(temp_third_deri[(temp_third_deri.shape[1]-1)/2],21), cmap="RdBu_r", center=0.)
 plt.savefig("gradient_stencil_plot_3.png")
 
 
