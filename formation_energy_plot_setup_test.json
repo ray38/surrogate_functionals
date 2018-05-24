@@ -13,7 +13,7 @@
 
 	"4":{	"dataset": "epxc_mGGA_midrange_real_real_numerical",
 			"model":"NN_LDA_residual_1M_200_2_relu", 
-			"filename":"predict_mean_absolute_percentage_error_50.4528394715_formation_log.log"},
+			"filename":"predict_sae_53590622.0682_formation_log.log"},
 	
 	"5":{	"dataset": "epxc_mGGA_allrange_real_real_numerical",
 			"model":"NN_LDA_residual_1M_400_2_relu", 
