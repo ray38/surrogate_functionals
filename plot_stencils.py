@@ -9,12 +9,43 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+def pad(array, reference_shape):
 
+	result = np.zeros((reference_shape, reference_shape))
+
+	array_shape = array.shape
+	x_offset = (reference_shape - array_shape[0])/2
+	y_offset = (reference_shape - array_shape[1])/2
+
+	result[x_offset: array_shape[0] + x_offset, y_offset: array_shape[1] + y_offset] = array
+
+	return result
+'''
 h = 0.02
-r_list = [0.1, 0.2, 0.3]
+r_list = [0.6, 0.1, 0.14]
 stencil_list = []
 pad_list = []
 for r in r_list:
     temp_stencil,temp_pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
     stencil_list.append(temp_stencil[(temp_stencil.shape[1]-1)/2])
     pad_list.append(temp_pad)
+
+
+for stencil in stencil_list:
+	plt.figure()
+	sns.heatmap(stencil, cmap="PiYG")
+'''
+
+test = np.random.rand(3,3)
+print test
+print pad(test,5)
+print pad(test,7)
+
+sns.heatmap(test, cmap="PiYG")
+sns.plt.show()
+
+sns.heatmap(pad(test,7), cmap="PiYG")
+sns.plt.show()
+
+sns.heatmap(pad(test,21), cmap="PiYG")
+sns.plt.show()
