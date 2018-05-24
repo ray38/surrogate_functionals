@@ -23,7 +23,7 @@ def pad(array, reference_shape):
 
 
 def plot(array, reference_shape, filename):
-	plt.figure()
+	plt.figure(figsize=(5,5))
 	sns.heatmap(pad(array,reference_shape), cmap="RdBu_r", center=0., yticklabels=False, xticklabels=False, cbar=False)
 	plt.savefig(filename)
 	return
