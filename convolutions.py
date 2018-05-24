@@ -23,7 +23,7 @@ Differenciations
 '''
 
 
-def get_first_grad_stencil(n, hx, hy, hz, stencil_type = 'mid', accuracy = '2'):
+def get_first_grad_stencil(hx, hy, hz, stencil_type = 'mid', accuracy = '2'):
     '''
     n: electron density, or whatever we need to convolve
     hx, hy, hz: grid spacing at each direction
@@ -91,7 +91,7 @@ def get_first_grad_stencil(n, hx, hy, hz, stencil_type = 'mid', accuracy = '2'):
     return G, Gx, Gy, Gz, pad
     
 
-def get_second_grad_stencil(n, hx, hy, hz, stencil_type = 'mid', accuracy = '2'):
+def get_second_grad_stencil(hx, hy, hz, stencil_type = 'mid', accuracy = '2'):
                        
     fd_coefficients = {}
                        
@@ -150,7 +150,7 @@ def get_second_grad_stencil(n, hx, hy, hz, stencil_type = 'mid', accuracy = '2')
     
 
 
-def get_third_grad_stencil(n, hx, hy, hz, stencil_type = 'mid', accuracy = '2'):
+def get_third_grad_stencil(hx, hy, hz, stencil_type = 'mid', accuracy = '2'):
                        
     fd_coefficients = {}
                
@@ -203,7 +203,7 @@ def get_third_grad_stencil(n, hx, hy, hz, stencil_type = 'mid', accuracy = '2'):
 
 
 
-def get_fourth_grad_stencil(n, hx, hy, hz, stencil_type = 'mid', accuracy = '2'):
+def get_fourth_grad_stencil(hx, hy, hz, stencil_type = 'mid', accuracy = '2'):
                        
     fd_coefficients = {}
                
@@ -255,7 +255,7 @@ def get_fourth_grad_stencil(n, hx, hy, hz, stencil_type = 'mid', accuracy = '2')
     
     
     
-def get_fifth_grad_stencil(n, hx, hy, hz, stencil_type = 'mid', accuracy = '2'):
+def get_fifth_grad_stencil(hx, hy, hz, stencil_type = 'mid', accuracy = '2'):
                        
     fd_coefficients = {}
                                           
@@ -295,7 +295,7 @@ def get_fifth_grad_stencil(n, hx, hy, hz, stencil_type = 'mid', accuracy = '2'):
     
     
     
-def get_sixth_grad_stencil(n, hx, hy, hz, stencil_type = 'mid', accuracy = '2'):
+def get_sixth_grad_stencil(hx, hy, hz, stencil_type = 'mid', accuracy = '2'):
                        
     fd_coefficients = {}
                                           
@@ -340,15 +340,15 @@ def get_differenciation_conv(n, hx, hy, hz, gradient = 'first', stencil_type = '
         raise NotImplementedError
     
     if gradient == 'first':
-        G, Gx, Gy, Gz, pad = get_first_grad_stencil(n, hx, hy, hz, 
+        G, Gx, Gy, Gz, pad = get_first_grad_stencil(hx, hy, hz, 
                                                     stencil_type = stencil_type, 
                                                     accuracy = accuracy)
     elif gradient == 'second':
-        G, Gx, Gy, Gz, pad = get_second_grad_stencil(n, hx, hy, hz, 
+        G, Gx, Gy, Gz, pad = get_second_grad_stencil(hx, hy, hz, 
                                                     stencil_type = stencil_type, 
                                                     accuracy = accuracy)                    
     elif gradient == 'third':
-        G, Gx, Gy, Gz, pad = get_third_grad_stencil(n, hx, hy, hz, 
+        G, Gx, Gy, Gz, pad = get_third_grad_stencil(hx, hy, hz, 
                                                     stencil_type = stencil_type, 
                                                     accuracy = accuracy)    
     elif gradient == 'fourth':
@@ -357,12 +357,12 @@ def get_differenciation_conv(n, hx, hy, hz, gradient = 'first', stencil_type = '
                                                     accuracy = accuracy)
                                                     
     elif gradient == 'fifth':
-        G, Gx, Gy, Gz, pad = get_fifth_grad_stencil(n, hx, hy, hz, 
+        G, Gx, Gy, Gz, pad = get_fifth_grad_stencil(hx, hy, hz, 
                                                     stencil_type = stencil_type, 
                                                     accuracy = accuracy)                                                    
                                                     
     elif gradient == 'sixth':
-        G, Gx, Gy, Gz, pad = get_sixth_grad_stencil(n, hx, hy, hz, 
+        G, Gx, Gy, Gz, pad = get_sixth_grad_stencil(hx, hy, hz, 
                                                     stencil_type = stencil_type, 
                                                     accuracy = accuracy)
 
@@ -376,6 +376,43 @@ def get_differenciation_conv(n, hx, hy, hz, gradient = 'first', stencil_type = '
     result = temp_gradient[pad_temp:-pad_temp, pad_temp:-pad_temp, pad_temp:-pad_temp]
         
     return result, pad
+
+
+def get_differenciation_conv_stencil(hx, hy, hz, gradient = 'first', stencil_type = 'mid', accuracy = '2'):
+    implemented_gradient = ['first','second', 'third', 'fourth', 'fifth', 'sixth']
+    if gradient not in implemented_gradient:
+        raise NotImplementedError
+    
+    if gradient == 'first':
+        G, Gx, Gy, Gz, pad = get_first_grad_stencil(hx, hy, hz, 
+                                                    stencil_type = stencil_type, 
+                                                    accuracy = accuracy)
+    elif gradient == 'second':
+        G, Gx, Gy, Gz, pad = get_second_grad_stencil(hx, hy, hz, 
+                                                    stencil_type = stencil_type, 
+                                                    accuracy = accuracy)                    
+    elif gradient == 'third':
+        G, Gx, Gy, Gz, pad = get_third_grad_stencil(hx, hy, hz, 
+                                                    stencil_type = stencil_type, 
+                                                    accuracy = accuracy)    
+    elif gradient == 'fourth':
+        G, Gx, Gy, Gz, pad = get_fourth_grad_stencil(n, hx, hy, hz, 
+                                                    stencil_type = stencil_type, 
+                                                    accuracy = accuracy)
+                                                    
+    elif gradient == 'fifth':
+        G, Gx, Gy, Gz, pad = get_fifth_grad_stencil(hx, hy, hz, 
+                                                    stencil_type = stencil_type, 
+                                                    accuracy = accuracy)                                                    
+                                                    
+    elif gradient == 'sixth':
+        G, Gx, Gy, Gz, pad = get_sixth_grad_stencil(hx, hy, hz, 
+                                                    stencil_type = stencil_type, 
+                                                    accuracy = accuracy)
+
+
+        
+    return G, pad
                                                     
 '''
 Integration

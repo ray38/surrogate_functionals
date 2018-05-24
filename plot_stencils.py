@@ -2,7 +2,7 @@ import numpy as np
 import sys
 import math
 
-from convolutions import get_differenciation_conv, get_integration_stencil,get_auto_accuracy,get_fftconv_with_known_stencil_no_wrap,get_asym_integration_stencil,get_asym_integration_fftconv,get_asym_integral_fftconv_with_known_stencil
+from convolutions import get_differenciation_conv_stencil, get_differenciation_conv, get_integration_stencil,get_auto_accuracy,get_fftconv_with_known_stencil_no_wrap,get_asym_integration_stencil,get_asym_integration_fftconv,get_asym_integral_fftconv_with_known_stencil
 import pandas as pd
 import seaborn as sns
 import numpy as np
@@ -29,6 +29,7 @@ stencil_dict = {}
 pad_list = []
 for r in r_list:
     temp_stencil,temp_pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
+    temp_stencil= temp_stencil / (0.02*0.02*0.02)
     stencil_list.append(temp_stencil[(temp_stencil.shape[1]-1)/2])
     stencil_dict[r] = temp_stencil[(temp_stencil.shape[1]-1)/2]
     pad_list.append(temp_pad)
@@ -38,6 +39,28 @@ for key in stencil_dict:
 	plt.figure()
 	sns.heatmap(pad(stencil_dict[key],21), cmap="RdBu_r", center=0.)
 	plt.savefig("integration_stencil_plot_{}.png".format(key))
+
+
+temp_first_deri, temp_pad = get_differenciation_conv_stencil(h, h, h, gradient = 'first',
+                                               stencil_type = 'mid', accuracy = '2')
+plt.figure()
+sns.heatmap(pad(temp_first_deri[(temp_first_deri.shape[1]-1)/2],21), cmap="RdBu_r", center=0.)
+plt.savefig("gradient_stencil_plot_1.png")
+
+
+temp_sec_deri, temp_pad   = get_differenciation_conv_stencil(h, h, h, gradient = 'second',
+                                       stencil_type = 'times2', accuracy = '2')
+plt.figure()
+sns.heatmap(pad(temp_sec_deri[(temp_sec_dderi.shape[1]-1)/2],21), cmap="RdBu_r", center=0.)
+plt.savefig("gradient_stencil_plot_2.png")
+
+
+
+temp_third_deri, temp_pad = get_differenciation_conv_stencil(h, h, h, gradient = 'third',
+                                       stencil_type = 'times2', accuracy = '2')
+plt.figure()
+sns.heatmap(pad(temp_third_deri[(temp_third_dderi.shape[1]-1)/2],21), cmap="RdBu_r", center=0.)
+plt.savefig("gradient_stencil_plot_3.png")
 
 
 '''
