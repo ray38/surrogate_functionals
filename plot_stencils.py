@@ -36,8 +36,8 @@ for r in r_list:
 
 for key in stencil_dict:
 	plt.figure()
-	sns.heatmap(pad(stencil_dict[r],21), cmap="RdBu_r", center=0.)
-	plt.savefig("integration_stencil_plot_{}.png".format(r))
+	sns.heatmap(pad(stencil_dict[key],21), cmap="RdBu_r", center=0.)
+	plt.savefig("integration_stencil_plot_{}.png".format(key))
 
 
 '''
