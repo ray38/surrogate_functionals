@@ -22,7 +22,7 @@ def pad(array, reference_shape):
 	return result
 
 h = 0.02
-r_list = [0.6, 0.1, 0.14]
+r_list = [0.06, 0.1, 0.14]
 stencil_list = []
 
 stencil_dict = {}
