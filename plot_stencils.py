@@ -37,15 +37,12 @@ for stencil in stencil_list:
 '''
 
 test = np.random.rand(3,3)
-print test
-print pad(test,5)
-print pad(test,7)
 
-sns.heatmap(test, cmap="PiYG")
+sns.heatmap(test, cmap="PiYG", center=0.)
 sns.plt.show()
 
-sns.heatmap(pad(test,7), cmap="PiYG")
+sns.heatmap(pad(test,7), cmap="PiYG", center=0.)
 sns.plt.show()
 
-sns.heatmap(pad(test,21), cmap="PiYG")
+sns.heatmap(pad(test,21), cmap="PiYG", center=0.)
 sns.plt.show()
