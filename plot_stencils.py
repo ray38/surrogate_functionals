@@ -21,6 +21,14 @@ def pad(array, reference_shape):
 
 	return result
 
+
+def plot(array, reference_shape, filename):
+	plt.figure()
+	sns.heatmap(pad(array,reference_shape), cmap="RdBu_r", center=0., yticklabels=False, xticklabels=False, cbar=False)
+	plt.savefig(filename)
+	return
+
+
 h = 0.02
 r_list = [0.06, 0.1, 0.14]
 stencil_list = []
@@ -36,32 +44,26 @@ for r in r_list:
 
 
 for key in stencil_dict:
-	plt.figure()
-	sns.heatmap(pad(stencil_dict[key],21), cmap="RdBu_r", center=0.)
-	plt.savefig("integration_stencil_plot_{}.png".format(key))
+	plot(stencil_dict[key], 21, "integration_stencil_plot_{}.png".format(key))
 
 
 temp_first_deri, temp_pad = get_differenciation_conv_stencil(h, h, h, gradient = 'first',
                                                stencil_type = 'mid', accuracy = '2')
-plt.figure()
-sns.heatmap(pad(temp_first_deri[(temp_first_deri.shape[1]-1)/2],21), cmap="RdBu_r", center=0.)
-plt.savefig("gradient_stencil_plot_1.png")
+
+plot(temp_first_deri[(temp_first_deri.shape[1]-1)/2], 21, "gradient_stencil_plot_1.png")
 
 
 temp_sec_deri, temp_pad   = get_differenciation_conv_stencil(h, h, h, gradient = 'second',
                                        stencil_type = 'times2', accuracy = '2')
-plt.figure()
-sns.heatmap(pad(temp_sec_deri[(temp_sec_deri.shape[1]-1)/2],21), cmap="RdBu_r", center=0.)
-plt.savefig("gradient_stencil_plot_2.png")
+
+plot(temp_sec_deri[(temp_sec_deri.shape[1]-1)/2], 21, "gradient_stencil_plot_2.png")
 
 
 
 temp_third_deri, temp_pad = get_differenciation_conv_stencil(h, h, h, gradient = 'third',
                                        stencil_type = 'times2', accuracy = '2')
-plt.figure()
-sns.heatmap(pad(temp_third_deri[(temp_third_deri.shape[1]-1)/2],21), cmap="RdBu_r", center=0.)
-plt.savefig("gradient_stencil_plot_3.png")
 
+plot(temp_third_deri[(temp_third_deri.shape[1]-1)/2], 21, "gradient_stencil_plot_3.png")
 
 '''
 test = np.random.rand(3,3)
