@@ -54,6 +54,7 @@ for r in r_list:
 
 
 for key in stencil_dict:
+	print key
 	plot(stencil_dict[key], 21, "integration_stencil_plot_{}.png".format(key))
 
 
