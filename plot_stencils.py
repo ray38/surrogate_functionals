@@ -28,6 +28,9 @@ def plot(array, reference_shape, filename):
 	plt.savefig(filename)
 	return
 
+def subplot(array, reference_shape,ax):
+	sns.heatmap(pad(array,reference_shape), cmap="RdBu_r", center=0., yticklabels=False, xticklabels=False, cbar=False, ax = ax)
+	return
 
 def normalize(array,maxx,minn):
 	array_max = array.max()
@@ -72,6 +75,20 @@ temp_third_deri, temp_pad = get_differenciation_conv_stencil(h, h, h, gradient =
 temp_third_deri = normalize(temp_third_deri, 1., -1.)
 plot(temp_third_deri[(temp_third_deri.shape[1]-1)/2], 21, "gradient_stencil_plot_3.png")
 
+
+f, axes = plt.subplots(1, 7, figsize=(5, 35))
+subplot(np.ones((1,1)), 21, axes.flat[0])
+subplot(temp_first_deri[(temp_first_deri.shape[1]-1)/2], 21, axes.flat[1])
+subplot(temp_sec_deri[(temp_sec_deri.shape[1]-1)/2], 21, axes.flat[2])
+subplot(temp_third_deri[(temp_third_deri.shape[1]-1)/2], 21, axes.flat[3])
+
+subplot(stencil_dict["0.06"], 21, axes.flat[4])
+subplot(stencil_dict["0.1"], 21, axes.flat[5])
+subplot(stencil_dict["0.14"], 21, axes.flat[6])
+
+
+f.tight_layout()
+plt.savefig("overall_stencil_plot.png")
 '''
 test = np.random.rand(3,3)
 
