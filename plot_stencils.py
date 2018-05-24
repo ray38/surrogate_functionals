@@ -29,6 +29,11 @@ def plot(array, reference_shape, filename):
 	return
 
 
+def normalize(array,maxx,minn):
+	array_max = array.max()
+	array_min = array.min()
+	return (((array - array_min) / (array_max - array_min)) * (maxx-minn)) - minn
+
 plot(np.ones((1,1)), 21, "local_density_stencil.png")
 
 h = 0.02
@@ -51,20 +56,20 @@ for key in stencil_dict:
 
 temp_first_deri, temp_pad = get_differenciation_conv_stencil(h, h, h, gradient = 'first',
                                                stencil_type = 'mid', accuracy = '2')
-
+temp_first_deri = normalize(temp_first_deri, 1., -1.)
 plot(temp_first_deri[(temp_first_deri.shape[1]-1)/2], 21, "gradient_stencil_plot_1.png")
 
 
 temp_sec_deri, temp_pad   = get_differenciation_conv_stencil(h, h, h, gradient = 'second',
                                        stencil_type = 'times2', accuracy = '2')
-
+temp_sec_deri = normalize(temp_sec_deri, 1., -1.)
 plot(temp_sec_deri[(temp_sec_deri.shape[1]-1)/2], 21, "gradient_stencil_plot_2.png")
 
 
 
 temp_third_deri, temp_pad = get_differenciation_conv_stencil(h, h, h, gradient = 'third',
                                        stencil_type = 'times2', accuracy = '2')
-
+temp_third_deri = normalize(temp_third_deri, 1., -1.)
 plot(temp_third_deri[(temp_third_deri.shape[1]-1)/2], 21, "gradient_stencil_plot_3.png")
 
 '''
