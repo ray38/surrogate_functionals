@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
 	sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
 	sns.despine(left=True)
-	sns.swarmplot(x="model_name",y="formation_exc_error",data=data, color='k', alpha=0.7) 
+	sns.swarmplot(x="model_name",y="formation_exc_error",data=data, color='k', alpha=0.7, palette=("Dark2")) 
 
 	plt.savefig("formation_energy_violin_swarm_plot.png")
 
@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
 	sns.violinplot(x="model_name",y="exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
 	sns.despine(left=True)
-	sns.swarmplot(x="model_name",y="exc_error",data=data, color='k', alpha=0.7) 
+	sns.swarmplot(x="model_name",y="exc_error",data=data, color='k', alpha=0.7, palette=("Dark2")) 
 
 	plt.savefig("energy_violin_swarm_plot.png")
 
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 
 	sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
 	sns.despine(left=True)
-	sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='training_test', split=True, color='k', alpha=0.7) 
+	sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='training_test', split=True, color='k', alpha=0.7, palette=("Dark2")) 
 
 	plt.savefig("formation_energy_violin_swarm_plot2.png")
 
@@ -130,7 +130,7 @@ if __name__ == "__main__":
 
 	sns.violinplot(x="model_name",y="exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
 	sns.despine(left=True)
-	sns.swarmplot(x="model_name",y="exc_error",data=data, hue='training_test', split=True, color='k', alpha=0.7) 
+	sns.swarmplot(x="model_name",y="exc_error",data=data, hue='training_test', split=True, color='k', alpha=0.7, palette=("Dark2")) 
 
 	plt.savefig("energy_violin_swarm_plot2.png")
 
@@ -152,7 +152,7 @@ if __name__ == "__main__":
 	plt.figure()
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-	g = sns.factorplot(x="molecule_name", y="exc_error", hue="model_name", col="training_test", data=data,
+	g = sns.factorplot(x="molecule_name", y="exc_error", hue="model_name", data=data,
                    capsize=.2, palette="YlGnBu_d", size=12,order = ["C2H2","C2H4","C2H6","CH3OH","CH4","CO","CO2","H2","H2O","HCN","HNC","N2","N2O","NH3","O3","CH3CN","CH3CHO","CH3NO2","glycine","H2CCO","H2CO","H2O2","HCOOH","N2H4","NCCN"])
         g.set_xticklabels(rotation=45)
 	sns.despine(left=True)
