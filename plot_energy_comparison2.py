@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-	sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
+	sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",data=data,split=True,inner=None,palette={"training":"b","test":"y"})
 	sns.despine(left=True)
 	sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='training_test', split=True, color='k', alpha=0.7) 
 
@@ -128,7 +128,7 @@ if __name__ == "__main__":
 
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-	sns.violinplot(x="model_name",y="exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
+	sns.violinplot(x="model_name",y="exc_error",hue="training_test",data=data,split=True,inner=None,palette={"training":"b","test":"y"})
 	sns.despine(left=True)
 	sns.swarmplot(x="model_name",y="exc_error",data=data, hue='training_test', split=True, color='k', alpha=0.7) 
 
