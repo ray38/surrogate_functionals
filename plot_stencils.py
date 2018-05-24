@@ -29,6 +29,8 @@ def plot(array, reference_shape, filename):
 	return
 
 
+plot(np.ones((1,1)), 21, "local_density_stencil.png")
+
 h = 0.02
 r_list = [0.06, 0.1, 0.14]
 stencil_list = []
