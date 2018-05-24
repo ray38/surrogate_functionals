@@ -83,9 +83,9 @@ subplot(temp_first_deri[(temp_first_deri.shape[1]-1)/2], 21, axes.flat[1])
 subplot(temp_sec_deri[(temp_sec_deri.shape[1]-1)/2], 21, axes.flat[2])
 subplot(temp_third_deri[(temp_third_deri.shape[1]-1)/2], 21, axes.flat[3])
 
-subplot(stencil_dict["0.06"], 21, axes.flat[4])
-subplot(stencil_dict["0.1"], 21, axes.flat[5])
-subplot(stencil_dict["0.14"], 21, axes.flat[6])
+subplot(stencil_dict[0.06], 21, axes.flat[4])
+subplot(stencil_dict[0.1], 21, axes.flat[5])
+subplot(stencil_dict[0.14], 21, axes.flat[6])
 
 
 f.tight_layout()
