@@ -77,7 +77,7 @@ temp_third_deri = normalize(temp_third_deri, 1., -1.)
 plot(temp_third_deri[(temp_third_deri.shape[1]-1)/2], 21, "gradient_stencil_plot_3.png")
 
 
-f, axes = plt.subplots(1, 7, figsize=(5, 35))
+f, axes = plt.subplots(1, 7, figsize=(70, 10))
 subplot(np.ones((1,1)), 21, axes.flat[0])
 subplot(temp_first_deri[(temp_first_deri.shape[1]-1)/2], 21, axes.flat[1])
 subplot(temp_sec_deri[(temp_sec_deri.shape[1]-1)/2], 21, axes.flat[2])
