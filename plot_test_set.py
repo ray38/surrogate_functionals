@@ -23,7 +23,7 @@ try: import cPickle as pickle
 except: import pickle
 import matplotlib.pyplot as plt
 from subsampling import subsampling_system,random_subsampling,subsampling_system_with_PCA
-import keras.backend as K
+
 
 import pandas as pd
 import seaborn as sns
@@ -205,8 +205,7 @@ def create_df(setup):
 if __name__ == "__main__":
 
     print "start"
-    K.set_floatx('float64')
-    K.floatx()
+    
     try:
         with open('test_set_plot.pickle', 'rb') as handle:
             data = pickle.load(handle)
@@ -218,6 +217,9 @@ if __name__ == "__main__":
         from keras.layers import Dense, Activation
         from keras import backend as K
         import keras
+        import keras.backend as K
+        K.set_floatx('float64')
+        K.floatx()
         
         setup_filename = sys.argv[1]
 
