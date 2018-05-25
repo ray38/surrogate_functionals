@@ -347,6 +347,8 @@ def process_one_molecule(molecule, functional,h,L,N):
 
     PCA_list = PCA_analysis(PCA_list, n_components = 5)
 
+    print PCA_list.shape
+
 
     
     print np.stack(overall_list,axis=1).shape
