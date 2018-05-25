@@ -353,7 +353,7 @@ def process_one_molecule(molecule, functional,h,L,N):
 
     overall_list = np.concatenate((overall_list,PCA_list),axis=1)
 
-    print overall_list.shape()
+    print overall_list.shape
 
     overall_list = overall_list.tolist()
 
