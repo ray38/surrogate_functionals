@@ -242,7 +242,7 @@ def process_one_molecule(molecule, functional,h,L,N):
         Vxc += temp_result[4]
         epxc += temp_result[5]
         gamma += temp_result[6]
-        tau = temp_result[7]
+        tau += temp_result[7]
         LDA_residual += temp_result[8]
         derivative_1 += temp_result[9]
         derivative_2 += temp_result[10]
