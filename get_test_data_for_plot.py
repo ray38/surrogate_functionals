@@ -501,14 +501,7 @@ if __name__ == "__main__":
 
     setup_filename = sys.argv[1]
     dataset_name = sys.argv[2]
-    fit_setup_filename = sys.argv[3]
-    #loss = sys.argv[3]
-    #slowdown_factor = float(sys.argv[4])
-    #tol = float(sys.argv[5])
-    #try:
-    #    early_stop_trials = int(sys.argv[6])
-    #except:
-    #    early_stop_trials = 100
+
 
     with open(setup_filename) as f:
         setup = json.load(f)
