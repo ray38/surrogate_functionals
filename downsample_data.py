@@ -235,32 +235,34 @@ def process_one_molecule(molecule, functional,h,L,N):
         #LDA_residual += temp_LDAresidual
 
         temp_result = process(molecule, functional,i,j,k,h,N)
-        x = temp_result[0]
-        y = temp_result[1]
-        z = temp_result[2]
-        n = temp_result[3]
-        Vxc = temp_result[4]
-        epxc = temp_result[5]
-        gamma = temp_result[6]
+        x += temp_result[0]
+        y += temp_result[1]
+        z += temp_result[2]
+        n += temp_result[3]
+        Vxc += temp_result[4]
+        epxc += temp_result[5]
+        gamma += temp_result[6]
         tau = temp_result[7]
-        LDA_residual = temp_result[8]
-        derivative_1 = temp_result[9]
-        derivative_2 = temp_result[10]
-        derivative_3 = temp_result[11]
-        ad_004 = temp_result[12]
-        ad_006 = temp_result[13]
-        ad_008 = temp_result[14]
-        ad_010 = temp_result[15]
-        ad_012 = temp_result[16]
-        ad_014 = temp_result[17]
-        ad_016 = temp_result[18]
-        ad_018 = temp_result[19]
-        ad_020 = temp_result[20]
-        ad_022 = temp_result[21]
-        ad_024 = temp_result[22]
-        ad_026 = temp_result[23]
-        ad_028 = temp_result[24]
-        ad_030 = temp_result[25]
+        LDA_residual += temp_result[8]
+        derivative_1 += temp_result[9]
+        derivative_2 += temp_result[10]
+        derivative_3 += temp_result[11]
+        ad_004 += temp_result[12]
+        ad_006 += temp_result[13]
+        ad_008 += temp_result[14]
+        ad_010 += temp_result[15]
+        ad_012 += temp_result[16]
+        ad_014 += temp_result[17]
+        ad_016 += temp_result[18]
+        ad_018 += temp_result[19]
+        ad_020 += temp_result[20]
+        ad_022 += temp_result[21]
+        ad_024 += temp_result[22]
+        ad_026 += temp_result[23]
+        ad_028 += temp_result[24]
+        ad_030 += temp_result[25]
+
+
 
     #overall_list.append(x)
     #overall_list.append(y)
@@ -270,32 +272,32 @@ def process_one_molecule(molecule, functional,h,L,N):
     #overall_list.append(epxc)
     #overall_list.append(LDA_residual)
 
-        overall_list.append(x)
-        overall_list.append(y)
-        overall_list.append(z)
-        overall_list.append(n)
-        overall_list.append(Vxc)
-        overall_list.append(epxc)
-        overall_list.append(gamma)
-        overall_list.append(tau)
-        overall_list.append(LDA_residual)
-        overall_list.append(derivative_1)
-        overall_list.append(derivative_2)
-        overall_list.append(derivative_3)
-        overall_list.append(ad_004)
-        overall_list.append(ad_006)
-        overall_list.append(ad_008)
-        overall_list.append(ad_010)
-        overall_list.append(ad_012)
-        overall_list.append(ad_014)
-        overall_list.append(ad_016)
-        overall_list.append(ad_018)
-        overall_list.append(ad_020)
-        overall_list.append(ad_022)
-        overall_list.append(ad_024)
-        overall_list.append(ad_026)
-        overall_list.append(ad_028)
-        overall_list.append(ad_030)
+    overall_list.append(x)
+    overall_list.append(y)
+    overall_list.append(z)
+    overall_list.append(n)
+    overall_list.append(Vxc)
+    overall_list.append(epxc)
+    overall_list.append(gamma)
+    overall_list.append(tau)
+    overall_list.append(LDA_residual)
+    overall_list.append(derivative_1)
+    overall_list.append(derivative_2)
+    overall_list.append(derivative_3)
+    overall_list.append(ad_004)
+    overall_list.append(ad_006)
+    overall_list.append(ad_008)
+    overall_list.append(ad_010)
+    overall_list.append(ad_012)
+    overall_list.append(ad_014)
+    overall_list.append(ad_016)
+    overall_list.append(ad_018)
+    overall_list.append(ad_020)
+    overall_list.append(ad_022)
+    overall_list.append(ad_024)
+    overall_list.append(ad_026)
+    overall_list.append(ad_028)
+    overall_list.append(ad_030)
     
     print np.stack(overall_list,axis=1).shape
     print np.stack(overall_list,axis=0).shape
