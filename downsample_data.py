@@ -15,8 +15,14 @@ import os
 
 import itertools
 import json
+from sklearn.decomposition import RandomizedPCA, PCA
 
 
+def PCA_analysis(data, n_components = 2):
+    pca = RandomizedPCA(n_components = n_components )
+    X_pca = pca.fit_transform(data)
+#    plot(X_pca)
+    return X_pca
 
 def get_homogeneous_gas_integral(n,r):
     return r*r*n*math.pi
@@ -130,6 +136,16 @@ def process_normal_descriptors(molecule, functional,i,j,k):
     ave_dens_026 =  np.asarray(raw_data['average_density']['average_density_0-26'])[::5,::5,::5]
     ave_dens_028 =  np.asarray(raw_data['average_density']['average_density_0-28'])[::5,::5,::5]
     ave_dens_030 =  np.asarray(raw_data['average_density']['average_density_0-3'])[::5,::5,::5]
+    ave_dens_032 =  np.asarray(raw_data['average_density']['average_density_0-32'])[::5,::5,::5]
+    ave_dens_034 =  np.asarray(raw_data['average_density']['average_density_0-34'])[::5,::5,::5]
+    ave_dens_036 =  np.asarray(raw_data['average_density']['average_density_0-36'])[::5,::5,::5]
+    ave_dens_038 =  np.asarray(raw_data['average_density']['average_density_0-38'])[::5,::5,::5]
+    ave_dens_040 =  np.asarray(raw_data['average_density']['average_density_0-4'])[::5,::5,::5]
+    ave_dens_042 =  np.asarray(raw_data['average_density']['average_density_0-42'])[::5,::5,::5]
+    ave_dens_044 =  np.asarray(raw_data['average_density']['average_density_0-44'])[::5,::5,::5]
+    ave_dens_046 =  np.asarray(raw_data['average_density']['average_density_0-46'])[::5,::5,::5]
+    ave_dens_048 =  np.asarray(raw_data['average_density']['average_density_0-48'])[::5,::5,::5]
+    ave_dens_050 =  np.asarray(raw_data['average_density']['average_density_0-5'])[::5,::5,::5]
     raw_data.close()
 
     LDA_x = [-0.33080996,  0.02474374,  1.4517462,   0.3657363,  -2.31230322,  3.56469899, 0.3858979 ]
@@ -162,6 +178,16 @@ def process_normal_descriptors(molecule, functional,i,j,k):
     result.append(np.around(ave_dens_026,9).flatten().tolist())
     result.append(np.around(ave_dens_028,9).flatten().tolist())
     result.append(np.around(ave_dens_030,9).flatten().tolist())
+    result.append(np.around(ave_dens_032,9).flatten().tolist())
+    result.append(np.around(ave_dens_034,9).flatten().tolist())
+    result.append(np.around(ave_dens_036,9).flatten().tolist())
+    result.append(np.around(ave_dens_038,9).flatten().tolist())
+    result.append(np.around(ave_dens_040,9).flatten().tolist())
+    result.append(np.around(ave_dens_042,9).flatten().tolist())
+    result.append(np.around(ave_dens_044,9).flatten().tolist())
+    result.append(np.around(ave_dens_046,9).flatten().tolist())
+    result.append(np.around(ave_dens_048,9).flatten().tolist())
+    result.append(np.around(ave_dens_050,9).flatten().tolist())
         
     return result
 
@@ -198,6 +224,7 @@ def process_one_molecule(molecule, functional,h,L,N):
 
 
     overall_list = []
+    PCA_list = []
     x = []
     y = []
     z = []
@@ -224,7 +251,18 @@ def process_one_molecule(molecule, functional,h,L,N):
     ad_026 = []
     ad_028 = []
     ad_030 = []
-    for i,j,k in paramlist:
+    ad_032 = []
+    ad_034 = []
+    ad_036 = []
+    ad_038 = []
+    ad_040 = []
+    ad_042 = []
+    ad_044 = []
+    ad_046 = []
+    ad_048 = []
+    ad_050 = []
+
+    #for i,j,k in paramlist:
         #temp_x, temp_y, temp_z,  temp_n,  temp_gamma,  temp_epxc,  temp_LDAresidual = process(molecule, functional,i,j,k,h,N)
         #x += temp_x
         #y += temp_y
@@ -234,33 +272,44 @@ def process_one_molecule(molecule, functional,h,L,N):
         #epxc += temp_epxc
         #LDA_residual += temp_LDAresidual
 
-        temp_result = process(molecule, functional,i,j,k,h,N)
-        x += temp_result[0]
-        y += temp_result[1]
-        z += temp_result[2]
-        n += temp_result[3]
-        Vxc += temp_result[4]
-        epxc += temp_result[5]
-        gamma += temp_result[6]
-        tau += temp_result[7]
-        LDA_residual += temp_result[8]
-        derivative_1 += temp_result[9]
-        derivative_2 += temp_result[10]
-        derivative_3 += temp_result[11]
-        ad_004 += temp_result[12]
-        ad_006 += temp_result[13]
-        ad_008 += temp_result[14]
-        ad_010 += temp_result[15]
-        ad_012 += temp_result[16]
-        ad_014 += temp_result[17]
-        ad_016 += temp_result[18]
-        ad_018 += temp_result[19]
-        ad_020 += temp_result[20]
-        ad_022 += temp_result[21]
-        ad_024 += temp_result[22]
-        ad_026 += temp_result[23]
-        ad_028 += temp_result[24]
-        ad_030 += temp_result[25]
+    #temp_result = process(molecule, functional,i,j,k,h,N)
+    temp_result = process(molecule, functional,0,0,0,h,N)
+    x += temp_result[0]
+    y += temp_result[1]
+    z += temp_result[2]
+    n += temp_result[3]
+    Vxc += temp_result[4]
+    epxc += temp_result[5]
+    gamma += temp_result[6]
+    tau += temp_result[7]
+    LDA_residual += temp_result[8]
+    derivative_1 += temp_result[9]
+    derivative_2 += temp_result[10]
+    derivative_3 += temp_result[11]
+    ad_004 += temp_result[12]
+    ad_006 += temp_result[13]
+    ad_008 += temp_result[14]
+    ad_010 += temp_result[15]
+    ad_012 += temp_result[16]
+    ad_014 += temp_result[17]
+    ad_016 += temp_result[18]
+    ad_018 += temp_result[19]
+    ad_020 += temp_result[20]
+    ad_022 += temp_result[21]
+    ad_024 += temp_result[22]
+    ad_026 += temp_result[23]
+    ad_028 += temp_result[24]
+    ad_030 += temp_result[25]
+    ad_032 += temp_result[26]
+    ad_034 += temp_result[27]
+    ad_036 += temp_result[28]
+    ad_038 += temp_result[29]
+    ad_020 += temp_result[30]
+    ad_042 += temp_result[31]
+    ad_044 += temp_result[32]
+    ad_046 += temp_result[33]
+    ad_048 += temp_result[34]
+    ad_050 += temp_result[35]
 
 
 
@@ -298,6 +347,37 @@ def process_one_molecule(molecule, functional,h,L,N):
     overall_list.append(ad_026)
     overall_list.append(ad_028)
     overall_list.append(ad_030)
+
+
+
+    PCA_list.append(n)
+    PCA_list.append(derivative_1)
+    PCA_list.append(derivative_2)
+    PCA_list.append(ad_004)
+    PCA_list.append(ad_006)
+    PCA_list.append(ad_008)
+    PCA_list.append(ad_010)
+    PCA_list.append(ad_012)
+    PCA_list.append(ad_014)
+    PCA_list.append(ad_016)
+    PCA_list.append(ad_018)
+    PCA_list.append(ad_020)
+    PCA_list.append(ad_022)
+    PCA_list.append(ad_024)
+    PCA_list.append(ad_026)
+    PCA_list.append(ad_028)
+    PCA_list.append(ad_030)
+    PCA_list.append(ad_040)
+    PCA_list.append(ad_050)
+
+
+    PCA_list = np.stack(PCA_list,axis=1)
+
+    print PCA_list.shape
+
+    PCA_list = PCA_analysis(PCA_list, n_components = 5)
+
+
     
     print np.stack(overall_list,axis=1).shape
     print np.stack(overall_list,axis=0).shape
