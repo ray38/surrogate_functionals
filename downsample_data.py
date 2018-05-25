@@ -136,15 +136,7 @@ def process_normal_descriptors(molecule, functional,i,j,k):
     ave_dens_026 =  np.asarray(raw_data['average_density']['average_density_0-26'])[::5,::5,::5]
     ave_dens_028 =  np.asarray(raw_data['average_density']['average_density_0-28'])[::5,::5,::5]
     ave_dens_030 =  np.asarray(raw_data['average_density']['average_density_0-3'])[::5,::5,::5]
-    ave_dens_032 =  np.asarray(raw_data['average_density']['average_density_0-32'])[::5,::5,::5]
-    ave_dens_034 =  np.asarray(raw_data['average_density']['average_density_0-34'])[::5,::5,::5]
-    ave_dens_036 =  np.asarray(raw_data['average_density']['average_density_0-36'])[::5,::5,::5]
-    ave_dens_038 =  np.asarray(raw_data['average_density']['average_density_0-38'])[::5,::5,::5]
     ave_dens_040 =  np.asarray(raw_data['average_density']['average_density_0-4'])[::5,::5,::5]
-    ave_dens_042 =  np.asarray(raw_data['average_density']['average_density_0-42'])[::5,::5,::5]
-    ave_dens_044 =  np.asarray(raw_data['average_density']['average_density_0-44'])[::5,::5,::5]
-    ave_dens_046 =  np.asarray(raw_data['average_density']['average_density_0-46'])[::5,::5,::5]
-    ave_dens_048 =  np.asarray(raw_data['average_density']['average_density_0-48'])[::5,::5,::5]
     ave_dens_050 =  np.asarray(raw_data['average_density']['average_density_0-5'])[::5,::5,::5]
     raw_data.close()
 
@@ -178,15 +170,7 @@ def process_normal_descriptors(molecule, functional,i,j,k):
     result.append(np.around(ave_dens_026,9).flatten().tolist())
     result.append(np.around(ave_dens_028,9).flatten().tolist())
     result.append(np.around(ave_dens_030,9).flatten().tolist())
-    result.append(np.around(ave_dens_032,9).flatten().tolist())
-    result.append(np.around(ave_dens_034,9).flatten().tolist())
-    result.append(np.around(ave_dens_036,9).flatten().tolist())
-    result.append(np.around(ave_dens_038,9).flatten().tolist())
     result.append(np.around(ave_dens_040,9).flatten().tolist())
-    result.append(np.around(ave_dens_042,9).flatten().tolist())
-    result.append(np.around(ave_dens_044,9).flatten().tolist())
-    result.append(np.around(ave_dens_046,9).flatten().tolist())
-    result.append(np.around(ave_dens_048,9).flatten().tolist())
     result.append(np.around(ave_dens_050,9).flatten().tolist())
         
     return result
@@ -251,15 +235,7 @@ def process_one_molecule(molecule, functional,h,L,N):
     ad_026 = []
     ad_028 = []
     ad_030 = []
-    ad_032 = []
-    ad_034 = []
-    ad_036 = []
-    ad_038 = []
     ad_040 = []
-    ad_042 = []
-    ad_044 = []
-    ad_046 = []
-    ad_048 = []
     ad_050 = []
 
     #for i,j,k in paramlist:
@@ -300,16 +276,8 @@ def process_one_molecule(molecule, functional,h,L,N):
     ad_026 += temp_result[23]
     ad_028 += temp_result[24]
     ad_030 += temp_result[25]
-    ad_032 += temp_result[26]
-    ad_034 += temp_result[27]
-    ad_036 += temp_result[28]
-    ad_038 += temp_result[29]
-    ad_020 += temp_result[30]
-    ad_042 += temp_result[31]
-    ad_044 += temp_result[32]
-    ad_046 += temp_result[33]
-    ad_048 += temp_result[34]
-    ad_050 += temp_result[35]
+    ad_040 += temp_result[26]
+    ad_050 += temp_result[27]
 
 
 
@@ -347,6 +315,8 @@ def process_one_molecule(molecule, functional,h,L,N):
     overall_list.append(ad_026)
     overall_list.append(ad_028)
     overall_list.append(ad_030)
+    overall_list.append(ad_040)
+    overall_list.append(ad_050)
 
 
 
@@ -389,7 +359,7 @@ def process_one_molecule(molecule, functional,h,L,N):
                          'deriv_1','deriv_2','deriv_3',\
                          'ad_0-04','ad_0-06','ad_0-08','ad_0-10',\
                          'ad_0-12','ad_0-14','ad_0-16','ad_0-18','ad_0-20',\
-                         'ad_0-22','ad_0-24','ad_0-26','ad_0-28','ad_0-30'])
+                         'ad_0-22','ad_0-24','ad_0-26','ad_0-28','ad_0-30','ad_0-40','ad_0-50'])
         writer.writerows(overall_list)
     
     os.chdir(cwd)
