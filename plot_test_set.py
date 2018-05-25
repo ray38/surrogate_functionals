@@ -250,10 +250,10 @@ if __name__ == "__main__":
 
     print "start ploting"
 
-    plt.figure()
+    plt.figure(figuresize=(30,30))
     
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-    ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data)
+    ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data,fit_reg=False)
 
     plt.savefig("test_set_plot.png")
