@@ -198,9 +198,159 @@ def create_df(setup):
         model_name_list += [model_name] * temp_len
         model_list += [setup[model_name]["model"]] * temp_len
 
-    d = {"error": error_list, "dens": dens_list, "dataset":dataset_name_list, "model_name": model_name_list, "model":model_list}
+    d = {"error": error_list, "dens": dens_list, "dataset":dataset_name_list, "model_name": model_name_list, "model":model_list, "log_y":log_y_list, "log_dens":log_dens_list, "y":y_list}
 
     return pd.DataFrame(data=d)
+    
+def plot_group_1(data):
+    colors = ["windows blue", "amber", "greyish", "faded green", "dusty purple"]
+
+    plt.figure()
+    
+    sns.set(style="white", palette="pastel", color_codes=True)
+
+    ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
+    plt.xlabel("Density (1/A$^3$)",fontsize=50)
+    plt.ylabel("Prediction Error (eV/A$^3$)",fontsize=50)
+    plt.tick_params(labelsize=40)
+    lgnd = plt.legend(["Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],fontsize=40)
+    
+    print lgnd.legendHandles[0]
+
+    lgnd.legendHandles[0]._sizes = [500]
+    lgnd.legendHandles[1]._sizes = [500]
+    lgnd.legendHandles[2]._sizes = [500]
+    lgnd.legendHandles[3]._sizes = [500]
+    lgnd.legendHandles[4]._sizes = [500]
+
+    plt.tight_layout()
+    plt.savefig("test_set_plot_real_real.png")
+    
+    
+    plt.figure()
+    
+    sns.set(style="white", palette="pastel", color_codes=True)
+
+    ax = sns.FacetGrid(data, hue="model_name",col="model_name")
+    ax = (ax.map(plt.scatter, "dens","error", edgecolor="w"))
+
+    #ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
+    #plt.xlabel("Density (1/A$^3$)",fontsize=50)
+    #plt.ylabel("Presiction Error (eV/A$^3$)",fontsize=50)
+    #plt.tick_params(labelsize=40)
+    #lgnd = plt.legend(["Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],fontsize=40)
+    
+    #print lgnd.legendHandles
+
+    #lgnd.legendHandles[0]._sizes = [500]
+    #lgnd.legendHandles[1]._sizes = [500]
+    #lgnd.legendHandles[2]._sizes = [500]
+    #lgnd.legendHandles[3]._sizes = [500]
+    #lgnd.legendHandles[4]._sizes = [500]
+
+    #plt.tight_layout()
+    plt.savefig("test_set_plot_real_real2.png")
+    
+    
+    
+    
+    
+    
+    #g = sns.FacetGrid(df, col="group", hue="group")
+    #g = (g.map(plt.scatter, "x", "y", edgecolor="w"))
+    
+   
+        
+    plt.figure()
+    
+    sns.set(style="white", palette="pastel", color_codes=True)
+
+    ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
+    ax.fig.get_axes()[0].set_xscale('log')
+    ax.fig.get_axes()[0].set_xlim(1e-9, 1000)
+    plt.xlabel("Density (1/A$^3$)",fontsize=50)
+    plt.ylabel("Prediction Error (eV/A$^3$)",fontsize=50)
+    plt.tick_params(labelsize=40)
+    lgnd = plt.legend(["Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],fontsize=40)
+    
+    print lgnd.legendHandles[0]
+
+    lgnd.legendHandles[0]._sizes = [500]
+    lgnd.legendHandles[1]._sizes = [500]
+    lgnd.legendHandles[2]._sizes = [500]
+    lgnd.legendHandles[3]._sizes = [500]
+    lgnd.legendHandles[4]._sizes = [500]
+
+    plt.tight_layout()
+    plt.savefig("test_set_plot_log_real.png")
+    
+    
+    
+    
+    
+    
+    
+    plt.figure()
+    
+    sns.set(style="white", palette="pastel", color_codes=True)
+
+    ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
+    ax.fig.get_axes()[0].set_xscale('log')
+    ax.fig.get_axes()[0].set_yscale('symlog')
+    print ax.fig.get_axes()[0].get_ylim()
+    ax.fig.get_axes()[0].set_xlim(1e-9, 1000)
+    plt.xlabel("Density (1/A$^3$)",fontsize=50)
+    plt.ylabel("Prediction Error (eV/A$^3$)",fontsize=50)
+    plt.tick_params(labelsize=40)
+    lgnd = plt.legend(["Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],fontsize=40)
+    
+    print lgnd.legendHandles[0]
+
+    lgnd.legendHandles[0]._sizes = [500]
+    lgnd.legendHandles[1]._sizes = [500]
+    lgnd.legendHandles[2]._sizes = [500]
+    lgnd.legendHandles[3]._sizes = [500]
+    lgnd.legendHandles[4]._sizes = [500]
+
+    plt.tight_layout()
+    plt.savefig("test_set_plot_log_symlog.png")
+    
+    
+    
+    
+    
+    
+    plt.figure()
+    
+    sns.set(style="white", palette="pastel", color_codes=True)
+
+    ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
+    ax.fig.get_axes()[0].set_xscale('log')
+    ax.fig.get_axes()[0].set_yscale('symlog')
+    print ax.fig.get_axes()[0].get_ylim()
+    ax.fig.get_axes()[0].set_xlim(1e-6, 0.1)
+    ax.fig.get_axes()[0].set_ylim(-0.001, 0.001)
+    plt.xlabel("Density (1/A$^3$)",fontsize=50)
+    plt.ylabel("Prediction Error (eV/A$^3$)",fontsize=50)
+    plt.tick_params(labelsize=40)
+    #lgnd = plt.legend(["Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],fontsize=40)
+    
+    #print lgnd.legendHandles[0]
+
+    #lgnd.legendHandles[0]._sizes = [500]
+    #lgnd.legendHandles[1]._sizes = [500]
+    #lgnd.legendHandles[2]._sizes = [500]
+    #lgnd.legendHandles[3]._sizes = [500]
+    #lgnd.legendHandles[4]._sizes = [500]
+
+    plt.tight_layout()
+    plt.savefig("test_set_plot_log_symlog2.png")
+    
+def plot_group_2(data):
+    plt.figure()
+    ax = sns.kdeplot(data["dens"],bw=.0015)
+    ax.fig.get_axes()[0].set_xscale('log')
+    plt.savefig("test_set_plot_dens_dist_real.png")
 
 if __name__ == "__main__":
 
@@ -251,16 +401,6 @@ if __name__ == "__main__":
             pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     print "start ploting"
-
-    plt.figure()
     
-    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    #plot_group_2(data)
 
-    ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data,legend_out=True,fit_reg=False,size=20,scatter_kws={"s": 20}, palette=("Dark2"))
-    plt.xlabel("Density",fontsize=30)
-    plt.ylabel("Presiction Error (eV)",fontsize=30)
-    plt.tick_params(labelsize=20)
-
-    sns.despine(left=True)
-    plt.tight_layout()
-    plt.savefig("test_set_plot.png")
