@@ -20,11 +20,7 @@ import math
 import json
 from glob import glob
 from sklearn import linear_model
-from keras.models import Sequential
-from keras.models import load_model
-from keras.layers import Dense, Activation
-from keras import backend as K
-import keras
+
 import scipy
 
 import itertools
@@ -34,7 +30,6 @@ try: import cPickle as pickle
 except: import pickle
 import matplotlib.pyplot as plt
 from subsampling import subsampling_system,random_subsampling,subsampling_system_with_PCA
-import keras.backend as K
 
 def sae(y_true, y_pred):
     return K.sum(K.abs(y_pred - y_true))
@@ -506,11 +501,7 @@ if __name__ == "__main__":
     with open(setup_filename) as f:
         setup = json.load(f)
 
-    with open(fit_setup_filename) as f:
-        fit_setup = json.load(f)
 
-    K.set_floatx('float64')
-    K.floatx()
 
     h = float(setup['grid_spacing'])
     L = float(setup['box_dimension'])
