@@ -35,7 +35,29 @@ import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 
+def sae(y_true, y_pred):
+    return K.sum(K.abs(y_pred - y_true))
 
+def map_to_n1_1(arr, maxx, minn):
+    return np.divide(np.subtract(arr,minn),(maxx-minn)/2.)-1.
+    
+def log(log_filename, text):
+    with open(log_filename, "a") as myfile:
+        myfile.write(text)
+    return
+
+def write(log_filename, text):
+    with open(log_filename, "w") as myfile:
+        myfile.write(text)
+    return
+
+
+
+def map_to_0_1(arr, maxx, minn):
+    return np.divide(np.subtract(arr,minn),(maxx-minn))
+    
+def map_back(arr, maxx, minn):
+    return np.add(np.multiply(arr,(maxx-minn)),minn)
 
 def get_x0():
     x = [ -0.45816529328314287, 0.031091, 0.21370, 7.5957, 3.5876, 1.6382, 0.49294]
@@ -192,6 +214,8 @@ def create_df(setup):
 if __name__ == "__main__":
 
     print "start"
+    K.set_floatx('float64')
+    K.floatx()
     try:
         with open('test_set_plot.pickle', 'rb') as handle:
             data = pickle.load(handle)
