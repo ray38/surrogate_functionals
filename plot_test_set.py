@@ -257,9 +257,9 @@ if __name__ == "__main__":
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
     ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data,fit_reg=False,size=20,scatter_kws={"s": 20}, palette=("Dark2"))
-    b.set_xlabel("Density",fontsize=30)
-    b.set_ylabel("Presiction Error (eV)",fontsize=30)
-    b.tick_params(labelsize=20)
+    ax.set_xlabel("Density",fontsize=30)
+    ax.set_ylabel("Presiction Error (eV)",fontsize=30)
+    ax.tick_params(labelsize=20)
 
     sns.despine(left=True)
     plt.savefig("test_set_plot.png")
