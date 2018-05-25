@@ -247,3 +247,12 @@ if __name__ == "__main__":
 
         with open('test_set_plot.pickle', 'wb') as handle:
             pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+    plt.figure()
+    
+    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+
+    ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data)
+
+    plt.savefig("test_set_plot.png")
