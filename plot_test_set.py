@@ -248,6 +248,7 @@ if __name__ == "__main__":
         with open('test_set_plot.pickle', 'wb') as handle:
             pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
+    print "start ploting"
 
     plt.figure()
     
