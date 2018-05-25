@@ -254,9 +254,12 @@ if __name__ == "__main__":
 
     plt.figure()
     
-    sns.set(style="whitegrid", palette="pastel", color_codes=True,font_scale=3)
+    sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-    ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data,fit_reg=False,size=20,scatter_kws={"s": 20}, palette=("Dark2"))
+    ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data,legend_out=True,fit_reg=False,size=20,scatter_kws={"s": 20}, palette=("Dark2"))
+    plt.xlabel("Density",fontsize=30)
+    plt.ylabel("Presiction Error (eV)",fontsize=30)
+    plt.tick_params(labelsize=20)
 
     sns.despine(left=True)
     plt.tight_layout()
