@@ -349,10 +349,6 @@ def process_one_molecule(molecule, functional,h,L,N):
 
     print PCA_list.shape
 
-
-    
-    print np.stack(overall_list,axis=1).shape
-    print np.stack(overall_list,axis=0).shape
     overall_list = np.stack(overall_list,axis=1).tolist()
     with open("{}_{}_downsampled_full_data.csv".format(molecule,functional), "wb") as f:
         writer = csv.writer(f)
