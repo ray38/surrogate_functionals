@@ -252,7 +252,7 @@ if __name__ == "__main__":
 
     print "start ploting"
 
-    plt.figure(figuresize=(30,30))
+    plt.figure(figsize=(30,30))
     
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
