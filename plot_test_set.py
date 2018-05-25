@@ -155,11 +155,6 @@ def initialize(setup,key):
 
     setup[key]["NN_model"] = NN_model
     setup[key]["LDA_model"] = LDA_model
-    setup[key]["predict_log_name"] = predict_log_name
-    setup[key]["predict_full_log_name"] = predict_full_log_name
-    setup[key]["predict_error_log_name"] = predict_error_log_name
-    setup[key]["predict_formation_log_name"] = predict_formation_log_name
-
 
 
     os.chdir(setup[key]["working_dir"])
@@ -175,11 +170,12 @@ def initialize(setup,key):
 
 
 def process_one_model(setup,key):
+    print "start: " + key
     initialize(setup,key)
     temp_predict_y, temp_error = predict(setup[key]["test_dens"],setup[key]["LDA_model"].x,setup[key]["test_X"],setup[key]["NN_model"],setup[key]["test_y"])
     setup[key]["predict_y"] = temp_predict_y
     setup[key]["error"] = temp_error
-
+    print "end: " + key
     return temp_predict_y, temp_error
 
 
