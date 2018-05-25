@@ -523,6 +523,7 @@ if __name__ == "__main__":
     #NN_model = fit_with_KerasNN(X_train * 1e6, residual * 1e6, loss, tol, slowdown_factor, early_stop_trials)
     #save_resulting_figure(dens,result.x,X_train,NN_model,y)
 
+    os.chdir(setup["working_dir"])
     with open('test_data_to_plot.pickle', 'wb') as handle:
         pickle.dump(plot_save_result, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
