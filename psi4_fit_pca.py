@@ -285,7 +285,7 @@ def fit_model(LDA_result, dens, X_train, residual, loss, tol, slowdown_factor, e
 
     return NN_model
 
-def fit_pca(data,n_components = 5,filename):
+def fit_pca(data,filename,n_components = 5):
     print "start fitting pca"
     pca = RandomizedPCA(n_components = n_components )
     X_pca = pca.fit_transform(data)
@@ -293,7 +293,7 @@ def fit_pca(data,n_components = 5,filename):
     return X_pca, pca
 
 
-def fit_pls(data,n_components = 5,filename):
+def fit_pls(data,filename,n_components = 5):
     print "start fitting pls"
     pls = PLSRegression(n_components = n_components)
     X_pls = pls.fit_transform(data)
@@ -363,13 +363,13 @@ if __name__ == "__main__":
 
     os.chdir(model_save_dir)
 
-    X_pca, pca = fit_pca(X_train,n_components = 5=,'pca_model_{}.sav'.format(dataset_name))
+    X_pca, pca = fit_pca(X_train,'pca_model_{}.sav'.format(dataset_name),n_components = 5)
     plot_result(X_pca, molecule_name, "PCA_result_plot_{}.sav".format(dataset_name))
 
 
 
 
-    X_pls, pls = fit_pls(X_train,n_components = 5,'pls_model_{}.sav'.format(dataset_name))
+    X_pls, pls = fit_pls(X_train,'pls_model_{}.sav'.format(dataset_name),n_components = 5)
     plot_result(X_pls, molecule_name, "PLS_result_plot_{}.sav".format(dataset_name))
 
 
