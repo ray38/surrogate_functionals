@@ -290,7 +290,7 @@ def fit_pls(data,filename,n_components = 5):
     return X_pls, pls
 
 
-def plot_result(data, molecule_name, filename):
+def plot_result(data, molecule_name, filename,figure_size):
     print "start plotting"
     result = {}
     result["PC1"] = data[:,0]
@@ -300,7 +300,7 @@ def plot_result(data, molecule_name, filename):
     data = pd.DataFrame(data=result)
     # Use the 'hue' argument to provide a factor variable
 
-    plt.figure(figsize=(20,20))
+    plt.figure(figsize=(figure_size,figure_size))
     
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.lmplot( x="PC1", y="PC2", data=data, fit_reg=False, hue='molecule_name', legend=False)
@@ -345,7 +345,10 @@ if __name__ == "__main__":
     os.chdir(model_save_dir)
 
     X_pca, pca = fit_pca(X_train,'pca_model_{}.sav'.format(dataset_name),n_components = 5)
-    plot_result(X_pca, molecule_name, "PCA_result_plot_{}.png".format(dataset_name))
+    plot_result(X_pca, molecule_name, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10)
+    plot_result(X_pca, molecule_name, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20)
+    plot_result(X_pca, molecule_name, "PCA_result_plot_{}_{}.png".format(dataset_name,30),30)
+    plot_result(X_pca, molecule_name, "PCA_result_plot_{}_{}.png".format(dataset_name,50),50)
 
 
 
