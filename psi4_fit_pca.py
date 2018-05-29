@@ -230,7 +230,8 @@ def get_training_data(dataset_name,setup):
     num_samples = len(data_paths)
     num_random_per_molecule = int(math.ceil(float(setup["random_pick"])/float(num_samples)))
     for directory in data_paths:
-        molecule_name = directory.split('/')[-1]
+        molecule_name = directory.split('/')[-2]
+
         print molecule_name
         temp_molecule_subsampled_data, temp_molecule_random_data = read_data_from_one_dir(directory)
         overall_subsampled_data += temp_molecule_subsampled_data
