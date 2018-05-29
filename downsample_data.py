@@ -184,7 +184,8 @@ def process(molecule, functional,i,j,k,h,N):
     print 'start {} {} {}'.format(i,j,k)
     result  = process_normal_descriptors(molecule, functional,i,j,k)
     return result
-    
+
+
 
 def process_one_molecule(molecule, functional,h,L,N):
     cwd = os.getcwd()
@@ -238,46 +239,37 @@ def process_one_molecule(molecule, functional,h,L,N):
     ad_040 = []
     ad_050 = []
 
-    #for i,j,k in paramlist:
-        #temp_x, temp_y, temp_z,  temp_n,  temp_gamma,  temp_epxc,  temp_LDAresidual = process(molecule, functional,i,j,k,h,N)
-        #x += temp_x
-        #y += temp_y
-        #z += temp_z
-        #n += temp_n
-        #gamma += temp_gamma
-        #epxc += temp_epxc
-        #LDA_residual += temp_LDAresidual
-
-    #temp_result = process(molecule, functional,i,j,k,h,N)
-    temp_result = process(molecule, functional,0,0,0,h,N)
-    x += temp_result[0]
-    y += temp_result[1]
-    z += temp_result[2]
-    n += temp_result[3]
-    Vxc += temp_result[4]
-    epxc += temp_result[5]
-    gamma += temp_result[6]
-    tau += temp_result[7]
-    LDA_residual += temp_result[8]
-    derivative_1 += temp_result[9]
-    derivative_2 += temp_result[10]
-    derivative_3 += temp_result[11]
-    ad_004 += temp_result[12]
-    ad_006 += temp_result[13]
-    ad_008 += temp_result[14]
-    ad_010 += temp_result[15]
-    ad_012 += temp_result[16]
-    ad_014 += temp_result[17]
-    ad_016 += temp_result[18]
-    ad_018 += temp_result[19]
-    ad_020 += temp_result[20]
-    ad_022 += temp_result[21]
-    ad_024 += temp_result[22]
-    ad_026 += temp_result[23]
-    ad_028 += temp_result[24]
-    ad_030 += temp_result[25]
-    ad_040 += temp_result[26]
-    ad_050 += temp_result[27]
+    for i,j,k in paramlist:
+        temp_result = process(molecule, functional,i,j,k,h,N)
+        #temp_result = process(molecule, functional,0,0,0,h,N)
+        x += temp_result[0]
+        y += temp_result[1]
+        z += temp_result[2]
+        n += temp_result[3]
+        Vxc += temp_result[4]
+        epxc += temp_result[5]
+        gamma += temp_result[6]
+        tau += temp_result[7]
+        LDA_residual += temp_result[8]
+        derivative_1 += temp_result[9]
+        derivative_2 += temp_result[10]
+        derivative_3 += temp_result[11]
+        ad_004 += temp_result[12]
+        ad_006 += temp_result[13]
+        ad_008 += temp_result[14]
+        ad_010 += temp_result[15]
+        ad_012 += temp_result[16]
+        ad_014 += temp_result[17]
+        ad_016 += temp_result[18]
+        ad_018 += temp_result[19]
+        ad_020 += temp_result[20]
+        ad_022 += temp_result[21]
+        ad_024 += temp_result[22]
+        ad_026 += temp_result[23]
+        ad_028 += temp_result[24]
+        ad_030 += temp_result[25]
+        ad_040 += temp_result[26]
+        ad_050 += temp_result[27]
 
 
 
@@ -320,38 +312,7 @@ def process_one_molecule(molecule, functional,h,L,N):
 
 
 
-    PCA_list.append(n)
-    PCA_list.append(derivative_1)
-    PCA_list.append(derivative_2)
-    PCA_list.append(ad_004)
-    PCA_list.append(ad_006)
-    PCA_list.append(ad_008)
-    PCA_list.append(ad_010)
-    PCA_list.append(ad_012)
-    PCA_list.append(ad_014)
-    PCA_list.append(ad_016)
-    PCA_list.append(ad_018)
-    PCA_list.append(ad_020)
-    PCA_list.append(ad_022)
-    PCA_list.append(ad_024)
-    PCA_list.append(ad_026)
-    PCA_list.append(ad_028)
-    PCA_list.append(ad_030)
-    PCA_list.append(ad_040)
-    PCA_list.append(ad_050)
 
-
-    PCA_list = np.stack(PCA_list,axis=1)
-
-    print PCA_list.shape
-
-    PCA_list = PCA_analysis(PCA_list, n_components = 5)
-
-    print PCA_list.shape
-
-    overall_list = np.stack(overall_list,axis=1)
-
-    overall_list = np.concatenate((overall_list,PCA_list),axis=1)
 
     print overall_list.shape
 
@@ -365,7 +326,7 @@ def process_one_molecule(molecule, functional,h,L,N):
                          'ad_0-04','ad_0-06','ad_0-08','ad_0-10',\
                          'ad_0-12','ad_0-14','ad_0-16','ad_0-18','ad_0-20',\
                          'ad_0-22','ad_0-24','ad_0-26','ad_0-28','ad_0-30',\
-                         'ad_0-40','ad_0-50', 'PCA1','PCA2','PCA3','PCA4','PCA5'])
+                         'ad_0-40','ad_0-50'])
         writer.writerows(overall_list)
     
     os.chdir(cwd)

@@ -315,7 +315,7 @@ def plot_result(data, molecule_name, filename):
     plt.figure()
     
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
-    sns.lmplot( x="PC1", y="PCA2", data=result, fit_reg=False, hue='molecule_name', legend=False)
+    sns.lmplot( x="PC1", y="PC2", data=result, fit_reg=False, hue='molecule_name', legend=False)
      
     # Move the legend to an empty part of the plot
     plt.legend(loc='lower right')
