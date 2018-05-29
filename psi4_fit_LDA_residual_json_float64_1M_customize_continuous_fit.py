@@ -491,7 +491,7 @@ def get_training_data(dataset_name,setup):
 def fit_model(LDA_result, dens, X_train, residual, loss, tol, slowdown_factor, early_stop_trials):
 
     NN_model,loss_result = fit_with_KerasNN(X_train * 1e6, residual * 1e6, loss, tol, slowdown_factor, early_stop_trials)
-    save_resulting_figure(dens,result.x,X_train,NN_model,y,loss,loss_result)
+    save_resulting_figure(dens,LDA_result.x,X_train,NN_model,y,loss,loss_result)
 
     return NN_model
 
@@ -543,8 +543,8 @@ if __name__ == "__main__":
     
     #residual,li_model = fit_with_Linear(dens,y)
 
-    residual, result = fit_with_LDA(dens,y)
-    setup['LDA_model'] = result
+    residual, LDA_result = fit_with_LDA(dens,y)
+    setup['LDA_model'] = LDA_result
 
 
     for fit_setup in fit_setup['fit_setup']:
@@ -552,7 +552,7 @@ if __name__ == "__main__":
         slowdown_factor = fit_setup['slowdown']
         early_stop_trials = fit_setup['early_stop']
         tol = fit_setup['tol']
-        fit_model(result, dens, X_train, residual, loss, tol, slowdown_factor, early_stop_trials*2)
+        fit_model(LDA_result, dens, X_train, residual, loss, tol, slowdown_factor, early_stop_trials*2)
     #NN_model = fit_with_KerasNN(X_train * 1e6, residual * 1e6, loss, tol, slowdown_factor, early_stop_trials)
     #save_resulting_figure(dens,result.x,X_train,NN_model,y)
 

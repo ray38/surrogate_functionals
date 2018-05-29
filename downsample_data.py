@@ -364,7 +364,8 @@ def process_one_molecule(molecule, functional,h,L,N):
                          'deriv_1','deriv_2','deriv_3',\
                          'ad_0-04','ad_0-06','ad_0-08','ad_0-10',\
                          'ad_0-12','ad_0-14','ad_0-16','ad_0-18','ad_0-20',\
-                         'ad_0-22','ad_0-24','ad_0-26','ad_0-28','ad_0-30','ad_0-40','ad_0-50'])
+                         'ad_0-22','ad_0-24','ad_0-26','ad_0-28','ad_0-30',\
+                         'ad_0-40','ad_0-50', 'PCA1','PCA2','PCA3','PCA4','PCA5'])
         writer.writerows(overall_list)
     
     os.chdir(cwd)
