@@ -218,11 +218,11 @@ def read_data_from_one_dir(directory):
 
 def get_training_data(dataset_name,setup):
 
-    data_dir_name = setup["working_dir"] + "/data/*/" 
-    data_paths = glob(data_dir_name)
-    print data_paths
+    #data_dir_name = setup["working_dir"] + "/data/*/" 
+    #data_paths = glob(data_dir_name)
+    #print data_paths
 
-
+    data_paths = ["/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/C2H6/"]
     overall_subsampled_data = []
     overall_random_data = []
     overall_molecule_name_list_subsampled = []
@@ -241,18 +241,6 @@ def get_training_data(dataset_name,setup):
         overall_random_data += temp_random_sampled_random_data
         overall_molecule_name_list_random += [molecule_name] * len(temp_random_sampled_random_data)
 
-
-
-    #list_subsample = setup["subsample_feature_list"]
-    #temp_list_subsample = setup["subsample_feature_list"]
-    #if temp_list_subsample == []:
-    #    for m in range(len(overall_subsampled_data[0])):
-    #        temp_list_subsample.append(m)
-
-    #if len(temp_list_subsample) <= 10:
-    #    overall_subsampled_data = subsampling_system(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
-    #else:
-    #    overall_subsampled_data = subsampling_system_with_PCA(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
 
 
     overall = overall_random_data + overall_subsampled_data
@@ -315,7 +303,7 @@ def plot_result(data, molecule_name, filename):
     plt.figure()
     
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
-    sns.lmplot( x="PC1", y="PC2", data=result, fit_reg=False, hue='molecule_name', legend=False)
+    sns.lmplot( x="PC1", y="PC2", data=data, fit_reg=False, hue='molecule_name', legend=False)
      
     # Move the legend to an empty part of the plot
     plt.legend(loc='lower right')
@@ -329,14 +317,6 @@ if __name__ == "__main__":
 
     setup_filename = sys.argv[1]
     dataset_name = sys.argv[2]
-    #fit_setup_filename = sys.argv[3]
-    #loss = sys.argv[3]
-    #slowdown_factor = float(sys.argv[4])
-    #tol = float(sys.argv[5])
-    #try:
-    #    early_stop_trials = int(sys.argv[6])
-    #except:
-    #    early_stop_trials = 100
 
     with open(setup_filename) as f:
         setup = json.load(f)
