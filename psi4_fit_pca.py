@@ -300,10 +300,10 @@ def plot_result(data, molecule_name, filename,figure_size):
     data = pd.DataFrame(data=result)
     # Use the 'hue' argument to provide a factor variable
 
-    plt.figure(figsize=(figure_size,figure_size))
+    #plt.figure(figsize=(figure_size,figure_size))
     
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
-    sns.lmplot( x="PC1", y="PC2", data=data, fit_reg=False, hue='molecule_name', legend=False)
+    sns.lmplot( x="PC1", y="PC2", data=data, fit_reg=False, hue='molecule_name', legend=False,size=figure_size)
      
     # Move the legend to an empty part of the plot
     plt.legend(loc='lower right')
