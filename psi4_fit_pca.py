@@ -314,7 +314,7 @@ def fit_pca(data,filename,n_components = 5):
 def fit_kernel_pca(data,filename,kernel,n_components = 5):
     print "start fitting pca"
     print data.shape
-    kpca = KernelPCA(n_components = n_components, kernel= kernel, fit_inverse_transform=True)
+    kpca = KernelPCA(n_components = n_components, kernel= kernel, fit_inverse_transform=True,n_jobs=-1)
 
     X_kpca = kpca.fit_transform(data)
     pickle.dump(kpca, open(filename, 'wb'))
@@ -332,7 +332,7 @@ def fit_pls(data,filename,n_components = 5):
 def fit_manifold(data,filename,method,n_neighbors = 10, n_components = 2):
     print "start fitting manifold"
     print data.shape
-    model = manifold.LocallyLinearEmbedding(n_neighbors, n_components,method=method)
+    model = manifold.LocallyLinearEmbedding(n_neighbors, n_components,method=method,n_jobs=-1)
     X_transform = model.fit_transform(data)
     pickle.dump(model, open(filename, 'wb'))
     print X_transform.shape
@@ -366,7 +366,7 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     for name, group in groups:
         ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.rainbow, linewidths=0)
     ax3D.scatter(np.asarray([x_low,x_high]), np.asarray([0,0]), np.asarray([y_low,y_high]), linewidths=0, marker='x',c='k')
-    ax3D.legend()
+    ax3D.legend(loc='upper left')
 
     plt.savefig("3D_1_" + filename)
 
@@ -376,7 +376,7 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     for name, group in groups:
         ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.rainbow, linewidths=0)
     ax3D.scatter(np.asarray([x_low,x_high])*2, np.asarray([0,0]), np.asarray([y_low,y_high])*2, linewidths=0, marker='x',c='k')
-    ax3D.legend()
+    ax3D.legend(loc='upper left')
 
     plt.savefig("3D_2_" + filename)
 
@@ -387,7 +387,7 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     for name, group in groups:
         ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.rainbow, linewidths=0)
     ax3D.scatter(np.asarray([x_low,x_high])*5, np.asarray([0,0]), np.asarray([y_low,y_high])*5, linewidths=0, marker='x',c='k')
-    ax3D.legend()
+    ax3D.legend(loc='upper left')
 
     plt.savefig("3D_5_" + filename)
 
@@ -398,7 +398,7 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     for name, group in groups:
         ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.rainbow, linewidths=0)
     ax3D.scatter(np.asarray([x_low,x_high])*10, np.asarray([0,0]), np.asarray([y_low,y_high])*10, linewidths=0, marker='x',c='k')
-    ax3D.legend()
+    ax3D.legend(loc='upper left')
 
     plt.savefig("3D_10_" + filename)
 
@@ -440,20 +440,20 @@ if __name__ == "__main__":
 
     os.chdir(model_save_dir)
 
-    #try:
-    #X_pca, pca = fit_pca(X_train.copy(),'pca_model_{}.sav'.format(dataset_name),n_components = 3)
-    #plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10, edge=(-100000,600000,-6000,6000))
-    #plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-100000,600000,-6000,6000))
-    #except:
-    #    pass
+    try:
+        X_pca, pca = fit_pca(X_train.copy(),'pca_model_{}.sav'.format(dataset_name),n_components = 3)
+        plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10, edge=(-100000,600000,-6000,6000))
+        plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-100000,600000,-6000,6000))
+    except:
+        pass
 
 
-    #try:
-    #X_pls, pls = fit_pls(X_train.copy(),'pls_model_{}.sav'.format(dataset_name),n_components = 3)
-    #plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,10),10)
-    #plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,20),20)
-    #except:
-    #    pass
+    try:
+        X_pls, pls = fit_pls(X_train.copy(),'pls_model_{}.sav'.format(dataset_name),n_components = 3)
+        plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,10),10)
+        plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,20),20)
+    except:
+        pass
 
 
     for kernel in ["poly","rbf","sigmoid"]:
@@ -465,11 +465,11 @@ if __name__ == "__main__":
         except:
             pass
 
-    for method in ['standard', 'ltsa', 'hessian', 'modified']:
-        #try:
-        X_transform, model = fit_manifold(X_train.copy(),'manifold_model_{}_{}.sav'.format(dataset_name,method),method,n_components = 3)
-        plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,10),10)
-        plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,20),20)
-        #except:
-        #    pass
+    for method in ['standard', 'ltsa', 'hessian', 'modified' ]:
+        try:
+            X_transform, model = fit_manifold(X_train.copy(),'manifold_model_{}_{}.sav'.format(dataset_name,method),method,n_components = 3)
+            plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,10),10)
+            plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,20),20)
+        except:
+            pass
 
