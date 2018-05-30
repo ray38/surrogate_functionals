@@ -241,6 +241,9 @@ def get_training_data(dataset_name,setup):
     print data_paths
 
     #data_paths = ["/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/C2H6/", "/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/NH3/"]
+    data_paths = [  "/media/ray/Data_Archive/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/C2H6/",\
+                    "/media/ray/Data_Archive/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/NH3/"]
+
     overall_subsampled_data = []
     overall_random_data = []
     overall_molecule_name_list_subsampled = []
@@ -333,7 +336,8 @@ def fit_manifold(data,filename,method,n_neighbors = 10, n_components = 2):
     print X_transform.shape
     return X_transform, model
 
-def plot_result(data, molecule_name, molecule_label, filename,figure_size):
+def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge):
+    x_low, x_high, y_low, y_high = edge 
     print "start plotting"
     result = {}
     result["PC1"] = data[:,0]
@@ -358,8 +362,9 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size):
     fig = plt.figure(figsize=(figure_size,figure_size))
     ax3D = fig.add_subplot(111, projection='3d')
     for name, group in groups:
-        ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name)
-    ax3D.legend(loc='lower right')
+        ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.rainbow, linewidths=0)
+    ax3D.scatter(np.asarray([x_low,x_high]), np.asarray([0,0]), np.asarray([x_high,x_high]), linewidths=0, marker='x'c='k')
+    ax3D.legend()
 
     plt.savefig("3D_1_" + filename)
 
@@ -367,8 +372,9 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size):
     fig = plt.figure(figsize=(figure_size,figure_size))
     ax3D = fig.add_subplot(111, projection='3d')
     for name, group in groups:
-        ax3D.scatter(group.PC1, group.molecule_name * 2, group.PC2, marker='o', label=name)
-    ax3D.legend(loc='lower right')
+        ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.rainbow, linewidths=0)
+    ax3D.scatter(np.asarray([x_low,x_high])*2, np.asarray([0,0]), np.asarray([x_high,x_high])*2, linewidths=0, marker='x'c='k')
+    ax3D.legend()
 
     plt.savefig("3D_2_" + filename)
 
@@ -377,8 +383,9 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size):
     fig = plt.figure(figsize=(figure_size,figure_size))
     ax3D = fig.add_subplot(111, projection='3d')
     for name, group in groups:
-        ax3D.scatter(group.PC1, group.molecule_name * 5, group.PC2, marker='o', label=name)
-    ax3D.legend(loc='lower right')
+        ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.rainbow, linewidths=0)
+    ax3D.scatter(np.asarray([x_low,x_high])*5, np.asarray([0,0]), np.asarray([x_high,x_high])*5, linewidths=0, marker='x'c='k')
+    ax3D.legend()
 
     plt.savefig("3D_5_" + filename)
 
@@ -387,8 +394,9 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size):
     fig = plt.figure(figsize=(figure_size,figure_size))
     ax3D = fig.add_subplot(111, projection='3d')
     for name, group in groups:
-        ax3D.scatter(group.PC1, group.molecule_name * 10, group.PC2, marker='o', label=name)
-    ax3D.legend(loc='lower right')
+        ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.rainbow, linewidths=0)
+    ax3D.scatter(np.asarray([x_low,x_high])*10, np.asarray([0,0]), np.asarray([x_high,x_high])*10, linewidths=0, marker='x'c='k')
+    ax3D.legend()
 
     plt.savefig("3D_10_" + filename)
 
@@ -427,36 +435,36 @@ if __name__ == "__main__":
 
     os.chdir(model_save_dir)
 
-    try:
-        X_pca, pca = fit_pca(X_train.copy(),'pca_model_{}.sav'.format(dataset_name),n_components = 3)
-        plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10)
-        plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20)
-    except:
-        pass
+    #try:
+    X_pca, pca = fit_pca(X_train.copy(),'pca_model_{}.sav'.format(dataset_name),n_components = 3)
+    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10)
+    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20)
+    #except:
+    #    pass
 
 
-    try:
-        X_pls, pls = fit_pls(X_train.copy(),'pls_model_{}.sav'.format(dataset_name),n_components = 3)
-        plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,10),10)
-        plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,20),20)
-    except:
-        pass
+    #try:
+    X_pls, pls = fit_pls(X_train.copy(),'pls_model_{}.sav'.format(dataset_name),n_components = 3)
+    plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,10),10)
+    plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,20),20)
+    #except:
+    #    pass
 
 
     for kernel in ["poly","rbf","sigmoid"]:
 
-        try:
-            X_kpca, kpca = fit_kernel_pca(X_train.copy(),'kpca_model_{}_{}.sav'.format(dataset_name,kernel),kernel,n_components = 3)
-            plot_result(X_kpca, molecule_name, molecule_label, "kPCA_result_plot_{}_{}_{}.png".format(dataset_name,kernel,10),10)
-            plot_result(X_kpca, molecule_name, molecule_label, "kPCA_result_plot_{}_{}_{}.png".format(dataset_name,kernel,20),20)
-        except:
-            pass
+        #try:
+        X_kpca, kpca = fit_kernel_pca(X_train.copy(),'kpca_model_{}_{}.sav'.format(dataset_name,kernel),kernel,n_components = 3)
+        plot_result(X_kpca, molecule_name, molecule_label, "kPCA_result_plot_{}_{}_{}.png".format(dataset_name,kernel,10),10)
+        plot_result(X_kpca, molecule_name, molecule_label, "kPCA_result_plot_{}_{}_{}.png".format(dataset_name,kernel,20),20)
+        #except:
+        #    pass
 
     for method in ['standard', 'ltsa', 'hessian', 'modified']:
-        try:
-            X_transform, model = fit_manifold(X_train.copy(),'manifold_model_{}_{}.sav'.format(dataset_name,method),method,n_components = 3)
-            plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,10),10)
-            plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,20),20)
-        except:
-            pass
+        #try:
+        X_transform, model = fit_manifold(X_train.copy(),'manifold_model_{}_{}.sav'.format(dataset_name,method),method,n_components = 3)
+        plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,10),10)
+        plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,20),20)
+        #except:
+        #    pass
 
