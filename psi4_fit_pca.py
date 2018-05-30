@@ -205,12 +205,12 @@ def read_data_from_one_dir(directory):
     except:
         molecule_subsampled_data = []
 
-    try:
-        molecule_random_data = pickle.load(open(random_filename,'rb'))
-        print "read random data"
-    except:
-        molecule_random_data = []
-    #molecule_random_data = []
+    #try:
+    #    molecule_random_data = pickle.load(open(random_filename,'rb'))
+    #    print "read random data"
+    #except:
+    #    molecule_random_data = []
+    molecule_random_data = []
 
     os.chdir(temp_cwd)
 
