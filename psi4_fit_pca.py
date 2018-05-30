@@ -236,11 +236,11 @@ def get_training_data(dataset_name,setup):
                 "NH3":13,
                 "O3":14}
 
-    #data_dir_name = setup["working_dir"] + "/data/*/" 
-    #data_paths = glob(data_dir_name)
-    #print data_paths
+    data_dir_name = setup["working_dir"] + "/data/*/" 
+    data_paths = glob(data_dir_name)
+    print data_paths
 
-    data_paths = ["/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/C2H6/", "/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/NH3/"]
+    #data_paths = ["/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/C2H6/", "/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/NH3/"]
     overall_subsampled_data = []
     overall_random_data = []
     overall_molecule_name_list_subsampled = []
@@ -410,7 +410,30 @@ if __name__ == "__main__":
         pass
 
 
+    try:
+        X_pls, pls = fit_pls(X_train.copy(),'pls_model_{}.sav'.format(dataset_name),n_components = 3)
+        plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,10),10)
+        plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,20),20)
+    except:
+        pass
 
+
+    for kernel in ["poly","rbf","sigmoid"]:
+
+        try:
+            X_kpca, kpca = fit_kernel_pca(X_train.copy(),'kpca_model_{}_{}.sav'.format(dataset_name,kernel),kernel,n_components = 3)
+            plot_result(X_kpca, molecule_name, molecule_label, "kPCA_result_plot_{}_{}_{}.png".format(dataset_name,kernel,10),10)
+            plot_result(X_kpca, molecule_name, molecule_label, "kPCA_result_plot_{}_{}_{}.png".format(dataset_name,kernel,20),20)
+        except:
+            pass
+
+    for method in ['standard', 'ltsa', 'hessian', 'modified']:
+        try:
+            X_transform, model = fit_manifold(X_train.copy(),'manifold_model_{}_{}.sav'.format(dataset_name,method),method,n_components = 3)
+            plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,10),10)
+            plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,20),20)
+        except:
+            pass
 
 
     #X_pls, pls = fit_pls(X_train,'pls_model_{}.sav'.format(dataset_name),n_components = 5)
