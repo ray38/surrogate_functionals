@@ -439,9 +439,9 @@ if __name__ == "__main__":
     os.chdir(model_save_dir)
 
     #try:
-    X_pca, pca = fit_pca(X_train.copy(),'pca_model_{}.sav'.format(dataset_name),n_components = 3)
-    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10, edge=(-100000,600000,-6000,6000))
-    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-100000,600000,-6000,6000))
+    #X_pca, pca = fit_pca(X_train.copy(),'pca_model_{}.sav'.format(dataset_name),n_components = 3)
+    #plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10, edge=(-100000,600000,-6000,6000))
+    #plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-100000,600000,-6000,6000))
     #except:
     #    pass
 
