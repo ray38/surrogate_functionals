@@ -236,11 +236,11 @@ def get_training_data(dataset_name,setup):
                 "NH3":13,
                 "O3":14}
 
-    data_dir_name = setup["working_dir"] + "/data/*/" 
-    data_paths = glob(data_dir_name)
-    print data_paths
+    #data_dir_name = setup["working_dir"] + "/data/*/" 
+    #data_paths = glob(data_dir_name)
+    #print data_paths
 
-    #data_paths = ["/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/C2H6/", "/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/NH3/"]
+    data_paths = ["/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/C2H6/", "/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/NH3/"]
     overall_subsampled_data = []
     overall_random_data = []
     overall_molecule_name_list_subsampled = []
@@ -353,19 +353,44 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size):
     plt.legend(loc='lower right')
     plt.savefig(filename)
 
-    #fig = plt.figure(figsize=(figure_size,figure_size))
-    #ax3D = fig.add_subplot(111, projection='3d')
-    #p3d = ax3D.scatter(data.PC1, data.molecule_name, data.PC2, c=data.molecule_name, marker='o',cmap=cm.rainbow)
-    #ax3D.legend()
 
     groups = data.groupby('molecule_label')
     fig = plt.figure(figsize=(figure_size,figure_size))
     ax3D = fig.add_subplot(111, projection='3d')
     for name, group in groups:
         ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name)
-    ax3D.legend()
+    ax3D.legend(loc='lower right')
 
-    plt.savefig("3D_" + filename)
+    plt.savefig("3D_1_" + filename)
+
+
+    fig = plt.figure(figsize=(figure_size,figure_size))
+    ax3D = fig.add_subplot(111, projection='3d')
+    for name, group in groups:
+        ax3D.scatter(group.PC1, group.molecule_name * 2, group.PC2, marker='o', label=name)
+    ax3D.legend(loc='lower right')
+
+    plt.savefig("3D_2_" + filename)
+
+
+
+    fig = plt.figure(figsize=(figure_size,figure_size))
+    ax3D = fig.add_subplot(111, projection='3d')
+    for name, group in groups:
+        ax3D.scatter(group.PC1, group.molecule_name * 5, group.PC2, marker='o', label=name)
+    ax3D.legend(loc='lower right')
+
+    plt.savefig("3D_5_" + filename)
+
+
+
+    fig = plt.figure(figsize=(figure_size,figure_size))
+    ax3D = fig.add_subplot(111, projection='3d')
+    for name, group in groups:
+        ax3D.scatter(group.PC1, group.molecule_name * 10, group.PC2, marker='o', label=name)
+    ax3D.legend(loc='lower right')
+
+    plt.savefig("3D_10_" + filename)
 
     return
 
@@ -435,24 +460,3 @@ if __name__ == "__main__":
         except:
             pass
 
-
-    #X_pls, pls = fit_pls(X_train,'pls_model_{}.sav'.format(dataset_name),n_components = 5)
-    #plot_result(X_pls, molecule_name, "PLS_result_plot_{}.png".format(dataset_name))
-
-
-    
-    colormap = {"C2H2":0,
-                "C2H4":1,
-                "C2H6":2,
-                "CH3OH":3,
-                "CH4":4,
-                "CO":5,
-                "CO2":6,
-                "H2":7,
-                "H2O":8,
-                "HCN":9,
-                "HNC":10,
-                "N2":11,
-                "N2O":12,
-                "NH3":13,
-                "O3":14}
