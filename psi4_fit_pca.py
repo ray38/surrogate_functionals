@@ -236,12 +236,12 @@ def get_training_data(dataset_name,setup):
                 "NH3":13,
                 "O3":14}
 
-    #data_dir_name = setup["working_dir"] + "/data/*/" 
-    #data_paths = glob(data_dir_name)
-    #print data_paths
+    data_dir_name = setup["working_dir"] + "/data/*/" 
+    data_paths = glob(data_dir_name)
+    print data_paths
 
     #data_paths = ["/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/C2H6/", "/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/NH3/"]
-    data_paths = [  "/media/ray/Data_Archive/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/C2H6/",\
+    #data_paths = [  "/media/ray/Data_Archive/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/C2H6/",\
                     "/media/ray/Data_Archive/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/NH3/"]
 
     overall_subsampled_data = []
@@ -363,7 +363,7 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     ax3D = fig.add_subplot(111, projection='3d')
     for name, group in groups:
         ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.rainbow, linewidths=0)
-    ax3D.scatter(np.asarray([x_low,x_high]), np.asarray([0,0]), np.asarray([x_high,x_high]), linewidths=0, marker='x',c='k')
+    ax3D.scatter(np.asarray([x_low,x_high]), np.asarray([0,0]), np.asarray([y_low,y_high]), linewidths=0, marker='x',c='k')
     ax3D.legend()
 
     plt.savefig("3D_1_" + filename)
@@ -373,7 +373,7 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     ax3D = fig.add_subplot(111, projection='3d')
     for name, group in groups:
         ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.rainbow, linewidths=0)
-    ax3D.scatter(np.asarray([x_low,x_high])*2, np.asarray([0,0]), np.asarray([x_high,x_high])*2, linewidths=0, marker='x',c='k')
+    ax3D.scatter(np.asarray([x_low,x_high])*2, np.asarray([0,0]), np.asarray([y_low,y_high])*2, linewidths=0, marker='x',c='k')
     ax3D.legend()
 
     plt.savefig("3D_2_" + filename)
@@ -384,7 +384,7 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     ax3D = fig.add_subplot(111, projection='3d')
     for name, group in groups:
         ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.rainbow, linewidths=0)
-    ax3D.scatter(np.asarray([x_low,x_high])*5, np.asarray([0,0]), np.asarray([x_high,x_high])*5, linewidths=0, marker='x',c='k')
+    ax3D.scatter(np.asarray([x_low,x_high])*5, np.asarray([0,0]), np.asarray([y_low,y_high])*5, linewidths=0, marker='x',c='k')
     ax3D.legend()
 
     plt.savefig("3D_5_" + filename)
@@ -395,7 +395,7 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     ax3D = fig.add_subplot(111, projection='3d')
     for name, group in groups:
         ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.rainbow, linewidths=0)
-    ax3D.scatter(np.asarray([x_low,x_high])*10, np.asarray([0,0]), np.asarray([x_high,x_high])*10, linewidths=0, marker='x',c='k')
+    ax3D.scatter(np.asarray([x_low,x_high])*10, np.asarray([0,0]), np.asarray([y_low,y_high])*10, linewidths=0, marker='x',c='k')
     ax3D.legend()
 
     plt.savefig("3D_10_" + filename)
