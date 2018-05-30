@@ -464,11 +464,11 @@ if __name__ == "__main__":
         except:
             pass
 
-    for method in ['standard', 'ltsa', 'hessian', 'modified']:
-        try:
-            X_transform, model = fit_manifold(X_train.copy(),'manifold_model_{}_{}.sav'.format(dataset_name,method),method,n_components = 3)
-            plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,10),10)
-            plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,20),20)
-        except:
-            pass
+    for method in [ 'ltsa', 'hessian', 'modified']:
+        #try:
+        X_transform, model = fit_manifold(X_train.copy(),'manifold_model_{}_{}.sav'.format(dataset_name,method),method,n_components = 3)
+        plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,10),10)
+        plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,20),20)
+        #except:
+        #    pass
 
