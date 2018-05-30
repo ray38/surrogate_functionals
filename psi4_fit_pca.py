@@ -364,8 +364,8 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     fig = plt.figure(figsize=(figure_size,figure_size))
     ax3D = fig.add_subplot(111, projection='3d')
     for name, group in groups:
-        ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.dark2, linewidths=0)
-    ax3D.scatter(np.asarray([x_low,x_high]), np.asarray([0,0]), np.asarray([y_low,y_high]), linewidths=0, marker='x',c='w',s=10)
+        ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.get_cmap('Dark2'), linewidths=0, s=5, depthshade=False)
+    ax3D.scatter(np.asarray([x_low,x_high]), np.asarray([0,0]), np.asarray([y_low,y_high]), linewidths=0, marker='x',c='k',s=1)
     ax3D.legend(loc='upper left')
 
     plt.savefig("3D_1_" + filename)
@@ -374,8 +374,8 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     fig = plt.figure(figsize=(figure_size,figure_size))
     ax3D = fig.add_subplot(111, projection='3d')
     for name, group in groups:
-        ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.dark2, linewidths=0)
-    ax3D.scatter(np.asarray([x_low,x_high])*2, np.asarray([0,0]), np.asarray([y_low,y_high])*2, linewidths=0, marker='x',c='w',s=10)
+        ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.get_cmap('Dark2'), linewidths=0, s=5, depthshade=False)
+    ax3D.scatter(np.asarray([x_low,x_high])*2, np.asarray([0,0]), np.asarray([y_low,y_high])*2, linewidths=0, marker='x',c='k',s=1)
     ax3D.legend(loc='upper left')
 
     plt.savefig("3D_2_" + filename)
@@ -385,8 +385,8 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     fig = plt.figure(figsize=(figure_size,figure_size))
     ax3D = fig.add_subplot(111, projection='3d')
     for name, group in groups:
-        ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.dark2, linewidths=0)
-    ax3D.scatter(np.asarray([x_low,x_high])*5, np.asarray([0,0]), np.asarray([y_low,y_high])*5, linewidths=0, marker='x',c='w',s=10)
+        ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.get_cmap('Dark2'), linewidths=0, s=5, depthshade=False)
+    ax3D.scatter(np.asarray([x_low,x_high])*5, np.asarray([0,0]), np.asarray([y_low,y_high])*5, linewidths=0, marker='x',c='k',s=1)
     ax3D.legend(loc='upper left')
 
     plt.savefig("3D_5_" + filename)
@@ -396,8 +396,8 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     fig = plt.figure(figsize=(figure_size,figure_size))
     ax3D = fig.add_subplot(111, projection='3d')
     for name, group in groups:
-        ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.dark2, linewidths=0)
-    ax3D.scatter(np.asarray([x_low,x_high])*10, np.asarray([0,0]), np.asarray([y_low,y_high])*10, linewidths=0, marker='x',c='w',s=10)
+        ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name,cmap=cm.get_cmap('Dark2'), linewidths=0, s=5, depthshade=False)
+    ax3D.scatter(np.asarray([x_low,x_high])*10, np.asarray([0,0]), np.asarray([y_low,y_high])*10, linewidths=0, marker='x',c='k',s=1)
     ax3D.legend(loc='upper left')
 
     plt.savefig("3D_10_" + filename)
