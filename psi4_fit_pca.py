@@ -441,7 +441,7 @@ if __name__ == "__main__":
     os.chdir(model_save_dir)
 
     try:
-        X_pca, pca = fit_pca(X_train.copy(),'pca_model_{}.sav'.format(dataset_name),n_components = 3)
+        X_pca, pca = fit_pca(X_train.copy(),'pca_model_{}.sav'.format(dataset_name),n_components = 2)
         plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10, edge=(-100000,600000,-6000,6000))
         plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-100000,600000,-6000,6000))
     except:
@@ -449,7 +449,7 @@ if __name__ == "__main__":
 
 
     try:
-        X_pls, pls = fit_pls(X_train.copy(),'pls_model_{}.sav'.format(dataset_name),n_components = 3)
+        X_pls, pls = fit_pls(X_train.copy(),'pls_model_{}.sav'.format(dataset_name),n_components = 2)
         plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,10),10)
         plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,20),20)
     except:
@@ -459,7 +459,7 @@ if __name__ == "__main__":
     for kernel in ["poly","rbf","sigmoid"]:
 
         try:
-            X_kpca, kpca = fit_kernel_pca(X_train.copy(),'kpca_model_{}_{}.sav'.format(dataset_name,kernel),kernel,n_components = 3)
+            X_kpca, kpca = fit_kernel_pca(X_train.copy(),'kpca_model_{}_{}.sav'.format(dataset_name,kernel),kernel,n_components = 2)
             plot_result(X_kpca, molecule_name, molecule_label, "kPCA_result_plot_{}_{}_{}.png".format(dataset_name,kernel,10),10)
             plot_result(X_kpca, molecule_name, molecule_label, "kPCA_result_plot_{}_{}_{}.png".format(dataset_name,kernel,20),20)
         except:
@@ -467,7 +467,7 @@ if __name__ == "__main__":
 
     for method in ['standard', 'ltsa', 'hessian', 'modified' ]:
         try:
-            X_transform, model = fit_manifold(X_train.copy(),'manifold_model_{}_{}.sav'.format(dataset_name,method),method,n_components = 3)
+            X_transform, model = fit_manifold(X_train.copy(),'manifold_model_{}_{}.sav'.format(dataset_name,method),method,n_components = 2)
             plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,10),10)
             plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,20),20)
         except:
