@@ -342,8 +342,11 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     x_low, x_high, y_low, y_high = edge 
     print "start plotting"
     result = {}
+    print data.shape
     result["PC1"] = data[:,0]
     result["PC2"] = data[:,1]
+
+
     result["molecule_name"] = molecule_name
     result["molecule_label"] = molecule_label
 
@@ -446,7 +449,7 @@ if __name__ == "__main__":
         plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-100000,600000,-6000,6000))
     except:
         pass
-
+"""
 
     try:
         X_pls, pls = fit_pls(X_train.copy(),'pls_model_{}.sav'.format(dataset_name),n_components = 2)
@@ -473,3 +476,4 @@ if __name__ == "__main__":
         except:
             pass
 
+"""

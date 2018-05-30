@@ -348,7 +348,7 @@ def process_one_molecule(molecule, functional,h,L,N, PCA_model, PLS_model):
 
     #PCA_list = PCA_analysis(PCA_list, n_components = 5)
     PCA_list = PCA_model.transform(PCA_list)
-    PLS_list = PLS_model.transform(PCA_list)
+    #PLS_list = PLS_model.transform(PCA_list)
 
     print PCA_list.shape
     print PLS_list.shape
@@ -356,7 +356,7 @@ def process_one_molecule(molecule, functional,h,L,N, PCA_model, PLS_model):
     overall_list = np.stack(overall_list,axis=1)
 
     overall_list = np.concatenate((overall_list,PCA_list),axis=1)
-    overall_list = np.concatenate((overall_list,PLS_list),axis=1)
+    #overall_list = np.concatenate((overall_list,PLS_list),axis=1)
 
     print overall_list.shape
 
@@ -370,7 +370,7 @@ def process_one_molecule(molecule, functional,h,L,N, PCA_model, PLS_model):
                          'ad_0-04','ad_0-06','ad_0-08','ad_0-10',\
                          'ad_0-12','ad_0-14','ad_0-16','ad_0-18','ad_0-20',\
                          'ad_0-22','ad_0-24','ad_0-26','ad_0-28','ad_0-30',\
-                         'ad_0-40','ad_0-50', 'PC1','PC2','PC3','PC4','PC5', 'PLS1','PLS2','PLS3','PLS4','PLS5'])
+                         'ad_0-40','ad_0-50', 'PC1','PC2'])
         writer.writerows(overall_list)
     
     os.chdir(cwd)
@@ -381,14 +381,14 @@ if __name__ == "__main__":
 
     setup_filename = sys.argv[1]
     pca_filename = sys.argv[2]
-    pls_filename = sys.argv[3]
+    #pls_filename = sys.argv[3]
 
     #with open(setup_filename, encoding='utf-8') as f:
     with open(setup_filename) as f:
         setup = json.load(f)
 
     PCA_model = pickle.load(open(pca_filename, 'rb'))
-    PLS_model = pickle.load(open(pls_filename, 'rb'))
+    #PLS_model = pickle.load(open(pls_filename, 'rb'))
 
     print setup
 
