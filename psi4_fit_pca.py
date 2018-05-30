@@ -202,7 +202,7 @@ def read_data_from_one_dir(directory):
 
     try:
         #molecule_subsampled_data = pickle.load(open(subsampled_filename,'rb'))
-        molecule_subsampled_data = subsampling_system(pickle.load(open(subsampled_filename,'rb')), list_desc = [], cutoff_sig = 0.05, rate = 0.1)
+        molecule_subsampled_data = subsampling_system(pickle.load(open(subsampled_filename,'rb')), list_desc = [], cutoff_sig = 0.02, rate = 0.1)
         print "read subsampled data"
     except:
         molecule_subsampled_data = []
