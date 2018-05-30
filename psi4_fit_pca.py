@@ -309,6 +309,9 @@ def fit_pca(data,filename,n_components = 5):
     X_pca = pca.fit_transform(data)
     pickle.dump(pca, open(filename, 'wb'))
     print X_pca.shape
+    print pca.components_
+    print pca.explained_variance_ratio_
+    print pca.explained_variance_
     return X_pca, pca
 
 def fit_kernel_pca(data,filename,kernel,n_components = 5):
