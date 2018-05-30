@@ -236,11 +236,11 @@ def get_training_data(dataset_name,setup):
                 "NH3":13,
                 "O3":14}
 
-    #data_dir_name = setup["working_dir"] + "/data/*/" 
-    #data_paths = glob(data_dir_name)
-    #print data_paths
+    data_dir_name = setup["working_dir"] + "/data/*/" 
+    data_paths = glob(data_dir_name)
+    print data_paths
 
-    data_paths = ["/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/C2H6/", "/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/NH3/"]
+    #data_paths = ["/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/C2H6/", "/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/NH3/"]
     overall_subsampled_data = []
     overall_random_data = []
     overall_molecule_name_list_subsampled = []
