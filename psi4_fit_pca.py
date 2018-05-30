@@ -31,6 +31,7 @@ import matplotlib.pyplot as plt
 from subsampling import subsampling_system,random_subsampling,subsampling_system_with_PCA
 
 from sklearn.decomposition import RandomizedPCA, PCA
+from sklearn.decomposition import KernelPCA
 from sklearn.cross_decomposition import PLSRegression
 import pandas as pd
 import seaborn as sns
