@@ -201,7 +201,8 @@ def read_data_from_one_dir(directory):
     random_filename = "overall_random_data.p"
 
     try:
-        molecule_subsampled_data = pickle.load(open(subsampled_filename,'rb'))
+        #molecule_subsampled_data = pickle.load(open(subsampled_filename,'rb'))
+        molecule_subsampled_data = subsampling_system(pickle.load(open(subsampled_filename,'rb')), list_desc = [], cutoff_sig = 0.05, rate = 0.1)
         print "read subsampled data"
     except:
         molecule_subsampled_data = []
@@ -464,7 +465,7 @@ if __name__ == "__main__":
         except:
             pass
 
-    for method in [ 'ltsa', 'hessian', 'modified']:
+    for method in ['standard', 'ltsa', 'hessian', 'modified']:
         #try:
         X_transform, model = fit_manifold(X_train.copy(),'manifold_model_{}_{}.sav'.format(dataset_name,method),method,n_components = 3)
         plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,10),10)
