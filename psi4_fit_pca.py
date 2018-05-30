@@ -309,13 +309,12 @@ def fit_pca(data,filename,n_components = 5):
 def fit_kernel_pca(data,filename,kernel,n_components = 5):
     print "start fitting pca"
     print data.shape
-    pca = RandomizedPCA( )
     kpca = KernelPCA(n_components = n_components, kernel= kernel, fit_inverse_transform=True)
 
-    X_pca = pca.fit_transform(data)
-    pickle.dump(pca, open(filename, 'wb'))
-    print X_pca.shape
-    return X_pca, pca
+    X_kpca = kpca.fit_transform(data)
+    pickle.dump(kpca, open(filename, 'wb'))
+    print X_kpca.shape
+    return X_kpca, kpca
 
 
 def fit_pls(data,filename,n_components = 5):
@@ -326,12 +325,15 @@ def fit_pls(data,filename,n_components = 5):
     return X_pls, pls
 
 def fit_manifold(data,filename,method,n_neighbors = 10, n_components = 2):
-
+    print "start fitting manifold"
+    print data.shape
     model = manifold.LocallyLinearEmbedding(n_neighbors, n_components,method=method)
     X_transform = model.fit_transform(data)
     pickle.dump(model, open(filename, 'wb'))
+    print X_transform.shape
+    return X_transform, model
 
-def plot_result(data, molecule_name, molecular_label, filename,figure_size):
+def plot_result(data, molecule_name, molecule_label, filename,figure_size):
     print "start plotting"
     result = {}
     result["PC1"] = data[:,0]
@@ -351,9 +353,16 @@ def plot_result(data, molecule_name, molecular_label, filename,figure_size):
     plt.legend(loc='lower right')
     plt.savefig(filename)
 
+    #fig = plt.figure(figsize=(figure_size,figure_size))
+    #ax3D = fig.add_subplot(111, projection='3d')
+    #p3d = ax3D.scatter(data.PC1, data.molecule_name, data.PC2, c=data.molecule_name, marker='o',cmap=cm.rainbow)
+    #ax3D.legend()
+
+    groups = data.groupby('molecule_label')
     fig = plt.figure(figsize=(figure_size,figure_size))
     ax3D = fig.add_subplot(111, projection='3d')
-    p3d = ax3D.scatter(data.PC1, data.molecule_name, data.PC2, c=data.molecule_name,label=data.molecule_label, marker='o',cmap=cm.rainbow)
+    for name, group in groups:
+        ax3D.scatter(group.PC1, group.molecule_name, group.PC2, marker='o', label=name)
     ax3D.legend()
 
     plt.savefig("3D_" + filename)
@@ -393,9 +402,13 @@ if __name__ == "__main__":
 
     os.chdir(model_save_dir)
 
-    X_pca, pca = fit_pca(X_train,'pca_model_{}.sav'.format(dataset_name),n_components = 3)
-    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10)
-    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20)
+    try:
+        X_pca, pca = fit_pca(X_train.copy(),'pca_model_{}.sav'.format(dataset_name),n_components = 3)
+        plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10)
+        plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20)
+    except:
+        pass
+
 
 
 
