@@ -261,10 +261,10 @@ def get_training_data(dataset_name,setup):
         overall_molecule_name_list_subsampled += [colormap[molecule_name]] * len(temp_molecule_subsampled_data)
         overall_molecule_label_list_subsampled += [molecule_name] * len(temp_molecule_subsampled_data)
 
-        temp_random_sampled_random_data = random_subsampling(temp_molecule_random_data, num_random_per_molecule)
-        overall_random_data += temp_random_sampled_random_data
-        overall_molecule_name_list_random += [colormap[molecule_name]] * len(temp_random_sampled_random_data)
-        overall_molecule_label_list_random += [molecule_name] * len(temp_random_sampled_random_data)
+        #temp_random_sampled_random_data = random_subsampling(temp_molecule_random_data, num_random_per_molecule)
+        #overall_random_data += temp_random_sampled_random_data
+        #overall_molecule_name_list_random += [colormap[molecule_name]] * len(temp_random_sampled_random_data)
+        #overall_molecule_label_list_random += [molecule_name] * len(temp_random_sampled_random_data)
 
 
 
@@ -429,6 +429,9 @@ if __name__ == "__main__":
     
     
     X_train,y, dens, molecule_name, molecule_label = get_training_data(dataset_name,setup)
+
+    print np.isnan(X_train.any())
+    print np.isfinite(X_train.all())
    
     if os.path.isdir(model_save_dir) == False:
         os.makedirs(model_save_dir)
