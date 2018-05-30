@@ -35,6 +35,8 @@ from sklearn.cross_decomposition import PLSRegression
 import pandas as pd
 import seaborn as sns
 
+from sklearn import manifold
+
 
 def PCA_analysis(data, n_components = 2):
     pca = RandomizedPCA(n_components = n_components )
@@ -218,11 +220,27 @@ def read_data_from_one_dir(directory):
 
 def get_training_data(dataset_name,setup):
 
-    data_dir_name = setup["working_dir"] + "/data/*/" 
-    data_paths = glob(data_dir_name)
-    print data_paths
+    colormap = {"C2H2":0,
+                "C2H4":1,
+                "C2H6":2,
+                "CH3OH":3,
+                "CH4":4,
+                "CO":5,
+                "CO2":6,
+                "H2":7,
+                "H2O":8,
+                "HCN":9,
+                "HNC":10,
+                "N2":11,
+                "N2O":12,
+                "NH3":13,
+                "O3":14}
 
-    #data_paths = ["/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/C2H6/", "/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/NH3/"]
+    #data_dir_name = setup["working_dir"] + "/data/*/" 
+    #data_paths = glob(data_dir_name)
+    #print data_paths
+
+    data_paths = ["/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/C2H6/", "/gpfs/pace1/project/chbe-medford/medford-share/users/xlei38/psi4_feature_picked_database/B3LYP_float64_test/10-0_0-02_5/epxc_mGGA_allrange_real_real_numerical/data/NH3/"]
     overall_subsampled_data = []
     overall_random_data = []
     overall_molecule_name_list_subsampled = []
@@ -235,11 +253,11 @@ def get_training_data(dataset_name,setup):
         print molecule_name
         temp_molecule_subsampled_data, temp_molecule_random_data = read_data_from_one_dir(directory)
         overall_subsampled_data += temp_molecule_subsampled_data
-        overall_molecule_name_list_subsampled += [molecule_name] * len(temp_molecule_subsampled_data)
+        overall_molecule_name_list_subsampled += [colormap[molecule_name]] * len(temp_molecule_subsampled_data)
 
         temp_random_sampled_random_data = random_subsampling(temp_molecule_random_data, num_random_per_molecule)
         overall_random_data += temp_random_sampled_random_data
-        overall_molecule_name_list_random += [molecule_name] * len(temp_random_sampled_random_data)
+        overall_molecule_name_list_random += [colormap[molecule_name]] * len(temp_random_sampled_random_data)
 
 
 
@@ -309,6 +327,12 @@ def plot_result(data, molecule_name, filename,figure_size):
     plt.legend(loc='lower right')
     plt.savefig(filename)
 
+    fig = plt.figure()
+    ax3D = fig.add_subplot(111, projection='3d')
+    p3d = ax3D.scatter(data.PC1, data.molecule_name, data.PC2, c=data.molecule_name, marker='o')
+
+    plt.savefig("3D" + filename)
+
     return
 
 
@@ -358,3 +382,18 @@ if __name__ == "__main__":
 
 
     
+    colormap = {"C2H2":0,
+                "C2H4":1,
+                "C2H6":2,
+                "CH3OH":3,
+                "CH4":4,
+                "CO":5,
+                "CO2":6,
+                "H2":7,
+                "H2O":8,
+                "HCN":9,
+                "HNC":10,
+                "N2":11,
+                "N2O":12,
+                "NH3":13,
+                "O3":14}
