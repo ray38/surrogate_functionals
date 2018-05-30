@@ -294,9 +294,20 @@ def fit_model(LDA_result, dens, X_train, residual, loss, tol, slowdown_factor, e
 
 def fit_pca(data,filename,n_components = 5):
     print "start fitting pca"
+    print data.shape
     pca = RandomizedPCA(n_components = n_components )
     X_pca = pca.fit_transform(data)
     pickle.dump(pca, open(filename, 'wb'))
+    print X_pca.shape
+    return X_pca, pca
+
+def fit_kernel_pca(data,filename,n_components = 5):
+    print "start fitting pca"
+    print data.shape
+    pca = RandomizedPCA(n_components = n_components )
+    X_pca = pca.fit_transform(data)
+    pickle.dump(pca, open(filename, 'wb'))
+    print X_pca.shape
     return X_pca, pca
 
 
@@ -307,6 +318,11 @@ def fit_pls(data,filename,n_components = 5):
     pickle.dump(pls, open(filename, 'wb'))
     return X_pls, pls
 
+def fit_manifold(data,filename,method,n_neighbors = 10, n_components = 2):
+
+    model = manifold.LocallyLinearEmbedding(n_neighbors, n_components,method=method)
+    X_transform = model.fit_transform(data)
+    pickle.dump(model, open(filename, 'wb'))
 
 def plot_result(data, molecule_name, filename,figure_size):
     print "start plotting"
@@ -327,11 +343,12 @@ def plot_result(data, molecule_name, filename,figure_size):
     plt.legend(loc='lower right')
     plt.savefig(filename)
 
-    fig = plt.figure()
+    fig = plt.figure(figsize=(figure_size,figure_size))
     ax3D = fig.add_subplot(111, projection='3d')
-    p3d = ax3D.scatter(data.PC1, data.molecule_name, data.PC2, c=data.molecule_name, marker='o')
+    p3d = ax3D.scatter(data.PC1, data.molecule_name, data.PC2, c=data.molecule_name, marker='o',cmap=cm.rainbow)
+    ax3D.legend()
 
-    plt.savefig("3D" + filename)
+    plt.savefig("3D_" + filename)
 
     return
 
@@ -371,8 +388,6 @@ if __name__ == "__main__":
     X_pca, pca = fit_pca(X_train,'pca_model_{}.sav'.format(dataset_name),n_components = 5)
     plot_result(X_pca, molecule_name, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10)
     plot_result(X_pca, molecule_name, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20)
-    plot_result(X_pca, molecule_name, "PCA_result_plot_{}_{}.png".format(dataset_name,30),30)
-    plot_result(X_pca, molecule_name, "PCA_result_plot_{}_{}.png".format(dataset_name,50),50)
 
 
 
