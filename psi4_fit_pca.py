@@ -245,6 +245,8 @@ def get_training_data(dataset_name,setup):
     overall_random_data = []
     overall_molecule_name_list_subsampled = []
     overall_molecule_name_list_random = []
+    overall_molecule_label_list_subsampled = []
+    overall_molecule_label_list_random = []
     num_samples = len(data_paths)
     num_random_per_molecule = int(math.ceil(float(setup["random_pick"])/float(num_samples)))
     for directory in data_paths:
@@ -254,15 +256,18 @@ def get_training_data(dataset_name,setup):
         temp_molecule_subsampled_data, temp_molecule_random_data = read_data_from_one_dir(directory)
         overall_subsampled_data += temp_molecule_subsampled_data
         overall_molecule_name_list_subsampled += [colormap[molecule_name]] * len(temp_molecule_subsampled_data)
+        overall_molecule_label_list_subsampled += [molecule_name] * len(temp_molecule_subsampled_data)
 
         temp_random_sampled_random_data = random_subsampling(temp_molecule_random_data, num_random_per_molecule)
         overall_random_data += temp_random_sampled_random_data
         overall_molecule_name_list_random += [colormap[molecule_name]] * len(temp_random_sampled_random_data)
+        overall_molecule_label_list_random += [molecule_name] * len(temp_random_sampled_random_data)
 
 
 
     overall = overall_random_data + overall_subsampled_data
     overall_molecule_name = overall_molecule_name_list_random + overall_molecule_name_list_subsampled
+    overall_molecule_label = overall_molecule_label_list_random + overall_molecule_label_list_subsampled
     #overall = overall_subsampled_data
 
 
@@ -282,7 +287,7 @@ def get_training_data(dataset_name,setup):
     y_train = np.asarray(y_train).reshape((len(y_train),1))
     dens = np.asarray(dens).reshape((len(dens),1))
     
-    return X_train, y_train, dens, overall_molecule_name 
+    return X_train, y_train, dens, overall_molecule_name, overall_molecule_label
 
 
 def fit_model(LDA_result, dens, X_train, residual, loss, tol, slowdown_factor, early_stop_trials):
@@ -301,10 +306,12 @@ def fit_pca(data,filename,n_components = 5):
     print X_pca.shape
     return X_pca, pca
 
-def fit_kernel_pca(data,filename,n_components = 5):
+def fit_kernel_pca(data,filename,kernel,n_components = 5):
     print "start fitting pca"
     print data.shape
-    pca = RandomizedPCA(n_components = n_components )
+    pca = RandomizedPCA( )
+    kpca = KernelPCA(n_components = n_components, kernel= kernel, fit_inverse_transform=True)
+
     X_pca = pca.fit_transform(data)
     pickle.dump(pca, open(filename, 'wb'))
     print X_pca.shape
@@ -324,12 +331,13 @@ def fit_manifold(data,filename,method,n_neighbors = 10, n_components = 2):
     X_transform = model.fit_transform(data)
     pickle.dump(model, open(filename, 'wb'))
 
-def plot_result(data, molecule_name, filename,figure_size):
+def plot_result(data, molecule_name, molecular_label, filename,figure_size):
     print "start plotting"
     result = {}
     result["PC1"] = data[:,0]
     result["PC2"] = data[:,1]
     result["molecule_name"] = molecule_name
+    result["molecule_label"] = molecule_label
 
     data = pd.DataFrame(data=result)
     # Use the 'hue' argument to provide a factor variable
@@ -337,7 +345,7 @@ def plot_result(data, molecule_name, filename,figure_size):
     #plt.figure(figsize=(figure_size,figure_size))
     
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
-    sns.lmplot( x="PC1", y="PC2", data=data, fit_reg=False, hue='molecule_name', legend=False,size=figure_size)
+    sns.lmplot( x="PC1", y="PC2", data=data, fit_reg=False, hue='molecule_label', legend=False,size=figure_size)
      
     # Move the legend to an empty part of the plot
     plt.legend(loc='lower right')
@@ -345,7 +353,7 @@ def plot_result(data, molecule_name, filename,figure_size):
 
     fig = plt.figure(figsize=(figure_size,figure_size))
     ax3D = fig.add_subplot(111, projection='3d')
-    p3d = ax3D.scatter(data.PC1, data.molecule_name, data.PC2, c=data.molecule_name, marker='o',cmap=cm.rainbow)
+    p3d = ax3D.scatter(data.PC1, data.molecule_name, data.PC2, c=data.molecule_name,label=data.molecule_label, marker='o',cmap=cm.rainbow)
     ax3D.legend()
 
     plt.savefig("3D_" + filename)
@@ -378,16 +386,16 @@ if __name__ == "__main__":
 
     
     
-    X_train,y, dens, molecule_name = get_training_data(dataset_name,setup)
+    X_train,y, dens, molecule_name, molecule_label = get_training_data(dataset_name,setup)
    
     if os.path.isdir(model_save_dir) == False:
         os.makedirs(model_save_dir)
 
     os.chdir(model_save_dir)
 
-    X_pca, pca = fit_pca(X_train,'pca_model_{}.sav'.format(dataset_name),n_components = 5)
-    plot_result(X_pca, molecule_name, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10)
-    plot_result(X_pca, molecule_name, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20)
+    X_pca, pca = fit_pca(X_train,'pca_model_{}.sav'.format(dataset_name),n_components = 3)
+    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10)
+    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20)
 
 
 
