@@ -336,7 +336,7 @@ def fit_manifold(data,filename,method,n_neighbors = 10, n_components = 2):
     print X_transform.shape
     return X_transform, model
 
-def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge):
+def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=(0,0,0,0)):
     x_low, x_high, y_low, y_high = edge 
     print "start plotting"
     result = {}
@@ -437,8 +437,8 @@ if __name__ == "__main__":
 
     #try:
     X_pca, pca = fit_pca(X_train.copy(),'pca_model_{}.sav'.format(dataset_name),n_components = 3)
-    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10)
-    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20)
+    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10, edge=(-100000,600000,-6000,6000))
+    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-100000,600000,-6000,6000))
     #except:
     #    pass
 
