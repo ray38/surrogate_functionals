@@ -15,6 +15,8 @@ import os
 
 import itertools
 import json
+try: import cPickle as pickle
+except: import pickle
 from sklearn.decomposition import RandomizedPCA, PCA
 
 
