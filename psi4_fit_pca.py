@@ -446,8 +446,6 @@ if __name__ == "__main__":
 
     os.chdir(model_save_dir)
 
-    plot_result(X_train, molecule_name, molecule_label, "test_{}_{}.png".format(dataset_name,10),10, edge=(-100000,600000,-6000,6000))
-    plot_result(X_train, molecule_name, molecule_label, "test_{}_{}.png".format(dataset_name,20),20, edge=(-100000,600000,-6000,6000))
 
     try:
         X_pca, pca = fit_pca(X_train.copy(),'pca_model_{}.sav'.format(dataset_name),n_components = 2)
@@ -456,9 +454,7 @@ if __name__ == "__main__":
     except:
         pass
 
-    plot_result(X_train, molecule_name, molecule_label, "test2_{}_{}.png".format(dataset_name,10),10, edge=(-100000,600000,-6000,6000))
-    plot_result(X_train, molecule_name, molecule_label, "test2_{}_{}.png".format(dataset_name,20),20, edge=(-100000,600000,-6000,6000))
-"""
+
 
     try:
         X_pls, pls = fit_pls(X_train.copy(),'pls_model_{}.sav'.format(dataset_name),n_components = 2)
@@ -485,4 +481,3 @@ if __name__ == "__main__":
         except:
             pass
 
-"""

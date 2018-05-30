@@ -187,7 +187,7 @@ def process(molecule, functional,i,j,k,h,N):
 
 
 
-def process_one_molecule(molecule, functional,h,L,N, PCA_model, PLS_model):
+def process_one_molecule(molecule, functional,h,L,N, PCA_model):
     cwd = os.getcwd()
     dir_name = "{}_{}_{}_{}_{}".format(molecule,functional,str(L).replace('.','-'),str(h).replace('.','-'),N)
     print dir_name
@@ -351,7 +351,7 @@ def process_one_molecule(molecule, functional,h,L,N, PCA_model, PLS_model):
     #PLS_list = PLS_model.transform(PCA_list)
 
     print PCA_list.shape
-    print PLS_list.shape
+    #print PLS_list.shape
 
     overall_list = np.stack(overall_list,axis=1)
 
@@ -362,7 +362,7 @@ def process_one_molecule(molecule, functional,h,L,N, PCA_model, PLS_model):
 
     overall_list = overall_list.tolist()
 
-    with open("{}_{}_downsampled_full_data.csv".format(molecule,functional), "wb") as f:
+    with open("{}_{}_downsampled_full_data_with_PC.csv".format(molecule,functional), "wb") as f:
         writer = csv.writer(f)
 #            writer.writerow(['x','y','z','rho','gamma','tau','Vxc','epxc','ad_0-01','ad_0-02','ad_0-03','ad_0-04','ad_0-05','ad_0-06','ad_0-08','ad_0-1','ad_0-15','ad_0-2','ad_0-3','ad_0-4','ad_0-5','deriv_1','deriv_2'])
         writer.writerow(['x','y','z','rho','Vxc','epxc','gamma','tau','LDA_residual',\
@@ -392,12 +392,12 @@ if __name__ == "__main__":
 
     print setup
 
-    molecule = sys.argv[2]
+    molecule = sys.argv[3]
     h = float(setup['grid_spacing'])
     L = float(setup['box_dimension'])
     N = int(setup['number_segment_per_side'])
     functional = setup['functionals']
 
     #for functional in functionals:
-    process_one_molecule(molecule, functional,h,L,N,PCA_model,PLS_model)
+    process_one_molecule(molecule, functional,h,L,N,PCA_model)
 
