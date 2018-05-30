@@ -424,7 +424,7 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "PCA_result_{}_no_target".format(setup["random_pick"])
+    model_save_dir = working_dir + "/" + "PCA_result_subsampled_no_target"
    
     setup["model_save_dir"] = model_save_dir
 
