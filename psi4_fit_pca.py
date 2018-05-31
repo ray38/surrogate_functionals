@@ -38,6 +38,8 @@ import seaborn as sns
 
 from sklearn import manifold
 
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+
 
 def PCA_analysis(data, n_components = 2):
     pca = RandomizedPCA(n_components = n_components )
@@ -323,6 +325,14 @@ def fit_kernel_pca(data,filename,kernel,n_components = 5):
     pickle.dump(kpca, open(filename, 'wb'))
     print X_kpca.shape
     return X_kpca, kpca
+    
+def fit_lda(data,y,filename,n_components = 5):
+    lda = LinearDiscriminantAnalysis(n_components=n_components)
+    #X_lda = lda.fit(data, y).transform(data)
+    X_lda = lda.fit_transform(data, y)
+    pickle.dump(lda, open(filename, 'wb'))
+    
+    return
 
 
 def fit_pls(data,filename,n_components = 5):
@@ -447,15 +457,27 @@ if __name__ == "__main__":
     os.chdir(model_save_dir)
 
 
-    try:
-        X_pca, pca = fit_pca(X_train.copy(),'pca_model_{}.sav'.format(dataset_name),n_components = 2)
-        plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10, edge=(-100000,600000,-6000,6000))
-        plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-100000,600000,-6000,6000))
-    except:
-        pass
+    #try:
+    X_pca, pca = fit_pca(X_train.copy(),'pca_model_{}.sav'.format(dataset_name),n_components = None)
+    fig = plt.figure()
+    plt.plot(np.arange(1,20),pca.explained_variance_ratio_)
+    plt.savefig('PCA_explained_variance_ratio.png')
+    
+    fig = plt.figure()
+    plt.plot(np.arange(1,20),pca.explained_variance_ratio_)
+    fig.get_axes()[0].set_yscale('log')
+    plt.savefig('PCA_explained_variance_ratio_log.png')
+    
+    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10, edge=(-100000,600000,-6000,6000))
+    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-100000,600000,-6000,6000))
+    #except:
+    #    pass
 
+    X_lda, lda = fit_lda(X_train.copy(),y.copy(),'lda_model_{}.sav'.format(dataset_name),n_components = None)
+    plot_result(X_lda, molecule_name, molecule_label, "LDA_result_plot_{}_{}.png".format(dataset_name,10),10)
+    plot_result(X_lda, molecule_name, molecule_label, "LDA_result_plot_{}_{}.png".format(dataset_name,20),20)
 
-
+'''
     try:
         X_pls, pls = fit_pls(X_train.copy(),'pls_model_{}.sav'.format(dataset_name),n_components = 2)
         plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,10),10)
@@ -480,4 +502,5 @@ if __name__ == "__main__":
             plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,20),20)
         except:
             pass
+'''
 

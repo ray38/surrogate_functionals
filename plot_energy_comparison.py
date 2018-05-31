@@ -156,11 +156,6 @@ if __name__ == "__main__":
         setup = json.load(f)
 
 
-    #setup['functional'] = functional
-#    functional = setup['functional']
-
-    #with open(dataset_setup_database_filename) as f:
-    #    setup_database = json.load(f)
 
 
     main_dir = os.getcwd()
@@ -186,11 +181,5 @@ if __name__ == "__main__":
     with open('formation_to_plot.pickle', 'wb') as handle:
         pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-    #sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-    # Draw a nested violinplot and split the violins for easier comparison
-    #sns.violinplot(x="model_name", y="formation_exc_error", hue="training_test", data=data, split=True, inner="quartile", palette={"training": "b", "test": "y"})
-    #sns.despine(left=True)
-
-    #plt.savefig("formation_energy_grouped_violin_plot.png")
 

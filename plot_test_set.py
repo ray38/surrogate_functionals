@@ -361,32 +361,146 @@ def get_intervals(li):
 
 def plot_group_2(data):
     plt.figure()
-    ax = sns.kdeplot(data["dens"],bw=.0015)
+    sns.set(style="white", palette="pastel", color_codes=True)
+    #ax = sns.distplot(data["dens"],bw=.0015)
     #ax.fig.get_axes()[0].set_xscale('log')
+    ax = sns.distplot(data["dens"],bins=100,kde=True,hist_kws={"linewidth": 0,"alpha": 1},kde_kws={"color": "k", "lw": 0})
     plt.savefig("test_set_plot_dens_dist_real.png")
+    
+    plt.figure()
+    sns.set(style="white", palette="pastel", color_codes=True)
+    #ax = sns.distplot(data["log_dens"],bw=.0015)
+    #ax.fig.get_axes()[0].set_xscale('log')
+    ax = sns.distplot(data["log_dens"],bins=100,kde=True,hist_kws={ "linewidth": 0,"alpha": 1},kde_kws={"color": "k", "lw": 0})
+    plt.savefig("test_set_plot_dens_dist_log.png")
+    
+    
+    
+    
+    
+    
     
     dens_max = data["dens"].max()
     dens_min = data["dens"].min()
     
-    dens_intervals,dens_interval_medians = get_intervals(np.linspace(dens_min,dens_max, num=50))
-    
-    #breakdown_dfs = {}
-    
-    sum_error_result = []
-    
-    for count, interval in enumerate(dens_intervals):
-        #breakdown_dfs[str(count)] 
-        temp = data[data['dens'] >= interval[0] and data['dens'] < interval[1]]
-        sum_error_result.append(temp['error'].sum())
+    dens_intervals,dens_interval_medians = get_intervals(np.linspace(dens_min,dens_max, num=100))
     
     
-    sum_error_d = {"dens_mean":dens_interval_medians, "sum_error":sum_error_result}
     
-    plt.figure()
-    #ax = sns.kdeplot(data["dens"],bw=.0015)
-    plt.plot(dens_interval_medians, sum_error_result)
+    groups = data.groupby("model_name")
+    
+    fig = plt.figure()
+    #sns.set(style="white", palette=sns.color_palette("YlGnBu_d"), color_codes=True)
+    sns.set(style="white", color_codes=True)
+    current_palette = sns.color_palette("cubehelix", 5)
+    sns.set_palette(current_palette)
+    for name, group in groups:
+        sum_error_result = []
+        for count, interval in enumerate(dens_intervals):
+	    temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
+	    sum_error_result.append(temp['error'].sum())
+
+        plt.plot(dens_interval_medians, sum_error_result,label=name)
     #ax.fig.get_axes()[0].set_xscale('log')
-    plt.savefig("test_set_plot_dens_sumerror_real.png")
+    plt.legend(loc='upper right')
+    plt.savefig("test_set_plot_dens_sumerror_real_real.png")
+    
+    
+    
+    
+    
+    
+    dens_max = data["dens"].max()
+    dens_min = data["dens"].min()
+    
+    dens_intervals,dens_interval_medians = get_intervals(np.linspace(dens_min,dens_max, num=100))
+    
+    
+    
+    groups = data.groupby("model_name")
+    
+    fig = plt.figure()
+    #sns.set(style="white", palette=sns.color_palette("YlGnBu_d"), color_codes=True)
+    sns.set(style="white", color_codes=True)
+    current_palette = sns.color_palette("cubehelix", 5)
+    sns.set_palette(current_palette)
+    for name, group in groups:
+        sum_error_result = []
+        for count, interval in enumerate(dens_intervals):
+	    temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
+	    sum_error_result.append(temp['error'].sum())
+
+        plt.plot(dens_interval_medians, sum_error_result,label=name)
+    fig.get_axes()[0].set_yscale('symlog')
+    plt.legend(loc='upper right')
+    plt.savefig("test_set_plot_dens_sumerror_real_symlog.png")
+    
+    
+    
+    
+    
+    
+    
+    
+    log_dens_max = data["log_dens"].max()
+    log_dens_min = data["log_dens"].min()
+    
+    log_dens_intervals,log_dens_interval_medians = get_intervals(np.linspace(log_dens_min,log_dens_max, num=100))
+    
+    
+    
+    groups = data.groupby("model_name")
+    
+    fig = plt.figure()
+    #sns.set(style="white", palette=sns.color_palette("YlGnBu_d"), color_codes=True)
+    sns.set(style="white", color_codes=True)
+    current_palette = sns.color_palette("cubehelix", 5)
+    sns.set_palette(current_palette)
+    for name, group in groups:
+        log_sum_error_result = []
+        for count, interval in enumerate(log_dens_intervals):
+	    temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
+	    log_sum_error_result.append(temp['error'].sum())
+
+        plt.plot(log_dens_interval_medians, log_sum_error_result,label=name)
+    #ax.fig.get_axes()[0].set_xscale('log')
+    plt.legend(loc='upper right')
+    plt.savefig("test_set_plot_dens_sumerror_log_real.png")
+    
+    
+    
+    
+    
+    
+    
+    
+    log_dens_max = data["log_dens"].max()
+    log_dens_min = data["log_dens"].min()
+    
+    log_dens_intervals,log_dens_interval_medians = get_intervals(np.linspace(log_dens_min,log_dens_max, num=100))
+    
+    
+    
+    groups = data.groupby("model_name")
+    
+    fig = plt.figure()
+    #sns.set(style="white", palette=sns.color_palette("YlGnBu_d"), color_codes=True)
+    sns.set(style="white", color_codes=True)
+    current_palette = sns.color_palette("cubehelix", 5)
+    sns.set_palette(current_palette)
+    for name, group in groups:
+        log_sum_error_result = []
+        for count, interval in enumerate(log_dens_intervals):
+	    temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
+	    log_sum_error_result.append(temp['error'].sum())
+
+        plt.plot(log_dens_interval_medians, log_sum_error_result,label=name)
+    fig.get_axes()[0].set_yscale('symlog')
+    plt.legend(loc='upper right')
+    plt.savefig("test_set_plot_dens_sumerror_log_symlog.png")
+    
+    
+
     
     
     return
@@ -443,5 +557,5 @@ if __name__ == "__main__":
 
     print "start ploting"
     
-    #plot_group_2(data)
+    plot_group_2(data)
 
