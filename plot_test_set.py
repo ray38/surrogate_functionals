@@ -345,12 +345,53 @@ def plot_group_1(data):
 
     plt.tight_layout()
     plt.savefig("test_set_plot_log_symlog2.png")
+
+
+def get_intervals(li):
+    result = []
+    median_result = []
     
+    for i in range(len(li)-1):
+        result.append([li[i],li[i+1]])
+        median_result.append((li[i]+li[i+1])/2.0)
+    
+    return result, median_result
+  
+ 
+
 def plot_group_2(data):
     plt.figure()
     ax = sns.kdeplot(data["dens"],bw=.0015)
-    ax.fig.get_axes()[0].set_xscale('log')
+    #ax.fig.get_axes()[0].set_xscale('log')
     plt.savefig("test_set_plot_dens_dist_real.png")
+    
+    dens_max = data["dens"].max()
+    dens_min = data["dens"].min()
+    
+    dens_intervals,dens_interval_medians = get_intervals(np.linspace(dens_min,dens_max, num=50))
+    
+    #breakdown_dfs = {}
+    
+    sum_error_result = []
+    
+    for count, interval in enumerate(dens_intervals):
+        #breakdown_dfs[str(count)] 
+        temp = data[data['dens'] >= interval[0] and data['dens'] < interval[1]]
+        sum_error_result.append(temp['error'].sum())
+    
+    
+    sum_error_d = {"dens_mean":dens_interval_medians, "sum_error":sum_error_result}
+    
+    plt.figure()
+    #ax = sns.kdeplot(data["dens"],bw=.0015)
+    plt.plot(dens_interval_medians, sum_error_result)
+    #ax.fig.get_axes()[0].set_xscale('log')
+    plt.savefig("test_set_plot_dens_sumerror_real.png")
+    
+    
+    return
+    
+    
 
 if __name__ == "__main__":
 
