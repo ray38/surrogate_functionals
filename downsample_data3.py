@@ -364,7 +364,7 @@ def process_one_molecule(molecule, functional,h,L,N, PCA_model):
 
     overall_list = overall_list.tolist()
 
-    with open("{}_{}_downsampled_full_data_with_PC_test.csv".format(molecule,functional), "wb") as f:
+    with open("{}_{}_downsampled_partial_data_with_PC_test.csv".format(molecule,functional), "wb") as f:
         writer = csv.writer(f)
 #            writer.writerow(['x','y','z','rho','gamma','tau','Vxc','epxc','ad_0-01','ad_0-02','ad_0-03','ad_0-04','ad_0-05','ad_0-06','ad_0-08','ad_0-1','ad_0-15','ad_0-2','ad_0-3','ad_0-4','ad_0-5','deriv_1','deriv_2'])
         #writer.writerow(['x','y','z','rho','Vxc','epxc','gamma','tau','LDA_residual',\
