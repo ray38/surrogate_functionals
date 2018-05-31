@@ -506,8 +506,6 @@ if __name__ == "__main__":
     functional = sys.argv[4]
     NN_model_filename = sys.argv[5]
 
-    K.set_floatx('float64')
-    K.floatx()
 
 
     with open(predict_setup_filename) as f:
