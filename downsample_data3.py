@@ -241,7 +241,7 @@ def process_one_molecule(molecule, functional,h,L,N, PCA_model):
     ad_040 = []
     ad_050 = []
 
-    for i,j,k in paramlist:
+    #for i,j,k in paramlist:
         #temp_x, temp_y, temp_z,  temp_n,  temp_gamma,  temp_epxc,  temp_LDAresidual = process(molecule, functional,i,j,k,h,N)
         #x += temp_x
         #y += temp_y
@@ -251,36 +251,36 @@ def process_one_molecule(molecule, functional,h,L,N, PCA_model):
         #epxc += temp_epxc
         #LDA_residual += temp_LDAresidual
 
-        temp_result = process(molecule, functional,i,j,k,h,N)
-        #temp_result = process(molecule, functional,0,0,0,h,N)
-        x += temp_result[0]
-        y += temp_result[1]
-        z += temp_result[2]
-        n += temp_result[3]
-        Vxc += temp_result[4]
-        epxc += temp_result[5]
-        gamma += temp_result[6]
-        tau += temp_result[7]
-        LDA_residual += temp_result[8]
-        derivative_1 += temp_result[9]
-        derivative_2 += temp_result[10]
-        derivative_3 += temp_result[11]
-        ad_004 += temp_result[12]
-        ad_006 += temp_result[13]
-        ad_008 += temp_result[14]
-        ad_010 += temp_result[15]
-        ad_012 += temp_result[16]
-        ad_014 += temp_result[17]
-        ad_016 += temp_result[18]
-        ad_018 += temp_result[19]
-        ad_020 += temp_result[20]
-        ad_022 += temp_result[21]
-        ad_024 += temp_result[22]
-        ad_026 += temp_result[23]
-        ad_028 += temp_result[24]
-        ad_030 += temp_result[25]
-        ad_040 += temp_result[26]
-        ad_050 += temp_result[27]
+        #temp_result = process(molecule, functional,i,j,k,h,N)
+    temp_result = process(molecule, functional,0,0,0,h,N)
+    x += temp_result[0]
+    y += temp_result[1]
+    z += temp_result[2]
+    n += temp_result[3]
+    Vxc += temp_result[4]
+    epxc += temp_result[5]
+    gamma += temp_result[6]
+    tau += temp_result[7]
+    LDA_residual += temp_result[8]
+    derivative_1 += temp_result[9]
+    derivative_2 += temp_result[10]
+    derivative_3 += temp_result[11]
+    ad_004 += temp_result[12]
+    ad_006 += temp_result[13]
+    ad_008 += temp_result[14]
+    ad_010 += temp_result[15]
+    ad_012 += temp_result[16]
+    ad_014 += temp_result[17]
+    ad_016 += temp_result[18]
+    ad_018 += temp_result[19]
+    ad_020 += temp_result[20]
+    ad_022 += temp_result[21]
+    ad_024 += temp_result[22]
+    ad_026 += temp_result[23]
+    ad_028 += temp_result[24]
+    ad_030 += temp_result[25]
+    ad_040 += temp_result[26]
+    ad_050 += temp_result[27]
 
 
 
@@ -357,7 +357,7 @@ def process_one_molecule(molecule, functional,h,L,N, PCA_model):
 
     overall_list = np.stack(overall_list,axis=1)
 
-    overall_list = np.concatenate((overall_list,PCA_list),axis=1)
+    overall_list = np.concatenate((overall_list,np.around(PCA_list,9)),axis=1)
     #overall_list = np.concatenate((overall_list,PLS_list),axis=1)
 
     print overall_list.shape
