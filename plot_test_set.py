@@ -132,6 +132,17 @@ def predict(n,LDA_x,X,NN_model,y):
     return predict_y, error
 
 
+def predict_svwn(n,LDA_x,y):
+
+    dens = n
+
+    predict_y = predict_LDA(n,LDA_x)
+
+    error = y - predict_y
+
+
+    return predict_y, error
+
 def initialize(setup,key):
     os.chdir(setup[key]["model_save_dir"])
     fit_log_name = "NN_fit_log.log"
@@ -162,6 +173,30 @@ def initialize(setup,key):
     setup[key]["test_dens"] = test_data[2]
 
     return
+    
+def initialize_svwn(setup,key):
+    os.chdir(setup[key]["model_save_dir"])
+    fit_log_name = "NN_fit_log.log"
+    
+    LDA_model_name = "LDA_model.sav"
+    #NN_model_name = "NN.h5"
+
+
+    LDA_model = pickle.load(open("LDA_model.sav", 'rb'))
+
+    setup["SVWN"]["LDA_model"] = LDA_model
+
+
+    os.chdir(setup[key]["working_dir"])
+
+    with open("test_data_to_plot.pickle", 'rb') as handle:
+        test_data = pickle.load(handle)
+
+    setup["SVWN"]["test_X"] = test_data[0]
+    setup["SVWN"]["test_y"] = test_data[1]
+    setup["SVWN"]["test_dens"] = test_data[2]
+
+    return
 
 
 def process_one_model(setup,key):
@@ -170,6 +205,16 @@ def process_one_model(setup,key):
     temp_predict_y, temp_error = predict(setup[key]["test_dens"],setup[key]["LDA_model"].x,setup[key]["test_X"],setup[key]["NN_model"],setup[key]["test_y"])
     setup[key]["predict_y"] = temp_predict_y
     setup[key]["error"] = temp_error
+    print "end: " + key
+    return temp_predict_y, temp_error
+    
+    
+def process_svwn_model(setup,key):
+    print "start: SVWN"
+    initialize(setup,key)
+    temp_predict_y, temp_error = predict_svwn(setup[key]["test_dens"],setup[key]["LDA_model"].x,setup[key]["test_y"])
+    setup["SVWN"]["predict_y"] = temp_predict_y
+    setup["SVWN"]["error"] = temp_error
     print "end: " + key
     return temp_predict_y, temp_error
 
@@ -545,6 +590,8 @@ if __name__ == "__main__":
             setup[key]["model_save_dir"] = model_save_dir
 
 
+
+	process_svwn_model(setup,"1")
         for key in setup:
             os.chdir(main_dir)
             process_one_model(setup,key)
