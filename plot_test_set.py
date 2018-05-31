@@ -590,7 +590,7 @@ if __name__ == "__main__":
             setup[key]["model_save_dir"] = model_save_dir
 
 
-
+	setup["SVWN"] = {}
 	process_svwn_model(setup,"1")
         for key in setup:
             os.chdir(main_dir)
