@@ -185,7 +185,8 @@ def initialize_svwn(setup,key):
     LDA_model = pickle.load(open("LDA_model.sav", 'rb'))
 
     setup["SVWN"]["LDA_model"] = LDA_model
-
+    setup["SVWN"]["model"] = "refitted_SVWN"
+    setup["SVWN"]["dataset"] = "epxc_refitted_SVWN"
 
     os.chdir(setup[key]["working_dir"])
 
@@ -589,14 +590,14 @@ if __name__ == "__main__":
             model_save_dir = working_dir + "/" + setup[key]["model"]
             setup[key]["model_save_dir"] = model_save_dir
 
-        os.chdir(main_dir)
-	setup["SVWN"] = {}
-	process_svwn_model(setup,"1")
-	os.chdir(main_dir)
+	
         for key in setup:
             os.chdir(main_dir)
             process_one_model(setup,key)
         os.chdir(main_dir)
+        setup["SVWN"] = {}
+	process_svwn_model(setup,"1")
+	os.chdir(main_dir)
 
         data = create_df(setup)
 
