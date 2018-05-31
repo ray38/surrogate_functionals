@@ -211,11 +211,11 @@ def process_one_model(setup,key):
     
 def process_svwn_model(setup,key):
     print "start: SVWN"
-    initialize(setup,key)
-    temp_predict_y, temp_error = predict_svwn(setup[key]["test_dens"],setup[key]["LDA_model"].x,setup[key]["test_y"])
+    initialize_svwn(setup,key)
+    temp_predict_y, temp_error = predict_svwn(setup["SVWN"]["test_dens"],setup["SVWN"]["LDA_model"].x,setup["SVWN"]["test_y"])
     setup["SVWN"]["predict_y"] = temp_predict_y
     setup["SVWN"]["error"] = temp_error
-    print "end: " + key
+    print "end: SVWN"
     return temp_predict_y, temp_error
 
 
@@ -589,9 +589,10 @@ if __name__ == "__main__":
             model_save_dir = working_dir + "/" + setup[key]["model"]
             setup[key]["model_save_dir"] = model_save_dir
 
-
+        os.chdir(main_dir)
 	setup["SVWN"] = {}
 	process_svwn_model(setup,"1")
+	os.chdir(main_dir)
         for key in setup:
             os.chdir(main_dir)
             process_one_model(setup,key)
