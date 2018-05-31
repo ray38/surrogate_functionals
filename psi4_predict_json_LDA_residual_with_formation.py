@@ -23,10 +23,7 @@ from numpy import mean, sqrt, square, arange
 try: import cPickle as pickle
 except: import pickle
 import time
-from keras.models import Sequential
-from keras.models import load_model
-from keras.layers import Dense, Activation
-from keras import backend as K
+
 import matplotlib.pyplot as plt
 import pprint
 from sklearn import linear_model
@@ -395,35 +392,21 @@ def initialize(setup,NN_model_filename):
         predict_full_log_name = "predict_refitted_SVWN_full_log.log"
         predict_error_log_name = "predict_refitted_SVWN_error_log.log"
         predict_formation_log_name = "predict_refitted_SVWN_formation_log.log"
-        try:
-            NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
-        except:
-            NN_model = load_model(NN_model_name)
-        NN_model.save("NN_{}_{}_backup.h5".format(loss,loss_value))
+
 
 
     else:
-        temp = NN_model_name.split("_")
-        if temp[1] == "mean" and temp[2] == "absolute" and temp[3] == "percentage":
-            loss = "mean_absolute_percentage_error"
-            loss_value = temp[5]
-        else:
-            loss = temp[1]
-            loss_value = temp[2]
+
         predict_log_name = "predict_refitted_SVWN_log.log"
         predict_full_log_name = "predict_refitted_SVWN_full_log.log"
         predict_error_log_name = "predict_refitted_SVWN_error_log.log"
         predict_formation_log_name = "predict_refitted_SVWN_formation_log.log"
-        try:
-            NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
-        except:
-            NN_model = load_model(NN_model_name)
+
 
 
 
     LDA_model = pickle.load(open(LDA_model_name, 'rb'))
 
-    setup["NN_model"] = NN_model
     setup["LDA_model"] = LDA_model
     setup["predict_log_name"] = predict_log_name
     setup["predict_full_log_name"] = predict_full_log_name
