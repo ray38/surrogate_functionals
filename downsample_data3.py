@@ -313,10 +313,10 @@ def process_one_molecule(molecule, functional,h,L,N, PCA_model):
     overall_list.append(ad_016)
     overall_list.append(ad_018)
     overall_list.append(ad_020)
-    #overall_list.append(ad_022)
-    #overall_list.append(ad_024)
-    #overall_list.append(ad_026)
-    #overall_list.append(ad_028)
+    overall_list.append(ad_022)
+    overall_list.append(ad_024)
+    overall_list.append(ad_026)
+    overall_list.append(ad_028)
     overall_list.append(ad_030)
     overall_list.append(ad_040)
     overall_list.append(ad_050)
@@ -371,7 +371,7 @@ def process_one_molecule(molecule, functional,h,L,N, PCA_model):
                          'deriv_1','deriv_2','deriv_3',\
                          'ad_0-04','ad_0-06','ad_0-08','ad_0-10',\
                          'ad_0-12','ad_0-14','ad_0-16','ad_0-18','ad_0-20',\
-                         'ad_0-30',\
+                         'ad_0-22','ad_0-24','ad_0-26','ad_0-28','ad_0-30',\
                          'ad_0-40','ad_0-50', 'PC1','PC2'])
         writer.writerows(overall_list)
     
