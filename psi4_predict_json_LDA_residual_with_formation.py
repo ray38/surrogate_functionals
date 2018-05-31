@@ -173,7 +173,7 @@ def predict_LDA(n,LDA_x):
 
 def predict_each_block(setup,dens,X,y):
 
-    NN_model = setup["NN_model"]
+    #NN_model = setup["NN_model"]
     LDA_model = setup["LDA_model"]
     y_transform  = setup["dataset_setup"]["target_transform"]
 
