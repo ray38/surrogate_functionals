@@ -39,6 +39,7 @@ import seaborn as sns
 from sklearn import manifold
 
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.preprocessing import StandardScaler
 
 
 def PCA_analysis(data, n_components = 2):
@@ -203,9 +204,9 @@ def read_data_from_one_dir(directory):
     random_filename = "overall_random_data.p"
 
     try:
-        #molecule_subsampled_data = pickle.load(open(subsampled_filename,'rb'))
-        molecule_subsampled_data = subsampling_system(pickle.load(open(subsampled_filename,'rb')), list_desc = [], cutoff_sig = 0.02, rate = 0.1)
-        print "read subsampled data"
+        molecule_subsampled_data = pickle.load(open(subsampled_filename,'rb'))
+        #molecule_subsampled_data = subsampling_system(pickle.load(open(subsampled_filename,'rb')), list_desc = [], cutoff_sig = 0.02, rate = 0.1)
+        #print "read subsampled data"
     except:
         molecule_subsampled_data = []
 
@@ -310,6 +311,21 @@ def fit_pca(data,filename,n_components = 5):
     pca = RandomizedPCA(n_components = n_components )
     X_pca = pca.fit_transform(data)
     pickle.dump(pca, open(filename, 'wb'))
+    print X_pca.shape
+    print pca.components_
+    print pca.explained_variance_ratio_
+    print pca.explained_variance_
+    return X_pca, pca
+    
+def fit_pca_standard(data,filename,n_components = 5):
+    print "start fitting pca"
+    print data.shape
+    pca = RandomizedPCA(n_components = n_components )
+    stdscaler = StandardScaler(copy=True, with_mean=True, with_std=True)
+    data_standard = stdscaler.fit_transform(data)
+    X_pca = pca.fit_transform(data_standard)
+    pickle.dump(pca, open(filename, 'wb'))
+    pickle.dump(stdscaler, open("standard_scaler.sav", 'wb'))
     print X_pca.shape
     print pca.components_
     print pca.explained_variance_ratio_
@@ -455,6 +471,38 @@ if __name__ == "__main__":
         os.makedirs(model_save_dir)
 
     os.chdir(model_save_dir)
+
+    X_pca_standard, pca_standard = fit_pca_standard(X_train.copy(),'pca_model_standard_{}.sav'.format(dataset_name),n_components = None)
+    fig = plt.figure()
+    plt.plot(np.arange(1,20),pca_standard.explained_variance_ratio_)
+    plt.savefig('PCA_standard_explained_variance_ratio.png')
+    
+    fig = plt.figure()
+    plt.plot(np.arange(1,20),pca_standard.explained_variance_ratio_)
+    fig.get_axes()[0].set_yscale('log')
+    plt.savefig('PCA_standard_explained_variance_ratio_log.png')
+    
+    temp = ['n','deriv1','deriv2','ad_0-04','ad_0-06','ad_0-08','ad_0-10',\
+                         'ad_0-12','ad_0-14','ad_0-16','ad_0-18','ad_0-20',\
+                         'ad_0-22','ad_0-24','ad_0-26','ad_0-28','ad_0-30',\
+                         'ad_0-40','ad_0-50']
+    #fig = plt.figure()
+    fig,ax = plt.subplots()
+    plt.plot(pca_standard.components_[0], label="PC1")
+    plt.plot(pca_standard.components_[1], label="PC2")
+    plt.plot(pca_standard.components_[2], label="PC3")
+    plt.plot(pca_standard.components_[3], label="PC4")
+    plt.plot(pca_standard.components_[4], label="PC5")
+    plt.legend()
+    ax.set_xticklabels(temp)
+    plt.savefig('PCA_standard_components_real.png')
+    
+    
+    
+    
+    plot_result(X_pca_standard, molecule_name, molecule_label, "PCA_standard_result_plot_{}_{}.png".format(dataset_name,10),10)
+    plot_result(X_pca_standard, molecule_name, molecule_label, "PCA_standard_result_plot_{}_{}.png".format(dataset_name,20),20)
+
 
 
     #try:
