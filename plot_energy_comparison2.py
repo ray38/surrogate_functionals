@@ -41,6 +41,8 @@ if __name__ == "__main__":
 	with open(filename, 'rb') as handle:
 		data = pickle.load(handle)
 
+	print data
+
 
 
 

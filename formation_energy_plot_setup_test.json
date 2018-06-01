@@ -1,4 +1,9 @@
 {
+	"0":{	"dataset": "epxc_refitted_SVWN",
+			"model":"Model1", 
+			"filename":"predict_refitted_SVWN_formation_log.log",
+			"model_filename":"LDA_model.sav"},
+
 	"1":{	"dataset": "epxc_LDA_real_real",
 			"model":"NN_LDA_residual_1M_20_2_relu", 
 			"filename":"predict_sae_226193896.623_formation_log.log",
