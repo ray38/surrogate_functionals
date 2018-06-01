@@ -189,7 +189,7 @@ def process(molecule, functional,i,j,k,h,N):
 
 
 
-def process_one_molecule(molecule, functional,h,L,N, PCA_model):
+def process_one_molecule(molecule, functional,h,L,N, PCA_model,standard_scaler):
     cwd = os.getcwd()
     dir_name = "{}_{}_{}_{}_{}".format(molecule,functional,str(L).replace('.','-'),str(h).replace('.','-'),N)
     print dir_name
@@ -349,6 +349,7 @@ def process_one_molecule(molecule, functional,h,L,N, PCA_model):
     print PCA_list.shape
 
     #PCA_list = PCA_analysis(PCA_list, n_components = 5)
+    PCA_list = standard_scaler.transform(PCA_list)
     PCA_list = PCA_model.transform(PCA_list)
     #PLS_list = PLS_model.transform(PCA_list)
 
@@ -357,14 +358,14 @@ def process_one_molecule(molecule, functional,h,L,N, PCA_model):
 
     overall_list = np.stack(overall_list,axis=1)
 
-    overall_list = np.concatenate((overall_list,np.around(PCA_list,9)),axis=1)
+    overall_list = np.concatenate((overall_list,np.around(PCA_list,9)[:,:2]),axis=1)
     #overall_list = np.concatenate((overall_list,PLS_list),axis=1)
 
     print overall_list.shape
 
     overall_list = overall_list.tolist()
 
-    with open("{}_{}_downsampled_partial_data_with_PC_test.csv".format(molecule,functional), "wb") as f:
+    with open("{}_{}_downsampled_partial_data_with_standard_PC_test.csv".format(molecule,functional), "wb") as f:
         writer = csv.writer(f)
 #            writer.writerow(['x','y','z','rho','gamma','tau','Vxc','epxc','ad_0-01','ad_0-02','ad_0-03','ad_0-04','ad_0-05','ad_0-06','ad_0-08','ad_0-1','ad_0-15','ad_0-2','ad_0-3','ad_0-4','ad_0-5','deriv_1','deriv_2'])
         #writer.writerow(['x','y','z','rho','Vxc','epxc','gamma','tau','LDA_residual',\
@@ -388,7 +389,9 @@ def process_one_molecule(molecule, functional,h,L,N, PCA_model):
 if __name__ == "__main__":
 
     setup_filename = sys.argv[1]
+
     pca_filename = sys.argv[2]
+    standard_scaler_filename = sys.argv[3]
     #pls_filename = sys.argv[3]
 
     #with open(setup_filename, encoding='utf-8') as f:
@@ -397,6 +400,7 @@ if __name__ == "__main__":
 
     PCA_model = pickle.load(open(pca_filename, 'rb'))
     #PLS_model = pickle.load(open(pls_filename, 'rb'))
+    standard_scaler = pickle.load(open(standard_scaler_filename, 'rb'))
 
     print setup
 
@@ -407,5 +411,5 @@ if __name__ == "__main__":
     functional = setup['functionals']
 
     #for functional in functionals:
-    process_one_molecule(molecule, functional,h,L,N,PCA_model)
+    process_one_molecule(molecule, functional,h,L,N,PCA_model,standard_scaler)
 
