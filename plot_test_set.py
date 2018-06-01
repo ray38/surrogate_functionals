@@ -663,7 +663,7 @@ if __name__ == "__main__":
             process_one_model(setup,key)
         os.chdir(main_dir)
         setup["SVWN"] = {}
-	process_svwn_model(setup,"1")
+	#process_svwn_model(setup,"1")
 	os.chdir(main_dir)
 
         data = create_df(setup)
