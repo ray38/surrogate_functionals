@@ -1,0 +1,44 @@
+{
+
+	"0":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_20_2_relu", 
+			"filename":"predict_sae_1247491504.6_formation_log.log",
+			"model_filename":"NN_sae_1247491504.6_backup.h5"},
+
+
+
+	"2":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_40_2_relu", 
+			"filename":"predict_sae_1343100814.34_formation_log.log",
+			"model_filename":"NN_sae_1343100814.34_backup.h5"},
+
+	"3":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_40_2_relu", 
+			"filename":"predict_mean_absolute_percentage_error_99.9996903966_formation_log.log",
+			"model_filename":"NN_mean_absolute_percentage_error_99.9996903966_backup.h5"},
+
+	"4":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_60_2_relu", 
+			"filename":"predict_sae_1343017582.15_formation_log.log",
+			"model_filename":"NN_sae_1343017582.15_backup.h5"},
+
+	"5":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_60_2_relu", 
+			"filename":"predict_mean_absolute_percentage_error_99.9996167823_formation_log.log",
+			"model_filename":"NN_mean_absolute_percentage_error_99.9996167823_backup.h5"},
+
+	"6":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_80_2_relu", 
+			"filename":"predict_sae_1343010586.54_formation_log.log",
+			"model_filename":"NN_sae_1343010586.54_backup.h5"},
+
+	"7":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_80_2_relu", 
+			"filename":"predict_mean_absolute_percentage_error_99.999625236_formation_log.log",
+			"model_filename":"NN_mean_absolute_percentage_error_99.999625236_backup.h5"},
+
+	"8":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_1245829462.5_formation_log.log",
+			"model_filename":"NN_sae_1245829462.5_backup.h5"}
+}
