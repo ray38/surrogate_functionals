@@ -404,7 +404,7 @@ if __name__ == "__main__":
 
     print setup
 
-    molecule = sys.argv[3]
+    molecule = sys.argv[4]
     h = float(setup['grid_spacing'])
     L = float(setup['box_dimension'])
     N = int(setup['number_segment_per_side'])
