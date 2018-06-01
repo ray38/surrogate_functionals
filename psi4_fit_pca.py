@@ -204,9 +204,9 @@ def read_data_from_one_dir(directory):
     random_filename = "overall_random_data.p"
 
     try:
-        molecule_subsampled_data = pickle.load(open(subsampled_filename,'rb'))
-        #molecule_subsampled_data = subsampling_system(pickle.load(open(subsampled_filename,'rb')), list_desc = [], cutoff_sig = 0.02, rate = 0.1)
-        #print "read subsampled data"
+        #molecule_subsampled_data = pickle.load(open(subsampled_filename,'rb'))
+        molecule_subsampled_data = subsampling_system(pickle.load(open(subsampled_filename,'rb')), list_desc = [], cutoff_sig = 0.02, rate = 0.1)
+        print "read subsampled data"
     except:
         molecule_subsampled_data = []
 
@@ -472,7 +472,14 @@ if __name__ == "__main__":
 
     os.chdir(model_save_dir)
 
-    X_pca_standard, pca_standard = fit_pca_standard(X_train.copy(),'pca_model_standard_{}.sav'.format(dataset_name),n_components = None)
+
+    stdscaler = StandardScaler(copy=True, with_mean=True, with_std=True)
+    X_train_standard = stdscaler.fit_transform(X_train)
+    pickle.dump(stdscaler, open("standard_scaler.sav", 'wb'))
+
+
+
+    X_pca_standard, pca_standard = fit_pca(X_train_standard.copy(),'pca_model_standard_{}.sav'.format(dataset_name),n_components = None)
     fig = plt.figure()
     plt.plot(np.arange(1,20),pca_standard.explained_variance_ratio_)
     plt.savefig('PCA_standard_explained_variance_ratio.png')
@@ -500,9 +507,35 @@ if __name__ == "__main__":
     
     
     
-    plot_result(X_pca_standard, molecule_name, molecule_label, "PCA_standard_result_plot_{}_{}.png".format(dataset_name,10),10)
-    plot_result(X_pca_standard, molecule_name, molecule_label, "PCA_standard_result_plot_{}_{}.png".format(dataset_name,20),20)
+    plot_result(X_pca_standard, molecule_name, molecule_label, "PCA_standard_result_plot_{}_{}.png".format(dataset_name,10),10, edge=(-5,20,-5,25))
+    plot_result(X_pca_standard, molecule_name, molecule_label, "PCA_standard_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-5,20,-5,25))
 
+
+    try:
+        X_pls_standard, pls_standard = fit_pls(X_train_standard.copy(),'pls_standard_model_{}.sav'.format(dataset_name),n_components = None)
+        plot_result(X_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}.png".format(dataset_name,10),10)
+        plot_result(X_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}.png".format(dataset_name,20),20)
+    except:
+        pass
+
+
+    for kernel in ["poly","rbf","sigmoid"]:
+
+        try:
+            X_kpca_standard, kpca_standard = fit_kernel_pca(X_train_standard.copy(),'kpca_standard_model_{}_{}.sav'.format(dataset_name,kernel),kernel,n_components = None)
+            plot_result(X_kpca_standard, molecule_name, molecule_label, "kPCA_standard_result_plot_{}_{}_{}.png".format(dataset_name,kernel,10),10)
+            plot_result(X_kpca_standard, molecule_name, molecule_label, "kPCA_standard_result_plot_{}_{}_{}.png".format(dataset_name,kernel,20),20)
+        except:
+            pass
+
+
+    for method in ['standard', 'ltsa', 'hessian', 'modified' ]:
+        try:
+            X_transform_standard, model_standard = fit_manifold(X_train_standard.copy(),'manifold_standard_model_{}_{}.sav'.format(dataset_name,method),method,n_components = 2)
+            plot_result(X_transform_standard, molecule_name, molecule_label, "manifold_standard_result_plot_{}_{}_{}.png".format(dataset_name,method,10),10)
+            plot_result(X_transform_standard, molecule_name, molecule_label, "manifold_standard_result_plot_{}_{}_{}.png".format(dataset_name,method,20),20)
+        except:
+            pass
 
 
     #try:
@@ -521,11 +554,13 @@ if __name__ == "__main__":
     #except:
     #    pass
 
-    X_lda, lda = fit_lda(X_train.copy(),y.copy(),'lda_model_{}.sav'.format(dataset_name),n_components = None)
-    plot_result(X_lda, molecule_name, molecule_label, "LDA_result_plot_{}_{}.png".format(dataset_name,10),10)
-    plot_result(X_lda, molecule_name, molecule_label, "LDA_result_plot_{}_{}.png".format(dataset_name,20),20)
+    #try:
+    #    X_lda, lda = fit_lda(X_train.copy(),y.copy(),'lda_model_{}.sav'.format(dataset_name),n_components = None)
+    #    plot_result(X_lda, molecule_name, molecule_label, "LDA_result_plot_{}_{}.png".format(dataset_name,10),10)
+    #    plot_result(X_lda, molecule_name, molecule_label, "LDA_result_plot_{}_{}.png".format(dataset_name,20),20)
+    #except:
+    #    pass
 
-'''
     try:
         X_pls, pls = fit_pls(X_train.copy(),'pls_model_{}.sav'.format(dataset_name),n_components = 2)
         plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,10),10)
@@ -550,5 +585,5 @@ if __name__ == "__main__":
             plot_result(X_transform, molecule_name, molecule_label, "manifold_result_plot_{}_{}_{}.png".format(dataset_name,method,20),20)
         except:
             pass
-'''
+
 
