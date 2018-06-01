@@ -421,7 +421,7 @@ def plot_group_2(data):
     plt.savefig("test_set_plot_dens_dist_log.png")
     
     
-    
+    number_models = data['model_name'].nunique()
     
     
     
@@ -437,7 +437,7 @@ def plot_group_2(data):
     
     fig = plt.figure()
     sns.set(style="white", color_codes=True)
-    current_palette = sns.color_palette("cubehelix", 6)
+    current_palette = sns.color_palette("cubehelix", number_models)
     sns.set_palette(current_palette)
     for name, group in groups:
         print name
@@ -477,7 +477,7 @@ def plot_group_2(data):
     
     fig = plt.figure()
     sns.set(style="white", color_codes=True)
-    current_palette = sns.color_palette("cubehelix", 6)
+    current_palette = sns.color_palette("cubehelix", number_models)
     sns.set_palette(current_palette)
     for name, group in groups:
         if name == "SVWN":
@@ -517,7 +517,7 @@ def plot_group_2(data):
     
     fig = plt.figure()
     sns.set(style="white", color_codes=True)
-    current_palette = sns.color_palette("cubehelix", 6)
+    current_palette = sns.color_palette("cubehelix", number_models)
     sns.set_palette(current_palette)
     for name, group in groups:
         if name == "SVWN":
@@ -557,7 +557,7 @@ def plot_group_2(data):
     
     fig = plt.figure()
     sns.set(style="white", color_codes=True)
-    current_palette = sns.color_palette("cubehelix", 6)
+    current_palette = sns.color_palette("cubehelix", number_models)
     sns.set_palette(current_palette)
     for name, group in groups:
         if name == "SVWN":
@@ -673,5 +673,5 @@ if __name__ == "__main__":
 
     print "start ploting"
     
-    plot_group_3(data)
+    plot_group_2(data)
 
