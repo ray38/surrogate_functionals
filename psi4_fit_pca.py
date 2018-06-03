@@ -351,12 +351,12 @@ def fit_lda(data,y,filename,n_components = 5):
     return
 
 
-def fit_pls(data,filename,n_components = 5):
+def fit_pls(data,y,filename):
     print "start fitting pls"
-    pls = PLSRegression(n_components = n_components)
-    X_pls = pls.fit_transform(data)
+    pls = PLSRegression()
+    X_score, y_score = pls.fit_transform(data,y)
     pickle.dump(pls, open(filename, 'wb'))
-    return X_pls, pls
+    return X_score, y_score , pls
 
 def fit_manifold(data,filename,method,n_neighbors = 10, n_components = 2):
     print "start fitting manifold"
@@ -511,12 +511,10 @@ if __name__ == "__main__":
     plot_result(X_pca_standard, molecule_name, molecule_label, "PCA_standard_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-5,20,-5,25))
 
 
-    try:
-        X_pls_standard, pls_standard = fit_pls(X_train_standard.copy(),'pls_standard_model_{}.sav'.format(dataset_name),n_components = None)
-        plot_result(X_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}.png".format(dataset_name,10),10)
-        plot_result(X_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}.png".format(dataset_name,20),20)
-    except:
-        pass
+
+    X_pls_standard,y_pls_standard, pls_standard = fit_pls(X_train_standard.copy(),y_standard.copy(),'pls_standard_model_{}.sav'.format(dataset_name))
+    plot_result(X_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}.png".format(dataset_name,10),10)
+    plot_result(X_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}.png".format(dataset_name,20),20)
 
 
     for kernel in ["poly","rbf","sigmoid"]:
@@ -562,7 +560,7 @@ if __name__ == "__main__":
     #    pass
 
     try:
-        X_pls, pls = fit_pls(X_train.copy(),'pls_model_{}.sav'.format(dataset_name),n_components = 2)
+        X_pls, y_pls, pls = fit_pls(X_train.copy(),y_train.copy().'pls_model_{}.sav'.format(dataset_name))
         plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,10),10)
         plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,20),20)
     except:
