@@ -560,7 +560,7 @@ if __name__ == "__main__":
     #    pass
 
     try:
-        X_pls, y_pls, pls = fit_pls(X_train.copy(),y_train.copy().'pls_model_{}.sav'.format(dataset_name))
+        X_pls, y_pls, pls = fit_pls(X_train.copy(),y_train.copy(), 'pls_model_{}.sav'.format(dataset_name))
         plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,10),10)
         plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,20),20)
     except:
