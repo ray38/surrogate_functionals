@@ -33,7 +33,7 @@ def plot(array, reference_shape, filename):
 	return
 
 def subplot(array, reference_shape,ax):
-	sns.heatmap(pad(array,reference_shape), cmap="RdBu_r", center=0., yticklabels=False, xticklabels=False, cbar=False, ax = ax)
+	sns.heatmap(pad(array,reference_shape), cmap="RdBu_r", center=0., yticklabels=False, xticklabels=False, cbar=False, ax = ax, annot=True)
 	return
 
 def normalize(array,maxx,minn):
@@ -41,7 +41,7 @@ def normalize(array,maxx,minn):
 	array_min = array.min()
 	return (((array - array_min) / (array_max - array_min)) * (maxx-minn)) - minn
 
-plot(np.ones((1,1)), 21, "local_density_stencil.png")
+plot(np.ones((1,1)), 9, "local_density_stencil.png")
 
 h = 0.02
 r_list = [0.06]
