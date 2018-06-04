@@ -1,3 +1,7 @@
+import matplotlib
+matplotlib.use('Agg') 
+import matplotlib.pyplot as plt
+
 from subsampling import subsampling_system_with_PCA, random_subsampling, subsampling_system
 import random
 import sklearn
