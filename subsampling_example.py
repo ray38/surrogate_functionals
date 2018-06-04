@@ -39,7 +39,7 @@ df = pd.DataFrame({'x':x, 'y':y, 'group':np.repeat('original',n)})
 
 #plot(df,"original.png")
 plt.figure()
-plt.scatter(x, y,size=10)
+plt.scatter(x, y,s=10)
 plt.savefig("original.png", transparent=True)
 
 
@@ -49,7 +49,7 @@ x_subsampled = temp_subsampled[:,0]
 y_subsampled = temp_subsampled[:,1]
 
 plt.figure()
-plt.scatter(x_subsampled, y_subsampled,size=10)
+plt.scatter(x_subsampled, y_subsampled,s=10)
 plt.savefig("subsampled.png", transparent=True)
 
 #df2 = pd.DataFrame({'x':x_subsampled, 'y':y_subsampled, 'group':np.repeat('subsampled',len(x_subsampled))})
