@@ -1,0 +1,52 @@
+{
+
+	"0":{	"dataset": "epxc_mGGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_20_2_relu", 
+			"filename":"predict_sae_1098250296.97_formation_log.log",
+			"model_filename":"NN_sae_1098250296.97_backup.h5"},
+
+	"1":{	"dataset": "epxc_mGGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_20_2_relu", 
+			"filename":"predict_mean_absolute_percentage_error_165.148197143_formation_log.log",
+			"model_filename":"NN_mean_absolute_percentage_error_165.148197143_backup.h5"},
+
+	"2":{	"dataset": "epxc_mGGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_40_2_relu", 
+			"filename":"predict_sae_1166296175.39_formation_log.log",
+			"model_filename":"NN_sae_1166296175.39_backup.h5"},
+
+	"3":{	"dataset": "epxc_mGGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_40_2_relu", 
+			"filename":"predict_mean_absolute_percentage_error_82.7531610676_formation_log.log",
+			"model_filename":"NN_mean_absolute_percentage_error_82.7531610676_backup.h5"},
+
+	"4":{	"dataset": "epxc_mGGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_60_2_relu", 
+			"filename":"predict_sae_1164833433.21_formation_log.log",
+			"model_filename":"NN_sae_1164833433.21_backup.h5"},
+
+	"5":{	"dataset": "epxc_mGGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_60_2_relu", 
+			"filename":"predict_mean_absolute_percentage_error_122.710076486_formation_log.log",
+			"model_filename":"NN_mean_absolute_percentage_error_122.710076486_backup.h5"},
+
+	"6":{	"dataset": "epxc_mGGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_80_2_relu", 
+			"filename":"predict_sae_1102497837.43_formation_log.log",
+			"model_filename":"NN_sae_1102497837.43_backup.h5"},
+
+	"7":{	"dataset": "epxc_mGGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_80_2_relu", 
+			"filename":"predict_mean_absolute_percentage_error_85.7987940315_formation_log.log",
+			"model_filename":"NN_mean_absolute_percentage_error_85.7987940315_backup.h5"},
+
+	"8":{	"dataset": "epxc_mGGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_1144952677.46_formation_log.log",
+			"model_filename":"NN_sae_1144952677.46_backup.h5"},
+
+	"9":{	"dataset": "epxc_mGGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_mean_absolute_percentage_error_174.840104542_formation_log.log",
+			"model_filename":"NN_mean_absolute_percentage_error_174.840104542_backup.h5"}
+}

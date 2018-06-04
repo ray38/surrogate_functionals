@@ -1,0 +1,63 @@
+{
+
+	"0":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_20_1_relu", 
+			"filename":"predict_sae_1343653563.51_formation_log.log",
+			"model_filename":"NN_sae_1343653563.51_backup.h5"},
+
+	"1":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_20_1_relu", 
+			"filename":"predict_mean_absolute_percentage_error_99.9995445828_formation_log.log",
+			"model_filename":"NN_mean_absolute_percentage_error_99.9995445828_backup.h5"},
+
+
+	"2":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_40_1_relu", 
+			"filename":"predict_sae_1248024673.05_formation_log.log",
+			"model_filename":"NN_sae_1248024673.05_backup.h5"},
+
+	"3":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_40_1_relu", 
+			"filename":"predict_mean_absolute_percentage_error_191.697436777_formation_log.log",
+			"model_filename":"NN_mean_absolute_percentage_error_191.697436777_backup.h5"},
+
+	"4":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_60_1_relu", 
+			"filename":"predict_sae_1248617960.19_formation_log.log",
+			"model_filename":"NN_sae_1248617960.19_backup.h5"},
+
+	"5":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_60_1_relu", 
+			"filename":"predict_mean_absolute_percentage_error_73.61865351_formation_log.log",
+			"model_filename":"NN_mean_absolute_percentage_error_73.61865351_backup.h5"},
+
+	"6":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_80_1_relu", 
+			"filename":"predict_sae_1248940760.24_formation_log.log",
+			"model_filename":"NN_sae_1248940760.24_backup.h5"},
+
+	"7":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_80_1_relu", 
+			"filename":"predict_mean_absolute_percentage_error_73.5982904051_formation_log.log",
+			"model_filename":"NN_mean_absolute_percentage_error_73.5982904051_backup.h5"},
+
+	"8":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_100_1_relu", 
+			"filename":"predict_sae_1245829462.5_formation_log.log",
+			"model_filename":"NN.h5"},
+
+	"9":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_100_1_relu", 
+			"filename":"predict_mean_absolute_percentage_error_55.78699493_formation_log.log",
+			"model_filename":"NN_mean_absolute_percentage_error_55.78699493_backup.h5"},
+
+	"10":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_200_1_relu", 
+			"filename":"predict_sae_1245962730.02_formation_log.log",
+			"model_filename":"NN_sae_1245962730.02_backup.h5"},
+
+	"11":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_200_1_relu", 
+			"filename":"predict_mean_absolute_percentage_error_61.6727390232_formation_log.log",
+			"model_filename":"NN_mean_absolute_percentage_error_61.6727390232_backup.h5"}
+}
