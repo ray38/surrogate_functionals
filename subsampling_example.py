@@ -21,7 +21,7 @@ def plot(dataframe,filename):
 		plt.savefig(filename)
 
 
-n=10000000
+n=100000
 
 x_mu, x_sigma = 0, 0.1 
 y_mu, y_sigma = 100, 20
@@ -33,34 +33,40 @@ y = np.random.normal(y_mu, y_sigma, n)
 
 df = pd.DataFrame({'x':x, 'y':y, 'group':np.repeat('original',n)})
 
-plot(df,"original.png")
+#plot(df,"original.png")
 plt.figure()
+plt.scatter(x, y,size=10)
+plt.savefig("original.png", transparent=True)
 
 
 temp = np.column_stack((x,y))
-temp_subsampled = np.asarray(subsampling_system(temp,list_desc = [],cutoff_sig=0.1,rate=0.1))
+temp_subsampled = np.asarray(subsampling_system(temp,list_desc = [],cutoff_sig=0.2,rate=0.1))
 x_subsampled = temp_subsampled[:,0]
 y_subsampled = temp_subsampled[:,1]
 
-df2 = pd.DataFrame({'x':x_subsampled, 'y':y_subsampled, 'group':np.repeat('subsampled',len(x_subsampled))})
-df.append(df2)
-plot(df2,"subsampled.png")
-
-
 plt.figure()
-with sns.axes_style('white'):
-	temp_plot = sns.JointGrid(x='x', y='y', data=df,size=50, space = 0)
-	#temp_plot.plot_joint(sns.kdeplot,shade=True,cmap="Reds")
-	temp_plot.plot_joint(plt.scatter,marker='o',c='r',s=2)
-	temp_plot.plot_marginals(sns.distplot,color='r')
+plt.scatter(x_subsampled, y_subsampled,size=10)
+plt.savefig("subsampled.png", transparent=True)
+
+#df2 = pd.DataFrame({'x':x_subsampled, 'y':y_subsampled, 'group':np.repeat('subsampled',len(x_subsampled))})
+#df.append(df2)
+#plot(df2,"subsampled.png")
+
+
+#plt.figure()
+#with sns.axes_style('white'):
+#	temp_plot = sns.JointGrid(x='x', y='y', data=df,size=50, space = 0)
+#	#temp_plot.plot_joint(sns.kdeplot,shade=True,cmap="Reds")
+#	temp_plot.plot_joint(plt.scatter,marker='o',c='r',s=2)
+#	temp_plot.plot_marginals(sns.distplot,color='r')
 	
 	
-	temp_plot.x=x_subsampled
-	temp_plot.y=y_subsampled
-	temp_plot.plot_joint(plt.scatter,marker='o',c='b',s=20)
-	temp_plot.plot_marginals(sns.distplot,color='b')
+#	temp_plot.x=x_subsampled
+#	temp_plot.y=y_subsampled
+#	temp_plot.plot_joint(plt.scatter,marker='o',c='b',s=20)
+#	temp_plot.plot_marginals(sns.distplot,color='b')
 	
-	#temp_plot = sns.jointplot('x', 'y', data=df2,size=10,s=1,stat_func=None)
-	#figure = temp_plot.get_figure()
-	plt.savefig("test.png")
+#	#temp_plot = sns.jointplot('x', 'y', data=df2,size=10,s=1,stat_func=None)
+#	#figure = temp_plot.get_figure()
+#	plt.savefig("test.png", transparent=True)
 
