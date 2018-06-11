@@ -127,16 +127,19 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,
 #        temp_first_deri = np.gradient(extented_n.copy())
         try:
             ave_dens_grp = data['average_density']
+            print "get ave_dens_grp"
         except:
             ave_dens_grp = data.create_group('average_density')
 
         try:
             asym_integral_grp = data['asym_integral']
+            print "get asym_integral"
         except:
             asym_integral_grp = data.create_group('asym_integral')
 
         try:
             derivative_grp = data['derivative']
+            print "get derivative"
         except:
             derivative_grp = data.create_group('derivative')
 
@@ -145,6 +148,7 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,
         #derivative_grp = data.create_group('derivative')
         for index, r in enumerate(r_list):
             dataset_name = 'average_density_{}'.format(str(r).replace('.','-'))
+
             if dataset_name not in ave_dens_grp.keys():
                 print "start: {} ave density".format(r)
                 temp_data, temp_pad = calculate_ave_density_desc(extented_n.copy(),r,h,h,h,stencil_list[index],pad_list[index])
@@ -215,9 +219,9 @@ def prepare_asym_integral_stencils(r_list,h):
 
 def process(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list,asym_stencil_list,asym_pad_list):
     result_filename = "{}_{}_{}_{}_{}_all_descriptors.hdf5".format(molecule,functional,i,j,k)
-    if os.path.isfile(result_filename) == False:
-        print 'start {} {} {}'.format(i,j,k)
-        process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list,asym_stencil_list,asym_pad_list)
+    #if os.path.isfile(result_filename) == False:
+    print 'start {} {} {}'.format(i,j,k)
+    process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list,asym_stencil_list,asym_pad_list)
     
 
 def process_one_molecule(molecule, functional,h,L,N,r_list):
@@ -233,10 +237,6 @@ def process_one_molecule(molecule, functional,h,L,N,r_list):
     stencil_list,pad_list = prepare_integral_stencils(r_list,h)
     asym_stencil_list,asym_pad_list = prepare_asym_integral_stencils(r_list,h)
     
-#    num_cores = multiprocessing.cpu_count()
-#    print "number of cores: {}".format(num_cores)
-
-#    Parallel(n_jobs=num_cores)(delayed(processInput)(i) for i in inputs)
     
     Nx = Ny = Nz = N
     i_li = range(Nx)
@@ -244,12 +244,7 @@ def process_one_molecule(molecule, functional,h,L,N,r_list):
     k_li = range(Nz)
     
     paramlist = list(itertools.product(i_li,j_li,k_li))
-    
-#    pool = multiprocessing.Pool()
-#    for i,j,k in paramlist:
-#        pool.apply_async(process, args=(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list,asym_stencil_list,asym_pad_list))
-#    pool.close()
-#    pool.join()
+
 
 
     for i,j,k in paramlist:
@@ -287,26 +282,3 @@ if __name__ == "__main__":
         #for functional in functionals:
         print "start process molecule"
         process_one_molecule(molecule, functional,h,L,N,r_list)
-"""
-    elif choice == 'set':
-        list_molecule_filename = sys.argv[3]
-        h = float(setup['grid_spacing'])
-        L = float(setup['box_dimension'])
-        N = int(setup['number_segment_per_side'])
-        functionals = setup['functionals']
-        r_list = setup['r_list']
-
-        with open(list_molecule_filename) as f:
-            molecule_names = f.readlines()
-        molecule_names = [x.strip() for x in molecule_names]
-        for functional in functionals:
-            for molecule in molecule_names:
-                result_filename = "{}_{}_all_descriptors.hdf5".format(molecule,functional)
-                try:
-                    if os.path.isfile(result_filename) == False:
-                        process_one_molecule(molecule, functional,h,L,N,r_list )
-                    else:
-                        print result_filename + ' already exist'
-                except:
-                    print "failed: {}\t{}".format(molecule,functional)
-"""
