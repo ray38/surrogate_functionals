@@ -131,24 +131,28 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,
         for index, r in enumerate(r_list):
             dataset_name = 'average_density_{}'.format(str(r).replace('.','-'))
             if dataset_name not in ave_dens_grp.keys():
+                print "start: {} ave density".format(r)
                 temp_data, temp_pad = calculate_ave_density_desc(extented_n.copy(),r,h,h,h,stencil_list[index],pad_list[index])
                 ave_dens_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
         
         for index, r in enumerate(r_list):
             dataset_name = 'asym_integral_x_{}'.format(str(r).replace('.','-'))
             if dataset_name not in asym_integral_grp.keys():
+                print "start: {} axym x".format(r)
                 temp_data, temp_pad = get_asym_integral_fftconv_with_known_stencil(extented_n.copy(), h ,h ,h , r, asym_stencil_list[0][index], asym_pad_list[0][index] )
                 asym_integral_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
         
         for index, r in enumerate(r_list):
             dataset_name = 'asym_integral_y_{}'.format(str(r).replace('.','-'))
             if dataset_name not in asym_integral_grp.keys():
+                print "start: {} axym y".format(r)
                 temp_data, temp_pad = get_asym_integral_fftconv_with_known_stencil(extented_n.copy(), h ,h ,h , r, asym_stencil_list[1][index], asym_pad_list[1][index] )
                 asym_integral_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
                 
         for index, r in enumerate(r_list):
             dataset_name = 'asym_integral_z_{}'.format(str(r).replace('.','-'))
             if dataset_name not in asym_integral_grp.keys():
+                print "start: {} axym z".format(r)
                 temp_data, temp_pad = get_asym_integral_fftconv_with_known_stencil(extented_n.copy(), h ,h ,h , r, asym_stencil_list[2][index], asym_pad_list[2][index] )
                 asym_integral_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
 
