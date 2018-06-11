@@ -125,9 +125,24 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,
     with h5py.File(result_filename,'a') as data:
         
 #        temp_first_deri = np.gradient(extented_n.copy())
-        ave_dens_grp = data.create_group('average_density')
-        asym_integral_grp = data.create_group('asym_integral')
-        derivative_grp = data.create_group('derivative')
+        try:
+            ave_dens_grp = data['average_density']
+        except:
+            ave_dens_grp = data.create_group('average_density')
+
+        try:
+            asym_integral_grp = data['asym_integral']
+        except:
+            asym_integral_grp = data.create_group('asym_integral')
+
+        try:
+            derivative_grp = data['derivative']
+        except:
+            derivative_grp = data.create_group('derivative')
+
+        #ave_dens_grp = data.create_group('average_density')
+        #asym_integral_grp = data.create_group('asym_integral')
+        #derivative_grp = data.create_group('derivative')
         for index, r in enumerate(r_list):
             dataset_name = 'average_density_{}'.format(str(r).replace('.','-'))
             if dataset_name not in ave_dens_grp.keys():
