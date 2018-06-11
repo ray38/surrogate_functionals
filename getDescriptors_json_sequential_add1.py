@@ -258,6 +258,8 @@ def process_one_molecule(molecule, functional,h,L,N,r_list):
 
 if __name__ == "__main__":
 
+    print "start adding dataset"
+
     setup_filename = sys.argv[1]
     choice = sys.argv[2]
 
