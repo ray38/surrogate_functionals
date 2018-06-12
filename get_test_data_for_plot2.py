@@ -171,7 +171,7 @@ if __name__ == "__main__":
 
     
     
-    plot_save_result = get_training_data(dataset_name,setup)
+    overall = get_training_data(dataset_name,setup)
    
     #NN_model = fit_with_KerasNN(X_train * 1e6, residual * 1e6, loss, tol, slowdown_factor, early_stop_trials)
     #save_resulting_figure(dens,result.x,X_train,NN_model,y)
