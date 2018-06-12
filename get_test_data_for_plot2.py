@@ -73,12 +73,12 @@ def read_data_from_one_dir(directory):
     except:
         molecule_subsampled_data = []
 
-    try:
-        molecule_random_data = pickle.load(open(random_filename,'rb'))
-        print "read random data"
-    except:
-        molecule_random_data = []
-    #molecule_random_data = []
+    #try:
+    #    molecule_random_data = pickle.load(open(random_filename,'rb'))
+    #    print "read random data"
+    #except:
+    #    molecule_random_data = []
+    molecule_random_data = []
 
     os.chdir(temp_cwd)
 
@@ -100,7 +100,7 @@ def get_training_data(dataset_name,setup):
     for directory in data_paths:
         temp_molecule_subsampled_data, temp_molecule_random_data = read_data_from_one_dir(directory)
         overall_subsampled_data += temp_molecule_subsampled_data
-        overall_random_data += random_subsampling(temp_molecule_random_data, num_random_per_molecule)
+        #overall_random_data += random_subsampling(temp_molecule_random_data, num_random_per_molecule)
 
 
 
@@ -115,36 +115,33 @@ def get_training_data(dataset_name,setup):
     #else:
     #    overall_subsampled_data = subsampling_system_with_PCA(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
 
+    overall_subsampled_data = subsampling_system(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
+    overall = overall_subsampled_data
 
-    overall = overall_random_data + overall_subsampled_data
+    print overall.shape
+    #overall = overall_random_data + overall_subsampled_data
     #overall = overall_subsampled_data
 
 
 
-    X_train = []
-    y_train = []
-    dens = []
+#    X_train = []
+#    y_train = []
+#    dens = []
 
-    for entry in overall:
-#        if entry[0] >= lower and entry[0] <= upper:
-        X_train.append(list(entry[1:]))
-        dens.append(entry[1])
-        y_train.append(entry[0])
+#    for entry in overall:
+##        if entry[0] >= lower and entry[0] <= upper:
+#        X_train.append(list(entry[1:]))
+#        dens.append(entry[1])
+#        y_train.append(entry[0])
     
     
-    X_train = (np.asarray(X_train))
-    y_train = np.asarray(y_train).reshape((len(y_train),1))
-    dens = np.asarray(dens).reshape((len(dens),1))
+#    X_train = (np.asarray(X_train))
+#    y_train = np.asarray(y_train).reshape((len(y_train),1))
+#    dens = np.asarray(dens).reshape((len(dens),1))
     
-    return X_train, y_train, dens
+    return overall
 
 
-def fit_model(LDA_result, dens, X_train, residual, loss, tol, slowdown_factor, early_stop_trials):
-
-    NN_model,loss_result = fit_with_KerasNN(X_train * 1e6, residual * 1e6, loss, tol, slowdown_factor, early_stop_trials)
-    save_resulting_figure(dens,result.x,X_train,NN_model,y,loss,loss_result)
-
-    return NN_model
 
 
 if __name__ == "__main__":
@@ -180,7 +177,11 @@ if __name__ == "__main__":
     #save_resulting_figure(dens,result.x,X_train,NN_model,y)
 
     os.chdir(setup["working_dir"])
-    with open('test_data_to_plot.pickle', 'wb') as handle:
-        pickle.dump(plot_save_result, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    #with open('test_data_to_plot.pickle', 'wb') as handle:
+    #    pickle.dump(plot_save_result, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+    with open('subsampled.csv', "wb") as f:
+        writer = csv.writer(f)
+        writer.writerows(overall)
 
     
