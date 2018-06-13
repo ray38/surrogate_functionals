@@ -487,6 +487,8 @@ if __name__ == "__main__":
     fig = plt.figure(figsize=(10,3))
     temp_len = len(pca_standard.components_[0])
     print temp_len
+    print pca_standard.explained_variance_ratio_
+    print len(pca_standard.explained_variance_ratio_)
 
     plt.plot(np.arange(1,temp_len),pca_standard.explained_variance_ratio_,linewidth=7.0)
     plt.tick_params(labelsize=15)
