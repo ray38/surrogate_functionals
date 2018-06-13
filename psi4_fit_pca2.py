@@ -490,7 +490,7 @@ if __name__ == "__main__":
     print pca_standard.explained_variance_ratio_
     print len(pca_standard.explained_variance_ratio_)
 
-    plt.plot(np.arange(1,temp_len),pca_standard.explained_variance_ratio_,linewidth=7.0)
+    plt.plot(np.arange(temp_len),pca_standard.explained_variance_ratio_,linewidth=7.0)
     plt.tick_params(labelsize=15)
     plt.tight_layout()
     plt.savefig('PCA_standard_explained_variance_ratio.png')
