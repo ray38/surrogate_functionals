@@ -486,7 +486,8 @@ if __name__ == "__main__":
     X_pca_standard, pca_standard = fit_pca(X_train_standard.copy(),'pca_model_standard_{}.sav'.format(dataset_name),n_components = None)
     fig = plt.figure(figsize=(10,3))
     temp_len = len(pca_standard.components_[0])
-    
+    print temp_len
+
     plt.plot(np.arange(1,temp_len),pca_standard.explained_variance_ratio_,linewidth=7.0)
     plt.tick_params(labelsize=15)
     plt.tight_layout()
