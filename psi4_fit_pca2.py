@@ -490,7 +490,7 @@ if __name__ == "__main__":
     print pca_standard.explained_variance_ratio_
     print len(pca_standard.explained_variance_ratio_)
 
-    plt.plot(np.arange(temp_len),pca_standard.explained_variance_ratio_,linewidth=7.0)
+    plt.plot(np.arange(1,temp_len+1),pca_standard.explained_variance_ratio_,linewidth=7.0)
     plt.tick_params(labelsize=15)
     plt.tight_layout()
     plt.savefig('PCA_standard_explained_variance_ratio.png')
@@ -500,7 +500,7 @@ if __name__ == "__main__":
 
 
     fig = plt.figure()
-    plt.plot(np.arange(1,20),pca_standard.explained_variance_ratio_)
+    plt.plot(np.arange(1,temp_len+1),pca_standard.explained_variance_ratio_)
     fig.get_axes()[0].set_yscale('log')
     plt.savefig('PCA_standard_explained_variance_ratio_log.png')
     
@@ -512,11 +512,11 @@ if __name__ == "__main__":
     fig,ax = plt.subplots(figsize=(10,5))
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
-    plt.plot(np.arange(1,temp_len),pca_standard.components_[0], label="PC1",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len),pca_standard.components_[1], label="PC2",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len),pca_standard.components_[2], label="PC3",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len),pca_standard.components_[3], label="PC4",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len),pca_standard.components_[4], label="PC5",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pca_standard.components_[0], label="PC1",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pca_standard.components_[1], label="PC2",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pca_standard.components_[2], label="PC3",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pca_standard.components_[3], label="PC4",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pca_standard.components_[4], label="PC5",linewidth=5.0)
     plt.legend(loc='lower right')
     ax.set_xticklabels(temp,rotation=45)
     
