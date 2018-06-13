@@ -255,11 +255,11 @@ def plot_group_1(data):
     
     sns.set(style="white", palette="pastel", color_codes=True)
 
-    ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
+    ax = sns.lmplot(x="dens",y="error",hue="model_name",hue_order = ["SVWN","1","2","3","4","5"],data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
     plt.xlabel("Density (1/A$^3$)",fontsize=50)
     plt.ylabel("Prediction Error (eV/A$^3$)",fontsize=50)
     plt.tick_params(labelsize=40)
-    lgnd = plt.legend(["Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],fontsize=40)
+    lgnd = plt.legend(["Model 0","Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],fontsize=40)
     
     print lgnd.legendHandles[0]
 
@@ -267,6 +267,7 @@ def plot_group_1(data):
     lgnd.legendHandles[1]._sizes = [500]
     lgnd.legendHandles[2]._sizes = [500]
     lgnd.legendHandles[3]._sizes = [500]
+    lgnd.legendHandles[4]._sizes = [500]
     lgnd.legendHandles[4]._sizes = [500]
 
     plt.tight_layout()
@@ -307,17 +308,17 @@ def plot_group_1(data):
     
    
         
-    plt.figure()
+    plt.figure(figsize=(10,5))
     
     sns.set(style="white", palette="pastel", color_codes=True)
 
-    ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
+    ax = sns.lmplot(x="dens",y="error",hue="model_name",hue_order = ["SVWN","1","2","3","4","5"],data=data,legend=False,fit_reg=False,size=10,aspect=2,scatter_kws={"s": 40}, palette=("Dark2"))
     ax.fig.get_axes()[0].set_xscale('log')
     ax.fig.get_axes()[0].set_xlim(1e-9, 1000)
     plt.xlabel("Density (1/A$^3$)",fontsize=50)
     plt.ylabel("Prediction Error (eV/A$^3$)",fontsize=50)
     plt.tick_params(labelsize=40)
-    lgnd = plt.legend(["Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],fontsize=40)
+    lgnd = plt.legend(["Model 0","Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],fontsize=40,loc="upper left")
     
     print lgnd.legendHandles[0]
 
@@ -326,9 +327,10 @@ def plot_group_1(data):
     lgnd.legendHandles[2]._sizes = [500]
     lgnd.legendHandles[3]._sizes = [500]
     lgnd.legendHandles[4]._sizes = [500]
+    lgnd.legendHandles[5]._sizes = [500]
 
     plt.tight_layout()
-    plt.savefig("test_set_plot_log_real.png")
+    plt.savefig("test_set_plot_log_real.png", transparent=True)
     
     
     
@@ -414,11 +416,12 @@ def plot_group_2(data):
     ax = sns.distplot(data["dens"],bins=100,kde=True,hist_kws={"linewidth": 0,"alpha": 1},kde_kws={"color": "k", "lw": 0})
     plt.savefig("test_set_plot_dens_dist_real.png")
     
-    plt.figure()
+    plt.figure(figsize=(10,3.5))
     sns.set(style="white", palette="pastel", color_codes=True)
     #ax = sns.distplot(data["log_dens"],bw=.0015)
     #ax.fig.get_axes()[0].set_xscale('log')
     ax = sns.distplot(data["log_dens"],bins=100,kde=True,hist_kws={ "linewidth": 0,"alpha": 1},kde_kws={"color": "k", "lw": 0})
+    ax.set_xlim(-9.,3.)
     plt.savefig("test_set_plot_dens_dist_log.png")
     
     
@@ -516,9 +519,10 @@ def plot_group_2(data):
     
     groups = data.groupby("model_name")
     
-    fig = plt.figure()
+    fig = plt.figure(figsize=(10,3.5))
     sns.set(style="white", color_codes=True)
     current_palette = sns.color_palette("cubehelix", number_models)
+    print current_palette
     sns.set_palette(current_palette)
     for name, group in groups:
         if name == "SVWN":
@@ -527,7 +531,7 @@ def plot_group_2(data):
 	        temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
 	        log_sum_error_result.append(temp['error'].sum())
 
-            plt.plot(log_dens_interval_medians, log_sum_error_result,label=name)
+            plt.plot(log_dens_interval_medians, log_sum_error_result,label=name,linewidth=5.0)
     for name, group in groups:
         if name != "SVWN":
             log_sum_error_result = []
@@ -535,12 +539,19 @@ def plot_group_2(data):
 	        temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
 	        log_sum_error_result.append(temp['error'].sum())
 
-            plt.plot(log_dens_interval_medians, log_sum_error_result,label=name)
+            plt.plot(log_dens_interval_medians, log_sum_error_result,label=name,linewidth=5.0)
     #ax.fig.get_axes()[0].set_xscale('log')
-    plt.legend(["0","1", "2", "3", "4", "5"],loc='upper left')
+    plt.legend(["0","1", "2", "3", "4", "5"],loc='upper left',fontsize=15)
+    
+    
+    #plt.xlabel(r"$log_{10} (\rho)$",fontsize=20)
+    plt.xlabel("",fontsize=0)
+    plt.ylabel("Error (eV)",fontsize=20)
+    plt.tick_params(axis='y', labelsize=20)
+    plt.tick_params(axis='x', labelsize=0)
+    plt.xlim(-9,3)
+    plt.tight_layout()
     plt.savefig("test_set_plot_dens_sumerror_log_real.png", transparent=True)
-    
-    
     
     
     
@@ -716,5 +727,5 @@ if __name__ == "__main__":
 
     print "start ploting"
     
-    plot_group_2(data)
+    plot_group_1(data)
 
