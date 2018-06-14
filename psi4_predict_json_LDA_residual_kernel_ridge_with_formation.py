@@ -180,7 +180,7 @@ def predict_each_block(setup,dens,X,y):
 
     original_y = detransform_data(y, y_transform)
 
-    n=10000
+    n=100000
     temp_dens_chunk = [dens[i*n : (i+1)*n] for i in range((len(dens) + n - 1) // n)]
     temp_X_chunk = [X[i*n : (i+1)*n] for i in range((len(X) + n - 1) // n)]
 
@@ -190,7 +190,7 @@ def predict_each_block(setup,dens,X,y):
         print raw_predict_y_chunk.shape
         raw_predict_y_list.append(raw_predict_y_chunk)
 
-    raw_predict_y = np.stack(raw_predict_y_list, axis=1)
+    raw_predict_y = np.concatenate(raw_predict_y_list)
     print raw_predict_y.shape
     #raw_predict_y = predict_LDA(dens,LDA_model.x) + (model.predict(X))
     predict_y = detransform_data(raw_predict_y, y_transform)
