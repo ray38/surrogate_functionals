@@ -571,17 +571,17 @@ if __name__ == "__main__":
     
     for molecule in setup["molecule_list"]:
         if setup["result_data"][molecule]["exist"] == False:
-            try:
+            #try:
                 
-                temp_error,temp_y_predict,temp_y = process_one_molecule(molecule, setup)
-                error_list.append(temp_error)
+            temp_error,temp_y_predict,temp_y = process_one_molecule(molecule, setup)
+            error_list.append(temp_error)
 
-                #setup["result_data"][molecule] = {}
-                setup["result_data"][molecule]['predict_exc'] = temp_y_predict
-                setup["result_data"][molecule]['original_exc'] = temp_y
-            except:
-                log(setup["predict_log_name"],"\n\n Failed")
-                log(setup["predict_full_log_name"],"\n\n Failed") 
+            #setup["result_data"][molecule] = {}
+            setup["result_data"][molecule]['predict_exc'] = temp_y_predict
+            setup["result_data"][molecule]['original_exc'] = temp_y
+            #except:
+            #    log(setup["predict_log_name"],"\n\n Failed")
+            #    log(setup["predict_full_log_name"],"\n\n Failed") 
     
 
     log(setup["predict_log_name"],"\n\naverage error: " + str(np.mean(error_list)) + "\tstddev error: " + str(np.std(error_list))) 
