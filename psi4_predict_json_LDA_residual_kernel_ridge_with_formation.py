@@ -391,7 +391,7 @@ def initialize(setup):
     predict_error_log_name = "predict_error_log.log"
     predict_formation_log_name = "predict_formation_log.log"
 
-    model = pickle.load(model_name)
+    model = pickle.load(open(model_name, 'rb'))
 
 
 
