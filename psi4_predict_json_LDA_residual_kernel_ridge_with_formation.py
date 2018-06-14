@@ -174,13 +174,13 @@ def predict_LDA(n,LDA_x):
 
 def predict_each_block(setup,dens,X,y):
 
-    NN_model = setup["NN_model"]
+    model = setup["model"]
     LDA_model = setup["LDA_model"]
     y_transform  = setup["dataset_setup"]["target_transform"]
 
     original_y = detransform_data(y, y_transform)
 
-    raw_predict_y = predict_LDA(dens,LDA_model.x) + (NN_model.predict(X*1e6)/1e6)
+    raw_predict_y = predict_LDA(dens,LDA_model.x) + (model.predict(X))
     predict_y = detransform_data(raw_predict_y, y_transform)
 
     return original_y, predict_y
@@ -378,50 +378,26 @@ def process_one_molecule(molecule, setup):
     
 
 
-def initialize(setup,NN_model_filename):
+def initialize(setup,model_filename):
     os.chdir(setup["model_save_dir"])
     fit_log_name = "NN_fit_log.log"
     
     LDA_model_name = "LDA_model.sav"
-    NN_model_name = NN_model_filename
-    #NN_model_name = "NN.h5"
-
-    if NN_model_name == "NN.h5":
-
-        loss_value,loss = get_start_loss(fit_log_name)
-        predict_log_name = "predict_{}_{}_log.log".format(loss,loss_value)
-        predict_full_log_name = "predict_{}_{}_full_log.log".format(loss,loss_value)
-        predict_error_log_name = "predict_{}_{}_error_log.log".format(loss,loss_value)
-        predict_formation_log_name = "predict_{}_{}_formation_log.log".format(loss,loss_value)
-        try:
-            NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
-        except:
-            NN_model = load_model(NN_model_name)
-        NN_model.save("NN_{}_{}_backup.h5".format(loss,loss_value))
+    model_name = "kernel_ridge.sav"
 
 
-    else:
-        temp = NN_model_name.split("_")
-        if temp[1] == "mean" and temp[2] == "absolute" and temp[3] == "percentage":
-            loss = "mean_absolute_percentage_error"
-            loss_value = temp[5]
-        else:
-            loss = temp[1]
-            loss_value = temp[2]
-        predict_log_name = "predict_{}_{}_log.log".format(loss,loss_value)
-        predict_full_log_name = "predict_{}_{}_full_log.log".format(loss,loss_value)
-        predict_error_log_name = "predict_{}_{}_error_log.log".format(loss,loss_value)
-        predict_formation_log_name = "predict_{}_{}_formation_log.log".format(loss,loss_value)
-        try:
-            NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
-        except:
-            NN_model = load_model(NN_model_name)
+    predict_log_name = "predict_log.log"
+    predict_full_log_name = "predict_full_log.log"
+    predict_error_log_name = "predict_error_log.log"
+    predict_formation_log_name = "predict_formation_log.log"
+
+    model = pickle.load(model_name)
 
 
 
     LDA_model = pickle.load(open(LDA_model_name, 'rb'))
 
-    setup["NN_model"] = NN_model
+    setup["model"] = model
     setup["LDA_model"] = LDA_model
     setup["predict_log_name"] = predict_log_name
     setup["predict_full_log_name"] = predict_full_log_name
@@ -521,9 +497,6 @@ if __name__ == "__main__":
     functional = sys.argv[4]
     NN_model_filename = sys.argv[5]
 
-    K.set_floatx('float64')
-    K.floatx()
-
 
     with open(predict_setup_filename) as f:
         setup = json.load(f)
@@ -548,7 +521,9 @@ if __name__ == "__main__":
     working_dir = os.getcwd() + '/' + dir_name + '/' + dataset_name
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "NN_{}_{}_{}_{}".format(setup["fit_type"],setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
+
+
+    model_save_dir = working_dir + "/" + "kernel_ridge_LDA_residual_{}".format(setup["kernel"])
     setup["model_save_dir"] = model_save_dir
 
 
