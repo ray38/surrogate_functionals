@@ -271,12 +271,12 @@ def read_data_from_one_dir(directory):
     except:
         molecule_subsampled_data = []
 
-    try:
-        molecule_random_data = pickle.load(open(random_filename,'rb'))
-        print "read random data"
-    except:
-        molecule_random_data = []
-    #molecule_random_data = []
+    #try:
+    #    molecule_random_data = pickle.load(open(random_filename,'rb'))
+    #    print "read random data"
+    #except:
+    #    molecule_random_data = []
+    molecule_random_data = []
 
     os.chdir(temp_cwd)
 
@@ -368,8 +368,6 @@ if __name__ == "__main__":
     with open(fit_setup_filename) as f:
         fit_setup = json.load(f)
 
-    K.set_floatx('float64')
-    K.floatx()
 
     h = float(setup['grid_spacing'])
     L = float(setup['box_dimension'])
@@ -380,20 +378,11 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    #model_save_dir = working_dir + "/" + "NN_LDA_residual_1M_{}_{}_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
-   
-    #setup["model_save_dir"] = model_save_dir
 
     
     
     X_train,y, dens = get_training_data(dataset_name,setup)
    
-    if os.path.isdir(model_save_dir) == False:
-        os.makedirs(model_save_dir)
-
-    os.chdir(model_save_dir)
-    
-    #residual,li_model = fit_with_Linear(dens,y)
 
     residual, LDA_result = fit_with_LDA(dens,y)
     setup['LDA_model'] = LDA_result
