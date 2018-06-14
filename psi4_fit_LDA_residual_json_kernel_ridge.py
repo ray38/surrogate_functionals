@@ -360,13 +360,10 @@ if __name__ == "__main__":
 
     setup_filename = sys.argv[1]
     dataset_name = sys.argv[2]
-    fit_setup_filename = sys.argv[3]
 
     with open(setup_filename) as f:
         setup = json.load(f)
 
-    with open(fit_setup_filename) as f:
-        fit_setup = json.load(f)
 
 
     h = float(setup['grid_spacing'])
