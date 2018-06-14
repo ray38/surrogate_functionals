@@ -185,7 +185,7 @@ def predict_each_block(setup,dens,X,y):
     temp_X_chunk = [X[i*n : (i+1)*n] for i in range((len(X) + n - 1) // n)]
 
     raw_predict_y_list = []
-    for dens_chunk, X_chunk in zip(temp_dens_chunk, temp_X_chunck):
+    for dens_chunk, X_chunk in zip(temp_dens_chunk, temp_X_chunk):
         raw_predict_y_chunk =  predict_LDA(dens_chunk,LDA_model.x) + (model.predict(X_chunk))
         print raw_predict_y_chunk.shape
         raw_predict_y_list.append(raw_predict_y_chunk)
