@@ -180,7 +180,7 @@ def predict_each_block(setup,dens,X,y):
 
     original_y = detransform_data(y, y_transform)
 
-    n=100000
+    n=10000
     temp_dens_chunk = [dens[i*n : (i+1)*n] for i in range((len(dens) + n - 1) // n)]
     temp_X_chunk = [X[i*n : (i+1)*n] for i in range((len(X) + n - 1) // n)]
 
