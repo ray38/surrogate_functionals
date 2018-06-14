@@ -312,7 +312,7 @@ def get_training_data(dataset_name,setup):
     #    overall_subsampled_data = subsampling_system(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
     #else:
     #    overall_subsampled_data = subsampling_system_with_PCA(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
-    overall_subsampled_data = subsampling_system(overall_subsampled_data, list_desc = [], cutoff_sig = 0.01, rate = 0.2)
+    overall_subsampled_data = subsampling_system(overall_subsampled_data, list_desc = [], cutoff_sig = 0.001, rate = 0.1)
 
 
     overall = overall_random_data + overall_subsampled_data
@@ -351,7 +351,7 @@ def fit_kernel_ridge(X,y,kernel):
 
     model_filename = "kernel_ridge.sav"
 
-    pickle.dump(kr, open(filename, 'wb'))
+    pickle.dump(kr, open(model_filename, 'wb'))
 
     return kr
 
