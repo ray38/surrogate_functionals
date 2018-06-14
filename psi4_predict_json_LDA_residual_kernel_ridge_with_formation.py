@@ -378,7 +378,7 @@ def process_one_molecule(molecule, setup):
     
 
 
-def initialize(setup,model_filename):
+def initialize(setup):
     os.chdir(setup["model_save_dir"])
     fit_log_name = "NN_fit_log.log"
     
@@ -495,7 +495,6 @@ if __name__ == "__main__":
     dataset_setup_database_filename = sys.argv[2]
     dataset_name = sys.argv[3]
     functional = sys.argv[4]
-    NN_model_filename = sys.argv[5]
 
 
     with open(predict_setup_filename) as f:
@@ -532,7 +531,7 @@ if __name__ == "__main__":
 
     setup["sub_database"] = database_name + '/' + sub_database_name
 
-    initialize(setup,NN_model_filename)
+    initialize(setup)
 
     setup["result_data"] = {}
 
