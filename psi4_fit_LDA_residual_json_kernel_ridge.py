@@ -378,11 +378,7 @@ if __name__ == "__main__":
 
     
     
-    X_train,y, dens = get_training_data(dataset_name,setup)
-   
-
-    residual, LDA_result = fit_with_LDA(dens,y)
-    setup['LDA_model'] = LDA_result
+    
 
 
     for kernel in ["linear", "rbf"]:
@@ -394,6 +390,12 @@ if __name__ == "__main__":
             os.makedirs(model_save_dir)
 
         os.chdir(model_save_dir)
+
+        X_train,y, dens = get_training_data(dataset_name,setup)
+   
+
+        residual, LDA_result = fit_with_LDA(dens,y)
+        setup['LDA_model'] = LDA_result
 
         fit_model(LDA_result, dens, X_train, residual,kernel)
 
