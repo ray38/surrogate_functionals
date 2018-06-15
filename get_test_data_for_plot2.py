@@ -103,7 +103,7 @@ def get_training_data(dataset_name,setup, cutoff_sig):
         #overall_random_data += random_subsampling(temp_molecule_random_data, num_random_per_molecule)
 
 
-    overall_subsampled_data = subsampling_system_with_PCA(overall_subsampled_data, list_desc = [], cutoff_sig = cutoff_sig, rate = 0.05,start_trial_component = 9)
+    overall_subsampled_data = subsampling_system_with_PCA(overall_subsampled_data, list_desc = [], cutoff_sig = cutoff_sig, rate = 0.1,start_trial_component = 9)
     #overall_subsampled_data = subsampling_system(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
     overall = np.asarray(overall_subsampled_data)
 
