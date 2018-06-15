@@ -86,7 +86,7 @@ def read_data_from_one_dir(directory):
 
 
 
-def get_training_data(dataset_name,setup):
+def get_training_data(dataset_name,setup, cutoff_sig):
 
     data_dir_name = setup["working_dir"] + "/data/*/" 
     data_paths = glob(data_dir_name)
@@ -103,41 +103,12 @@ def get_training_data(dataset_name,setup):
         #overall_random_data += random_subsampling(temp_molecule_random_data, num_random_per_molecule)
 
 
-
-    list_subsample = setup["subsample_feature_list"]
-    temp_list_subsample = setup["subsample_feature_list"]
-    if temp_list_subsample == []:
-        for m in range(len(overall_subsampled_data[0])):
-            temp_list_subsample.append(m)
-
-    #if len(temp_list_subsample) <= 10:
-    #    overall_subsampled_data = subsampling_system(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
-    #else:
-    #    overall_subsampled_data = subsampling_system_with_PCA(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
-
-    overall_subsampled_data = subsampling_system(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
+    overall_subsampled_data = subsampling_system_with_PCA(overall_subsampled_data, list_desc = [], cutoff_sig = cutoff_sig, rate = 0.05,start_trial_component = 9)
+    #overall_subsampled_data = subsampling_system(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
     overall = np.asarray(overall_subsampled_data)
 
     print overall.shape
-    #overall = overall_random_data + overall_subsampled_data
-    #overall = overall_subsampled_data
 
-
-
-#    X_train = []
-#    y_train = []
-#    dens = []
-
-#    for entry in overall:
-##        if entry[0] >= lower and entry[0] <= upper:
-#        X_train.append(list(entry[1:]))
-#        dens.append(entry[1])
-#        y_train.append(entry[0])
-    
-    
-#    X_train = (np.asarray(X_train))
-#    y_train = np.asarray(y_train).reshape((len(y_train),1))
-#    dens = np.asarray(dens).reshape((len(dens),1))
     
     return overall
 
@@ -149,6 +120,7 @@ if __name__ == "__main__":
 
     setup_filename = sys.argv[1]
     dataset_name = sys.argv[2]
+    cutoff_sig = float(sys.argv[3])
 
 
     with open(setup_filename) as f:
@@ -165,13 +137,9 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "NN_LDA_residual_1M_{}_{}_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
-   
-    setup["model_save_dir"] = model_save_dir
-
     
     
-    overall = get_training_data(dataset_name,setup)
+    overall = get_training_data(dataset_name,setup,cutoff_sig)
    
     #NN_model = fit_with_KerasNN(X_train * 1e6, residual * 1e6, loss, tol, slowdown_factor, early_stop_trials)
     #save_resulting_figure(dens,result.x,X_train,NN_model,y)
@@ -180,7 +148,7 @@ if __name__ == "__main__":
     #with open('test_data_to_plot.pickle', 'wb') as handle:
     #    pickle.dump(plot_save_result, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-    with open('subsampled.csv', "wb") as f:
+    with open('subsampled_{}.csv'.format(cutoff_sig), "wb") as f:
         writer = csv.writer(f)
         writer.writerows(overall)
 
