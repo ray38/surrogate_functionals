@@ -504,7 +504,7 @@ if __name__ == "__main__":
     fig.get_axes()[0].set_yscale('log')
     plt.savefig('PCA_standard_explained_variance_ratio_log.png')
     
-    temp = ['n', 'A0.04','A0.06','A0.08','A0.10',\
+    temp = ['n', 'A0.02','A0.04','A0.06','A0.08','A0.10',\
                  'A0.12','A0.14','A0.16','A0.18','A0.20',\
                  'A0.22','A0.24','A0.26','A0.28','A0.30',\
                  'A0.32','A0.34','A0.36','A0.38','A0.40']
@@ -533,7 +533,7 @@ if __name__ == "__main__":
 
 
 
-    X_pls_standard,y_pls_standard, pls_standard = fit_pls(X_train_standard.copy(),y_standard.copy(),'pls_standard_model_{}.sav'.format(dataset_name))
+    X_pls_standard,y_pls_standard, pls_standard = fit_pls(X_train.copy(),y.copy(),'pls_standard_model_{}.sav'.format(dataset_name))
     print pls_standard.x_weights_
     print np.asarray(pls_standard.x_weights_).shape
     print pls_standard.x_weights_[0]
