@@ -534,6 +534,12 @@ if __name__ == "__main__":
 
 
     X_pls_standard,y_pls_standard, pls_standard = fit_pls(X_train_standard.copy(),y_standard.copy(),'pls_standard_model_{}.sav'.format(dataset_name))
+    print pls_standard.x_weights_
+    print np.asarray(pls_standard.x_weights_).shape
+    print pls_standard.x_weights_[0]
+    print len(pls_standard.x_weights_[0])
+
+
     fig,ax = plt.subplots(figsize=(10,5))
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
