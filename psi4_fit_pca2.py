@@ -353,7 +353,7 @@ def fit_lda(data,y,filename,n_components = 5):
 
 def fit_pls(data,y,filename):
     print "start fitting pls"
-    pls = PLSRegression()
+    pls = PLSRegression(n_components =5)
     X_score, y_score = pls.fit_transform(data,y)
     pickle.dump(pls, open(filename, 'wb'))
     return X_score, y_score , pls
@@ -543,11 +543,11 @@ if __name__ == "__main__":
     fig,ax = plt.subplots(figsize=(10,5))
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
-    plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[0], label="PLS1",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[1], label="PLS2",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[2], label="PLS3",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[3], label="PLS4",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[4], label="PLS5",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[:,0], label="PLS1",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[:,1], label="PLS2",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[:,2], label="PLS3",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[:,3], label="PLS4",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[:,4], label="PLS5",linewidth=5.0)
     plt.legend(loc='lower right')
     ax.set_xticklabels(temp,rotation=45)
     
@@ -560,11 +560,11 @@ if __name__ == "__main__":
     fig,ax = plt.subplots(figsize=(10,5))
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
-    plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[0], label="PLS1",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[1], label="PLS2",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[2], label="PLS3",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[3], label="PLS4",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[4], label="PLS5",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[:,0], label="PLS1",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[:,1], label="PLS2",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[:,2], label="PLS3",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[:,3], label="PLS4",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[:,4], label="PLS5",linewidth=5.0)
     plt.legend(loc='lower right')
     ax.set_xticklabels(temp,rotation=45)
     
