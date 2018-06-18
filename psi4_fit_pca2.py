@@ -504,10 +504,10 @@ if __name__ == "__main__":
     fig.get_axes()[0].set_yscale('log')
     plt.savefig('PCA_standard_explained_variance_ratio_log.png')
     
-    temp = ['n','D1','D2','A0.04','A0.06','A0.08','A0.10',\
-                         'A0.12','A0.14','A0.16','A0.18','A0.20',\
-                         'A0.22','A0.24','A0.26','A0.28','A0.30',\
-                         'A0.40','A0.50']
+    temp = ['n', 'A0.04','A0.06','A0.08','A0.10',\
+                 'A0.12','A0.14','A0.16','A0.18','A0.20',\
+                 'A0.22','A0.24','A0.26','A0.28','A0.30',\
+                 'A0.32','A0.34','A0.36','A0.38','A0.40']
     #fig = plt.figure()
     fig,ax = plt.subplots(figsize=(10,5))
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
@@ -534,6 +534,42 @@ if __name__ == "__main__":
 
 
     X_pls_standard,y_pls_standard, pls_standard = fit_pls(X_train_standard.copy(),y_standard.copy(),'pls_standard_model_{}.sav'.format(dataset_name))
+    fig,ax = plt.subplots(figsize=(10,5))
+    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    sns.set(font_scale = 1.5)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[0], label="PLS1",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[1], label="PLS2",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[2], label="PLS3",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[3], label="PLS4",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[4], label="PLS5",linewidth=5.0)
+    plt.legend(loc='lower right')
+    ax.set_xticklabels(temp,rotation=45)
+    
+    ax.set_xticks(np.arange(1,temp_len))
+    plt.tick_params(labelsize=15)
+    plt.tight_layout()
+    plt.savefig('PLS_standard_x_weights_real.png')
+
+
+    fig,ax = plt.subplots(figsize=(10,5))
+    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    sns.set(font_scale = 1.5)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[0], label="PLS1",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[1], label="PLS2",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[2], label="PLS3",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[3], label="PLS4",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[4], label="PLS5",linewidth=5.0)
+    plt.legend(loc='lower right')
+    ax.set_xticklabels(temp,rotation=45)
+    
+    ax.set_xticks(np.arange(1,temp_len))
+    plt.tick_params(labelsize=15)
+    plt.tight_layout()
+    plt.savefig('PLS_standard_x_loadings_real.png')
+
+
+
+
     plot_result(X_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}.png".format(dataset_name,10),10)
     plot_result(X_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}.png".format(dataset_name,20),20)
 
