@@ -7,11 +7,8 @@ import math
 import json
 from glob import glob
 from sklearn import linear_model
-import keras
 import scipy
 
-import itertools
-import multiprocessing
 
 try: import cPickle as pickle
 except: import pickle
@@ -49,11 +46,6 @@ def get_training_data(dataset_name,setup):
     data_paths = glob(data_dir_name)
     print data_paths
 
-
-    overall_subsampled_data = []
-    overall_random_data = []
-    num_samples = len(data_paths)
-    num_random_per_molecule = int(math.ceil(float(setup["random_pick"])/float(num_samples)))
     for directory in data_paths:
         read_data_from_one_dir(directory)
     
