@@ -544,21 +544,6 @@ if __name__ == "__main__":
     print len(pls_standard.x_weights_[0])
 
 
-    fig,ax = plt.subplots(figsize=(10,5))
-    sns.set(style="whitegrid", palette="pastel", color_codes=True)
-    sns.set(font_scale = 1.5)
-    plt.plot(np.arange(1,temp_len+1),pls_standard.x_scores_[:,0], label="PLS1",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls_standard.x_scores_[:,1], label="PLS2",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls_standard.x_scores_[:,2], label="PLS3",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls_standard.x_scores_[:,3], label="PLS4",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls_standard.x_scores_[:,4], label="PLS5",linewidth=5.0)
-    plt.legend(loc='lower right')
-    ax.set_xticklabels(temp,rotation=45)
-    
-    ax.set_xticks(np.arange(1,temp_len))
-    plt.tick_params(labelsize=15)
-    plt.tight_layout()
-    plt.savefig('PLS_standard_x_scores_real.png')
 
 
     fig,ax = plt.subplots(figsize=(10,5))
