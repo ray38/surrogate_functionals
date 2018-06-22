@@ -39,12 +39,16 @@ from sklearn.decomposition import RandomizedPCA, PCA
 from sklearn.preprocessing import StandardScaler
 
 
-def fit_pca(data,filename,n_components):
+def fit_pca(data,filename):
     print "start fitting pca"
-    pca = RandomizedPCA(n_components = n_components )
+    pca = RandomizedPCA()
     X_pca = pca.fit_transform(data)
     pickle.dump(pca, open(filename, 'wb'))
-    return X_pca, pca
+    return pca
+
+def transform_pca(pca_model,data,n_components):
+    temp = pca_model.transform(data)
+    return temp[:,:n_components]
 
 
 def sae(y_true, y_pred):
@@ -551,7 +555,7 @@ if __name__ == "__main__":
     if os.path.isdir(model_save_dir) == False:
         os.makedirs(model_save_dir)
 
-    os.chdir(model_save_dir)
+    os.chdir(working_dir)
 
     stdandard_scaler_filename = "standard_scaler.sav"
     PCA_model_filename = "PCA.sav"
@@ -562,15 +566,20 @@ if __name__ == "__main__":
         try:
             PCA_model = pickle.load(open(PCA_model_filename, 'rb'))
             X_train = PCA_model.transform(X_train_std)
+            X_train = transform_pca(PCA_model,X_train_std,PC_component)
         except:
-            X_train, PCA_model = fit_pca(X_train_std,PCA_model_filename,PC_component)
+            PCA_model = fit_pca(X_train_std,PCA_model_filename)
+            X_train = transform_pca(PCA_model,X_train_std,PC_component)
 
     except:
         standard_scaler = StandardScaler(copy=True, with_mean=True, with_std=True)
         X_train_std = standard_scaler.fit_transform(X_train_raw)
         pickle.dump(standard_scaler, open(stdandard_scaler_filename, 'wb'))
-        X_train, PCA_model = fit_pca(X_train_std,PCA_model_filename,PC_component)
+        PCA_model = fit_pca(X_train_std,PCA_model_filename)
+        X_train = transform_pca(PCA_model,X_train_std,PC_component)
 
+
+    os.chdir(model_save_dir)
     
     #residual,li_model = fit_with_Linear(dens,y)
 
