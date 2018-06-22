@@ -592,6 +592,8 @@ if __name__ == "__main__":
         slowdown_factor = fit_setup['slowdown']
         early_stop_trials = fit_setup['early_stop']
         tol = fit_setup['tol']
+        print "X_train shape"
+        print X_train.shape
         fit_model(LDA_result, dens, X_train, residual, loss, tol, slowdown_factor, early_stop_trials*2)
     #NN_model = fit_with_KerasNN(X_train * 1e6, residual * 1e6, loss, tol, slowdown_factor, early_stop_trials)
     #save_resulting_figure(dens,result.x,X_train,NN_model,y)
