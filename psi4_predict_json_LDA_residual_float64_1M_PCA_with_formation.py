@@ -572,7 +572,7 @@ if __name__ == "__main__":
 
     #model_save_dir = working_dir + "/" + "NN_{}_{}_{}_{}".format(setup["fit_type"],setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
     
-    model_save_dir = working_dir + "/" + "NN_{}_{}_{}_{}_PCA_{}".format(setup["fit_type"],setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"],PC_component)
+    model_save_dir = working_dir + "/" + "NN_{}_{}_{}_{}_PCA_{}".format(setup["fit_type"],setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"],setup["PC_component"])
 
 
     setup["model_save_dir"] = model_save_dir
