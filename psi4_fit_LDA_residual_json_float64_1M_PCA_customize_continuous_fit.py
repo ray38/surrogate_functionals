@@ -565,7 +565,7 @@ if __name__ == "__main__":
         X_train_std = standard_scaler.transform(X_train_raw)
         try:
             PCA_model = pickle.load(open(PCA_model_filename, 'rb'))
-            X_train = PCA_model.transform(X_train_std)
+            #X_train = PCA_model.transform(X_train_std)
             X_train = transform_pca(PCA_model,X_train_std,PC_component)
         except:
             PCA_model = fit_pca(X_train_std,PCA_model_filename)
