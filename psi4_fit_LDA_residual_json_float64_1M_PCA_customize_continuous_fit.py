@@ -550,7 +550,7 @@ if __name__ == "__main__":
 
     
     
-    X_train_raw,y, dens = get_training_data(dataset_name,setup)
+    X_train, y, dens = get_training_data(dataset_name,setup)
    
     if os.path.isdir(model_save_dir) == False:
         os.makedirs(model_save_dir)
@@ -562,21 +562,21 @@ if __name__ == "__main__":
 
     try:
         standard_scaler = pickle.load(open(stdandard_scaler_filename, 'rb'))
-        X_train_std = standard_scaler.transform(X_train_raw)
+        X_train = standard_scaler.transform(X_train)
         try:
             PCA_model = pickle.load(open(PCA_model_filename, 'rb'))
-            #X_train = PCA_model.transform(X_train_std)
-            X_train = transform_pca(PCA_model,X_train_std,PC_component)
+            
+            X_train = transform_pca(PCA_model,X_train,PC_component)
         except:
-            PCA_model = fit_pca(X_train_std,PCA_model_filename)
-            X_train = transform_pca(PCA_model,X_train_std,PC_component)
+            PCA_model = fit_pca(X_train,PCA_model_filename)
+            X_train = transform_pca(PCA_model,X_train,PC_component)
 
     except:
         standard_scaler = StandardScaler(copy=True, with_mean=True, with_std=True)
-        X_train_std = standard_scaler.fit_transform(X_train_raw)
+        X_train = standard_scaler.fit_transform(X_train)
         pickle.dump(standard_scaler, open(stdandard_scaler_filename, 'wb'))
-        PCA_model = fit_pca(X_train_std,PCA_model_filename)
-        X_train = transform_pca(PCA_model,X_train_std,PC_component)
+        PCA_model = fit_pca(X_train,PCA_model_filename)
+        X_train = transform_pca(PCA_model,X_train,PC_component)
 
 
     os.chdir(model_save_dir)
