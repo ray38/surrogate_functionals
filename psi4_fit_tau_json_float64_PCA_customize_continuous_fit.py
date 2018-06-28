@@ -35,7 +35,8 @@ except: import pickle
 import matplotlib.pyplot as plt
 from subsampling import subsampling_system,random_subsampling,subsampling_system_with_PCA
 import keras.backend as K
-
+from sklearn.decomposition import RandomizedPCA, PCA
+from sklearn.preprocessing import StandardScaler
 
 
 def fit_pca(data,filename):
