@@ -60,8 +60,6 @@ sig_x = np.random.uniform(0, 1.0)
 sig_y = np.random.uniform(0, 1.0)
 sig_z = np.random.uniform(0, 1.0)
 
-num_random = 10
-
 stencil,pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
 
 truth = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad)
