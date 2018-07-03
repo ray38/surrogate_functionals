@@ -162,7 +162,7 @@ def subsampling_system_with_PCA(data, list_desc = [], cutoff_sig = 0.05, rate = 
 
         trial_component +=1
         print str(time.time()-start)
-        if trial_component >= 15 or trial_component >= len(data_process[0]):
+        if trial_component >= 20 or trial_component >= len(data_process[0]):
             keep_going = False
             pca_result = data_process
     print 'end trial PCA'
