@@ -36,7 +36,8 @@ def get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, r, h, stencil, pad):
 	n = f(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0)
 	
 	#temp_stencil,temp_pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
-	temp,_ = get_fftconv_with_known_stencil_no_wrap(n,h,h,h,r,stencil,pad)
+	#temp,_ = get_fftconv_with_known_stencil_no_wrap(n,h,h,h,r,stencil,pad)
+	temp = n
 	print temp[50,50,50]
 
 	return temp[50,50,50]
@@ -62,6 +63,7 @@ sig_y = np.random.uniform(0, 1.0)
 sig_z = np.random.uniform(0, 1.0)
 
 stencil,pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
+print stencil
 
 truth = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad)
 
