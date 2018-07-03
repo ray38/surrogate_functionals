@@ -18,8 +18,12 @@ def f(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0):
 
 def rotate_coord_mat(x,y,z,theta1,theta2,theta3):
 	x_result = x
-	y_result = y*cos(theta1) - z*sin(theta1)
-	z_result = y*sin(theta1) + z*cos(theta1)
+	y_result = y
+	z_result = z
+
+	x_result = x_result
+	y_result = y_result*cos(theta1) - z_result*sin(theta1)
+	z_result = y_result*sin(theta1) + z_result*cos(theta1)
 
 	x_result = x_result*cos(theta2) + z_result*sin(theta2)
 	y_result = y_result
@@ -73,8 +77,8 @@ for i in range(num_random):
 
 	theta1 = theta2 = theta3 = 0.0
 	theta1 = np.random.uniform(0.0, 2.0*pi)
-	#theta2 = np.random.uniform(0.0, 2.0*pi)
-	#theta3 = np.random.uniform(0.0, 2.0*pi)
+	theta2 = np.random.uniform(0.0, 2.0*pi)
+	theta3 = np.random.uniform(0.0, 2.0*pi)
 	print i, theta1, theta2, theta3
 
 	x_temp, y_temp, z_temp = rotate_coord_mat(x,y,z,theta1,theta2,theta3)
