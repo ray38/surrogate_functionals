@@ -73,7 +73,7 @@ for i in range(num_random):
 
 	theta1 = theta2 = theta3 = 0.0
 	theta1 = np.random.uniform(0.0, 2.0*pi)
-	#theta2 = np.random.uniform(0.0, 2.0*pi)
+	theta2 = np.random.uniform(0.0, 2.0*pi)
 	#theta3 = np.random.uniform(0.0, 2.0*pi)
 	print i, theta1, theta2, theta3
 
