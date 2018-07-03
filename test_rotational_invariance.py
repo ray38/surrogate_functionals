@@ -50,6 +50,7 @@ h = 0.02
 
 
 xv = np.linspace(-1.0,1.0,nx)
+print xv
 yv = np.linspace(-1.0,1.0,ny)
 zv = np.linspace(-1.0,1.0,nz)
 
@@ -69,10 +70,11 @@ result = []
 
 for i in range(num_random):
 
-	print i
+	
 	theta1 = np.random.uniform(0.0, 2.0*pi)
 	theta2 = np.random.uniform(0.0, 2.0*pi)
 	theta3 = np.random.uniform(0.0, 2.0*pi)
+	print i, theta1, theta2, theta3
 
 	x_temp, y_temp, z_temp = rotate_coord_mat(x,y,z,theta1,theta2,theta3)
 	error = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad) - truth
