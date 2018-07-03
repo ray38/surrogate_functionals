@@ -79,7 +79,7 @@ for i in range(num_random):
 	x_temp, y_temp, z_temp = rotate_coord_mat(x,y,z,theta1,theta2,theta3)
 	error = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad) - truth
 
-	result.append(error)
+	result.append(error/truth)
 
 fig,ax = plt.subplots(figsize=(10,5))
 plt.plot(np.arange(1,num_random+1),result, linewidth=5.0)
