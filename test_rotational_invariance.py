@@ -36,8 +36,7 @@ def get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, r, h, stencil, pad):
 	n = f(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0)
 	
 	#temp_stencil,temp_pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
-	#temp,_ = get_fftconv_with_known_stencil_no_wrap(n,h,h,h,r,stencil,pad)
-	temp = n
+	temp,_ = get_fftconv_with_known_stencil_no_wrap(n,h,h,h,r,stencil,pad)
 	print temp[50,50,50]
 
 	return temp[50,50,50]
@@ -72,10 +71,10 @@ result = []
 
 for i in range(num_random):
 
-	
-	theta1 = np.random.uniform(0.0, 2.0*pi)
-	theta2 = np.random.uniform(0.0, 2.0*pi)
-	theta3 = np.random.uniform(0.0, 2.0*pi)
+	theta1 = theta2 = theta3 = 0.0
+	#theta1 = np.random.uniform(0.0, 2.0*pi)
+	#theta2 = np.random.uniform(0.0, 2.0*pi)
+	#theta3 = np.random.uniform(0.0, 2.0*pi)
 	print i, theta1, theta2, theta3
 
 	x_temp, y_temp, z_temp = rotate_coord_mat(x,y,z,theta1,theta2,theta3)
