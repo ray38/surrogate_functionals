@@ -158,7 +158,7 @@ def get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, r, h, stencil,
 #r = float(sys.argv[1])
 num_rot = int(sys.argv[1])
 
-nx, ny, nz = (101,101,101)
+nx, ny, nz = (27,27,27)
 h = 0.02
 
 
@@ -169,7 +169,7 @@ zv = np.linspace(-1.0,1.0,nz)
 x, y, z = np.meshgrid(xv, yv, zv)
 #x,y,z = rotate_coord_mat2(x1,y1,z1)
 
-x0,y0,z0 = (0.0, 0.0, 0.0)
+x0,y0,z0 = (np.random.uniform(-0.3, 0.3), np.random.uniform(-0.3, 0.3), np.random.uniform(-0.3, 0.3))
 #sig_x = 0.2
 #sig_y = 0.8
 #sig_z = 0.4
@@ -188,7 +188,7 @@ theta2_list = []
 theta3_list = []
 
 
-for r in [0.02, 0.06, 0.10, 0.14, 0.18, 0.22, 0.26, 0.30]:
+for r in [0.02, 0.06, 0.10, 0.14, 0.18, 0.22]:
 	stencil,pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
 	truth = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad)
 
@@ -198,10 +198,13 @@ for r in [0.02, 0.06, 0.10, 0.14, 0.18, 0.22, 0.26, 0.30]:
 	temp_theta3_list = np.linspace(0.0, 1.0, num_rot) 
 	paramlist = list(itertools.product(temp_theta1_list,temp_theta2_list,temp_theta3_list))
     
-
+	counter = 0
 	for theta1, theta2, theta3 in paramlist:
+		counter +=1
+
 		x_temp, y_temp, z_temp = rotate_coord_mat2(x.copy(),y.copy(),z.copy(),theta1,theta2,theta3)
 		error = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad) - truth
+		print "{}\t{}\t{}".format(i,r,error/truth)
 		result_error_list.append(error/truth)
 		r_list.append(str(r))
 		theta1_list.append(str(theta1))
