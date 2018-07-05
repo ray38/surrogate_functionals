@@ -204,7 +204,7 @@ for r in [0.02, 0.06, 0.10, 0.14, 0.18, 0.22]:
 
 		x_temp, y_temp, z_temp = rotate_coord_mat2(x.copy(),y.copy(),z.copy(),theta1,theta2,theta3)
 		error = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad) - truth
-		print "{}\t{}\t{}".format(i,r,error/truth)
+		print "{}\t{}\t{}".format(counter,r,error/truth)
 		result_error_list.append(error/truth)
 		r_list.append(str(r))
 		theta1_list.append(str(theta1))
