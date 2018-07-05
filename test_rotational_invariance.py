@@ -1,7 +1,10 @@
 import numpy as np
 from convolutions import get_differenciation_conv, get_integration_stencil,get_auto_accuracy,get_fftconv_with_known_stencil_no_wrap,get_asym_integration_stencil,get_asym_integration_fftconv,get_asym_integral_fftconv_with_known_stencil
 import itertools
-from math import cos,sin,tan,acos,asin,pi
+from math import cos,sin,tan,acos,asin,pi,exp,pow
+import itertools
+import pd
+import seaborn as sns
 
 import sys
 import matplotlib
@@ -55,7 +58,8 @@ def generate_3d():
         np.matrix: A 3D rotation matrix.
 
     """
-    x1, x2, x3 = np.random.rand(3)
+    #x1, x2, x3 = np.random.rand(3)
+    x1, x2, x3 = (0.25, 0.25, 0.25)
     R = np.matrix([[np.cos(2 * np.pi * x1), np.sin(2 * np.pi * x1), 0],
                    [-np.sin(2 * np.pi * x1), np.cos(2 * np.pi * x1), 0],
                    [0, 0, 1]])
@@ -66,25 +70,57 @@ def generate_3d():
     M = -H * R
     return M
 
-def rotate_coord_mat2(x,y,z):
-	rot_mat = generate(3)
-	x.flatten().reshape(25,25,25)
-	temp_coord = np.stack([x.flatten(),y.flatten(),z.flatten()], axis=0)
-	temp_coord[0].reshape(25,25,25)
-	after_rotate = np.dot(rot_mat,temp_coord)
+def generate_3d2(x1, x2, x3):
 
-	#temp_x = after_rotate[0]
-	#print temp_x.shape
-	print after_rotate.shape
-	print after_rotate.reshape(3,25,25,25)
-	#print temp_x.reshape(25,25,25)
+    R = np.matrix([[np.cos(2 * np.pi * x1), np.sin(2 * np.pi * x1), 0],
+                   [-np.sin(2 * np.pi * x1), np.cos(2 * np.pi * x1), 0],
+                   [0, 0, 1]])
+    v = np.matrix([[np.cos(2 * np.pi * x2) * np.sqrt(x3)],
+                   [np.sin(2 * np.pi * x2) * np.sqrt(x3)],
+                   [np.sqrt(1 - x3)]])
+    H = np.eye(3) - 2 * v * v.T
+    M = -H * R
+    return M
+
+def rotate_coord_mat2(x,y,z,theta1,theta2,theta3):
+	#rot_mat = generate(3)
+	#rot_mat = np.eye(3)
+	rot_mat = generate_3d2(theta1,theta2,theta3) 
+	temp_shape = x.shape
+	temp_coord = np.stack([x.copy().flatten(),y.copy().flatten(),z.copy().flatten()], axis=0)
+	after_rotate = np.asarray(np.dot(rot_mat,temp_coord))
+
+	x_res = after_rotate[0].reshape(temp_shape)
+	y_res = after_rotate[1].reshape(temp_shape)
+	z_res = after_rotate[2].reshape(temp_shape)
+
+	#fig = plt.figure()
+	#ax = fig.add_subplot(111, projection='3d')
+	#ax.scatter(x_res, y_res, z_res, c='k')
+	#plt.show()
 
 
-	return after_rotate[0].reshape(25,25,25), after_rotate[1].reshape(25,25,25), after_rotate[2].reshape(25,25,25)
+	return x_res, y_res , z_res 
 
 
 def f(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0):
-	return np.exp(-(np.square(x-x0)/(2*sig_x*sig_x)) -(np.square(y-y0)/(2*sig_y*sig_y)) -(np.square(z-z0)/(2*sig_z*sig_z))  )
+
+	print sig_x,sig_y,sig_z,x0,y0,z0
+
+	#return np.exp(-(np.square(x.copy()-x0)/(2.0*sig_x*sig_x)) -(np.square(y.copy()-y0)/(2.0*sig_y*sig_y)) -(np.square(z.copy()-z0)/(2.0*sig_z*sig_z))  )
+	return np.exp(-np.divide(np.square(x.copy()),(2.0*sig_x*sig_x)) - np.divide(np.square(y.copy()),(2.0*sig_y*sig_y)) - np.divide(np.square(z.copy()),(2.0*sig_z*sig_z))  )
+
+
+def f2(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0):
+
+	result = np.zeros_like(x)
+
+	for index, temp in np.ndenumerate(x):
+		temp1 = pow((x[index] - x0),2) / (2.0*sig_x*sig_x)
+		temp2 = pow((y[index] - y0),2) / (2.0*sig_y*sig_y)
+		temp3 = pow((z[index] - z0),2) / (2.0*sig_z*sig_z)
+		result[index] = exp(-temp1 - temp2 - temp3)
+	return result
 
 
 def rotate_coord_mat(x,y,z,theta1,theta2,theta3):
@@ -106,77 +142,100 @@ def rotate_coord_mat(x,y,z,theta1,theta2,theta3):
 
 	return x_result,y_result,z_result
 
-def get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, r, h, stencil, pad,x_org, y_org,z_org):
+def get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, r, h, stencil, pad):
 
-	n = f(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0)
-	print n.shape
-	
-	#temp_stencil,temp_pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
-	#temp = np.sum(n)
+	n = f(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0)
+
 	temp,_ = get_fftconv_with_known_stencil_no_wrap(n,h,h,h,r,stencil,pad)
-	#print temp[50,50,50]
 
-	fig = plt.figure()
-	cmap = plt.get_cmap("RdPu")
-	ax = fig.add_subplot(111, projection='3d')
-	ax.scatter(x_org, y_org, z_org, c=n, cmap=cmap,linewidths=0,s=5.0)
-	plt.show()
+	#fig = plt.figure()
+	#cmap = plt.get_cmap("bwr")
+	#ax = fig.add_subplot(111, projection='3d')
+	#ax.scatter(x_temp, y_temp, z_temp, c=n, cmap=cmap,linewidths=0,s=10.0)
+	#plt.show()
 
-	return temp[12,12,12]
+	return temp[(temp.shape[0]-1)/2, (temp.shape[1]-1)/2, (temp.shape[2]-1)/2]
 
 
-r = float(sys.argv[1])
-num_random = int(sys.argv[2])
+#r = float(sys.argv[1])
+num_rot = int(sys.argv[1])
 
-nx, ny, nz = (25,25,25)
+nx, ny, nz = (101,101,101)
 h = 0.02
 
 
 xv = np.linspace(-1.0,1.0,nx)
-print xv
 yv = np.linspace(-1.0,1.0,ny)
 zv = np.linspace(-1.0,1.0,nz)
 
 x, y, z = np.meshgrid(xv, yv, zv)
+#x,y,z = rotate_coord_mat2(x1,y1,z1)
 
 x0,y0,z0 = (0.0, 0.0, 0.0)
-sig_x = 0.001
-sig_y = 0.05
-sig_z = 0.2
-#sig_x = np.random.uniform(0, 1.0)
-#sig_y = np.random.uniform(0, 1.0)
-#sig_z = np.random.uniform(0, 1.0)
+#sig_x = 0.2
+#sig_y = 0.8
+#sig_z = 0.4
+sig_x = np.random.uniform(0.3, 0.7)
+sig_y = np.random.uniform(0.3, 0.7)
+sig_z = np.random.uniform(0.3, 0.7)
 
-stencil,pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
-print stencil
-
-truth = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad,x,y,z)
+#stencil,pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
+#truth = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad)
 
 
-result = []
-
-for i in range(num_random):
-	x_temp, y_temp, z_temp = rotate_coord_mat2(x,y,z)
-
-	#theta1 = theta2 = theta3 = 0.0
-	#theta1 = np.random.uniform(0.0, 2.0*pi)
-	#theta2 = np.random.uniform(0.0, 2.0*pi)
-	#theta3 = np.random.uniform(0.0, 2.0*pi)
-	#print i, theta1, theta2, theta3
-
-	#x_temp, y_temp, z_temp = rotate_coord_mat(x,y,z,theta1,theta2,theta3)
-	error = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad,x,y,z) - truth
-
-	result.append(error/truth)
-
-fig,ax = plt.subplots(figsize=(10,5))
-plt.plot(np.arange(1,num_random+1),result, linewidth=5.0)
-plt.show()
+result_error_list = []
+r_list = []
+theta1_list = []
+theta2_list = []
+theta3_list = []
 
 
+for r in [0.02, 0.06, 0.10, 0.14, 0.18, 0.22, 0.26, 0.30]:
+	stencil,pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
+	truth = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad)
 
-#get function matrix
+	theta1 = theta2 = theta3 = 0.0
+	temp_theta1_list = np.linspace(0.0, 1.0, num_rot)
+	temp_theta2_list = np.linspace(0.0, 1.0, num_rot) 
+	temp_theta3_list = np.linspace(0.0, 1.0, num_rot) 
+	paramlist = list(itertools.product(temp_theta1_list,temp_theta2_list,temp_theta3_list))
+    
 
-#convolve
+	for theta1, theta2, theta3 in paramlist:
+		x_temp, y_temp, z_temp = rotate_coord_mat2(x.copy(),y.copy(),z.copy(),theta1,theta2,theta3)
+		error = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad) - truth
+		result_error_list.append(error/truth)
+		r_list.append(str(r))
+		theta1_list.append(str(theta1))
+		theta2_list.append(str(theta2))
+		theta3_list.append(str(theta3))
 
-#get middle (50,50,50)
+d = {"r":r_list, "error":result_error_list, "theta1":theta1_list, "theta2":theta2_list, "theta3": theta3_list}
+data = pd.DataFrame(data=d)
+plt.figure()
+	
+sns.set(style="whitegrid", palette="pastel", color_codes=True)
+
+ax = sns.boxplot(x="r",y="error",data=data)
+plt.tight_layout()
+plt.savefig("rotational_invariance_test.png")
+
+
+
+#for i in range(num_random):
+#	print i
+
+#	theta1 = np.random.uniform(0, 1.0)
+#	theta2 = np.random.uniform(0, 1.0)
+#	theta3 = np.random.uniform(0, 1.0)
+
+#	x_temp, y_temp, z_temp = rotate_coord_mat2(x.copy(),y.copy(),z.copy(),theta1,theta2,theta3)
+#	error = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad) - truth
+
+#	result_error_list.append(error/truth)
+
+
+#fig,ax = plt.subplots(figsize=(10,5))
+#plt.plot(np.arange(1,num_random+1),result, linewidth=5.0)
+#plt.show()
+
