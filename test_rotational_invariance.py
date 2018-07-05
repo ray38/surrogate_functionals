@@ -3,7 +3,7 @@ from convolutions import get_differenciation_conv, get_integration_stencil,get_a
 import itertools
 from math import cos,sin,tan,acos,asin,pi,exp,pow
 import itertools
-import pd
+import pandas as pd
 import seaborn as sns
 
 import sys
