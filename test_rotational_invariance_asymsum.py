@@ -173,7 +173,9 @@ zv = np.linspace(-1.0,1.0,nz)
 x, y, z = np.meshgrid(xv, yv, zv)
 #x,y,z = rotate_coord_mat2(x1,y1,z1)
 
-x0,y0,z0 = (np.random.uniform(-0.3, 0.3), np.random.uniform(-0.3, 0.3), np.random.uniform(-0.3, 0.3))
+x0,y0,z0 = (0.0,0.0,0.0)
+
+#x0,y0,z0 = (np.random.uniform(-0.3, 0.3), np.random.uniform(-0.3, 0.3), np.random.uniform(-0.3, 0.3))
 #sig_x = 0.2
 #sig_y = 0.8
 #sig_z = 0.4
