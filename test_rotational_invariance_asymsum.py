@@ -195,9 +195,9 @@ theta3_list = []
 for r in [0.02, 0.06, 0.10, 0.14, 0.18, 0.22]:
 	#stencil,pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
 
-	stencil_x,temp_pad = get_asym_integration_stencil(h, h, h, r, 'x')
-	stencil_y,temp_pad = get_asym_integration_stencil(h, h, h, r, 'y')
-	stencil_z,temp_pad = get_asym_integration_stencil(h, h, h, r, 'z')
+	stencil_x,pad = get_asym_integration_stencil(h, h, h, r, 'x')
+	stencil_y,pad = get_asym_integration_stencil(h, h, h, r, 'y')
+	stencil_z,pad = get_asym_integration_stencil(h, h, h, r, 'z')
 	truth = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil_x,stencil_y,stencil_z, pad)
 
 	theta1 = theta2 = theta3 = 0.0
