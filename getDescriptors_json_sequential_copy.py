@@ -192,7 +192,7 @@ def process(molecule, functional,i,j,k,h,N,r_list,asym_list):
     process_normal_descriptors(molecule, functional,i,j,k,r_list,asym_list)
     
 
-def process_one_molecule(molecule, functional,h,L,N,r_list):
+def process_one_molecule(molecule, functional,h,L,N,r_list,asym_list):
     cwd = os.getcwd()
     dir_name = "{}_{}_{}_{}_{}".format(molecule,functional,str(L).replace('.','-'),str(h).replace('.','-'),N)
     print dir_name
