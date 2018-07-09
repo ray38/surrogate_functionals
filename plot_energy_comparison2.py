@@ -55,7 +55,7 @@ if __name__ == "__main__":
 	ax = sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
 	sns.despine(left=True)
 	
-	plt.xlabel("Model", fontsize=18)
+	plt.xlabel("Model", rotation=45,fontsize=18)
 	plt.ylabel("Error in Formation Energy (eV)", fontsize=18)
 	plt.tick_params('both',labelsize='15')
 
@@ -72,7 +72,7 @@ if __name__ == "__main__":
 
 	ax = sns.violinplot(x="model_name",y="exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
 	sns.despine(left=True)
-	plt.xlabel("Model", fontsize=18)
+	plt.xlabel("Model", rotation=45,fontsize=18)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=18)
 	plt.tick_params('both',labelsize='15')
 
@@ -97,7 +97,7 @@ if __name__ == "__main__":
 	ax = sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
 	sns.despine(left=True)
 	sns.swarmplot(x="model_name",y="formation_exc_error",data=data, color='k', alpha=0.7)
-	plt.xlabel("Model", fontsize=18)
+	plt.xlabel("Model", rotation=45,fontsize=18)
 	plt.ylabel("Error in Formation Energy (eV)", fontsize=18)
 	plt.tick_params('both',labelsize='15')
 
@@ -115,7 +115,7 @@ if __name__ == "__main__":
 	ax = sns.violinplot(x="model_name",y="exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
 	sns.despine(left=True)
 	sns.swarmplot(x="model_name",y="exc_error",data=data, color='k', alpha=0.7)
-	plt.xlabel("Model", fontsize=18)
+	plt.xlabel("Model", rotation=45,fontsize=18)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=18)
 	plt.tick_params('both',labelsize='15')
 
@@ -139,7 +139,7 @@ if __name__ == "__main__":
  
 	# 5. Place legend to the right
 	plt.legend(bbox_to_anchor=(1, 1), loc=2,fontsize=15)
-	plt.xlabel("Model", fontsize=18)
+	plt.xlabel("Model", rotation=45,fontsize=18)
 	plt.ylabel("Error in Formation Energy (eV)", fontsize=18)
 	plt.tick_params('both',labelsize='15')
 
@@ -150,7 +150,7 @@ if __name__ == "__main__":
  
 	# 5. Place legend to the right
 	plt.legend(bbox_to_anchor=(1, 1), loc=2,fontsize=15)
-	plt.xlabel("Model", fontsize=18)
+	plt.xlabel("Model", rotation=45,fontsize=18)
 	plt.ylabel("Error in Formation Energy (eV)", fontsize=18)
 	plt.tick_params('both',labelsize='15')
 	plt.savefig("formation_energy_swarm_plot.png")
@@ -167,7 +167,7 @@ if __name__ == "__main__":
 
 	plt.figure()
 	ax = sns.swarmplot(x="model_name",y="exc_error",data=data, hue='training_test', split=True, palette=("Dark2")) # 3. Use Pokemon palette
-	plt.xlabel("Model", fontsize=18)
+	plt.xlabel("Model", rotation=45,fontsize=18)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=18)
 	plt.tick_params('both',labelsize='15')
 
@@ -179,7 +179,7 @@ if __name__ == "__main__":
 
 	plt.figure()
 	ax = sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='training_test', split=True, palette=("Dark2")) # 3. Use Pokemon palette
-	plt.xlabel("Model", fontsize=18)
+	plt.xlabel("Model",rotation=45, fontsize=18)
 	plt.ylabel("Error in Formation Energy (eV)", fontsize=18)
 	plt.tick_params('both',labelsize='15')
 
@@ -208,7 +208,7 @@ if __name__ == "__main__":
 	ax1 = sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",data=data,split=True,inner=None,palette={"training":"b","test":"y"})
 	sns.despine(left=True)
 	ax2 = sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='training_test', split=True, color='k', alpha=0.7, palette=("Dark2"))
-	plt.xlabel("Model", fontsize=18)
+	plt.xlabel("Model", rotation=45,fontsize=18)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=18)
 	plt.tick_params('both',labelsize='15')
 
@@ -226,7 +226,7 @@ if __name__ == "__main__":
 	ax1 = sns.violinplot(x="model_name",y="exc_error",hue="training_test",data=data,split=True,inner=None,palette={"training":"b","test":"y"})
 	sns.despine(left=True)
 	ax2 = sns.swarmplot(x="model_name",y="exc_error",data=data, hue='training_test', split=True, color='k', alpha=0.7, palette=("Dark2"))
-	plt.xlabel("Model", fontsize=18)
+	plt.xlabel("Model", rotation=45,fontsize=18)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=18)
 	plt.tick_params('both',labelsize='15')
 

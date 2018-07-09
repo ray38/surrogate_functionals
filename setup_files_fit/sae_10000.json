@@ -1,0 +1,13 @@
+{
+	
+	"fit_setup": [
+		{
+			"loss": "sae",
+			"tol": 1e-10,
+			"slowdown": 10000.0, 
+			"early_stop": 1000
+		}
+
+	]
+
+}
