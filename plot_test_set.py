@@ -713,7 +713,7 @@ if __name__ == "__main__":
             os.chdir(main_dir)
             process_one_model(setup,key)
         os.chdir(main_dir)
-        setup["SVWN"] = {}
+        setup["refit VWN"] = {}
         try:
             process_svwn_model(setup,"LDA")
         except:
