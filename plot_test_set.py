@@ -248,18 +248,18 @@ def create_df(setup):
 
     return pd.DataFrame(data=d)
     
-def plot_group_1(data):
+def plot_group_1(data,order):
     colors = ["windows blue", "amber", "greyish", "faded green", "dusty purple"]
 
     plt.figure()
     
     sns.set(style="white", palette="pastel", color_codes=True)
 
-    ax = sns.lmplot(x="dens",y="error",hue="model_name",hue_order = ["SVWN","1","2","3","4","5"],data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
+    ax = sns.lmplot(x="dens",y="error",hue="model_name",hue_order = order,data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
     plt.xlabel("Density (1/A$^3$)",fontsize=50)
     plt.ylabel("Prediction Error (eV/A$^3$)",fontsize=50)
     plt.tick_params(labelsize=40)
-    lgnd = plt.legend(["Model 0","Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],fontsize=40)
+    lgnd = plt.legend(order,fontsize=40)
     
     print lgnd.legendHandles[0]
 
@@ -312,13 +312,13 @@ def plot_group_1(data):
     
     sns.set(style="white", palette="pastel", color_codes=True)
 
-    ax = sns.lmplot(x="dens",y="error",hue="model_name",hue_order = ["SVWN","1","2","3","4","5"],data=data,legend=False,fit_reg=False,size=10,aspect=2,scatter_kws={"s": 40}, palette=("Dark2"))
+    ax = sns.lmplot(x="dens",y="error",hue="model_name",hue_order = order,data=data,legend=False,fit_reg=False,size=10,aspect=2,scatter_kws={"s": 40}, palette=("Dark2"))
     ax.fig.get_axes()[0].set_xscale('log')
     ax.fig.get_axes()[0].set_xlim(1e-9, 1000)
     plt.xlabel("Density (1/A$^3$)",fontsize=50)
     plt.ylabel("Prediction Error (eV/A$^3$)",fontsize=50)
     plt.tick_params(labelsize=40)
-    lgnd = plt.legend(["Model 0","Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],fontsize=40,loc="upper left")
+    lgnd = plt.legend(order,fontsize=40,loc="upper left")
     
     print lgnd.legendHandles[0]
 
@@ -350,7 +350,7 @@ def plot_group_1(data):
     plt.xlabel("Density (1/A$^3$)",fontsize=50)
     plt.ylabel("Prediction Error (eV/A$^3$)",fontsize=50)
     plt.tick_params(labelsize=40)
-    lgnd = plt.legend(["Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],fontsize=40)
+    lgnd = plt.legend(order,fontsize=40)
     
     print lgnd.legendHandles[0]
 
@@ -715,9 +715,9 @@ if __name__ == "__main__":
         os.chdir(main_dir)
         setup["SVWN"] = {}
         try:
-            process_svwn_model(setup,"2")
+            process_svwn_model(setup,"LDA")
         except:
-            process_svwn_model(setup,"1")
+            process_svwn_model(setup,"LDA")
         os.chdir(main_dir)
 
         data = create_df(setup)
@@ -726,6 +726,13 @@ if __name__ == "__main__":
             pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     print "start ploting"
+
+    order_filename = sys.argv[2]
+
+
+    with open(order_filename) as f:
+        temp_order = json.load(f)
+    order = temp_order["order"]
     
-    plot_group_1(data)
+    plot_group_1(data,order)
 
