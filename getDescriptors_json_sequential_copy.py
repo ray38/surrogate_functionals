@@ -158,9 +158,9 @@ def process_normal_descriptors(molecule, functional,i,j,k,r_list,asym_list):
         create_dataset(database, 'gamma', gamma)
         create_dataset(database, 'tau', tau)
 
-        ave_dens_grp = data.create_group('average_density')
-        asym_integral_grp = data.create_group('asym_integral')
-        derivative_grp = data.create_group('derivative')
+        ave_dens_grp = database.create_group('average_density')
+        asym_integral_grp = database.create_group('asym_integral')
+        derivative_grp = database.create_group('derivative')
 
         for r in r_list:
             dataset_name = 'average_density_{}'.format(str(r).replace('.','-'))
