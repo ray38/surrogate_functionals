@@ -1,0 +1,7 @@
+{
+
+	"LDA":{	"dataset": "epxc_LDA_real_real",
+			"model":"NN_LDA_residual_1M_20_2_relu", 
+			"filename":"predict_sae_226193896.623_formation_log.log",
+			"model_filename":"NN_sae_226193896.623_backup.h5"}
+}
