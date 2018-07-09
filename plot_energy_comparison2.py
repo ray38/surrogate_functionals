@@ -53,7 +53,7 @@ if __name__ == "__main__":
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
-	ax.set_xticklabels(rotation=45)
+	ax.set_xticklabels(ax.get_xticklabels(),rotation=45)
 	sns.despine(left=True)
 	
 	plt.xlabel("Model", fontsize=18)
@@ -72,7 +72,7 @@ if __name__ == "__main__":
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.violinplot(x="model_name",y="exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
-	ax.set_xticklabels(rotation=45)
+	ax.set_xticklabels(ax.get_xticklabels(),rotation=45)
 	sns.despine(left=True)
 	plt.xlabel("Model", fontsize=18)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=18)
@@ -97,7 +97,7 @@ if __name__ == "__main__":
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
-	ax.set_xticklabels(rotation=45)
+	ax.set_xticklabels(ax.get_xticklabels(),rotation=45)
 	sns.despine(left=True)
 	sns.swarmplot(x="model_name",y="formation_exc_error",data=data, color='k', alpha=0.7)
 	plt.xlabel("Model", fontsize=18)
@@ -116,7 +116,7 @@ if __name__ == "__main__":
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.violinplot(x="model_name",y="exc_error",hue="training_test",data=data,split=True,inner="quartile",palette={"training":"b","test":"y"})
-	ax.set_xticklabels(rotation=45)
+	ax.set_xticklabels(ax.get_xticklabels(),rotation=45)
 	sns.despine(left=True)
 	sns.swarmplot(x="model_name",y="exc_error",data=data, color='k', alpha=0.7)
 	plt.xlabel("Model", fontsize=18)
@@ -140,7 +140,7 @@ if __name__ == "__main__":
 
 	plt.figure(figsize=(10,10))
 	ax = sns.swarmplot(x="model_name",y="exc_error",data=data, hue='molecule_name', split=True, palette=("Dark2"),hue_order = ["C2H2","C2H4","C2H6","CH3OH","CH4","CO","CO2","H2","H2O","HCN","HNC","N2","N2O","NH3","O3","CH3CN","CH3CHO","CH3NO2","glycine","H2CCO","H2CO","H2O2","HCOOH","N2H4","NCCN"]) # 3. Use Pokemon palette
- 	ax.set_xticklabels(rotation=45)
+ 	ax.set_xticklabels(ax.get_xticklabels(),rotation=45)
 	# 5. Place legend to the right
 	plt.legend(bbox_to_anchor=(1, 1), loc=2,fontsize=15)
 	plt.xlabel("Model", fontsize=18)
@@ -151,7 +151,7 @@ if __name__ == "__main__":
 
 	plt.figure(figsize=(10,10))
 	ax = sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='molecule_name', split=True, palette=("Dark2"),hue_order = ["C2H2","C2H4","C2H6","CH3OH","CH4","CO","CO2","H2","H2O","HCN","HNC","N2","N2O","NH3","O3","CH3CN","CH3CHO","CH3NO2","glycine","H2CCO","H2CO","H2O2","HCOOH","N2H4","NCCN"]) # 3. Use Pokemon palette
- 	ax.set_xticklabels(rotation=45)
+ 	ax.set_xticklabels(ax.get_xticklabels(),rotation=45)
 	# 5. Place legend to the right
 	plt.legend(bbox_to_anchor=(1, 1), loc=2,fontsize=15)
 	plt.xlabel("Model", fontsize=18)
@@ -171,7 +171,7 @@ if __name__ == "__main__":
 
 	plt.figure()
 	ax = sns.swarmplot(x="model_name",y="exc_error",data=data, hue='training_test', split=True, palette=("Dark2")) # 3. Use Pokemon palette
-	ax.set_xticklabels(rotation=45)
+	ax.set_xticklabels(ax.get_xticklabels(),rotation=45)
 	plt.xlabel("Model", fontsize=18)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=18)
 	plt.tick_params('both',labelsize='15')
@@ -184,7 +184,7 @@ if __name__ == "__main__":
 
 	plt.figure()
 	ax = sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='training_test', split=True, palette=("Dark2")) # 3. Use Pokemon palette
-	ax.set_xticklabels(rotation=45)
+	ax.set_xticklabels(ax.get_xticklabels(),rotation=45)
 	plt.xlabel("Model", fontsize=18)
 	plt.ylabel("Error in Formation Energy (eV)", fontsize=18)
 	plt.tick_params('both',labelsize='15')
@@ -214,8 +214,8 @@ if __name__ == "__main__":
 	ax1 = sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",data=data,split=True,inner=None,palette={"training":"b","test":"y"})
 	sns.despine(left=True)
 	ax2 = sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='training_test', split=True, color='k', alpha=0.7, palette=("Dark2"))
-	ax1.set_xticklabels(rotation=45)
-	ax2.set_xticklabels(rotation=45)
+	ax1.set_xticklabels(ax.get_xticklabels(),rotation=45)
+	ax2.set_xticklabels(ax.get_xticklabels(),rotation=45)
 	plt.xlabel("Model", fontsize=18)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=18)
 	plt.tick_params('both',labelsize='15')
@@ -234,8 +234,8 @@ if __name__ == "__main__":
 	ax1 = sns.violinplot(x="model_name",y="exc_error",hue="training_test",data=data,split=True,inner=None,palette={"training":"b","test":"y"})
 	sns.despine(left=True)
 	ax2 = sns.swarmplot(x="model_name",y="exc_error",data=data, hue='training_test', split=True, color='k', alpha=0.7, palette=("Dark2"))
-	ax1.set_xticklabels(rotation=45)
-	ax2.set_xticklabels(rotation=45)
+	ax1.set_xticklabels(ax.get_xticklabels(),rotation=45)
+	ax2.set_xticklabels(ax.get_xticklabels(),rotation=45)
 	plt.xlabel("Model", fontsize=18)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=18)
 	plt.tick_params('both',labelsize='15')
@@ -304,7 +304,7 @@ if __name__ == "__main__":
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.boxplot(x="model_name",y="formation_exc_error",hue="training_test",data=data,palette={"training":"b","test":"y"})
-	ax.set_xticklabels(rotation=45)
+	ax.set_xticklabels(ax.get_xticklabels(),rotation=45)
 	sns.despine(left=True)
 	
 	plt.xlabel("Model", fontsize=18)
@@ -323,7 +323,7 @@ if __name__ == "__main__":
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.boxplot(x="model_name",y="exc_error",hue="training_test",data=data,palette={"training":"b","test":"y"})
-	ax.set_xticklabels(rotation=45)
+	ax.set_xticklabels(ax.get_xticklabels(),rotation=45)
 	sns.despine(left=True)
 	plt.xlabel("Model", fontsize=18)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=18)
