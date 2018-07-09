@@ -14,6 +14,7 @@ import pandas as pd
 import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
+import json
 
 
 
@@ -47,7 +48,7 @@ if __name__ == "__main__":
 		data = pickle.load(handle)
 
 	with open(order_filename) as f:
-        temp_order = json.load(f)
+		temp_order = json.load(f)
     order = temp_order["order"]
 
 	print data
