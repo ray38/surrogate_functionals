@@ -191,8 +191,8 @@ theta1_list = []
 theta2_list = []
 theta3_list = []
 #(["first","second","third"],["mid","times2","times2"])
-[("first","mid"), ("second","times2"), ("third","times2")]
-for gradient, stencil_type in [("first","mid"), ("second","times2"), ("third","times2")]:
+#[("first","mid"), ("second","times2"), ("third","times2")]
+for gradient, stencil_type in [("first","times2"), ("second","times2"), ("third","times2")]:
 	#stencil,pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
 
 
