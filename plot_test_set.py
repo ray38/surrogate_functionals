@@ -263,12 +263,15 @@ def plot_group_1(data,order):
     
     print lgnd.legendHandles[0]
 
-    lgnd.legendHandles[0]._sizes = [500]
-    lgnd.legendHandles[1]._sizes = [500]
-    lgnd.legendHandles[2]._sizes = [500]
-    lgnd.legendHandles[3]._sizes = [500]
-    lgnd.legendHandles[4]._sizes = [500]
-    lgnd.legendHandles[4]._sizes = [500]
+    for i in range(len(lgnd.legendHandles)):
+        lgnd.legendHandles[i]._sizes = [500]
+
+    #lgnd.legendHandles[0]._sizes = [500]
+    #lgnd.legendHandles[1]._sizes = [500]
+    #lgnd.legendHandles[2]._sizes = [500]
+    #lgnd.legendHandles[3]._sizes = [500]
+    #lgnd.legendHandles[4]._sizes = [500]
+    #lgnd.legendHandles[4]._sizes = [500]
 
     plt.tight_layout()
     plt.savefig("test_set_plot_real_real.png")
@@ -322,12 +325,15 @@ def plot_group_1(data,order):
     
     print lgnd.legendHandles[0]
 
-    lgnd.legendHandles[0]._sizes = [500]
-    lgnd.legendHandles[1]._sizes = [500]
-    lgnd.legendHandles[2]._sizes = [500]
-    lgnd.legendHandles[3]._sizes = [500]
-    lgnd.legendHandles[4]._sizes = [500]
-    lgnd.legendHandles[5]._sizes = [500]
+    for i in range(len(lgnd.legendHandles)):
+        lgnd.legendHandles[i]._sizes = [500]
+
+    #lgnd.legendHandles[0]._sizes = [500]
+    #lgnd.legendHandles[1]._sizes = [500]
+    #lgnd.legendHandles[2]._sizes = [500]
+    #lgnd.legendHandles[3]._sizes = [500]
+    #lgnd.legendHandles[4]._sizes = [500]
+    #lgnd.legendHandles[4]._sizes = [500]
 
     plt.tight_layout()
     plt.savefig("test_set_plot_log_real.png", transparent=True)
@@ -354,11 +360,15 @@ def plot_group_1(data,order):
     
     print lgnd.legendHandles[0]
 
-    lgnd.legendHandles[0]._sizes = [500]
-    lgnd.legendHandles[1]._sizes = [500]
-    lgnd.legendHandles[2]._sizes = [500]
-    lgnd.legendHandles[3]._sizes = [500]
-    lgnd.legendHandles[4]._sizes = [500]
+    for i in range(len(lgnd.legendHandles)):
+        lgnd.legendHandles[i]._sizes = [500]
+
+    #lgnd.legendHandles[0]._sizes = [500]
+    #lgnd.legendHandles[1]._sizes = [500]
+    #lgnd.legendHandles[2]._sizes = [500]
+    #lgnd.legendHandles[3]._sizes = [500]
+    #lgnd.legendHandles[4]._sizes = [500]
+    #lgnd.legendHandles[4]._sizes = [500]
 
     plt.tight_layout()
     plt.savefig("test_set_plot_log_symlog.png")
