@@ -238,7 +238,7 @@ plt.figure()
 	
 sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-ax = sns.violinplot(x="r",y="error",data=data)
+ax = sns.violinplot(x="order",y="error",data=data)
 plt.tight_layout()
 plt.savefig("rotational_invariance_test.png")
 
