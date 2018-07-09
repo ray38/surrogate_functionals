@@ -1,0 +1,21 @@
+{
+	"refit VWN":{	"dataset": "epxc_refitted_SVWN",
+			"model":"Model1", 
+			"filename":"predict_refitted_SVWN_formation_log.log",
+			"model_filename":"LDA_model.sav"},
+
+	"LDA":{	"dataset": "epxc_LDA_real_real",
+			"model":"NN_LDA_residual_1M_20_2_relu", 
+			"filename":"predict_sae_226193896.623_formation_log.log",
+			"model_filename":"NN_sae_226193896.623_backup.h5"},
+
+	"GGA":{	"dataset": "epxc_GGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_100_1_relu", 
+			"filename":"predict_sae_1244956966.0_formation_log.log",
+			"model_filename":"NN_sae_1244956966.0_backup.h5"},
+
+	"mGGA":{	"dataset": "epxc_mGGA_real_real_numerical",
+			"model":"NN_LDA_residual_1M_80_2_relu", 
+			"filename":"predict_mean_absolute_percentage_error_35.6853287981_formation_log.log",
+			"model_filename":"NN_mean_absolute_percentage_error_35.6853287981_backup.h5"}
+}
