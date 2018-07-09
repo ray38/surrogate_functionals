@@ -184,18 +184,18 @@ def initialize_svwn(setup,key):
 
     LDA_model = pickle.load(open("LDA_model.sav", 'rb'))
 
-    setup["SVWN"]["LDA_model"] = LDA_model
-    setup["SVWN"]["model"] = "refitted_SVWN"
-    setup["SVWN"]["dataset"] = "epxc_refitted_SVWN"
+    setup["refit VWN"]["LDA_model"] = LDA_model
+    setup["refit VWN"]["model"] = "refitted_SVWN"
+    setup["refit VWN"]["dataset"] = "epxc_refitted_SVWN"
 
     os.chdir(setup[key]["working_dir"])
 
     with open("test_data_to_plot.pickle", 'rb') as handle:
         test_data = pickle.load(handle)
 
-    setup["SVWN"]["test_X"] = test_data[0]
-    setup["SVWN"]["test_y"] = test_data[1]
-    setup["SVWN"]["test_dens"] = test_data[2]
+    setup["refit VWN"]["test_X"] = test_data[0]
+    setup["refit VWN"]["test_y"] = test_data[1]
+    setup["refit VWN"]["test_dens"] = test_data[2]
 
     return
 
@@ -213,9 +213,9 @@ def process_one_model(setup,key):
 def process_svwn_model(setup,key):
     print "start: SVWN"
     initialize_svwn(setup,key)
-    temp_predict_y, temp_error = predict_svwn(setup["SVWN"]["test_dens"],setup["SVWN"]["LDA_model"].x,setup["SVWN"]["test_y"])
-    setup["SVWN"]["predict_y"] = temp_predict_y
-    setup["SVWN"]["error"] = temp_error
+    temp_predict_y, temp_error = predict_svwn(setup["refit VWN"]["test_dens"],setup["refit VWN"]["LDA_model"].x,setup["refit VWN"]["test_y"])
+    setup["refit VWN"]["predict_y"] = temp_predict_y
+    setup["refit VWN"]["error"] = temp_error
     print "end: SVWN"
     return temp_predict_y, temp_error
 
@@ -445,7 +445,7 @@ def plot_group_2(data):
     sns.set_palette(current_palette)
     for name, group in groups:
         print name
-        if name == "SVWN":
+        if name == "refit VWN":
             sum_error_result = []
             for count, interval in enumerate(dens_intervals):
 	        temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
@@ -454,7 +454,7 @@ def plot_group_2(data):
             plt.plot(dens_interval_medians, sum_error_result,label=name)
     for name, group in groups:
         print name
-        if name != "SVWN":
+        if name != "refit VWN":
             sum_error_result = []
             for count, interval in enumerate(dens_intervals):
 	        temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
@@ -484,7 +484,7 @@ def plot_group_2(data):
     current_palette = sns.color_palette("cubehelix", number_models)
     sns.set_palette(current_palette)
     for name, group in groups:
-        if name == "SVWN":
+        if name == "refit VWN":
             sum_error_result = []
             for count, interval in enumerate(dens_intervals):
 	        temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
@@ -492,7 +492,7 @@ def plot_group_2(data):
 
             plt.plot(dens_interval_medians, sum_error_result,label=name)
     for name, group in groups:
-        if name != "SVWN":
+        if name != "refit VWN":
             sum_error_result = []
             for count, interval in enumerate(dens_intervals):
 	        temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
@@ -525,7 +525,7 @@ def plot_group_2(data):
     print current_palette
     sns.set_palette(current_palette)
     for name, group in groups:
-        if name == "SVWN":
+        if name == "refit VWN":
             log_sum_error_result = []
             for count, interval in enumerate(log_dens_intervals):
 	        temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
@@ -533,7 +533,7 @@ def plot_group_2(data):
 
             plt.plot(log_dens_interval_medians, log_sum_error_result,label=name,linewidth=5.0)
     for name, group in groups:
-        if name != "SVWN":
+        if name != "refit VWN":
             log_sum_error_result = []
             for count, interval in enumerate(log_dens_intervals):
 	        temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
@@ -572,7 +572,7 @@ def plot_group_2(data):
     current_palette = sns.color_palette("cubehelix", number_models)
     sns.set_palette(current_palette)
     for name, group in groups:
-        if name == "SVWN":
+        if name == "refit VWN":
             log_sum_error_result = []
             for count, interval in enumerate(log_dens_intervals):
 	        temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
@@ -580,7 +580,7 @@ def plot_group_2(data):
 
             plt.plot(log_dens_interval_medians, log_sum_error_result,label=name)
     for name, group in groups:
-        if name != "SVWN":
+        if name != "refit VWN":
             log_sum_error_result = []
             for count, interval in enumerate(log_dens_intervals):
 	        temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
@@ -651,7 +651,7 @@ def plot_group_4(data):
     current_palette = sns.color_palette("cubehelix", number_models)
     sns.set_palette(current_palette)
     for name, group in groups:
-        if name == "SVWN":
+        if name == "refit VWN":
             log_sum_error_result = []
             for count, interval in enumerate(log_dens_intervals):
 	        temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
@@ -659,7 +659,7 @@ def plot_group_4(data):
 
             plt.plot(log_dens_interval_medians, log_sum_error_result,label=name)
     for name, group in groups:
-        if name != "SVWN":
+        if name != "refit VWN":
             log_sum_error_result = []
             for count, interval in enumerate(log_dens_intervals):
 	        temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
