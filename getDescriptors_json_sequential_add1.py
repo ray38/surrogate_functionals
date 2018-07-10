@@ -154,26 +154,26 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,
                 temp_data, temp_pad = calculate_ave_density_desc(extented_n.copy(),r,h,h,h,stencil_list[index],pad_list[index])
                 ave_dens_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
         
-        for index, r in enumerate(r_list):
-            dataset_name = 'asym_integral_x_{}'.format(str(r).replace('.','-'))
-            if dataset_name not in asym_integral_grp.keys():
-                print "start: {} axym x".format(r)
-                temp_data, temp_pad = get_asym_integral_fftconv_with_known_stencil(extented_n.copy(), h ,h ,h , r, asym_stencil_list[0][index], asym_pad_list[0][index] )
-                asym_integral_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
+        #for index, r in enumerate(r_list):
+        #    dataset_name = 'asym_integral_x_{}'.format(str(r).replace('.','-'))
+        #    if dataset_name not in asym_integral_grp.keys():
+        #        print "start: {} axym x".format(r)
+        #        temp_data, temp_pad = get_asym_integral_fftconv_with_known_stencil(extented_n.copy(), h ,h ,h , r, asym_stencil_list[0][index], asym_pad_list[0][index] )
+        #        asym_integral_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
         
-        for index, r in enumerate(r_list):
-            dataset_name = 'asym_integral_y_{}'.format(str(r).replace('.','-'))
-            if dataset_name not in asym_integral_grp.keys():
-                print "start: {} axym y".format(r)
-                temp_data, temp_pad = get_asym_integral_fftconv_with_known_stencil(extented_n.copy(), h ,h ,h , r, asym_stencil_list[1][index], asym_pad_list[1][index] )
-                asym_integral_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
+        #for index, r in enumerate(r_list):
+        #    dataset_name = 'asym_integral_y_{}'.format(str(r).replace('.','-'))
+        #    if dataset_name not in asym_integral_grp.keys():
+        #        print "start: {} axym y".format(r)
+        #        temp_data, temp_pad = get_asym_integral_fftconv_with_known_stencil(extented_n.copy(), h ,h ,h , r, asym_stencil_list[1][index], asym_pad_list[1][index] )
+        #        asym_integral_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
                 
-        for index, r in enumerate(r_list):
-            dataset_name = 'asym_integral_z_{}'.format(str(r).replace('.','-'))
-            if dataset_name not in asym_integral_grp.keys():
-                print "start: {} axym z".format(r)
-                temp_data, temp_pad = get_asym_integral_fftconv_with_known_stencil(extented_n.copy(), h ,h ,h , r, asym_stencil_list[2][index], asym_pad_list[2][index] )
-                asym_integral_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
+        #for index, r in enumerate(r_list):
+        #    dataset_name = 'asym_integral_z_{}'.format(str(r).replace('.','-'))
+        #    if dataset_name not in asym_integral_grp.keys():
+        #        print "start: {} axym z".format(r)
+        #        temp_data, temp_pad = get_asym_integral_fftconv_with_known_stencil(extented_n.copy(), h ,h ,h , r, asym_stencil_list[2][index], asym_pad_list[2][index] )
+        #        asym_integral_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
 
 
 
@@ -200,18 +200,18 @@ def prepare_asym_integral_stencils(r_list,h):
     pad_x_list = []
     pad_y_list = []
     pad_z_list = []
-    for r in r_list:
-        temp_stencil,temp_pad = get_asym_integration_stencil(h, h, h, r, 'x')
-        stencil_x_list.append(temp_stencil)
-        pad_x_list.append(temp_pad)
+    #for r in r_list:
+    #    temp_stencil,temp_pad = get_asym_integration_stencil(h, h, h, r, 'x')
+    #    stencil_x_list.append(temp_stencil)
+    #    pad_x_list.append(temp_pad)
         
-        temp_stencil,temp_pad = get_asym_integration_stencil(h, h, h, r, 'y')
-        stencil_y_list.append(temp_stencil)
-        pad_y_list.append(temp_pad)
+    #    temp_stencil,temp_pad = get_asym_integration_stencil(h, h, h, r, 'y')
+    #    stencil_y_list.append(temp_stencil)
+    #    pad_y_list.append(temp_pad)
         
-        temp_stencil,temp_pad = get_asym_integration_stencil(h, h, h, r, 'z')
-        stencil_z_list.append(temp_stencil)
-        pad_z_list.append(temp_pad)
+    #    temp_stencil,temp_pad = get_asym_integration_stencil(h, h, h, r, 'z')
+    #    stencil_z_list.append(temp_stencil)
+    #    pad_z_list.append(temp_pad)
     
     asym_stencil_list = [stencil_x_list, stencil_y_list, stencil_z_list]
     asym_pad_list = [pad_x_list, pad_y_list, pad_z_list]
