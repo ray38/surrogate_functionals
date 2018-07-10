@@ -2,7 +2,7 @@ import numpy as np
 from convolutions import get_differenciation_conv, get_integration_stencil,get_auto_accuracy,get_fftconv_with_known_stencil_no_wrap,get_asym_integration_stencil,get_asym_integration_fftconv,get_asym_integral_fftconv_with_known_stencil
 from convolutions import get_first_grad_stencil, get_second_grad_stencil, get_third_grad_stencil
 import itertools
-from math import cos,sin,tan,acos,asin,pi,exp,pow,abs
+from math import cos,sin,tan,acos,asin,pi,exp,pow
 import itertools
 import pandas as pd
 import seaborn as sns
