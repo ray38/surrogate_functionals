@@ -214,10 +214,10 @@ def process_one_molecule(molecule, functional,h,L,N,r_list,asym_list):
 
 
 
-    #for i,j,k in paramlist:
-    #    process(molecule, functional,i,j,k,h,N,r_list,asym_list)
+    for i,j,k in paramlist:
+        process(molecule, functional,i,j,k,h,N,r_list,asym_list)
         
-    process(molecule, functional,0,0,0,h,N,r_list,asym_list)
+    #process(molecule, functional,0,0,0,h,N,r_list,asym_list)
     
     os.chdir(cwd)
     return
