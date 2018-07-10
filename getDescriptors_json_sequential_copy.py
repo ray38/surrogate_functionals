@@ -149,7 +149,7 @@ def process_normal_descriptors(molecule, functional,i,j,k,r_list,asym_list):
     raw_data.close()
 
 
-    with h5py.File(result_filename,'a') as database:
+    with h5py.File(result_filename,'w') as database:
         print 'get normal'
 
         create_dataset(database, 'V_xc', V_xc)
