@@ -2,7 +2,7 @@ import numpy as np
 from convolutions import get_differenciation_conv, get_integration_stencil,get_auto_accuracy,get_fftconv_with_known_stencil_no_wrap,get_asym_integration_stencil,get_asym_integration_fftconv,get_asym_integral_fftconv_with_known_stencil
 from convolutions import get_first_grad_stencil, get_second_grad_stencil, get_third_grad_stencil
 import itertools
-from math import cos,sin,tan,acos,asin,pi,exp,pow
+from math import cos,sin,tan,acos,asin,pi,exp,pow,abs
 import itertools
 import pandas as pd
 import seaborn as sns
@@ -154,7 +154,7 @@ def get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil, pa
 	#ax.scatter(x_temp, y_temp, z_temp, c=n, cmap=cmap,linewidths=0,s=10.0)
 	#plt.show()
 
-	return temp[(temp.shape[0]-1)/2, (temp.shape[1]-1)/2, (temp.shape[2]-1)/2]
+	return abs(temp[(temp.shape[0]-1)/2, (temp.shape[1]-1)/2, (temp.shape[2]-1)/2]) / n[(n.shape[0]-1)/2, (n.shape[1]-1)/2, (n.shape[2]-1)/2]
 
 
 #r = float(sys.argv[1])
@@ -192,7 +192,7 @@ theta2_list = []
 theta3_list = []
 #(["first","second","third"],["mid","times2","times2"])
 #[("first","mid"), ("second","times2"), ("third","times2")]
-for gradient, stencil_type in [("first","times2"), ("second","times2"), ("third","times2")]:
+for gradient, stencil_type in [("first","mid"), ("second","times2"), ("third","times2")]:
 	#stencil,pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
 
 
