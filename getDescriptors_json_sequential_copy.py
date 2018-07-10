@@ -116,7 +116,7 @@ def create_dataset(database, dataset_name, data):
 def process_normal_descriptors(molecule, functional,i,j,k,r_list,asym_list):
     
     raw_data_filename = "{}_{}_{}_{}_{}_all_descriptors.hdf5".format(molecule,functional,i,j,k)
-    result_filename = "{}_{}_{}_{}_{}_all_descriptors2.hdf5".format(molecule,functional,i,j,k)
+    result_filename = "{}_{}_{}_{}_{}_all_descriptors.hdf5".format(molecule,functional,i,j,k)
     raw_data =  h5py.File(raw_data_filename,'r')
     n = np.asarray(raw_data['rho'])
     V_xc = np.asarray(raw_data['V_xc'])
