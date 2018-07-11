@@ -157,7 +157,7 @@ def subsampling_system_with_PCA(data, list_desc = [], cutoff_sig = 0.05, rate = 
     keep_going = True
     while keep_going:
         pca_result, sum_explained_variance = PCA_analysis(data_process, n_components = trial_component)
-        if sum_explained_variance > 0.99999:
+        if sum_explained_variance > 0.999999:
             keep_going = False
 
         trial_component +=1
