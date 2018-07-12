@@ -281,7 +281,7 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
     list_subsample = setup["subsample_feature_list"]
     temp_list_subsample = setup["subsample_feature_list"]
     if temp_list_subsample == []:
-        for m in range(len(subsample_data_overall[0])):
+        for m in range(len(random_data_overall[0])):
             temp_list_subsample.append(m)
     print temp_list_subsample
 
