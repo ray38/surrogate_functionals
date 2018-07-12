@@ -290,11 +290,11 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
 
     for i,j,k in paramlist:
         temp_subsample_filename = "{}_{}_{}_subsampled_data.p".format(i,j,k)
-        try:
-            temp_subsample = pickle.load(open(temp_subsample_filename,'rb'))
-            subsample_data_overall += temp_subsample
-        except:
-            print temp_subsample_filename + " load failed! passed!"
+        #try:
+        temp_subsample = pickle.load(open(temp_subsample_filename,'rb'))
+        subsample_data_overall += temp_subsample
+        #except:
+        #    print temp_subsample_filename + " load failed! passed!"
 
         if len(subsample_data_overall_block) >= 3000000:
             log(overall_subsample_log_filename,"\nstart overall block sub-sampling") 
