@@ -292,7 +292,7 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
         temp_subsample_filename = "{}_{}_{}_subsampled_data.p".format(i,j,k)
         #try:
         temp_subsample = pickle.load(open(temp_subsample_filename,'rb'))
-        subsample_data_overall += temp_subsample
+        subsample_data_overall_block += temp_subsample
         #except:
         #    print temp_subsample_filename + " load failed! passed!"
 
