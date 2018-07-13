@@ -176,9 +176,9 @@ x0,y0,z0 = (0.0,0.0,0.0)
 #sig_x = 0.2
 #sig_y = 0.8
 #sig_z = 0.4
-sig_x = np.random.uniform(0.03, 0.07)
-sig_y = np.random.uniform(0.03, 0.07)
-sig_z = np.random.uniform(0.03, 0.07)
+sig_x = np.random.uniform(1.0, 2.0)
+sig_y = np.random.uniform(1.0, 2.0)
+sig_z = np.random.uniform(1.0, 2.0)
 
 #stencil,pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
 #truth = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad)
@@ -195,7 +195,7 @@ theta2_list = []
 theta3_list = []
 
 
-for r in [0.02, 0.06, 0.10, 0.14, 0.18, 0.22]:
+for r in [0.02, 0.06, 0.10]:
 	for l, m in [(1, -1), (1, 0), (1, 1)]:
 
 
