@@ -176,9 +176,9 @@ x0,y0,z0 = (0.0,0.0,0.0)
 #sig_x = 0.2
 #sig_y = 0.8
 #sig_z = 0.4
-sig_x = np.random.uniform(0.3, 0.7)
-sig_y = np.random.uniform(0.3, 0.7)
-sig_z = np.random.uniform(0.3, 0.7)
+sig_x = np.random.uniform(0.03, 0.07)
+sig_y = np.random.uniform(0.03, 0.07)
+sig_z = np.random.uniform(0.03, 0.07)
 
 #stencil,pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
 #truth = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad)
