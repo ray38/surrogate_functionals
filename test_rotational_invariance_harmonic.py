@@ -170,15 +170,15 @@ zv = np.linspace(-1.0,1.0,nz)
 x, y, z = np.meshgrid(xv, yv, zv)
 #x,y,z = rotate_coord_mat2(x1,y1,z1)
 
-x0,y0,z0 = (0.0,0.0,0.0)
+#x0,y0,z0 = (0.0,0.0,0.0)
 
-#x0,y0,z0 = (np.random.uniform(-0.3, 0.3), np.random.uniform(-0.3, 0.3), np.random.uniform(-0.3, 0.3))
+x0,y0,z0 = (np.random.uniform(-0.3, 0.3), np.random.uniform(-0.3, 0.3), np.random.uniform(-0.3, 0.3))
 #sig_x = 0.2
 #sig_y = 0.8
 #sig_z = 0.4
-sig_x = np.random.uniform(1.0, 2.0)
-sig_y = np.random.uniform(1.0, 2.0)
-sig_z = np.random.uniform(1.0, 2.0)
+sig_x = np.random.uniform(0.3, 0.7)
+sig_y = np.random.uniform(0.3, 0.7)
+sig_z = np.random.uniform(0.3, 0.7)
 
 #stencil,pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
 #truth = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad)
