@@ -159,7 +159,7 @@ def get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil, pa
 #r = float(sys.argv[1])
 num_rot = int(sys.argv[1])
 
-nx, ny, nz = (27,27,27)
+nx, ny, nz = (51,51,51)
 h = 0.02
 
 
@@ -195,7 +195,7 @@ theta2_list = []
 theta3_list = []
 
 
-for r in [0.02, 0.06, 0.10]:
+for r in [0.14, 0.18, 0.22]:
 	for l, m in [(1, -1), (1, 0), (1, 1),(1,"sum")]:
 
 		if m == "sum":
