@@ -198,7 +198,7 @@ theta2_list = []
 theta3_list = []
 
 
-for r in [0.14, 0.18, 0.22]:
+for r in [0.02, 0.06, 0.10, 0.14, 0.18, 0.22]:
 	for l, m in [(1, -1), (1, 0), (1, 1),(1,"sum")]:
 
 		if m == "sum":
@@ -247,7 +247,7 @@ plt.figure()
 	
 sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-ax = sns.boxplot(x = "r",hue="m",y="percent_error",data=data)
+ax = sns.violinplot(x = "r",hue="m",y="percent_error",data=data)
 plt.tight_layout()
 plt.savefig("rotational_invariance_test_percent_error.png")
 
@@ -256,7 +256,7 @@ plt.figure()
 	
 sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-ax = sns.boxplot(x = "r",hue="m",y="error",data=data)
+ax = sns.violinplot(x = "r",hue="m",y="error",data=data)
 plt.tight_layout()
 plt.savefig("rotational_invariance_test_error.png")
 

@@ -245,7 +245,7 @@ plt.figure()
 	
 sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-ax = sns.boxplot(x="order",y="percent_error",data=data)
+ax = sns.violinplot(x="order",y="percent_error",data=data)
 plt.tight_layout()
 plt.savefig("rotational_invariance_test_percent_error.png")
 
@@ -254,7 +254,7 @@ plt.figure()
 	
 sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-ax = sns.boxplot(x="order",y="error",data=data)
+ax = sns.violinplot(x="order",y="error",data=data)
 plt.tight_layout()
 plt.savefig("rotational_invariance_test_error.png")
 
