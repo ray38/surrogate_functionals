@@ -167,7 +167,7 @@ def plot_result(data,sig_x, sig_y, sig_z):
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.violinplot(x = "r",hue="m",y="percent_error",data=data)
-	ax.text(0.0, -0.0, "sig_x: {}   sig_y: {}  sig_z: {}".format(sig_x, sig_y, sig_z), ha ='left', fontsize = 15)
+	ax.text(0.0, -0.0, "sig_x: {}   sig_y: {}  sig_z: {}".format(round(sig_x,3), round(sig_y,3), round(sig_z,3)), ha ='left', fontsize = 10)
 	plt.tight_layout()
 	plt.savefig("harmonic_rotational_invariance_test_percent_error.png")
 
@@ -177,6 +177,7 @@ def plot_result(data,sig_x, sig_y, sig_z):
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.violinplot(x = "r",hue="m",y="log_error",data=data)
+	ax.text(0.0, -0.0, "sig_x: {}   sig_y: {}  sig_z: {}".format(round(sig_x,3), round(sig_y,3), round(sig_z,3)), ha ='left', fontsize = 10)
 	plt.tight_layout()
 	plt.savefig("harmonic_rotational_invariance_test_error.png")
 
@@ -186,6 +187,7 @@ def plot_result(data,sig_x, sig_y, sig_z):
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.violinplot(x = "r",hue="m",y="log_percent_error",data=data)
+	ax.text(0.0, -0.0, "sig_x: {}   sig_y: {}  sig_z: {}".format(round(sig_x,3), round(sig_y,3), round(sig_z,3)), ha ='left', fontsize = 10)
 	plt.tight_layout()
 	plt.savefig("harmonic_rotational_invariance_test_percent_error_log.png")
 
@@ -195,6 +197,7 @@ def plot_result(data,sig_x, sig_y, sig_z):
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.violinplot(x = "r",hue="m",y="error",data=data)
+	ax.text(0.0, -0.0, "sig_x: {}   sig_y: {}  sig_z: {}".format(round(sig_x,3), round(sig_y,3), round(sig_z,3)), ha ='left', fontsize = 10)
 	plt.tight_layout()
 	plt.savefig("harmonic_rotational_invariance_test_error_log.png")
 
