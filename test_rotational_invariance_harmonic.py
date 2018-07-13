@@ -195,7 +195,7 @@ theta2_list = []
 theta3_list = []
 
 
-for r in [0.02]:
+for r in [0.10]:
 	for l, m in [(1, -1), (1, 0), (1, 1)]:
 
 
