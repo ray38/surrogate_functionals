@@ -154,7 +154,7 @@ def get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil, pa
 	#ax.scatter(x_temp, y_temp, z_temp, c=n, cmap=cmap,linewidths=0,s=10.0)
 	#plt.show()
 
-	return abs(temp[(temp.shape[0]-1)/2, (temp.shape[1]-1)/2, (temp.shape[2]-1)/2]) / n[(n.shape[0]-1)/2, (n.shape[1]-1)/2, (n.shape[2]-1)/2]
+	return temp[(temp.shape[0]-1)/2, (temp.shape[1]-1)/2, (temp.shape[2]-1)/2]
 
 
 #r = float(sys.argv[1])
