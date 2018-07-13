@@ -144,10 +144,11 @@ def rotate_coord_mat(x,y,z,theta1,theta2,theta3):
 def get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil, pad):
 
 	n = f(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0)
+	
 
 	temp,_ = get_fftconv_with_known_stencil_no_wrap(n,h,h,h,1,stencil,pad)
 
-
+	print n[(temp.shape[0]-1)/2, (temp.shape[1]-1)/2, (temp.shape[2]-1)/2]
 	#fig = plt.figure()
 	#cmap = plt.get_cmap("bwr")
 	#ax = fig.add_subplot(111, projection='3d')
@@ -200,6 +201,9 @@ for r in [0.10]:
 
 
 		stencil_Re, stencil_Im, pad = calc_harmonic_stencil(h, h, h, r, l, m, accuracy = 5)
+
+		print stencil_Re
+		print stencil_Im
 
 
 		truth = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil_Re, pad)
