@@ -146,7 +146,7 @@ def rotate_coord_mat(x,y,z,theta1,theta2,theta3):
 
 def get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil, pad):
 
-	n = f3(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0)
+	n = f(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0)
 
 	temp,_ = get_fftconv_with_known_stencil_no_wrap(n,h,h,h,1,stencil,pad)
 
@@ -179,9 +179,9 @@ x0,y0,z0 = (np.random.uniform(-0.3, 0.3), np.random.uniform(-0.3, 0.3), np.rando
 #sig_x = 0.2
 #sig_y = 0.8
 #sig_z = 0.4
-sig_x = np.random.uniform(0.3, 0.7)
-sig_y = np.random.uniform(0.3, 0.7)
-sig_z = np.random.uniform(0.3, 0.7)
+sig_x = np.random.uniform(0.05, 0.3)
+sig_y = np.random.uniform(0.05, 0.3)
+sig_z = np.random.uniform(0.05, 0.3)
 
 #stencil,pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
 #truth = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad)
