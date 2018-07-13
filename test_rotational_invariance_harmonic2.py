@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import *
 from convolutions import get_differenciation_conv, get_integration_stencil,get_auto_accuracy,get_fftconv_with_known_stencil_no_wrap,get_asym_integration_stencil,get_asym_integration_fftconv,get_asym_integral_fftconv_with_known_stencil
 from convolutions import get_first_grad_stencil, get_second_grad_stencil, get_third_grad_stencil, get_harmonic_fftconv, calc_harmonic_stencil
 import itertools
@@ -294,6 +295,6 @@ for x0, y0, z0 in origin_list:
 				theta2_list.append(str(theta2))
 				theta3_list.append(str(theta3))
 
-	d = {"r":r_list, "m":m_list, "l":l_list, "error":result_error_list, "percent_error":result_percent_error_list,"log_error": np.log10(np.abs(result_error_list)).tolist(), "log_percent_error": np.log10(np.abs(result_percent_error_list)).tolist(), "theta1":theta1_list, "theta2":theta2_list, "theta3": theta3_list}
+	d = {"r":r_list, "m":m_list, "l":l_list, "error":result_error_list, "percent_error":result_percent_error_list,"log_error": ma.log10(np.abs(result_error_list)).filled(0.).tolist(), "log_percent_error": ma.log10(np.abs(result_percent_error_list)).filled(0.).tolist(), "theta1":theta1_list, "theta2":theta2_list, "theta3": theta3_list}
 	data = pd.DataFrame(data=d)
 	plot_result(data)
