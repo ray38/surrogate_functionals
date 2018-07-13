@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import *
 from convolutions import get_differenciation_conv, get_integration_stencil,get_auto_accuracy,get_fftconv_with_known_stencil_no_wrap,get_asym_integration_stencil,get_asym_integration_fftconv,get_asym_integral_fftconv_with_known_stencil
 from convolutions import get_first_grad_stencil, get_second_grad_stencil, get_third_grad_stencil
 import itertools
@@ -280,14 +281,14 @@ for x0, y0, z0 in origin_list:
 			error = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil, pad) - truth
 			print "origin:{}\t{}\t{}\t{}\t{}\t{}".format(counter_origin,counter,gradient,error/truth, truth, error)
 
-			result_percent_error_list.append(error/truth)
+			result_percent_error_list.append((error/truth)*100.0)
 			result_error_list.append(error)
 			gradient_list.append(str(gradient))
 			theta1_list.append(str(theta1))
 			theta2_list.append(str(theta2))
 			theta3_list.append(str(theta3))
 
-	d = {"order":gradient_list, "error":result_error_list, "percent_error":result_percent_error_list,"log_error": np.log10(np.abs(result_error_list)).tolist(), "log_percent_error": np.log10(np.abs(result_percent_error_list)).tolist(), "theta1":theta1_list, "theta2":theta2_list, "theta3": theta3_list}
+	d = {"order":gradient_list, "error":result_error_list, "percent_error":result_percent_error_list,"log_error": ma.log10(np.abs(result_error_list)).filled(-30.0).tolist(), "log_percent_error": ma.log10(np.abs(result_percent_error_list)).filled(-30.0).tolist(), "theta1":theta1_list, "theta2":theta2_list, "theta3": theta3_list}
 	data = pd.DataFrame(data=d)
 	plot_result(data)
 

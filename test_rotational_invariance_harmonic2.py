@@ -160,13 +160,14 @@ def get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil, pa
 	return temp[(temp.shape[0]-1)/2, (temp.shape[1]-1)/2, (temp.shape[2]-1)/2]
 
 
-def plot_result(data):
+def plot_result(data,sig_x, sig_y, sig_z):
 
 	plt.figure()
 		
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.violinplot(x = "r",hue="m",y="percent_error",data=data)
+	ax.fig.text(0.33, -0.0, "sig_x: {}   sig_y: {}  sig_z: {}".format(sig_x, sig_y, sig_z), ha ='left', fontsize = 15)
 	plt.tight_layout()
 	plt.savefig("harmonic_rotational_invariance_test_percent_error.png")
 
@@ -286,7 +287,7 @@ for x0, y0, z0 in origin_list:
 				x_temp, y_temp, z_temp = rotate_coord_mat2(x.copy(),y.copy(),z.copy(),theta1,theta2,theta3)
 				error = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil_Re, pad) - truth
 				print "origin:{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(counter_origin,r, counter,l, m,error/truth, truth, error)
-				result_percent_error_list.append(error/truth)
+				result_percent_error_list.append((error/truth)*100.0)
 				result_error_list.append(error)
 				r_list.append(str(r))
 				l_list.append(str(l))
@@ -295,6 +296,6 @@ for x0, y0, z0 in origin_list:
 				theta2_list.append(str(theta2))
 				theta3_list.append(str(theta3))
 
-	d = {"r":r_list, "m":m_list, "l":l_list, "error":result_error_list, "percent_error":result_percent_error_list,"log_error": ma.log10(np.abs(result_error_list)).filled(0.).tolist(), "log_percent_error": ma.log10(np.abs(result_percent_error_list)).filled(0.).tolist(), "theta1":theta1_list, "theta2":theta2_list, "theta3": theta3_list}
+	d = {"r":r_list, "m":m_list, "l":l_list, "error":result_error_list, "percent_error":result_percent_error_list,"log_error": ma.log10(np.abs(result_error_list)).filled(-30.0).tolist(), "log_percent_error": ma.log10(np.abs(result_percent_error_list)).filled(-30.0).tolist(), "theta1":theta1_list, "theta2":theta2_list, "theta3": theta3_list}
 	data = pd.DataFrame(data=d)
-	plot_result(data)
+	plot_result(data,sig_x, sig_y, sig_z)
