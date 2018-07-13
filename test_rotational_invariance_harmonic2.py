@@ -204,7 +204,7 @@ temp_z0_list = np.linspace(-0.5, 0.5, num_grid)
 origin_list = list(itertools.product(temp_x0_list,temp_y0_list,temp_z0_list))
 
 
-for x0, y0, z0 in origin_paramlist:
+for x0, y0, z0 in origin_list:
 	for r in [0.02, 0.06, 0.10, 0.14, 0.18, 0.22]:
 	#	for l, m in [(1, -1), (1, 0), (1, 1),(1,"sum")]:
 		for l, m in [(1,"sum")]:
