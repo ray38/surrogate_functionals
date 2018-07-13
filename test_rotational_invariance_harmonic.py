@@ -196,7 +196,7 @@ theta3_list = []
 
 
 for r in [0.02]:
-	for l, m in [(1, -1), (1, 0), (1, 1)]
+	for l, m in [(1, -1), (1, 0), (1, 1)]:
 
 
 		stencil_Re, stencil_Im, _ = calc_harmonic_stencil(h, h, h, r, l, m, accuracy = 5)
