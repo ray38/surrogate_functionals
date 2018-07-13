@@ -196,10 +196,19 @@ theta3_list = []
 
 
 for r in [0.02, 0.06, 0.10]:
-	for l, m in [(1, -1), (1, 0), (1, 1)]:
+	for l, m in [(1, -1), (1, 0), (1, 1),(1,"sum")]:
 
+		if m == "sum":
 
-		stencil_Re, stencil_Im, pad = calc_harmonic_stencil(h, h, h, r, l, m, accuracy = 6)
+			stencil_Re_1, stencil_Im_1, pad = calc_harmonic_stencil(h, h, h, r, l, -1, accuracy = 6)
+			stencil_Re_2, stencil_Im_2, pad = calc_harmonic_stencil(h, h, h, r, l, 0, accuracy = 6)
+			stencil_Re_3, stencil_Im_3, pad = calc_harmonic_stencil(h, h, h, r, l, 1, accuracy = 6)
+
+			stencil_Re = stencil_Re_1 + stencil_Re_2 + stencil_Re_3
+			stencil_Im = stencil_Im_1 + stencil_Im_2 + stencil_Im_3
+
+		else:
+			stencil_Re, stencil_Im, pad = calc_harmonic_stencil(h, h, h, r, l, m, accuracy = 6)
 
 		print stencil_Re
 		print stencil_Im
