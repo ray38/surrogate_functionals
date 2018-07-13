@@ -160,12 +160,13 @@ def get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil, pa
 
 	return abs(temp[(temp.shape[0]-1)/2, (temp.shape[1]-1)/2, (temp.shape[2]-1)/2]) / n[(n.shape[0]-1)/2, (n.shape[1]-1)/2, (n.shape[2]-1)/2]
 
-def plot_result(data):
+def plot_result(data,sig_x, sig_y, sig_z):
 	plt.figure()
 		
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.violinplot(x="order",y="percent_error",data=data)
+	ax.text(0.0, -0.0, "sig_x: {}   sig_y: {}  sig_z: {}".format(round(sig_x,3), round(sig_y,3), round(sig_z,3)), ha ='left', fontsize = 10)
 	plt.tight_layout()
 	plt.savefig("deriv_rotational_invariance_test_percent_error.png")
 
@@ -175,6 +176,7 @@ def plot_result(data):
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.violinplot(x="order",y="error",data=data)
+	ax.text(0.0, -0.0, "sig_x: {}   sig_y: {}  sig_z: {}".format(round(sig_x,3), round(sig_y,3), round(sig_z,3)), ha ='left', fontsize = 10)
 	plt.tight_layout()
 	plt.savefig("deriv_rotational_invariance_test_error.png")
 
@@ -184,6 +186,7 @@ def plot_result(data):
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.violinplot(x="order",y="log_percent_error",data=data)
+	ax.text(0.0, -0.0, "sig_x: {}   sig_y: {}  sig_z: {}".format(round(sig_x,3), round(sig_y,3), round(sig_z,3)), ha ='left', fontsize = 10)
 	plt.tight_layout()
 	plt.savefig("deriv_rotational_invariance_test_percent_error_log.png")
 
@@ -193,6 +196,7 @@ def plot_result(data):
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.violinplot(x="order",y="log_error",data=data)
+	ax.text(0.0, -0.0, "sig_x: {}   sig_y: {}  sig_z: {}".format(round(sig_x,3), round(sig_y,3), round(sig_z,3)), ha ='left', fontsize = 10)
 	plt.tight_layout()
 	plt.savefig("deriv_rotational_invariance_test_error_log.png")
 
@@ -288,9 +292,9 @@ for x0, y0, z0 in origin_list:
 			theta2_list.append(str(theta2))
 			theta3_list.append(str(theta3))
 
-	d = {"order":gradient_list, "error":result_error_list, "percent_error":result_percent_error_list,"log_error": ma.log10(np.abs(result_error_list)).filled(-30.0).tolist(), "log_percent_error": ma.log10(np.abs(result_percent_error_list)).filled(-30.0).tolist(), "theta1":theta1_list, "theta2":theta2_list, "theta3": theta3_list}
+	d = {"order":gradient_list, "error":result_error_list, "percent_error":result_percent_error_list,"log_error": ma.log10(np.abs(result_error_list)).filled(-30.0).tolist(), "log_percent_error": ma.log10(np.abs(result_percent_error_list)).filled(-7.0).tolist(), "theta1":theta1_list, "theta2":theta2_list, "theta3": theta3_list}
 	data = pd.DataFrame(data=d)
-	plot_result(data)
+	plot_result(data,sig_x, sig_y, sig_z)
 
 
 

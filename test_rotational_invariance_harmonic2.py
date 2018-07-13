@@ -299,6 +299,6 @@ for x0, y0, z0 in origin_list:
 				theta2_list.append(str(theta2))
 				theta3_list.append(str(theta3))
 
-	d = {"r":r_list, "m":m_list, "l":l_list, "error":result_error_list, "percent_error":result_percent_error_list,"log_error": ma.log10(np.abs(result_error_list)).filled(-30.0).tolist(), "log_percent_error": ma.log10(np.abs(result_percent_error_list)).filled(-30.0).tolist(), "theta1":theta1_list, "theta2":theta2_list, "theta3": theta3_list}
+	d = {"r":r_list, "m":m_list, "l":l_list, "error":result_error_list, "percent_error":result_percent_error_list,"log_error": ma.log10(np.abs(result_error_list)).filled(-30.0).tolist(), "log_percent_error": ma.log10(np.abs(result_percent_error_list)).filled(-7.0).tolist(), "theta1":theta1_list, "theta2":theta2_list, "theta3": theta3_list}
 	data = pd.DataFrame(data=d)
 	plot_result(data,sig_x, sig_y, sig_z)
