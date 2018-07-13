@@ -216,7 +216,7 @@ for r in [0.02]:
 
 			x_temp, y_temp, z_temp = rotate_coord_mat2(x.copy(),y.copy(),z.copy(),theta1,theta2,theta3)
 			error = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil_Re, pad) - truth
-			print "{}\t{}\t{}\t{}\t{}".format(r, counter,l, m,error/truth)
+			print "{}\t{}\t{}\t{}\t{}\t{}\t{}".format(r, counter,l, m,error/truth, truth, error)
 			result_error_list.append(error/truth)
 			r_list.append(str(r))
 			l_list.append(str(l))
