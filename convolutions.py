@@ -13,9 +13,14 @@ import math
 import os
 try: import cPickle as pickle
 except: import pickle
+import itertools
 
-
-
+import matplotlib
+#matplotlib.use('Agg') 
+import matplotlib.cm as cm
+from mpl_toolkits.mplot3d import Axes3D
+import mpl_toolkits.mplot3d.axes3d as p3
+import matplotlib.pyplot as plt
 
 '''
 Differenciations
@@ -724,3 +729,160 @@ def get_asym_integral_fftconv_with_known_stencil(n, hx, hy, hz, r, stencil, pad)
     temp_result = fftconvolve(wrapped_n,stencil, mode = 'same')
     return temp_result[pad_temp:-pad_temp, pad_temp:-pad_temp, pad_temp:-pad_temp], pad
 
+def spherical_harmonic(x, y, z, l, m):
+    r = math.sqrt(x*x + y*y + z*z)
+
+    if l == 0:
+        return 1, 0
+
+    if l == 1:
+        if m == -1:
+            return x/r, -y/r
+        if m == 0:
+            return z/r, 0
+        if m == 1:
+            return -x/r, -y/r
+
+def spherical_harmonic_cutoff(x, y, z, l, m, cutoff):
+    r = math.sqrt(x*x + y*y + z*z)
+    if r <= cutoff:
+        return spherical_harmonic(x, y, z, l, m)
+    else:
+        return 0, 0
+
+
+def get_min_max_matrix(dim_x, dim_y, dim_z, hx, hy, hz):
+
+    center_x = int((dim_x - 1)/2) 
+    center_y = int((dim_y - 1)/2)
+    center_z = int((dim_z - 1)/2)
+
+    temp = np.zeros((dim_x, dim_y, dim_z, 6))
+
+    for i in range(dim_x):
+        for j in range(dim_y):
+            for k in range(dim_z):
+                temp[i,j,k,0] = hx * (float(i-center_x) - 0.5)
+                temp[i,j,k,1] = hx * (float(i-center_x) + 0.5)
+                temp[i,j,k,2] = hx * (float(j-center_y) - 0.5)
+                temp[i,j,k,3] = hx * (float(j-center_y) + 0.5)
+                temp[i,j,k,4] = hx * (float(k-center_z) - 0.5)
+                temp[i,j,k,5] = hx * (float(k-center_z) + 0.5)
+
+                #print "{}\t {} \t{}: {} -- {}, \t {} -- {}, \t{} -- {}".format(i,j,k,temp[i,j,k,0],temp[i,j,k,1],temp[i,j,k,2],temp[i,j,k,3],temp[i,j,k,4],temp[i,j,k,5])
+
+    return temp
+
+
+def calc_harmonic_stencil_value(min_max, r, l, m, accuracy):
+    
+    
+
+    x_min = min_max[0]
+    x_max = min_max[1]
+    y_min = min_max[2]
+    y_max = min_max[3]
+    z_min = min_max[4]
+    z_max = min_max[5]
+
+    dx = (x_max-x_min) / accuracy
+    dy = (y_max-y_min) / accuracy
+    dz = (z_max-z_min) / accuracy
+    dv = dx*dy*dz
+
+    x_li = np.linspace(x_min, x_max, num=accuracy)
+    y_li = np.linspace(y_min, y_max, num=accuracy)
+    z_li = np.linspace(z_min, z_max, num=accuracy)
+    
+    coord_list = list(itertools.product(x_li,y_li,z_li))
+
+    Re = 0.0
+    Im = 0.0
+
+    for x,y,z in coord_list:
+        temp_Re, temp_Im = spherical_harmonic_cutoff(x, y, z, l, m, r)
+        Re += temp_Re * dv
+        Im += temp_Im * dv
+
+    return Re, Im
+
+
+def plot_stencil(stencil, min_max_matrix):
+
+    x = np.zeros_like(stencil)
+    y = np.zeros_like(stencil)
+    z = np.zeros_like(stencil)
+
+    for index, _ in np.ndenumerate(stencil):
+        temp = min_max_matrix[index[0]][index[1]][index[2]].tolist()
+        x[index] = (temp[0] + temp[1]) / 2.
+        y[index] = (temp[2] + temp[3]) / 2.
+        z[index] = (temp[4] + temp[5]) / 2.
+
+    n = stencil.flatten()
+    x_temp = x.flatten()
+    y_temp = y.flatten()
+    z_temp = z.flatten()
+
+
+    fig = plt.figure()
+    cmap = plt.get_cmap("bwr")
+    ax = fig.add_subplot(111, projection='3d')
+    ax.scatter(x_temp, y_temp, z_temp, c=n, cmap=cmap,linewidths=0,s=10.0)
+    plt.show()
+
+    return
+
+
+
+def calc_harmonic_stencil(hx, hy, hz, r, l, m, accuracy = 5):
+    # calculate the stencil
+
+    # initialize the stencil with right dimensions
+    dim_x = int(2.* math.ceil( r/hx )) + 1
+    dim_y = int(2.* math.ceil( r/hy )) + 1
+    dim_z = int(2.* math.ceil( r/hz )) + 1
+
+    print dim_x, dim_y, dim_z
+
+    stencil_Re = np.zeros((dim_x, dim_y, dim_z))
+    stencil_Im = np.zeros((dim_x, dim_y, dim_z))
+
+    min_max_matrix = get_min_max_matrix(dim_x, dim_y, dim_z, hx, hy, hz)
+
+    for index, x in np.ndenumerate(stencil_Re):
+        temp_Re, temp_Im = calc_harmonic_stencil_value(min_max_matrix[index], r, l, m, accuracy)
+        stencil_Re[index] = temp_Re
+        stencil_Im[index] = temp_Im
+    
+    # caclulate the coordinate of the sphere center
+
+    print stencil_Im
+    print stencil_Re
+
+    plot_stencil(stencil_Im, min_max_matrix)
+    plot_stencil(stencil_Re, min_max_matrix)
+    
+    
+    padx = int(math.ceil(float(dim_x)/2.))
+    pady = int(math.ceil(float(dim_y)/2.))
+    padz = int(math.ceil(float(dim_z)/2.))
+    
+    pad = (padx,pady,padz)
+
+    
+    return stencil_Re, stencil_Im, pad
+
+def get_harmonic_fftconv(n, hx, hy, hz, r, l, m, accuracy = 5):
+    # get the stencil and do the convolution
+    
+    stencil_Re, stencil_Im, pad = calc_harmonic_stencil(hx, hy, hz, r, l, m, accuracy = accuracy)
+    pad_temp = int(math.ceil(r*2. / min([hx,hy,hz])))
+    wrapped_n = np.pad(n, pad_temp, mode='wrap')
+    temp_result_Re = fftconvolve(wrapped_n,stencil_Re, mode = 'same')
+    temp_result_Im = fftconvolve(wrapped_n,stencil_Im, mode = 'same')
+    return temp_result_Re[pad_temp:-pad_temp, pad_temp:-pad_temp, pad_temp:-pad_temp], temp_result_Im[pad_temp:-pad_temp, pad_temp:-pad_temp, pad_temp:-pad_temp], pad
+
+
+#calc_harmonic_stencil(0.02, 0.02, 0.02, 0.3, 1, 1, 6)
+#get_min_max_matrix(3, 3, 3, 0.02, 0.02, 0.02)
