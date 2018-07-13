@@ -145,10 +145,8 @@ def get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil, pa
 
 	n = f(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0)
 
-
 	temp,_ = get_fftconv_with_known_stencil_no_wrap(n,h,h,h,1,stencil,pad)
 
-	print n[(temp.shape[0]-1)/2, (temp.shape[1]-1)/2, (temp.shape[2]-1)/2]
 	#fig = plt.figure()
 	#cmap = plt.get_cmap("bwr")
 	#ax = fig.add_subplot(111, projection='3d')
@@ -186,6 +184,7 @@ sig_z = np.random.uniform(0.3, 0.7)
 #truth = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, r, stencil, pad)
 
 
+result_percent_error_list = []
 result_error_list = []
 gradient_list = []
 r_list = []
@@ -196,7 +195,7 @@ theta2_list = []
 theta3_list = []
 
 
-for r in [0.10]:
+for r in [0.02, 0.06, 0.10, 0.14, 0.18, 0.22]:
 	for l, m in [(1, -1), (1, 0), (1, 1)]:
 
 
@@ -221,7 +220,8 @@ for r in [0.10]:
 			x_temp, y_temp, z_temp = rotate_coord_mat2(x.copy(),y.copy(),z.copy(),theta1,theta2,theta3)
 			error = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil_Re, pad) - truth
 			print "{}\t{}\t{}\t{}\t{}\t{}\t{}".format(r, counter,l, m,error/truth, truth, error)
-			result_error_list.append(error/truth)
+			result_percent_error_list.append(error/truth)
+			result_error_list.append(error)
 			r_list.append(str(r))
 			l_list.append(str(l))
 			m_list.append(str(m))
@@ -229,16 +229,24 @@ for r in [0.10]:
 			theta2_list.append(str(theta2))
 			theta3_list.append(str(theta3))
 
-d = {"r":r_list, "m":m_list, "l":l_list, "error":result_error_list, "theta1":theta1_list, "theta2":theta2_list, "theta3": theta3_list}
+d = {"r":r_list, "m":m_list, "l":l_list, "error":result_error_list, "percent_error":result_percent_error_list,"theta1":theta1_list, "theta2":theta2_list, "theta3": theta3_list}
 data = pd.DataFrame(data=d)
 plt.figure()
 	
 sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-ax = sns.boxplot(x="m",y="error",data=data)
+ax = sns.boxplot(x = "r",hue="m",y="percent_error",data=data)
 plt.tight_layout()
-plt.savefig("rotational_invariance_test.png")
+plt.savefig("rotational_invariance_test_percent_error.png")
 
+
+plt.figure()
+	
+sns.set(style="whitegrid", palette="pastel", color_codes=True)
+
+ax = sns.boxplot(x = "r",hue="m",y="error",data=data)
+plt.tight_layout()
+plt.savefig("rotational_invariance_test_error.png")
 
 
 #for i in range(num_random):
