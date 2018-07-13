@@ -121,6 +121,9 @@ def f2(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0):
 		result[index] = exp(-temp1 - temp2 - temp3)
 	return result
 
+def f3(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0):
+	return np.sin(sig_x * (x-x0)) * np.sin(sig_y * (y-y0)) * np.sin(sig_z * (z-z0))
+
 
 def rotate_coord_mat(x,y,z,theta1,theta2,theta3):
 	x_result = x
@@ -143,7 +146,7 @@ def rotate_coord_mat(x,y,z,theta1,theta2,theta3):
 
 def get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil, pad):
 
-	n = f(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0)
+	n = f3(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0)
 
 	temp,_ = get_fftconv_with_known_stencil_no_wrap(n,h,h,h,1,stencil,pad)
 
