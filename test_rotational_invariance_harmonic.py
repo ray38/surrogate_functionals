@@ -199,7 +199,7 @@ for r in [0.02]:
 	for l, m in [(1, -1), (1, 0), (1, 1)]:
 
 
-		stencil_Re, stencil_Im, _ = calc_harmonic_stencil(h, h, h, r, l, m, accuracy = 5)
+		stencil_Re, stencil_Im, pad = calc_harmonic_stencil(h, h, h, r, l, m, accuracy = 5)
 
 
 		truth = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil_Re, pad)

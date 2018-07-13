@@ -860,8 +860,8 @@ def calc_harmonic_stencil(hx, hy, hz, r, l, m, accuracy = 5):
     print stencil_Im
     print stencil_Re
 
-    plot_stencil(stencil_Im, min_max_matrix)
-    plot_stencil(stencil_Re, min_max_matrix)
+    #plot_stencil(stencil_Im, min_max_matrix)
+    #plot_stencil(stencil_Re, min_max_matrix)
     
     
     padx = int(math.ceil(float(dim_x)/2.))
