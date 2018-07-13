@@ -167,7 +167,7 @@ def plot_result(data,sig_x, sig_y, sig_z):
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
 	ax = sns.violinplot(x = "r",hue="m",y="percent_error",data=data)
-	ax.fig.text(0.33, -0.0, "sig_x: {}   sig_y: {}  sig_z: {}".format(sig_x, sig_y, sig_z), ha ='left', fontsize = 15)
+	ax.text(0.0, -0.0, "sig_x: {}   sig_y: {}  sig_z: {}".format(sig_x, sig_y, sig_z), ha ='left', fontsize = 15)
 	plt.tight_layout()
 	plt.savefig("harmonic_rotational_invariance_test_percent_error.png")
 
