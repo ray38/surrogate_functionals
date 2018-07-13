@@ -144,7 +144,7 @@ def rotate_coord_mat(x,y,z,theta1,theta2,theta3):
 def get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil, pad):
 
 	n = f(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0)
-	
+
 
 	temp,_ = get_fftconv_with_known_stencil_no_wrap(n,h,h,h,1,stencil,pad)
 
@@ -200,7 +200,7 @@ for r in [0.10]:
 	for l, m in [(1, -1), (1, 0), (1, 1)]:
 
 
-		stencil_Re, stencil_Im, pad = calc_harmonic_stencil(h, h, h, r, l, m, accuracy = 5)
+		stencil_Re, stencil_Im, pad = calc_harmonic_stencil(h, h, h, r, l, m, accuracy = 6)
 
 		print stencil_Re
 		print stencil_Im
