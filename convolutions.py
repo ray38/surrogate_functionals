@@ -743,6 +743,18 @@ def spherical_harmonic(x, y, z, l, m):
         if m == 1:
             return -x/r, -y/r
 
+    if l == 2:
+        if m == -2:
+            return x*y/(r*r), 0
+        if m == -1:
+            return z*y/(r*r), 0
+        if m == 0:
+            return (-x*x-y*y+2*z*z)/(r*r), 0
+        if m == 1:
+            return x*z/(r*r), 0 
+        if m == 2:
+            return (x*x-y*y)/(r*r), 0       
+
 def spherical_harmonic_cutoff(x, y, z, l, m, cutoff):
     r = math.sqrt(x*x + y*y + z*z)
     if r <= cutoff:
@@ -857,8 +869,8 @@ def calc_harmonic_stencil(hx, hy, hz, r, l, m, accuracy = 5):
     
     # caclulate the coordinate of the sphere center
 
-    print stencil_Im
-    print stencil_Re
+    #print stencil_Im
+    #print stencil_Re
 
     #plot_stencil(stencil_Im, min_max_matrix)
     #plot_stencil(stencil_Re, min_max_matrix)
@@ -884,5 +896,28 @@ def get_harmonic_fftconv(n, hx, hy, hz, r, l, m, accuracy = 5):
     return temp_result_Re[pad_temp:-pad_temp, pad_temp:-pad_temp, pad_temp:-pad_temp], temp_result_Im[pad_temp:-pad_temp, pad_temp:-pad_temp, pad_temp:-pad_temp], pad
 
 
-#calc_harmonic_stencil(0.02, 0.02, 0.02, 0.3, 1, 1, 6)
-#get_min_max_matrix(3, 3, 3, 0.02, 0.02, 0.02)
+if __name__ == "__main__":
+    r = 0.12
+    h = 0.02
+    l = 2
+    #calc_harmonic_stencil(0.02, 0.02, 0.02, 0.22, 1, 1, 6)
+    stencil_Re_0, stencil_Im_0, pad = calc_harmonic_stencil(h, h, h, r, l, -2, accuracy = 6)
+    stencil_Re_1, stencil_Im_1, pad = calc_harmonic_stencil(h, h, h, r, l, -1, accuracy = 6)
+    stencil_Re_2, stencil_Im_2, pad = calc_harmonic_stencil(h, h, h, r, l, 0, accuracy = 6)
+    stencil_Re_3, stencil_Im_3, pad = calc_harmonic_stencil(h, h, h, r, l, 1, accuracy = 6)
+    stencil_Re_4, stencil_Im_4, pad = calc_harmonic_stencil(h, h, h, r, l, 2, accuracy = 6)
+
+    stencil_Re = stencil_Re_0 + stencil_Re_1 + stencil_Re_2 + stencil_Re_3 + stencil_Re_4
+    #stencil_Im = stencil_Im_0 + stencil_Im_1 + stencil_Im_2 + stencil_Im_3 + stencil_Im_4
+
+    dim_x = int(2.* math.ceil( r/h )) + 1
+    dim_y = int(2.* math.ceil( r/h )) + 1
+    dim_z = int(2.* math.ceil( r/h )) + 1
+
+
+    min_max_matrix = get_min_max_matrix(dim_x, dim_y, dim_z, h, h, h)
+
+
+    #plot_stencil(stencil_Im, min_max_matrix)
+    plot_stencil(stencil_Re, min_max_matrix)
+    #get_min_max_matrix(3, 3, 3, 0.02, 0.02, 0.02)
