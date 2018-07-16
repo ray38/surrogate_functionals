@@ -428,28 +428,28 @@ if __name__ == "__main__":
             property_list.append("tau")
 
 
-            value_list.append((temp_error[0]/temp_truth[0])*100.0)
-            type_list.append("Relative Error")
-            property_list.append("Gamma")
+            #value_list.append((temp_error[0]/temp_truth[0])*100.0)
+            #type_list.append("Relative Error")
+            #property_list.append("Gamma")
 
 
-            value_list.append((temp_error[1]/temp_truth[1])*100.0)
-            type_list.append("Relative Error")
-            property_list.append("Gradient")
+            #value_list.append((temp_error[1]/temp_truth[1])*100.0)
+            #type_list.append("Relative Error")
+            #property_list.append("Gradient")
 
 
-            value_list.append((temp_error[1]/temp_truth[1])*100.0)
-            type_list.append("Relative Error")
-            property_list.append("exc")
+            #value_list.append((temp_error[1]/temp_truth[1])*100.0)
+            #type_list.append("Relative Error")
+            #property_list.append("exc")
 
 
-            value_list.append((temp_error[1]/temp_truth[1])*100.0)
-            type_list.append("Relative Error")
-            property_list.append("tau")
+            #value_list.append((temp_error[1]/temp_truth[1])*100.0)
+            #type_list.append("Relative Error")
+            #property_list.append("tau")
 
 
 
-            for i in range(12):
+            for i in range(8):
 
                 theta1_list.append(theta1)
                 theta2_list.append(theta2)
