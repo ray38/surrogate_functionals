@@ -48,10 +48,10 @@ def rotate_coord_mat2(coordinates,theta1,theta2,theta3):
     after_rotate = np.asarray(np.dot(rot_mat,coordinates))
     print np.transpose(after_rotate)
 
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    ax.scatter(after_rotate[0], after_rotate[1], after_rotate[2], c='k')
-    plt.show()
+    #fig = plt.figure()
+    #ax = fig.add_subplot(111, projection='3d')
+    #ax.scatter(after_rotate[0], after_rotate[1], after_rotate[2], c='k')
+    #plt.show()
 
 
     return np.transpose(after_rotate)
@@ -198,8 +198,6 @@ def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e):
 
     return temp['gamma'][(temp.shape[0]-1)/2, (temp.shape[1]-1)/2, (temp.shape[2]-1)/2]
 
-
-    return
     
 def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_options=None):
     cwd = os.getcwd()
@@ -254,11 +252,12 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_option
     for i in range(Nx):
         for j in range(Ny):
             for k in range(Nz):
-                process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e)
+                centr_gamma = process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e)
+                print centr_gamma
 
     
-    os.chdir(cwd) 
-    return
+    #os.chdir(cwd) 
+    return centr_gamma
 
 
 
@@ -323,6 +322,7 @@ if __name__ == "__main__":
     paramlist = list(itertools.product(temp_theta1_list,temp_theta2_list,temp_theta3_list))
     
     counter = 0
+    result_gamma_list = []
     for theta1, theta2, theta3 in paramlist:
         counter +=1
 
@@ -334,7 +334,12 @@ if __name__ == "__main__":
         temp_molecule["coordinates"] = temp_coordinate
 
         temp_molecule_setup = read_json_data(temp_molecule)
-        #process_system(temp_molecule,molecule_name,xc,h,L,N)
+        result_gamma = process_system(temp_molecule,molecule_name,xc,h,L,N)
+        result_gamma_list.append(result_gamma)
+
+    fig,ax = plt.subplots(figsize=(10,5))
+    plt.plot(np.arange(1,len(result_gamma_list)+1),result_gamma_list, linewidth=5.0)
+    plt.show()
 
 
 
