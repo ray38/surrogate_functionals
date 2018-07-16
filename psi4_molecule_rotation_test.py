@@ -322,7 +322,7 @@ if __name__ == "__main__":
         temp_coordinate = rotate_coord_mat2(np.transpose(copy.deepcopy(original_coordinates)),theta1,theta2,theta3)
 
         temp_molecule = {}
-        temp_molecule["atoms"] = original_molecule["atom"]
+        temp_molecule["atoms"] = original_molecule["atoms"]
         temp_molecule["symmetry"] = original_molecule["symmetry"]
 
         temp_molecule_setup = read_json_data(temp_molecule)
