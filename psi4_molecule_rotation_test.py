@@ -300,6 +300,23 @@ def plot_result(data):
     plt.tight_layout()
     plt.savefig("gradient_rotational_invariance_test_percent_error.png")
 
+
+    plt.figure()
+        
+    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+
+    ax = sns.violinplot(x = "molecule_name",y="gamma",data=data)
+    plt.tight_layout()
+    plt.savefig("gamma_rotational_invariance_test.png")
+
+    plt.figure()
+        
+    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+
+    ax = sns.violinplot(x = "molecule_name",y="gradient",data=data)
+    plt.tight_layout()
+    plt.savefig("gradient_rotational_invariance_test.png")
+
     return
 
 
