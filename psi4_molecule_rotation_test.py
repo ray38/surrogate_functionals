@@ -41,10 +41,10 @@ def rotate_coord_mat2(coordinates,theta1,theta2,theta3):
     after_rotate = np.asarray(np.dot(rot_mat,coordinates))
     print np.transpose(after_rotate)
 
-    #fig = plt.figure()
-    #ax = fig.add_subplot(111, projection='3d')
-    #ax.scatter(x_res, y_res, z_res, c='k')
-    #plt.show()
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    ax.scatter(after_rotate[0], after_rotate[1], after_rotate[2], c='k')
+    plt.show()
 
 
     return np.transpose(after_rotate)
