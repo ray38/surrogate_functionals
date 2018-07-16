@@ -470,6 +470,11 @@ if __name__ == "__main__":
 
                 molecule_name_list.append(molecule_name)
 
+            print len(molecule_name_list)
+            print len(value_list)
+            print len(type_list)
+            print len(property_list)
+
 
             d = {   "Molecule": molecule_name_list,
                     "Value": value_list,
