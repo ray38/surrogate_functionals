@@ -309,7 +309,7 @@ def plot_result(data):
 
     #ax = sns.violinplot(x = "Molecule",y="Value",row="Type", col="Property",data=data)
     
-    ax = sns.factorplot(x = "Molecule",y="Value",row="Type", col="Property",data=data, kind="violin", split=True,sharey = False, size = 8, aspect = 1.5)
+    ax = sns.factorplot(x = "Molecule",y="Value",row="Type", col="Property",data=data, kind="violin", split=True,sharey = False, size = 6, aspect = 1.5)
 
     plt.tight_layout()
     plt.savefig("Molecule_rotational_invariance_test.png")
@@ -331,7 +331,7 @@ if __name__ == "__main__":
     #N = int(sys.argv[5])
 
     h = 0.02
-    L = 0.26
+    L = 0.28
     N = 1
     xc = 'B3LYP'
 
