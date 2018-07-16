@@ -196,7 +196,8 @@ def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e):
 
     temp = temp_out['gamma']
 
-    return temp['gamma'][(temp.shape[0])/2][(temp.shape[1])/2][(temp.shape[2])/2]
+    print type(temp)
+    return temp[(temp.shape[0])/2][(temp.shape[1])/2][(temp.shape[2])/2]
 
     
 def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_options=None):
@@ -288,7 +289,7 @@ if __name__ == "__main__":
     #N = int(sys.argv[5])
 
     h = 0.02
-    L = 1.0
+    L = 0.48
     N = 1
     
 
