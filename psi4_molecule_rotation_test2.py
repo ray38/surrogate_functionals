@@ -28,6 +28,10 @@ from mpl_toolkits.mplot3d import Axes3D
 import mpl_toolkits.mplot3d.axes3d as p3
 import matplotlib.pyplot as plt
 
+from convolutions import get_differenciation_conv, get_integration_stencil,get_auto_accuracy,get_fftconv_with_known_stencil_no_wrap,get_asym_integration_stencil,get_asym_integration_fftconv,get_asym_integral_fftconv_with_known_stencil
+from convolutions import get_first_grad_stencil, get_second_grad_stencil, get_third_grad_stencil, get_harmonic_fftconv, calc_harmonic_stencil
+
+
 def generate_3d2(x1, x2, x3):
 
     R = np.matrix([[np.cos(2 * np.pi * x1), np.sin(2 * np.pi * x1), 0],
@@ -171,7 +175,7 @@ def process_one_section(x,y,z,w,x_start,x_end,y_start,y_end,z_start,z_end,out_sh
 
     return output
     
-def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e):
+def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e, convolution_property_stencils):
 
     x_start = X0 + float(i) * x_inc
     y_start = Y0 + float(j) * y_inc
@@ -200,6 +204,9 @@ def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e):
     temp_out = process_one_section(x,y,z,w,x_start,x_end,y_start,y_end,z_start,z_end,out_shape,scf_wfn,scf_e)
 
 
+
+    n = temp_out["rho"]
+
     temp_gamma = temp_out['gamma']
     temp_gradient = temp_out['gradient']
     temp_exc = temp_out["epsilon_xc"]
@@ -207,12 +214,18 @@ def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e):
 
     shape = temp_gamma.shape
 
-    result = np.asarray([temp_gamma[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_gradient[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_exc[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_tau[(shape[0])/2][(shape[1])/2][(shape[2])/2]])
+    result = [temp_gamma[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_gradient[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_exc[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_tau[(shape[0])/2][(shape[1])/2][(shape[2])/2]]
 
-    return result
+    for stencil in convolution_property_stencils:
+        temp_convolution_result,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil,0)
+        result.append(temp_convolution_result[(shape[0])/2][(shape[1])/2][(shape[2])/2])
+
+    #result = np.asarray([temp_gamma[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_gradient[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_exc[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_tau[(shape[0])/2][(shape[1])/2][(shape[2])/2]])
+
+    return np.asarray(result)
 
     
-def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_options=None):
+def process_system(molecule, molecule_name, xc, h, cell, num_blocks, convolution_property_stencils,psi4_options=None):
     cwd = os.getcwd()
     
     if psi4_options == None:
@@ -318,9 +331,42 @@ if __name__ == "__main__":
     #N = int(sys.argv[5])
 
     h = 0.02
-    L = 0.48
+    L = 0.26
     N = 1
     xc = 'B3LYP'
+
+    convolution_properties = ["FD gradient mid", "FD gradient times2", "FD 2nd gradient", "Harmonic 1 0.04", "Harmonic 1 0.1", "Harmonic 1 0.16"]
+    convolution_property_stencils = []
+
+    stencil, Gx, Gy, Gz, pad = get_first_grad_stencil(h, h, h,stencil_type = "mid",accuracy = '2')
+    convolution_property_stencils.append(stencil)
+    stencil, Gx, Gy, Gz, pad = get_first_grad_stencil(h, h, h,stencil_type = "times2",accuracy = '2')
+    convolution_property_stencils.append(stencil)
+    stencil, Gx, Gy, Gz, pad = get_second_grad_stencil(h, h, h,stencil_type = "times2",accuracy = '2')
+    convolution_property_stencils.append(stencil)
+
+    stencil_Re_1, stencil_Im_1, pad = calc_harmonic_stencil(h, h, h, 0.04, 1, -1, accuracy = 6)
+    stencil_Re_2, stencil_Im_2, pad = calc_harmonic_stencil(h, h, h, 0.04, 1, 0, accuracy = 6)
+    stencil_Re_3, stencil_Im_3, pad = calc_harmonic_stencil(h, h, h, 0.04, 1, 1, accuracy = 6)
+
+    stencil = stencil_Re_1 + stencil_Re_2 + stencil_Re_3
+    convolution_property_stencils.append(stencil)
+
+    stencil_Re_1, stencil_Im_1, pad = calc_harmonic_stencil(h, h, h, 0.1, 1, -1, accuracy = 6)
+    stencil_Re_2, stencil_Im_2, pad = calc_harmonic_stencil(h, h, h, 0.1, 1, 0, accuracy = 6)
+    stencil_Re_3, stencil_Im_3, pad = calc_harmonic_stencil(h, h, h, 0.1, 1, 1, accuracy = 6)
+
+    stencil = stencil_Re_1 + stencil_Re_2 + stencil_Re_3
+    convolution_property_stencils.append(stencil)
+
+    stencil_Re_1, stencil_Im_1, pad = calc_harmonic_stencil(h, h, h, 0.16, 1, -1, accuracy = 6)
+    stencil_Re_2, stencil_Im_2, pad = calc_harmonic_stencil(h, h, h, 0.16, 1, 0, accuracy = 6)
+    stencil_Re_3, stencil_Im_3, pad = calc_harmonic_stencil(h, h, h, 0.16, 1, 1, accuracy = 6)
+
+    stencil = stencil_Re_1 + stencil_Re_2 + stencil_Re_3
+    convolution_property_stencils.append(stencil)
+
+
 
     molecule_name_list = []
 
@@ -362,6 +408,8 @@ if __name__ == "__main__":
         
     
     
+    counter = 0
+
     for x0, y0, z0 in origin_list:
         temp_coordinate = transform_coord_mat(np.transpose(copy.deepcopy(original_coordinates)),0., 0., 0., x0,y0,z0)
 
@@ -371,7 +419,7 @@ if __name__ == "__main__":
         temp_molecule["coordinates"] = temp_coordinate
 
         temp_molecule_setup = read_json_data(temp_molecule)
-        temp_truth = process_system(temp_molecule_setup,molecule_name,xc,h,L,N)
+        temp_truth = process_system(temp_molecule_setup,molecule_name,xc,h,L,N, convolution_property_stencils)
 
 
         for theta1, theta2, theta3 in paramlist:
@@ -384,7 +432,7 @@ if __name__ == "__main__":
             temp_molecule["coordinates"] = temp_coordinate
 
             temp_molecule_setup = read_json_data(temp_molecule)
-            temp_result = process_system(temp_molecule_setup,molecule_name,xc,h,L,N)
+            temp_result = process_system(temp_molecule_setup,molecule_name,xc,h,L,N, convolution_property_stencils)
 
             temp_error = temp_result - temp_truth
 
@@ -407,6 +455,11 @@ if __name__ == "__main__":
             type_list.append("Value")
             property_list.append("tau")
 
+            for i in range(len(convolution_properties)):
+                value_list.append(temp_result[i+4])
+                type_list.append("Value")
+                property_list.append(convolution_properties[i])
+
 
             value_list.append(temp_error[0])
             type_list.append("Error")
@@ -427,6 +480,11 @@ if __name__ == "__main__":
             type_list.append("Error")
             property_list.append("tau")
 
+            for i in range(len(convolution_properties)):
+                value_list.append(temp_error[i+4])
+                type_list.append("Value")
+                property_list.append(convolution_properties[i])
+
 
             value_list.append((temp_error[0]/temp_truth[0])*100.0)
             type_list.append("Relative Error")
@@ -438,18 +496,23 @@ if __name__ == "__main__":
             property_list.append("Gradient")
 
 
-            value_list.append((temp_error[1]/temp_truth[1])*100.0)
+            value_list.append((temp_error[2]/temp_truth[2])*100.0)
             type_list.append("Relative Error")
             property_list.append("exc")
 
 
-            value_list.append((temp_error[1]/temp_truth[1])*100.0)
+            value_list.append((temp_error[3]/temp_truth[3])*100.0)
             type_list.append("Relative Error")
             property_list.append("tau")
 
+            for i in range(len(convolution_properties)):
+                value_list.append((temp_error[i+4]/temp_truth[i+4])*100.0)
+                type_list.append("Value")
+                property_list.append(convolution_properties[i])
 
 
-            for i in range(12):
+
+            for i in range(12 + (len(convolution_properties)*3)):
 
                 theta1_list.append(theta1)
                 theta2_list.append(theta2)
@@ -461,25 +524,25 @@ if __name__ == "__main__":
 
                 molecule_name_list.append(molecule_name)
 
-            print len(molecule_name_list)
-            print len(value_list)
-            print len(type_list)
-            print len(property_list)
 
 
-            d = {   "Molecule": molecule_name_list,
-                    "Value": value_list,
-                    "Type":type_list,
-                    "Property":property_list,
-                    "theta1":theta1_list, 
-                    "theta2":theta2_list, 
-                    "theta3": theta3_list,
-                    "x0":x0_list,
-                    "y0":y0_list,
-                    "z0":z0_list}
-            data = pd.DataFrame(data=d)
+            
 
-            plot_result(data)
+            counter +=1
+            if (counter % 10) == 0:
+                d = {   "Molecule": molecule_name_list,
+                        "Value": value_list,
+                        "Type":type_list,
+                        "Property":property_list,
+                        "theta1":theta1_list, 
+                        "theta2":theta2_list, 
+                        "theta3": theta3_list,
+                        "x0":x0_list,
+                        "y0":y0_list,
+                        "z0":z0_list}
+                data = pd.DataFrame(data=d)
+                data.to_pickle("{}_rotation_test_dataframe.p".format(molecule_name))
+                plot_result(data)
 
 
 
