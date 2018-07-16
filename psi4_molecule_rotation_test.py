@@ -334,7 +334,7 @@ if __name__ == "__main__":
         temp_molecule["coordinates"] = temp_coordinate
 
         temp_molecule_setup = read_json_data(temp_molecule)
-        result_gamma = process_system(temp_molecule,molecule_name,xc,h,L,N)
+        result_gamma = process_system(temp_molecule_setup,molecule_name,xc,h,L,N)
         result_gamma_list.append(result_gamma)
 
     fig,ax = plt.subplots(figsize=(10,5))
