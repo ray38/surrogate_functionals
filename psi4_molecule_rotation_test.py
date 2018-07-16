@@ -16,6 +16,9 @@ import numpy as np
 import math
 import multiprocessing
 import json
+import itertools
+import pandas as pd
+import seaborn as sns
 
 def generate_3d2(x1, x2, x3):
 
