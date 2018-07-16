@@ -324,6 +324,7 @@ if __name__ == "__main__":
         temp_molecule = {}
         temp_molecule["atoms"] = original_molecule["atoms"]
         temp_molecule["symmetry"] = original_molecule["symmetry"]
+        temp_molecule["coordinates"] = temp_coordinate
 
         temp_molecule_setup = read_json_data(temp_molecule)
         #process_system(temp_molecule,molecule_name,xc,h,L,N)
