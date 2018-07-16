@@ -435,7 +435,7 @@ if __name__ == "__main__":
             temp_result = process_system(temp_molecule_setup,molecule_name,xc,h,L,N, convolution_property_stencils)
 
             temp_error = temp_result - temp_truth
-            log("rotation_test.log",str(temp_error))
+            #log("rotation_test.log",str(temp_error))
 
             value_list.append(temp_result[0])
             type_list.append("Value")
@@ -483,7 +483,7 @@ if __name__ == "__main__":
 
             for i in range(len(convolution_properties)):
                 value_list.append(temp_error[i+4])
-                type_list.append("Value")
+                type_list.append("Error")
                 property_list.append(convolution_properties[i])
 
 
@@ -508,7 +508,7 @@ if __name__ == "__main__":
 
             for i in range(len(convolution_properties)):
                 value_list.append((temp_error[i+4]/temp_truth[i+4])*100.0)
-                type_list.append("Value")
+                type_list.append("Relative Error")
                 property_list.append(convolution_properties[i])
 
 
