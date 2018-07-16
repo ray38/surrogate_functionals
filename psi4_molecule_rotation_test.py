@@ -40,12 +40,13 @@ def generate_3d2(x1, x2, x3):
     M = -H * R
     return M
 
-def rotate_coord_mat2(coordinates,theta1,theta2,theta3):
+def transform_coord_mat(coordinates,theta1,theta2,theta3,x0,y0,z0):
 
+    translated_coordinates = np.asarray([(coordinates[0] - x0).tolist(), (coordinates[1] - y0).tolist(), (coordinates[2] - z0).tolist()])
     rot_mat = generate_3d2(theta1,theta2,theta3) 
     #temp_shape = x.shape
     #temp_coord = np.stack([x.copy().flatten(),y.copy().flatten(),z.copy().flatten()], axis=0)
-    after_rotate = np.asarray(np.dot(rot_mat,coordinates))
+    after_rotate = np.asarray(np.dot(rot_mat,translated_coordinates))
     print np.transpose(after_rotate)
 
     #fig = plt.figure()
@@ -333,6 +334,29 @@ if __name__ == "__main__":
     h = 0.02
     L = 0.48
     N = 1
+
+    molecule_name_list = []
+
+    result_gamma_list = []
+    gamma_error_list = []
+
+    result_gradient_list = []
+    gradient_error_list = []
+
+    result_exc_list = []
+    exc_error_list = []
+
+    result_tau_list = []
+    tau_error_list = []
+
+    theta1_list = []
+    theta2_list = []
+    theta3_list = []
+
+    temp_x0_list = np.linspace(-0.3, 0.3, num_grid)
+    temp_y0_list = np.linspace(-0.3, 0.3, num_grid) 
+    temp_z0_list = np.linspace(-0.3, 0.3, num_grid) 
+    origin_list = list(itertools.product(temp_x0_list,temp_y0_list,temp_z0_list))
     
 
     molecule_names = [molecule_name]
@@ -366,23 +390,7 @@ if __name__ == "__main__":
     
     counter = 0
 
-    molecule_name_list = []
-
-    result_gamma_list = []
-    gamma_error_list = []
-
-    result_gradient_list = []
-    gradient_error_list = []
-
-    result_exc_list = []
-    exc_error_list = []
-
-    result_tau_list = []
-    tau_error_list = []
-
-    theta1_list = []
-    theta2_list = []
-    theta3_list = []
+    
 
     temp_molecule = {}
     temp_molecule["atoms"] = original_molecule["atoms"]
@@ -400,7 +408,7 @@ if __name__ == "__main__":
     for theta1, theta2, theta3 in paramlist:
         counter +=1
 
-        temp_coordinate = rotate_coord_mat2(np.transpose(copy.deepcopy(original_coordinates)),theta1,theta2,theta3)
+        temp_coordinate = transform_coord_mat(np.transpose(copy.deepcopy(original_coordinates)),theta1,theta2,theta3, x0,y0,z0)
 
         temp_molecule = {}
         temp_molecule["atoms"] = original_molecule["atoms"]
@@ -428,7 +436,7 @@ if __name__ == "__main__":
 
         molecule_name_list.append(molecule_name)
 
-        d = {   "molecule_name":molecule_name_list,
+        d = {   "molecule name":molecule_name_list,
                 "gamma":result_gamma_list,
                 "gradient":result_gradient_list,
                 "exc":result_exc_list,
