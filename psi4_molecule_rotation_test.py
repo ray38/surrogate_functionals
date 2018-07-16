@@ -19,6 +19,7 @@ import json
 import itertools
 import pandas as pd
 import seaborn as sns
+import copy
 
 def generate_3d2(x1, x2, x3):
 
