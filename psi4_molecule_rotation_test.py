@@ -21,6 +21,13 @@ import pandas as pd
 import seaborn as sns
 import copy
 
+import matplotlib
+matplotlib.use('Agg') 
+import matplotlib.cm as cm
+from mpl_toolkits.mplot3d import Axes3D
+import mpl_toolkits.mplot3d.axes3d as p3
+import matplotlib.pyplot as plt
+
 def generate_3d2(x1, x2, x3):
 
     R = np.matrix([[np.cos(2 * np.pi * x1), np.sin(2 * np.pi * x1), 0],
