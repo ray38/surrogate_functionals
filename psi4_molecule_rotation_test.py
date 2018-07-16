@@ -291,7 +291,7 @@ if __name__ == "__main__":
             data=json.load(f)
 
             
-    original_molecule = read_json_data(data[molecule_name])
+    original_molecule = data[molecule_name]
     original_coordinates = np.asarray(original_molecule["coordinates"])
 
     print original_coordinates
@@ -321,6 +321,7 @@ if __name__ == "__main__":
         temp_molecule["atoms"] = original_molecule["atom"]
         temp_molecule["symmetry"] = original_molecule["symmetry"]
 
+        temp_molecule_setup = read_json_data(temp_molecule)
         #process_system(temp_molecule,molecule_name,xc,h,L,N)
 
 
