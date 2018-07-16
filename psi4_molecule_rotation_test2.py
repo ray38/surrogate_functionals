@@ -388,73 +388,61 @@ if __name__ == "__main__":
             value_list.append(temp_result[0])
             type_list.append("Value")
             property_list.append("Gamma")
-            molecule_name_list.append(molecule_name)
 
 
             value_list.append(temp_result[1])
             type_list.append("Value")
             property_list.append("Gradient")
-            molecule_name_list.append(molecule_name)
 
 
             value_list.append(temp_result[2])
             type_list.append("Value")
             property_list.append("exc")
-            molecule_name_list.append(molecule_name)
 
 
             value_list.append(temp_result[3])
             type_list.append("Value")
             property_list.append("tau")
-            molecule_name_list.append(molecule_name)
 
 
             value_list.append(temp_error[0])
             type_list.append("Error")
             property_list.append("Gamma")
-            molecule_name_list.append(molecule_name)
 
 
             value_list.append(temp_error[1])
             type_list.append("Error")
             property_list.append("Gradient")
-            molecule_name_list.append(molecule_name)
 
 
             value_list.append(temp_error[2])
             type_list.append("Error")
             property_list.append("exc")
-            molecule_name_list.append(molecule_name)
 
 
             value_list.append(temp_error[3])
             type_list.append("Error")
             property_list.append("tau")
-            molecule_name_list.append(molecule_name)
 
 
             value_list.append((temp_error[0]/temp_truth[0])*100.0)
             type_list.append("Relative Error")
             property_list.append("Gamma")
-            molecule_name_list.append(molecule_name)
 
 
             value_list.append((temp_error[1]/temp_truth[1])*100.0)
             type_list.append("Relative Error")
             property_list.append("Gradient")
-            molecule_name_list.append(molecule_name)
 
 
             value_list.append((temp_error[1]/temp_truth[1])*100.0)
             type_list.append("Relative Error")
             property_list.append("exc")
-            molecule_name_list.append(molecule_name)
 
 
             value_list.append((temp_error[1]/temp_truth[1])*100.0)
             type_list.append("Relative Error")
             property_list.append("tau")
-            molecule_name_list.append(molecule_name)
 
 
 
