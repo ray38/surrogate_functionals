@@ -192,12 +192,18 @@ def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e):
     
     temp_filename =  '{}_{}_{}_{}_{}.hdf5'.format(molecule_name,xc,i,j,k)
     temp_out = process_one_section(x,y,z,w,x_start,x_end,y_start,y_end,z_start,z_end,out_shape,scf_wfn,scf_e)
-    print temp_out['gamma'].shape 
 
-    temp = temp_out['gamma']
 
-    print type(temp)
-    return temp[(temp.shape[0])/2][(temp.shape[1])/2][(temp.shape[2])/2]
+    temp_gamma = temp_out['gamma']
+    temp_gradient = temp_out['gradient']
+    temp_exc = temp_out["epsilon_xc"]
+    temp_tau = temp_out["tau"]
+
+    shape = temp_gamma.shape
+
+    result = np.asarray([temp_gamma[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_gradient[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_exc[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_tau[(shape[0])/2][(shape[1])/2][(shape[2])/2]])
+
+    return result
 
     
 def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_options=None):
@@ -253,12 +259,12 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_option
     for i in range(Nx):
         for j in range(Ny):
             for k in range(Nz):
-                centr_gamma = process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e)
-                print centr_gamma
+                result = process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e)
+                print result
 
     
     #os.chdir(cwd) 
-    return centr_gamma
+    return result
 
 
 
@@ -276,6 +282,25 @@ def read_json_data(data):
     return psi4.geometry(result)
 
 
+
+def plot_result(data):
+    plt.figure()
+        
+    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+
+    ax = sns.violinplot(x = "molecule_name",y="gamma_percent_error",data=data)
+    plt.tight_layout()
+    plt.savefig("gamma_rotational_invariance_test_percent_error.png")
+
+    plt.figure()
+        
+    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+
+    ax = sns.violinplot(x = "molecule_name",y="gradient_percent_error",data=data)
+    plt.tight_layout()
+    plt.savefig("gradient_rotational_invariance_test_percent_error.png")
+
+    return
 
 
 if __name__ == "__main__":
@@ -323,7 +348,38 @@ if __name__ == "__main__":
     paramlist = list(itertools.product(temp_theta1_list,temp_theta2_list,temp_theta3_list))
     
     counter = 0
+
+    molecule_name_list = []
+
     result_gamma_list = []
+    gamma_error_list = []
+
+    result_gradient_list = []
+    gradient_error_list = []
+
+    result_exc_list = []
+    exc_error_list = []
+
+    result_tau_list = []
+    tau_error_list = []
+
+    theta1_list = []
+    theta2_list = []
+    theta3_list = []
+
+    temp_molecule = {}
+    temp_molecule["atoms"] = original_molecule["atoms"]
+    temp_molecule["symmetry"] = original_molecule["symmetry"]
+    temp_molecule["coordinates"] = original_coordinates
+
+    temp_molecule_setup = read_json_data(temp_molecule)
+    temp_truth = process_system(temp_molecule_setup,molecule_name,xc,h,L,N)
+
+    gamma_truth = temp_truth[0]
+    gradient_truth = temp_truth[1]
+    exc_truth = temp_truth[2]
+    tau_truth = temp_truth[3]
+
     for theta1, theta2, theta3 in paramlist:
         counter +=1
 
@@ -335,12 +391,42 @@ if __name__ == "__main__":
         temp_molecule["coordinates"] = temp_coordinate
 
         temp_molecule_setup = read_json_data(temp_molecule)
-        result_gamma = process_system(temp_molecule_setup,molecule_name,xc,h,L,N)
-        result_gamma_list.append(result_gamma)
+        temp_result = process_system(temp_molecule_setup,molecule_name,xc,h,L,N)
 
-    fig,ax = plt.subplots(figsize=(10,5))
-    plt.plot(np.arange(1,len(result_gamma_list)+1),result_gamma_list, linewidth=5.0)
-    plt.show()
+        temp_error = temp_result - temp_truth
+
+        result_gamma_list.append(temp_result[0])
+        result_gradient_list.append(temp_result[1])
+        result_exc_list.append(temp_result[2])
+        result_tau_list.append(temp_result[3])
+
+        gamma_error_list.append((temp_error[0]/gamma_truth)*100.0)
+        gradient_error_list.append((temp_error[1]/gradient_truth)*100.0)
+        exc_error_list.append((temp_error[2]/exc_truth)*100.0)
+        tau_error_list.append((temp_error[3]/tau_truth)*100.0)
+
+        theta1_list.append(theta1)
+        theta2_list.append(theta2)
+        theta3_list.append(theta3)
+
+        molecule_name_list.append(molecule_name)
+
+        d = {   "molecule_name":molecule_name_list,
+                "gamma":result_gamma_list,
+                "gradient":result_gradient_list,
+                "exc":result_exc_list,
+                "tau":result_tau_list,
+                "gamma_percent_error":gamma_error_list,
+                "gradient_percent_error":gradient_error_list,
+                "exc_percent_error":exc_error_list,
+                "tau_percent_error":tau_error_list,
+                "theta1":theta1_list, 
+                "theta2":theta2_list, 
+                "theta3": theta3_list}
+        data = pd.DataFrame(data=d)
+
+        plot_result(data)
+
 
 
 
