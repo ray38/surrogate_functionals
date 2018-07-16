@@ -51,7 +51,7 @@ def transform_coord_mat(coordinates,theta1,theta2,theta3,x0,y0,z0):
     #temp_shape = x.shape
     #temp_coord = np.stack([x.copy().flatten(),y.copy().flatten(),z.copy().flatten()], axis=0)
     after_rotate = np.asarray(np.dot(rot_mat,translated_coordinates))
-    print np.transpose(after_rotate)
+    #print np.transpose(after_rotate)
 
     #fig = plt.figure()
     #ax = fig.add_subplot(111, projection='3d')
@@ -435,6 +435,7 @@ if __name__ == "__main__":
             temp_result = process_system(temp_molecule_setup,molecule_name,xc,h,L,N, convolution_property_stencils)
 
             temp_error = temp_result - temp_truth
+            print temp_error
 
             value_list.append(temp_result[0])
             type_list.append("Value")
