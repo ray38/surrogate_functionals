@@ -435,7 +435,7 @@ if __name__ == "__main__":
             temp_result = process_system(temp_molecule_setup,molecule_name,xc,h,L,N, convolution_property_stencils)
 
             temp_error = temp_result - temp_truth
-            print temp_error
+            log("rotation_test.log",str(temp_error))
 
             value_list.append(temp_result[0])
             type_list.append("Value")
