@@ -289,14 +289,10 @@ if __name__ == "__main__":
     except:
         with open(database_filename, encoding='utf-8') as f:
             data=json.load(f)
-    
-    molecules = {}
-    for molecule in molecule_names:
-        if molecule in data:
-            molecules[molecule] = read_json_data(data[molecule])
+
             
     original_molecule = read_json_data(data[molecule_name])
-    original_coordinates = np.asarray(molecule["coordinates"])
+    original_coordinates = np.asarray(original_molecule["coordinates"])
 
     print original_coordinates
         
