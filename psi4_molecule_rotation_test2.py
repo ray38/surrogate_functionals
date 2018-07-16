@@ -278,7 +278,7 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, convolution
     for i in range(Nx):
         for j in range(Ny):
             for k in range(Nz):
-                result = process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e)
+                result = process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e, convolution_property_stencils)
                 print result
 
     
