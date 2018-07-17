@@ -477,6 +477,12 @@ if __name__ == "__main__":
             temp_result = process_system(temp_molecule_setup,molecule_name,xc,h,L,N, convolution_property_stencils)
 
             temp_error = temp_result - temp_truth
+            temp_temp_percent_error = (temp_error/temp_truth)*100.0
+            temp_percent_error = np.zeros_like(temp_temp_percent_error)
+            for i in range(temp_temp_percent_error):
+                if math.isnan(temp_temp_percent_error[i]) == False:
+                    if math.isinf(temp_temp_percent_error[i]) == False:
+                        temp_percent_error[i] = temp_temp_percent_error[i]
             #log("rotation_test.log",str(temp_error))
 
             value_list.append(temp_result[0])
@@ -529,27 +535,27 @@ if __name__ == "__main__":
                 property_list.append(convolution_properties[i])
 
 
-            value_list.append((temp_error[0]/temp_truth[0])*100.0)
+            value_list.append(temp_percent_error[0])
             type_list.append("Relative Error")
             property_list.append("Gamma")
 
 
-            value_list.append((temp_error[1]/temp_truth[1])*100.0)
+            value_list.append(temp_percent_error[1])
             type_list.append("Relative Error")
             property_list.append("Gradient")
 
 
-            value_list.append((temp_error[2]/temp_truth[2])*100.0)
+            value_list.append(temp_percent_error[2])
             type_list.append("Relative Error")
             property_list.append("exc")
 
 
-            value_list.append((temp_error[3]/temp_truth[3])*100.0)
+            value_list.append(temp_percent_error[3])
             type_list.append("Relative Error")
             property_list.append("tau")
 
             for i in range(len(convolution_properties)):
-                value_list.append((temp_error[i+4]/temp_truth[i+4])*100.0)
+                value_list.append(temp_percent_error[i+4])
                 type_list.append("Relative Error")
                 property_list.append(convolution_properties[i])
 
