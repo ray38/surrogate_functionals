@@ -335,7 +335,7 @@ def plot_result2(data):
 
     #ax = sns.violinplot(x = "Molecule",y="Value",row="Type", col="Property",data=data)
     
-    ax = sns.factorplot(x = "ID",y="Value",row="Property",hue="Label",data=data, kind="point", split=True,sharey = False, size = 6, aspect = 10.0)
+    ax = sns.factorplot(x = "ID",y="Value",row="Property",hue="Label",data=data, kind="point", split=True,sharey = False, size = 6, aspect = 15.0, scale = 0.5)
 
     plt.tight_layout()
     plt.savefig("Molecule_rotational_invariance_test2.png")
@@ -361,12 +361,16 @@ if __name__ == "__main__":
     N = 1
     xc = 'B3LYP'
 
-    convolution_properties = ["FD gradient mid", "FD gradient times2", "FD 2nd gradient", "Harmonic 1 0.04", "Harmonic 1 0.1", "Harmonic 1 0.16"]
+    convolution_properties = ["FD gradient mid", "FD gradient times2", "FD gradient 4 times2","FD gradient 6 times2","FD 2nd gradient", "Harmonic 1 0.04", "Harmonic 1 0.1", "Harmonic 1 0.16"]
     convolution_property_stencils = []
 
     stencil, Gx, Gy, Gz, pad = get_first_grad_stencil(h, h, h,stencil_type = "mid",accuracy = '2')
     convolution_property_stencils.append(stencil)
     stencil, Gx, Gy, Gz, pad = get_first_grad_stencil(h, h, h,stencil_type = "times2",accuracy = '2')
+    convolution_property_stencils.append(stencil)
+    stencil, Gx, Gy, Gz, pad = get_first_grad_stencil(h, h, h,stencil_type = "times2",accuracy = '4')
+    convolution_property_stencils.append(stencil)
+    stencil, Gx, Gy, Gz, pad = get_first_grad_stencil(h, h, h,stencil_type = "times2",accuracy = '6')
     convolution_property_stencils.append(stencil)
     stencil, Gx, Gy, Gz, pad = get_second_grad_stencil(h, h, h,stencil_type = "times2",accuracy = '2')
     convolution_property_stencils.append(stencil)
@@ -422,9 +426,9 @@ if __name__ == "__main__":
     y0_list = []
     z0_list = []
 
-    temp_x0_list = np.linspace(-0.3, 0.3, num_grid)
-    temp_y0_list = np.linspace(-0.3, 0.3, num_grid) 
-    temp_z0_list = np.linspace(-0.3, 0.3, num_grid) 
+    temp_x0_list = np.linspace(-0.4, 0.4, num_grid)
+    temp_y0_list = np.linspace(-0.4, 0.4, num_grid) 
+    temp_z0_list = np.linspace(-0.4, 0.4, num_grid) 
     origin_list = list(itertools.product(temp_x0_list,temp_y0_list,temp_z0_list))
 
     temp_theta1_list = np.linspace(0.0, 1.0, num_rot)
