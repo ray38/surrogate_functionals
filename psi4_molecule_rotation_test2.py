@@ -441,6 +441,8 @@ if __name__ == "__main__":
             
     original_molecule = data[molecule_name]
     original_coordinates = np.asarray(original_molecule["coordinates"])
+
+    original_coordinates = transform_coord_mat(np.transpose(copy.deepcopy(original_coordinates)),0.05, 0.05, 0.05, 0.0, 0.0, 0.0)
         
     
     
