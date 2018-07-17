@@ -631,32 +631,32 @@ if __name__ == "__main__":
             
 
             
-            if (counter % 100) == 0:
-                d1 = {   "Molecule": molecule_name_list,
-                        "Value": value_list,
-                        "Type":type_list,
-                        "Property":property_list,
-                        "theta1":theta1_list, 
-                        "theta2":theta2_list, 
-                        "theta3": theta3_list,
-                        "x0":x0_list,
-                        "y0":y0_list,
-                        "z0":z0_list,
-                        "ID": counter_list,
-                        "origin ID": origin_counter_list}
-                data1 = pd.DataFrame(data=d1)
-                data1.to_pickle("{}_rotation_test_dataframe.p".format(molecule_name))
-                plot_result(data1)
+            #if (counter % 100) == 0:
+        d1 = {   "Molecule": molecule_name_list,
+                "Value": value_list,
+                "Type":type_list,
+                "Property":property_list,
+                "theta1":theta1_list, 
+                "theta2":theta2_list, 
+                "theta3": theta3_list,
+                "x0":x0_list,
+                "y0":y0_list,
+                "z0":z0_list,
+                "ID": counter_list,
+                "origin ID": origin_counter_list}
+        data1 = pd.DataFrame(data=d1)
+        data1.to_pickle("{}_rotation_test_dataframe.p".format(molecule_name))
+        plot_result(data1)
 
-                d2 = {  "Molecule": molecule_name_list2,
-                        "Value": value_truth_list,
-                        "Label":value_truth_label_list,
-                        "Property":value_truth_property_label_list,
-                        "ID": counter_list2,
-                        "origin ID": origin_counter_list2}
-                data2 = pd.DataFrame(data=d2)
-                data2.to_pickle("{}_rotation_test_dataframe2.p".format(molecule_name))
-                plot_result2(data2)
+        d2 = {  "Molecule": molecule_name_list2,
+                "Value": value_truth_list,
+                "Label":value_truth_label_list,
+                "Property":value_truth_property_label_list,
+                "ID": counter_list2,
+                "origin ID": origin_counter_list2}
+        data2 = pd.DataFrame(data=d2)
+        data2.to_pickle("{}_rotation_test_dataframe2.p".format(molecule_name))
+        plot_result2(data2)
 
 
 
