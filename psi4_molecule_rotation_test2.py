@@ -207,12 +207,21 @@ def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e, convolu
 
     n = temp_out["rho"]
 
+
+
     temp_gamma = temp_out['gamma']
     temp_gradient = temp_out['gradient']
     temp_exc = temp_out["epsilon_xc"]
     temp_tau = temp_out["tau"]
 
     shape = temp_gamma.shape
+
+    x = temp_out["x"][(shape[0])/2][(shape[1])/2][(shape[2])/2]
+    y = temp_out["y"][(shape[0])/2][(shape[1])/2][(shape[2])/2]
+    z = temp_out["z"][(shape[0])/2][(shape[1])/2][(shape[2])/2]
+
+    print "coordinates: {}\t {}\t {}".format(x,y,z)
+
 
     result = [temp_gamma[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_gradient[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_exc[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_tau[(shape[0])/2][(shape[1])/2][(shape[2])/2]]
 
@@ -312,7 +321,23 @@ def plot_result(data):
     ax = sns.factorplot(x = "Molecule",y="Value",row="Type", col="Property",data=data, kind="violin", split=True,sharey = False, size = 6, aspect = 1.5)
 
     plt.tight_layout()
-    plt.savefig("Molecule_rotational_invariance_test.png")
+    plt.savefig("Molecule_rotational_invariance_test1.png")
+
+
+
+    return
+
+def plot_result2(data):
+    plt.figure()
+        
+    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+
+    #ax = sns.violinplot(x = "Molecule",y="Value",row="Type", col="Property",data=data)
+    
+    ax = sns.factorplot(x = "ID",y="Value",col="Property",hue="Label",data=data, kind="point", split=True,sharey = False, size = 6, aspect = 1.5)
+
+    plt.tight_layout()
+    plt.savefig("Molecule_rotational_invariance_test2.png")
 
 
 
@@ -370,11 +395,22 @@ if __name__ == "__main__":
 
     molecule_name_list = []
 
+    value_truth_list = []
+    value_truth_label_list = []
+    value_truth_property_label_list = []
+    molecule_name_list2 = []
+    counter_list2 = []
+    origin_counter_list2 = []
+
     value_list = []
+
 
     type_list = [] # absolute value, absolute error, percent error ## this is the row
 
     property_list = [] # Gamma, Gradient, exc, tau, descriptors ## this is the col
+
+    counter_list = []
+    origin_counter_list = []
 
 
     theta1_list = []
@@ -409,8 +445,10 @@ if __name__ == "__main__":
     
     
     counter = 0
+    origin_counter = 0
 
     for x0, y0, z0 in origin_list:
+        origin_counter += 1
         temp_coordinate = transform_coord_mat(np.transpose(copy.deepcopy(original_coordinates)),0., 0., 0., x0,y0,z0)
 
         temp_molecule = {}
@@ -423,6 +461,7 @@ if __name__ == "__main__":
 
 
         for theta1, theta2, theta3 in paramlist:
+            counter +=1
 
             temp_coordinate = transform_coord_mat(np.transpose(copy.deepcopy(original_coordinates)),theta1,theta2,theta3, x0,y0,z0)
 
@@ -458,6 +497,7 @@ if __name__ == "__main__":
 
             for i in range(len(convolution_properties)):
                 value_list.append(temp_result[i+4])
+                truth_list.append(temp_truth[i+4])
                 type_list.append("Value")
                 property_list.append(convolution_properties[i])
 
@@ -525,13 +565,53 @@ if __name__ == "__main__":
 
                 molecule_name_list.append(molecule_name)
 
+                counter_list.append(counter)
 
+                origin_counter_list.append(origin_counter)
+
+
+
+            value_truth_list.append(temp_result[0])
+            value_truth_list.append(temp_truth[0])
+            value_truth_property_label_list.append("Gamma")
+            value_truth_property_label_list.append("Gamma")
+
+            value_truth_list.append(temp_result[1])
+            value_truth_list.append(temp_truth[1])
+            value_truth_property_label_list.append("Gradient")
+            value_truth_property_label_list.append("Gradient")
+
+            value_truth_list.append(temp_result[2])
+            value_truth_list.append(temp_truth[2])
+            value_truth_property_label_list.append("exc")
+            value_truth_property_label_list.append("exc")
+
+            value_truth_list.append(temp_result[3])
+            value_truth_list.append(temp_truth[3])
+            value_truth_property_label_list.append("tau")
+            value_truth_property_label_list.append("tau")
+
+            for i in range(len(convolution_properties)):
+                value_truth_list.append(temp_result[i+4])
+                value_truth_list.append(temp_truth[i+4])
+                value_truth_property_label_list.append(convolution_properties[i])
+                value_truth_property_label_list.append(convolution_properties[i])
+
+            for i in range(4 + (len(convolution_properties)):
+                value_truth_label_list.append("value")
+                value_truth_label_list.append("truth")
+                molecule_name_list2.append(molecule_name)
+                counter_list2.append(counter)
+                origin_counter_list2.append(origin_counter)
+                molecule_name_list2.append(molecule_name)
+                counter_list2.append(counter)
+                origin_counter_list2.append(origin_counter)
 
             
 
-            counter +=1
+            
             if (counter % 10) == 0:
-                d = {   "Molecule": molecule_name_list,
+                d1 = {   "Molecule": molecule_name_list,
                         "Value": value_list,
                         "Type":type_list,
                         "Property":property_list,
@@ -540,11 +620,22 @@ if __name__ == "__main__":
                         "theta3": theta3_list,
                         "x0":x0_list,
                         "y0":y0_list,
-                        "z0":z0_list}
-                data = pd.DataFrame(data=d)
-                data.to_pickle("{}_rotation_test_dataframe.p".format(molecule_name))
-                plot_result(data)
+                        "z0":z0_list,
+                        "ID": counter_list,
+                        "origin ID": origin_counter_list}
+                data1 = pd.DataFrame(data=d1)
+                data1.to_pickle("{}_rotation_test_dataframe.p".format(molecule_name))
+                plot_result(data1)
 
+                d2 = {  "Molecule": molecule_name_list2,
+                        "Value": value_truth_list,
+                        "Label":value_truth_label_list,
+                        "Property":value_truth_property_label_list,
+                        "ID": counter_list2,
+                        "origin ID": origin_counter_list2}
+                data2 = pd.DataFrame(data=d2)
+                data2.to_pickle("{}_rotation_test_dataframe2.p".format(molecule_name))
+                plot_result(data2)
 
 
 
