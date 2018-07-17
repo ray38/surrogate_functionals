@@ -22,7 +22,7 @@ import seaborn as sns
 import copy
 
 import matplotlib
-matplotlib.use('Agg') 
+matplotlib.use('agg') 
 import matplotlib.cm as cm
 from mpl_toolkits.mplot3d import Axes3D
 import mpl_toolkits.mplot3d.axes3d as p3
