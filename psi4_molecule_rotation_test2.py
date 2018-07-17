@@ -643,7 +643,7 @@ if __name__ == "__main__":
                         "origin ID": origin_counter_list2}
                 data2 = pd.DataFrame(data=d2)
                 data2.to_pickle("{}_rotation_test_dataframe2.p".format(molecule_name))
-                plot_result(data2)
+                plot_result2(data2)
 
 
 
