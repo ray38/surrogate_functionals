@@ -479,7 +479,7 @@ if __name__ == "__main__":
             temp_error = temp_result - temp_truth
             temp_temp_percent_error = (temp_error/temp_truth)*100.0
             temp_percent_error = np.zeros_like(temp_temp_percent_error)
-            for i in range(temp_temp_percent_error):
+            for i in range(len(temp_temp_percent_error)):
                 if math.isnan(temp_temp_percent_error[i]) == False:
                     if math.isinf(temp_temp_percent_error[i]) == False:
                         temp_percent_error[i] = temp_temp_percent_error[i]
