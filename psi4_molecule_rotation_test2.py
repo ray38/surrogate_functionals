@@ -499,7 +499,6 @@ if __name__ == "__main__":
 
             for i in range(len(convolution_properties)):
                 value_list.append(temp_result[i+4])
-                truth_list.append(temp_truth[i+4])
                 type_list.append("Value")
                 property_list.append(convolution_properties[i])
 
