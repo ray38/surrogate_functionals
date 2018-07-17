@@ -427,9 +427,11 @@ if __name__ == "__main__":
     y0_list = []
     z0_list = []
 
-    temp_x0_list = np.linspace(-0.4, 0.4, num_grid)
-    temp_y0_list = np.linspace(-0.4, 0.4, num_grid) 
-    temp_z0_list = np.linspace(-0.4, 0.4, num_grid) 
+    #temp_x0_list = np.linspace(-0.4, 0.4, num_grid)
+    #temp_y0_list = np.linspace(-0.4, 0.4, num_grid)
+    temp_x0_list = [0.0]
+    temp_y0_list = [0.0]
+    temp_z0_list = np.linspace(-0.4, 0.4, num_grid)
     origin_list = list(itertools.product(temp_x0_list,temp_y0_list,temp_z0_list))
 
     temp_theta1_list = np.linspace(0.0, 1.0, num_rot)
