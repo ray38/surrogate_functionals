@@ -618,7 +618,7 @@ if __name__ == "__main__":
             
 
             
-            if (counter % 10) == 0:
+            if (counter % 1000) == 0:
                 d1 = {   "Molecule": molecule_name_list,
                         "Value": value_list,
                         "Type":type_list,
