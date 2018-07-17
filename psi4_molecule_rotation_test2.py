@@ -597,7 +597,7 @@ if __name__ == "__main__":
                 value_truth_property_label_list.append(convolution_properties[i])
                 value_truth_property_label_list.append(convolution_properties[i])
 
-            for i in range(4 + (len(convolution_properties)):
+            for i in range(4 + (len(convolution_properties))):
                 value_truth_label_list.append("value")
                 value_truth_label_list.append("truth")
                 molecule_name_list2.append(molecule_name)
