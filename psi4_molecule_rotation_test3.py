@@ -323,6 +323,8 @@ def plot_result(data):
 
     plt.tight_layout()
     plt.savefig("Molecule_rotational_invariance_test1.png")
+    plt.cla()
+    plt.close()
 
 
 
@@ -340,6 +342,8 @@ def plot_result2(data):
 
     plt.tight_layout()
     plt.savefig("Molecule_rotational_invariance_test2.png")
+    plt.cla()
+    plt.close()
 
 
 
@@ -648,7 +652,7 @@ if __name__ == "__main__":
                 "origin ID": origin_counter_list}
         data1 = pd.DataFrame(data=d1)
         data1.to_pickle("{}_rotation_test_dataframe.p".format(molecule_name))
-        #plot_result(data1)
+        plot_result(data1)
 
         d2 = {  "Molecule": molecule_name_list2,
                 "Value": value_truth_list,
@@ -658,7 +662,7 @@ if __name__ == "__main__":
                 "origin ID": origin_counter_list2}
         data2 = pd.DataFrame(data=d2)
         data2.to_pickle("{}_rotation_test_dataframe2.p".format(molecule_name))
-        #plot_result2(data2)
+        plot_result2(data2)
 
 
 
