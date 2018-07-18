@@ -364,7 +364,7 @@ if __name__ == "__main__":
     h = 0.02
     L = 0.28
     N = 1
-    xc = 'PBE'
+    xc = 'SVWN'
 
     convolution_properties = ["FD gradient mid", "FD gradient times2", "FD gradient 4 times2","FD gradient 6 times2","FD 2nd gradient", "aver 0.04", "aver 0.08", "aver 0.12", "Harmonic 1 0.04", "Harmonic 1 0.08", "Harmonic 1 0.12"]
     convolution_property_stencils = []
@@ -659,7 +659,7 @@ if __name__ == "__main__":
                 "origin ID": origin_counter_list}
         data1 = pd.DataFrame(data=d1)
         data1.to_pickle("{}_rotation_test_dataframe.p".format(molecule_name))
-        plot_result(data1)
+        #plot_result(data1)
 
         d2 = {  "Molecule": molecule_name_list2,
                 "Value": value_truth_list,
@@ -669,7 +669,7 @@ if __name__ == "__main__":
                 "origin ID": origin_counter_list2}
         data2 = pd.DataFrame(data=d2)
         data2.to_pickle("{}_rotation_test_dataframe2.p".format(molecule_name))
-        plot_result2(data2)
+        #plot_result2(data2)
 
 
 
