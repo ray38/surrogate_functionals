@@ -362,9 +362,9 @@ if __name__ == "__main__":
     #N = int(sys.argv[5])
 
     h = 0.02
-    L = 0.28
+    L = 0.36
     N = 1
-    xc = 'SVWN'
+    xc = 'PBE'
 
     convolution_properties = ["FD gradient mid", "FD gradient times2", "FD gradient 4 times2","FD gradient 6 times2","FD 2nd gradient", "aver 0.04", "aver 0.08", "aver 0.12", "Harmonic 1 0.04", "Harmonic 1 0.08", "Harmonic 1 0.12"]
     convolution_property_stencils = []
@@ -442,7 +442,7 @@ if __name__ == "__main__":
     #temp_y0_list = np.linspace(-0.4, 0.4, num_grid)
     temp_x0_list = [0.0]
     temp_y0_list = [0.0]
-    temp_z0_list = np.linspace(-0.7, num_grid)
+    temp_z0_list = np.linspace(-0.4, num_grid)
     origin_list = list(itertools.product(temp_x0_list,temp_y0_list,temp_z0_list))
 
     temp_theta1_list = np.linspace(0.0, 0.25, num_rot)
