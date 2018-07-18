@@ -404,7 +404,7 @@ if __name__ == "__main__":
 
     stencil_Re_1, stencil_Im_1, pad = calc_harmonic_stencil(h, h, h, 0.12, 1, -1, accuracy = 6)
     stencil_Re_2, stencil_Im_2, pad = calc_harmonic_stencil(h, h, h, 0.12, 1, 0, accuracy = 6)
-    stencil_Re_3, stencil_Im_3, pad = calc_harmonic_stencil(h, h, h, 0.12, 1, 1, accuracy = 6)2
+    stencil_Re_3, stencil_Im_3, pad = calc_harmonic_stencil(h, h, h, 0.12, 1, 1, accuracy = 6)
     stencil = stencil_Re_1 + stencil_Re_2 + stencil_Re_3
     convolution_property_stencils.append(stencil)
 
