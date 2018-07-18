@@ -361,7 +361,7 @@ if __name__ == "__main__":
     #L = float(sys.argv[4])
     #N = int(sys.argv[5])
 
-    h = 0.02
+    h = 0.01
     L = 0.36
     N = 1
     xc = 'PBE'
