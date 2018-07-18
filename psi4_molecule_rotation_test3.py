@@ -366,7 +366,7 @@ if __name__ == "__main__":
     N = 1
     xc = 'B3LYP'
 
-    convolution_properties = ["FD gradient mid", "FD gradient times2", "FD gradient 4 times2","FD gradient 6 times2","FD 2nd gradient", "Harmonic 1 0.04", "Harmonic 1 0.1", "Harmonic 1 0.16"]
+    convolution_properties = ["FD gradient mid", "FD gradient times2", "FD gradient 4 times2","FD gradient 6 times2","FD 2nd gradient", "aver 0.04", "aver 0.08", "aver 0.12", "Harmonic 1 0.04", "Harmonic 1 0.08", "Harmonic 1 0.12"]
     convolution_property_stencils = []
 
     stencil, Gx, Gy, Gz, pad = get_first_grad_stencil(h, h, h,stencil_type = "mid",accuracy = '2')
@@ -380,6 +380,14 @@ if __name__ == "__main__":
     stencil, Gx, Gy, Gz, pad = get_second_grad_stencil(h, h, h,stencil_type = "times2",accuracy = '2')
     convolution_property_stencils.append(stencil)
 
+    stencil,pad = get_integration_stencil(h, h, h, 0.04, accuracy = get_auto_accuracy(h,h,h, 0.04))
+    convolution_property_stencils.append(stencil)
+    stencil,pad = get_integration_stencil(h, h, h, 0.08, accuracy = get_auto_accuracy(h,h,h, 0.08))
+    convolution_property_stencils.append(stencil)
+    stencil,pad = get_integration_stencil(h, h, h, 0.12, accuracy = get_auto_accuracy(h,h,h, 0.12))
+    convolution_property_stencils.append(stencil)
+
+
     stencil_Re_1, stencil_Im_1, pad = calc_harmonic_stencil(h, h, h, 0.04, 1, -1, accuracy = 6)
     stencil_Re_2, stencil_Im_2, pad = calc_harmonic_stencil(h, h, h, 0.04, 1, 0, accuracy = 6)
     stencil_Re_3, stencil_Im_3, pad = calc_harmonic_stencil(h, h, h, 0.04, 1, 1, accuracy = 6)
@@ -387,17 +395,16 @@ if __name__ == "__main__":
     stencil = stencil_Re_1 + stencil_Re_2 + stencil_Re_3
     convolution_property_stencils.append(stencil)
 
-    stencil_Re_1, stencil_Im_1, pad = calc_harmonic_stencil(h, h, h, 0.1, 1, -1, accuracy = 6)
-    stencil_Re_2, stencil_Im_2, pad = calc_harmonic_stencil(h, h, h, 0.1, 1, 0, accuracy = 6)
-    stencil_Re_3, stencil_Im_3, pad = calc_harmonic_stencil(h, h, h, 0.1, 1, 1, accuracy = 6)
+    stencil_Re_1, stencil_Im_1, pad = calc_harmonic_stencil(h, h, h, 0.08, 1, -1, accuracy = 6)
+    stencil_Re_2, stencil_Im_2, pad = calc_harmonic_stencil(h, h, h, 0.08, 1, 0, accuracy = 6)
+    stencil_Re_3, stencil_Im_3, pad = calc_harmonic_stencil(h, h, h, 0.08, 1, 1, accuracy = 6)
 
     stencil = stencil_Re_1 + stencil_Re_2 + stencil_Re_3
     convolution_property_stencils.append(stencil)
 
-    stencil_Re_1, stencil_Im_1, pad = calc_harmonic_stencil(h, h, h, 0.16, 1, -1, accuracy = 6)
-    stencil_Re_2, stencil_Im_2, pad = calc_harmonic_stencil(h, h, h, 0.16, 1, 0, accuracy = 6)
-    stencil_Re_3, stencil_Im_3, pad = calc_harmonic_stencil(h, h, h, 0.16, 1, 1, accuracy = 6)
-
+    stencil_Re_1, stencil_Im_1, pad = calc_harmonic_stencil(h, h, h, 0.12, 1, -1, accuracy = 6)
+    stencil_Re_2, stencil_Im_2, pad = calc_harmonic_stencil(h, h, h, 0.12, 1, 0, accuracy = 6)
+    stencil_Re_3, stencil_Im_3, pad = calc_harmonic_stencil(h, h, h, 0.12, 1, 1, accuracy = 6)2
     stencil = stencil_Re_1 + stencil_Re_2 + stencil_Re_3
     convolution_property_stencils.append(stencil)
 
