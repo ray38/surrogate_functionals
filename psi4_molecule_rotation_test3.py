@@ -445,9 +445,9 @@ if __name__ == "__main__":
     temp_z0_list = np.linspace(-0.7, num_grid)
     origin_list = list(itertools.product(temp_x0_list,temp_y0_list,temp_z0_list))
 
-    temp_theta1_list = np.linspace(0.0, 1.0, num_rot)
-    temp_theta2_list = np.linspace(0.0, 1.0, num_rot) 
-    temp_theta3_list = np.linspace(0.0, 1.0, num_rot) 
+    temp_theta1_list = np.linspace(0.0, 0.25, num_rot)
+    temp_theta2_list = np.linspace(0.0, 0.25, num_rot) 
+    temp_theta3_list = np.linspace(0.0, 0.25, num_rot) 
     paramlist = list(itertools.product(temp_theta1_list,temp_theta2_list,temp_theta3_list))
     
     
@@ -659,7 +659,7 @@ if __name__ == "__main__":
                 "origin ID": origin_counter_list}
         data1 = pd.DataFrame(data=d1)
         data1.to_pickle("{}_rotation_test_dataframe.p".format(molecule_name))
-        #plot_result(data1)
+        plot_result(data1)
 
         d2 = {  "Molecule": molecule_name_list2,
                 "Value": value_truth_list,
@@ -669,7 +669,7 @@ if __name__ == "__main__":
                 "origin ID": origin_counter_list2}
         data2 = pd.DataFrame(data=d2)
         data2.to_pickle("{}_rotation_test_dataframe2.p".format(molecule_name))
-        #plot_result2(data2)
+        plot_result2(data2)
 
 
 
