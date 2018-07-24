@@ -244,10 +244,6 @@ if __name__ == "__main__":
     L = 10.0
     N = 5
     
-    
-    with open(list_molecule_filename) as f:
-        molecule_names = f.readlines()
-    molecule_names = [x.strip() for x in molecule_names]
 
     molecule_names = ["C2H2","C2H4","C2H6","CH3OH","CH4","CO","CO2","H2","H2O","HCN","HNC","N2","N2O","NH3","O3","CH3CN","CH3CHO","CH3NO2","glycine","H2CCO","H2CO","H2O2","HCOOH","N2H4","NCCN"]
     
