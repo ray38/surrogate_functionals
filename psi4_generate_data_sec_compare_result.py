@@ -229,6 +229,7 @@ if __name__ == "__main__":
 
     database_filename = sys.argv[1]
     molecule_name = sys.argv[2]
+    xc = sys.argv[3]
     h = 0.02
     L = 10.0
     N = 5
@@ -252,6 +253,9 @@ if __name__ == "__main__":
             
         
     xc_funcs = ['SVWN','PBE']
+
+    if xc not in xc_funcs:
+        raise NotImplemented
     all_data = {}
     
     def log(log_filename, text):
@@ -260,12 +264,12 @@ if __name__ == "__main__":
         return
         
 
-    for xc in xc_funcs:
-        reulst_filename = "{}_result.log".format(xc)
-        for mol in molecules:
-            result_XC = process_system(molecules[mol],mol,xc,h,L,N)
-            log_text = "\n{}\t{}".format(mol,result_XC)
-            log(reulst_filename, log_text)
+    #for xc in xc_funcs:
+    reulst_filename = "{}_result.log".format(xc)
+    for mol in molecules:
+        result_XC = process_system(molecules[mol],mol,xc,h,L,N)
+        log_text = "\n{}\t{}".format(mol,result_XC)
+        log(reulst_filename, log_text)
 
 
         
