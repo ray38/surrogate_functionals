@@ -76,10 +76,6 @@ def process_one_section(x,y,z,w,x_start,x_end,y_start,y_end,z_start,z_end,out_sh
     ret = collections.defaultdict(list)
     
     # Grab a grid "block"
-    w = np.array(grid.w())
-    x = np.array(grid.x())
-    y = np.array(grid.y())
-    z = np.array(grid.z())
 
     # Global to local map
     gmap = np.array(grid.functions_local_to_global())
@@ -92,30 +88,15 @@ def process_one_section(x,y,z,w,x_start,x_end,y_start,y_end,z_start,z_end,out_sh
     points_func.compute_points(grid)
 
     # Grab quantities on a grid
-    rho = np.array(points_func.point_values()["RHO_A"])[:npoints]
-    rho_x = np.array(points_func.point_values()["RHO_AX"])[:npoints]
-    rho_y = np.array(points_func.point_values()["RHO_AY"])[:npoints]
-    rho_z = np.array(points_func.point_values()["RHO_AZ"])[:npoints]
-    gamma = np.array(points_func.point_values()["GAMMA_AA"])[:npoints]
-    tau = np.array(points_func.point_values()["TAU_A"])[:npoints]
-    gradient = rho_x + rho_y + rho_z
+
 
     # Compute our functional
     dft_results = superfunc.compute_functional(points_func.point_values(), -1)
 
     # Append outputs
-    ret["w"].append(w)
-    ret["x"].append(x)
-    ret["y"].append(y)
-    ret["z"].append(z)
 
-    ret["rho"].append(rho)
-    ret["gradient"].append(gradient)
-    ret["gamma"].append(gamma)
-    ret["tau"].append(tau)
 
     ret["epsilon_xc"].append(np.array(dft_results["V"])[:npoints])
-    ret["V_xc"].append(np.array(dft_results["V_RHO_A"])[:npoints])
     
     # Reformat outputs into 3D array format
     map_array = mapping_array(x,y,z,out_shape,x_start,x_end,y_start,y_end,z_start,z_end)
@@ -149,22 +130,12 @@ def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e):
     y = y.ravel()
     z = z.ravel()
     w = np.ones_like(z)*dv
+
+    temp_out = process_one_section(x,y,z,w,x_start,x_end,y_start,y_end,z_start,z_end,out_shape,scf_wfn,scf_e)
     
-    temp_filename =  '{}_{}_{}_{}_{}.hdf5'.format(molecule_name,xc,i,j,k)
-    if os.path.isfile(temp_filename) == False:
-        temp_out = process_one_section(x,y,z,w,x_start,x_end,y_start,y_end,z_start,z_end,out_shape,scf_wfn,scf_e)
-#        print type(temp_out['epsilon_xc'])
-#        print temp_out['epsilon_xc'].shape
-        
-        with h5py.File(temp_filename) as data:
-            for key in temp_out:
-                data.create_dataset(key,data=temp_out[key])
-            data.create_dataset('h_x',data=[h])
-            data.create_dataset('h_y',data=[h])
-            data.create_dataset('h_z',data=[h])
 
 
-    return
+    return np.sum(temp["epsilon_xc"])
     
 def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_options=None):
     #cwd = os.getcwd()
@@ -212,11 +183,26 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_option
     
     scf_e, scf_wfn = psi4.energy(xc, molecule=molecule, return_wfn=True)
 
-    print scf_e
+    X0 = -Lx/2.
+    Y0 = -Ly/2.
+    Z0 = -Lz/2.
+
+    x_inc = Lx/Nx
+    y_inc = Ly/Ny
+    z_inc = Lz/Nz
+
+    XC = 0.0
+
+
+    for i in range(Nx):
+        for j in range(Ny):
+            for k in range(Nz):
+                temp_xc = process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e)
+                XC += temp_xc
 
     
     #os.chdir(cwd) 
-    return
+    return XC
 
 
 
@@ -259,7 +245,7 @@ if __name__ == "__main__":
             molecules[molecule] = read_json_data(data[molecule])
             
         
-    xc_funcs = ['PBE','SVWN','B3LYP','PBE0']
+    xc_funcs = ['B3LYP','PBE','SVWN']
     all_data = {}
     
     def log(log_filename, text):
@@ -273,11 +259,7 @@ if __name__ == "__main__":
 
     for xc in xc_funcs:
         for mol in molecules:
-            print('#@!#@!Molecule:'+mol)
-            print('!@#!@#Method:' + xc)
-            filename = '{}_{}.hdf5'.format(mol,xc)
-            if not os.path.exists(filename):
-                process_system(molecules[mol],mol,xc,h,L,N)
+            result_XC = process_system(molecules[mol],mol,xc,h,L,N)
 
 
         
