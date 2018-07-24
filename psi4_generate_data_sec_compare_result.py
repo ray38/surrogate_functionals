@@ -228,13 +228,17 @@ if __name__ == "__main__":
 
 
     database_filename = sys.argv[1]
+    molecule_name = sys.argv[2]
     h = 0.02
     L = 10.0
     N = 5
     
 
-    molecule_names = ["C2H2","C2H4","C2H6","CH3OH","CH4","CO","CO2","H2","H2O","HCN","HNC","N2","N2O","NH3","O3","CH3CN","CH3CHO","CH3NO2","glycine","H2CCO","H2CO","H2O2","HCOOH","N2H4","NCCN"]
+    #molecule_names = ["C2H2","C2H4","C2H6","CH3OH","CH4","CO","CO2","H2","H2O","HCN","HNC","N2","N2O","NH3","O3","CH3CN","CH3CHO","CH3NO2","glycine","H2CCO","H2CO","H2O2","HCOOH","N2H4","NCCN"]
     
+    molecule_names = [molecule_name]
+
+
     try:
         data = json.load(open(database_filename,'rb'))
     except:
@@ -255,13 +259,13 @@ if __name__ == "__main__":
             myfile.write(text)
         return
         
-    failed_filename = "failed_molecule.log"
-    succ_filename = "successful_molecule.log"
-    cwd = os.getcwd()
 
     for xc in xc_funcs:
+        reulst_filename = "{}_result.log".format(xc)
         for mol in molecules:
             result_XC = process_system(molecules[mol],mol,xc,h,L,N)
+            log_text = "\n{}\t{}".format(mol,result_XC)
+            log(reulst_filename, log_text)
 
 
         
