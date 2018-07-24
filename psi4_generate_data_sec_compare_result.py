@@ -245,7 +245,7 @@ if __name__ == "__main__":
             molecules[molecule] = read_json_data(data[molecule])
             
         
-    xc_funcs = ['B3LYP','PBE','SVWN']
+    xc_funcs = ['SVWN','PBE']
     all_data = {}
     
     def log(log_filename, text):
