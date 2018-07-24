@@ -135,7 +135,7 @@ def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e):
     
 
 
-    return np.sum(temp["epsilon_xc"])
+    return np.sum(temp_out["epsilon_xc"])
     
 def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_options=None):
     #cwd = os.getcwd()
@@ -202,6 +202,8 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_option
 
     
     #os.chdir(cwd) 
+
+    print "result XC: {}".format(XC)
     return XC
 
 
