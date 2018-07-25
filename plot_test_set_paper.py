@@ -462,9 +462,9 @@ if __name__ == "__main__":
         os.chdir(main_dir)
         setup["refit VWN"] = {}
         try:
-            process_svwn_model(setup,"LDA")
+            process_svwn_model(setup,"NN [LDA]")
         except:
-            process_svwn_model(setup,"LDA")
+            process_svwn_model(setup,"Ave. Dens. 0.0")
         os.chdir(main_dir)
 
         data = create_df(setup)
