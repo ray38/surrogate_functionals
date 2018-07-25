@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
 
 
-	plt.figure(figsize=(15,10))
+	plt.figure(figsize=(12,8))
 
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
@@ -71,7 +71,7 @@ if __name__ == "__main__":
 	ax2.set_xticklabels(ax2.get_xticklabels(),rotation=45)
 	plt.xlabel("Model", fontsize=25)
 	plt.ylabel("Error in Formation Energy (eV)", fontsize=25)
-	plt.tick_params('both',labelsize='15')
+	plt.tick_params('both',labelsize='20')
 
 	handles1, _ = ax1.get_legend_handles_labels()
 	ax1.legend(handles1, ["Training set", "Test set"],fontsize=20,bbox_to_anchor=(0.6, 0.4), loc=2)
@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
 
 
-	plt.figure(figsize=(15,10))
+	plt.figure(figsize=(12,8))
 
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
@@ -96,7 +96,7 @@ if __name__ == "__main__":
 	ax2.set_xticklabels(ax2.get_xticklabels(),rotation=45)
 	plt.xlabel("Model", fontsize=25)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=25)
-	plt.tick_params('both',labelsize='15')
+	plt.tick_params('both',labelsize='20')
 
 	handles1, _ = ax1.get_legend_handles_labels()
 	ax1.legend(handles1, ["Training set", "Test set"],fontsize=20, loc=1)
@@ -152,7 +152,7 @@ if __name__ == "__main__":
         g.set_yticklabels(fontsize=40)
 	sns.despine(left=True)
 	#plt.legend(bbox_to_anchor=(1, 1), loc=2)
-	plt.legend(bbox_to_anchor=(0, 0.0), loc=1,fontsize=25)
+	plt.legend(bbox_to_anchor=(0, 0.5), loc=1,fontsize=25)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=40)
 	plt.xlabel("", fontsize=18)
 	plt.tight_layout()
