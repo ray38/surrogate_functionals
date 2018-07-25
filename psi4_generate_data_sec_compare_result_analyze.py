@@ -192,7 +192,7 @@ if __name__ == "__main__":
 
 
 
-    with open(setup["predict_error_log_name"],'rb') as f:
+    with open(predict_log_filename,'rb') as f:
         for line in f:
             if line.strip() != '':
                 temp = line.strip().split()
