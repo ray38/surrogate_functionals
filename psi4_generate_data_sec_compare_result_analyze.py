@@ -254,7 +254,7 @@ if __name__ == "__main__":
     #formation_energies_compare_en   = get_formation_energies(compare_energy_dict.copy(),ref_offset_compare_en.copy(),composition_dict)
 
 
-    print '{:10}\t{}\t{}'.format('name', 'form. E. 1', 'form. E. 2')
+    #print '{:10}\t{}\t{}'.format('name', 'form. E. 1', 'form. E. 2')
     print '--------- 1: predicted xc energy  2: psi4 xc energy projected on fd-grid\n'
     for key in formation_energies_original_en.keys():
         #print '{:10}\t{:8.5f}\t{:8.5f}'.format(key,formation_energies_original_en[key],formation_energies_predict_en[key])
