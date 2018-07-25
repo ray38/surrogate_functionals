@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
 
 
-	plt.figure(figsize=(30,20))
+	plt.figure(figsize=(15,10))
 
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
 
 
-	plt.figure(figsize=(30,20))
+	plt.figure(figsize=(15,10))
 
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
@@ -99,7 +99,7 @@ if __name__ == "__main__":
 	plt.tick_params('both',labelsize='15')
 
 	handles1, _ = ax1.get_legend_handles_labels()
-	ax1.legend(handles1, ["Training set", "Test set"],fontsize=20,bbox_to_anchor=(0.6, 0.4), loc=2)
+	ax1.legend(handles1, ["Training set", "Test set"],fontsize=20, loc=1)
 
 	plt.tight_layout()
 	plt.savefig("energy_violin_swarm_plot2.png")
