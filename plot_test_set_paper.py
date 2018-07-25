@@ -347,8 +347,8 @@ def plot_group_2(data,order):
         if name == "refit VWN":
             sum_error_result = []
             for count, interval in enumerate(dens_intervals):
-            temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
-            sum_error_result.append(temp['error'].sum())
+                temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
+                sum_error_result.append(temp['error'].sum())
 
             plt.plot(dens_interval_medians, sum_error_result,label=name)
     for name, group in groups:
@@ -356,8 +356,8 @@ def plot_group_2(data,order):
         if name != "refit VWN":
             sum_error_result = []
             for count, interval in enumerate(dens_intervals):
-            temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
-            sum_error_result.append(temp['error'].sum())
+                temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
+                sum_error_result.append(temp['error'].sum())
 
             plt.plot(dens_interval_medians, sum_error_result,label=name)
     #ax.fig.get_axes()[0].set_xscale('log')
@@ -386,16 +386,16 @@ def plot_group_2(data,order):
         if name == "refit VWN":
             sum_error_result = []
             for count, interval in enumerate(dens_intervals):
-            temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
-            sum_error_result.append(temp['error'].sum())
+                temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
+                sum_error_result.append(temp['error'].sum())
 
             plt.plot(dens_interval_medians, sum_error_result,label=name)
     for name, group in groups:
         if name != "refit VWN":
             sum_error_result = []
             for count, interval in enumerate(dens_intervals):
-            temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
-            sum_error_result.append(temp['error'].sum())
+                temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
+                sum_error_result.append(temp['error'].sum())
 
             plt.plot(dens_interval_medians, sum_error_result,label=name)
     fig.get_axes()[0].set_yscale('symlog')
@@ -427,16 +427,16 @@ def plot_group_2(data,order):
         if name == "refit VWN":
             log_sum_error_result = []
             for count, interval in enumerate(log_dens_intervals):
-            temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
-            log_sum_error_result.append(temp['error'].sum())
+                temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
+                log_sum_error_result.append(temp['error'].sum())
 
             plt.plot(log_dens_interval_medians, log_sum_error_result,label=name,linewidth=5.0)
     for name, group in groups:
         if name != "refit VWN":
             log_sum_error_result = []
             for count, interval in enumerate(log_dens_intervals):
-            temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
-            log_sum_error_result.append(temp['error'].sum())
+                temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
+                log_sum_error_result.append(temp['error'].sum())
 
             plt.plot(log_dens_interval_medians, log_sum_error_result,label=name,linewidth=5.0)
     #ax.fig.get_axes()[0].set_xscale('log')
@@ -474,16 +474,16 @@ def plot_group_2(data,order):
         if name == "refit VWN":
             log_sum_error_result = []
             for count, interval in enumerate(log_dens_intervals):
-            temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
-            log_sum_error_result.append(temp['error'].sum())
+                temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
+                log_sum_error_result.append(temp['error'].sum())
 
             plt.plot(log_dens_interval_medians, log_sum_error_result,label=name)
     for name, group in groups:
         if name != "refit VWN":
             log_sum_error_result = []
             for count, interval in enumerate(log_dens_intervals):
-            temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
-            log_sum_error_result.append(temp['error'].sum())
+                temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
+                log_sum_error_result.append(temp['error'].sum())
 
             plt.plot(log_dens_interval_medians, log_sum_error_result,label=name)
     fig.get_axes()[0].set_yscale('symlog')
