@@ -194,7 +194,7 @@ if __name__ == "__main__":
             if line.strip() != '':
                 temp = line.strip().split()
                 temp_name = temp[0]
-                temp_predict_energy  = float(temp[1]) * 0.02 * 0.02 * 0.02 * *27.2114
+                temp_predict_energy  = float(temp[1]) * 0.02 * 0.02 * 0.02 * 27.2114
 
                 setup["result_data"][temp_name]['predict_exc'] = temp_predict_energy
                 setup["result_data"][temp_name]["exist"] = True
