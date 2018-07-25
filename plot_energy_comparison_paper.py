@@ -152,7 +152,7 @@ if __name__ == "__main__":
         g.set_yticklabels(fontsize=40)
 	sns.despine(left=True)
 	#plt.legend(bbox_to_anchor=(1, 1), loc=2)
-	plt.legend(bbox_to_anchor=(0, 0.0), loc=2,fontsize=25)
+	plt.legend(bbox_to_anchor=(0, 0.0), loc=1,fontsize=25)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=40)
 	plt.xlabel("", fontsize=18)
 	plt.tight_layout()
