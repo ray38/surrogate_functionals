@@ -281,7 +281,7 @@ def plot_group_1(data,order):
     
     sns.set(style="white", palette="pastel", color_codes=True)
 
-    ax = sns.FacetGrid(data, hue="model_name",col="model_name",col_order=order,height=3.0)
+    ax = sns.FacetGrid(data, hue="model_name",col="model_name",col_order=order)
     ax = (ax.map(plt.scatter, "dens","error", edgecolor="w"))
 
     #ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
