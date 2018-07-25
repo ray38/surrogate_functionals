@@ -154,34 +154,37 @@ if __name__ == "__main__":
 
     setup = {}
 
+    for molecule in ["C2H2","C2H4","C2H6","CH3OH","CH4","CO","CO2","H2","H2O","HCN","HNC","N2","N2O","NH3","O3","CH3CN","CH3CHO","CH3NO2","glycine","H2CCO","H2CO","H2O2","HCOOH","N2H4","NCCN"]:
+        setup["result_data"][molecule] = {}
+        setup["result_data"][molecule]["exist"] = True
 
     setup["result_data"] = {
 
-        C2H2: {'original_exc':    -251.494115923},
-        C2H4: {'original_exc':    -270.688542704},
-        C2H6: {'original_exc':    -288.500445804},
-        CH3OH: {'original_exc':   -341.371479846},
-        CH4: {'original_exc': -152.229874052},
-        CO: {'original_exc':  -305.112271823},
-        CO2: {'original_exc': -495.584555558},
-        H2: {'original_exc':  -15.6333062739},
-        H2O: {'original_exc': -205.259933135},
-        HCN: {'original_exc': -276.891990253},
-        HNC: {'original_exc': -276.80345662},
-        N2: {'original_exc':  -300.748773291},
-        N2O: {'original_exc': -489.449966457},
-        NH3: {'original_exc': -176.725234648},
-        O3: {'original_exc':  -560.158355969},
-        CH3CN: {'original_exc':   -413.809819159},
-        CH3CHO: {'original_exc':  -459.615442804},
-        CH3NO2: {'original_exc':  -671.302201172},
-        glycine: {'original_exc': -807.294777131},
-        H2CCO: {'original_exc':   -441.995503617},
-        H2CO: {'original_exc':    -323.372727618},
-        H2O2: {'original_exc':    -392.349731812},
-        HCOOH: {'original_exc':   -513.014654151},
-        N2H4: {'original_exc':    -336.926638981},
-        NCCN: {'original_exc':    -534.977032303}
+        "C2H2": {'original_exc':    -251.494115923},
+        "C2H4": {'original_exc':    -270.688542704},
+        "C2H6": {'original_exc':    -288.500445804},
+        "CH3OH": {'original_exc':   -341.371479846},
+        "CH4": {'original_exc': -152.229874052},
+        "CO": {'original_exc':  -305.112271823},
+        "CO2": {'original_exc': -495.584555558},
+        "H2": {'original_exc':  -15.6333062739},
+        "H2O": {'original_exc': -205.259933135},
+        "HCN": {'original_exc': -276.891990253},
+        "HNC": {'original_exc': -276.80345662},
+        "N2": {'original_exc':  -300.748773291},
+        "N2O": {'original_exc': -489.449966457},
+        "NH3": {'original_exc': -176.725234648},
+        "O3": {'original_exc':  -560.158355969},
+        "CH3CN": {'original_exc':   -413.809819159},
+        "CH3CHO": {'original_exc':  -459.615442804},
+        "CH3NO2": {'original_exc':  -671.302201172},
+        "glycine": {'original_exc': -807.294777131},
+        "H2CCO": {'original_exc':   -441.995503617},
+        "H2CO": {'original_exc':    -323.372727618},
+        "H2O2": {'original_exc':    -392.349731812},
+        "HCOOH": {'original_exc':   -513.014654151},
+        "N2H4": {'original_exc':    -336.926638981},
+        "NCCN": {'original_exc':    -534.977032303}
 
     }
 
