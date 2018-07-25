@@ -1,6 +1,6 @@
 import os
 import itertools
-import h5py
+#import h5py
 import json
 import sys
 import csv
