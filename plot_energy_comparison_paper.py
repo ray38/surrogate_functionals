@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
 
 
-	plt.figure()
+	plt.figure(figsize=(30,20))
 
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
 
 
-	plt.figure()
+	plt.figure(figsize=(30,20))
 
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
