@@ -74,7 +74,8 @@ if __name__ == "__main__":
 	plt.tick_params('both',labelsize='20')
 
 	handles1, _ = ax1.get_legend_handles_labels()
-	ax1.legend(handles1, ["Training set", "Test set"],fontsize=20,bbox_to_anchor=(0.6, 0.4), loc=2)
+	#ax1.legend(handles1, ["Training set", "Test set"],fontsize=20,bbox_to_anchor=(0.6, 0.4), loc=2)
+	ax1.legend(handles1, ["Training set", "Test set"],fontsize=20, loc=1)
 
 	plt.tight_layout()
 	plt.savefig("formation_energy_violin_swarm_plot2.png")
