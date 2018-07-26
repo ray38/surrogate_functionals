@@ -526,6 +526,49 @@ if __name__ == "__main__":
         #             'A0.44','A0.48','A0.52','A0.56','A0.60']
         #fig = plt.figure()
 
+    X_pca, pca = fit_pca(X_train.copy(),'pca_model_{}.sav'.format(dataset_name),n_components = None)
+    fig = plt.figure(figsize=(10,3))
+    temp_len = len(pca.components_[0])
+    print temp_len
+    print pca.explained_variance_ratio_
+    print len(pca.explained_variance_ratio_)
+
+    plt.plot(np.arange(1,temp_len+1),pca.explained_variance_ratio_,linewidth=7.0)
+    plt.tick_params(labelsize=15)
+    plt.tight_layout()
+    plt.savefig('PCA_explained_variance_ratio.png')
+    
+
+
+
+
+    fig = plt.figure()
+    plt.plot(np.arange(1,temp_len+1),pca.explained_variance_ratio_)
+    fig.get_axes()[0].set_yscale('log')
+    plt.savefig('PCA_explained_variance_ratio_log.png')
+    
+    
+    fig,ax = plt.subplots(figsize=(10,5))
+    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    sns.set(font_scale = 1.5)
+    plt.plot(np.arange(1,temp_len+1),pca.components_[0], label="PC1",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pca.components_[1], label="PC2",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pca.components_[2], label="PC3",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pca.components_[3], label="PC4",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pca.components_[4], label="PC5",linewidth=5.0)
+    plt.legend(loc='lower right')
+    ax.set_xticklabels(temp,rotation=90)
+    
+    ax.set_xticks(np.arange(1,temp_len))
+    plt.tick_params(labelsize=15)
+    plt.tight_layout()
+    plt.savefig('PCA_components_real.png')
+    
+    
+    
+    
+    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10, edge=(-5,20,-5,25))
+    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-5,20,-5,25))
 
 
 
@@ -591,49 +634,7 @@ if __name__ == "__main__":
     pickle.dump(stdscaler2, open("standard_scaler_y.sav", 'wb'))
 
 
-    X_pca_standard, pca_standard = fit_pca(X_train_standard.copy(),'pca_model_standard_{}.sav'.format(dataset_name),n_components = None)
-    fig = plt.figure(figsize=(10,3))
-    temp_len = len(pca_standard.components_[0])
-    print temp_len
-    print pca_standard.explained_variance_ratio_
-    print len(pca_standard.explained_variance_ratio_)
-
-    plt.plot(np.arange(1,temp_len+1),pca_standard.explained_variance_ratio_,linewidth=7.0)
-    plt.tick_params(labelsize=15)
-    plt.tight_layout()
-    plt.savefig('PCA_standard_explained_variance_ratio.png')
     
-
-
-
-
-    fig = plt.figure()
-    plt.plot(np.arange(1,temp_len+1),pca_standard.explained_variance_ratio_)
-    fig.get_axes()[0].set_yscale('log')
-    plt.savefig('PCA_standard_explained_variance_ratio_log.png')
-    
-    
-    fig,ax = plt.subplots(figsize=(10,5))
-    sns.set(style="whitegrid", palette="pastel", color_codes=True)
-    sns.set(font_scale = 1.5)
-    plt.plot(np.arange(1,temp_len+1),pca_standard.components_[0], label="PC1",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pca_standard.components_[1], label="PC2",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pca_standard.components_[2], label="PC3",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pca_standard.components_[3], label="PC4",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pca_standard.components_[4], label="PC5",linewidth=5.0)
-    plt.legend(loc='lower right')
-    ax.set_xticklabels(temp,rotation=90)
-    
-    ax.set_xticks(np.arange(1,temp_len))
-    plt.tick_params(labelsize=15)
-    plt.tight_layout()
-    plt.savefig('PCA_standard_components_real.png')
-    
-    
-    
-    
-    plot_result(X_pca_standard, molecule_name, molecule_label, "PCA_standard_result_plot_{}_{}.png".format(dataset_name,10),10, edge=(-5,20,-5,25))
-    plot_result(X_pca_standard, molecule_name, molecule_label, "PCA_standard_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-5,20,-5,25))
 
 
 
