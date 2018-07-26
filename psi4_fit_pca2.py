@@ -703,7 +703,7 @@ if __name__ == "__main__":
     ax.set_xticklabels(temp,rotation=15)
     
     ax.set_xticks(np.arange(1,temp_len))
-    plt.tick_params(labelsize=15
+    plt.tick_params(labelsize=15)
     plt.tight_layout()
     plt.savefig('PCA_standard_components_real.png')
     plt.close()
