@@ -447,7 +447,7 @@ def plot_result_PLS(score_x, score_y, molecule_name, molecule_label, filename,fi
     print "start plotting"
     result = {}
     result["x score"] = score_x[:,0]
-    result["y score"] = score_y[:,0]
+    result["y score"] = score_y
 
 
     result["molecule_name"] = molecule_name
