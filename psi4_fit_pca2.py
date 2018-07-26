@@ -367,7 +367,7 @@ def fit_manifold(data,filename,method,n_neighbors = 10, n_components = 2):
     print X_transform.shape
     return X_transform, model
 
-def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=(0,0,0,0)):
+def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=(0,0,0,0),x_scale = "linear",y_scale="linear"):
     x_low, x_high, y_low, y_high = edge 
     print "start plotting"
     result = {}
@@ -389,7 +389,10 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     sns.lmplot( x="PC1", y="PC2", data=plot_data, fit_reg=False, hue='molecule_label', legend=False,size=figure_size)
     plt.xlabel("PC1",fontsize=30)
     plt.ylabel("PC2",fontsize=30)
+    fig.get_axes()[0].set_xscale(x_scale)
+    fig.get_axes()[0].set_yscale(y_scale)
     plt.tick_params(labelsize=20)
+    
      
     # Move the legend to an empty part of the plot
     plt.legend(loc='lower right')
@@ -447,7 +450,7 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     """
 
 
-def plot_result_PLS(score_x, score_y, molecule_name, molecule_label, filename,figure_size, edge=(0,0,0,0)):
+def plot_result_PLS(score_x, score_y, molecule_name, molecule_label, filename,figure_size, edge=(0,0,0,0),x_scale = "linear",y_scale="linear"):
     x_low, x_high, y_low, y_high = edge 
     print "start plotting"
     result = {}
@@ -468,6 +471,8 @@ def plot_result_PLS(score_x, score_y, molecule_name, molecule_label, filename,fi
     sns.lmplot( x="x score", y="y score", data=plot_data, fit_reg=False, hue='molecule_label', legend=False,size=figure_size)
     plt.xlabel("x score",fontsize=30)
     plt.ylabel("y score",fontsize=30)
+    fig.get_axes()[0].set_xscale(x_scale)
+    fig.get_axes()[0].set_yscale(y_scale)
     plt.tick_params(labelsize=20)
      
     # Move the legend to an empty part of the plot
@@ -544,7 +549,7 @@ if __name__ == "__main__":
     print len(pca.explained_variance_ratio_)
 
     plt.plot(np.arange(1,temp_len+1),pca.explained_variance_ratio_,linewidth=7.0)
-    plt.tick_params(labelsize=20)
+    plt.tick_params(labelsize=15)
     plt.tight_layout()
     plt.savefig('PCA_explained_variance_ratio.png')
     plt.close()
@@ -555,14 +560,14 @@ if __name__ == "__main__":
 
     fig = plt.figure(figsize=(10,3))
     plt.plot(np.arange(1,temp_len+1),pca.explained_variance_ratio_,linewidth=7.0)
-    plt.tick_params(labelsize=20)
+    plt.tick_params(labelsize=15)
     fig.get_axes()[0].set_yscale('log')
     plt.tight_layout()
     plt.savefig('PCA_explained_variance_ratio_log.png')
     plt.close()
     
     
-    fig,ax = plt.subplots(figsize=(10,5))
+    fig,ax = plt.subplots(figsize=(10,3))
     #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
     plt.plot(np.arange(1,temp_len+1),pca.components_[0], label="PC1",linewidth=5.0)
@@ -574,7 +579,7 @@ if __name__ == "__main__":
     ax.set_xticklabels(temp,rotation=90)
     
     ax.set_xticks(np.arange(1,temp_len))
-    plt.tick_params(labelsize=20)
+    plt.tick_params(labelsize=15)
     plt.tight_layout()
     plt.savefig('PCA_components_real.png')
     plt.close()
@@ -584,6 +589,8 @@ if __name__ == "__main__":
     
     plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,10),10, edge=(-5,20,-5,25))
     plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-5,20,-5,25))
+    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}_log_log.png".format(dataset_name,10),10, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
+    plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}_log_log.png".format(dataset_name,20),20, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
 
 
 
@@ -592,7 +599,7 @@ if __name__ == "__main__":
     X_pls,y_pls, pls = fit_pls(X_train.copy(),y.copy(),'pls_model_{}.sav'.format(dataset_name))
 
 
-    fig,ax = plt.subplots(figsize=(10,5))
+    fig,ax = plt.subplots(figsize=(10,3))
     #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
     plt.plot(np.arange(1,temp_len+1),pls.x_weights_[:,0], label="PLS1",linewidth=5.0)
@@ -610,7 +617,7 @@ if __name__ == "__main__":
     plt.close()
 
 
-    fig,ax = plt.subplots(figsize=(10,5))
+    fig,ax = plt.subplots(figsize=(10,3))
     #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
     plt.plot(np.arange(1,temp_len+1),pls.x_loadings_[:,0], label="PLS1",linewidth=5.0)
@@ -632,8 +639,12 @@ if __name__ == "__main__":
 
     plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,10),10)
     plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,20),20)
+    plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}_log_log.png".format(dataset_name,10),10, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
+    plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}_log_log.png".format(dataset_name,20),20, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
     plot_result_PLS(X_pls,y_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}_score.png".format(dataset_name,10),10)
     plot_result_PLS(X_pls,y_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}_score.png".format(dataset_name,20),20)
+    plot_result_PLS(X_pls,y_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}_score_log_log.png".format(dataset_name,10),10, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
+    plot_result_PLS(X_pls,y_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}_score_log_log.png".format(dataset_name,20),20, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
 
 
 
@@ -662,7 +673,7 @@ if __name__ == "__main__":
     print len(pca_standard.explained_variance_ratio_)
 
     plt.plot(np.arange(1,temp_len+1),pca_standard.explained_variance_ratio_,linewidth=7.0)
-    plt.tick_params(labelsize=20)
+    plt.tick_params(labelsize=15)
     plt.tight_layout()
     plt.savefig('PCA_standard_explained_variance_ratio.png')
     plt.close()
@@ -680,7 +691,7 @@ if __name__ == "__main__":
     plt.close()
     
     
-    fig,ax = plt.subplots(figsize=(10,5))
+    fig,ax = plt.subplots(figsize=(10,3))
     #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
     plt.plot(np.arange(1,temp_len+1),pca_standard.components_[0], label="PC1",linewidth=5.0)
@@ -689,10 +700,10 @@ if __name__ == "__main__":
     plt.plot(np.arange(1,temp_len+1),pca_standard.components_[3], label="PC4",linewidth=5.0)
     plt.plot(np.arange(1,temp_len+1),pca_standard.components_[4], label="PC5",linewidth=5.0)
     plt.legend(loc='lower right')
-    ax.set_xticklabels(temp,rotation=90)
+    ax.set_xticklabels(temp,rotation=15)
     
     ax.set_xticks(np.arange(1,temp_len))
-    plt.tick_params(labelsize=20)
+    plt.tick_params(labelsize=15
     plt.tight_layout()
     plt.savefig('PCA_standard_components_real.png')
     plt.close()
@@ -702,6 +713,8 @@ if __name__ == "__main__":
     
     plot_result(X_pca_standard, molecule_name, molecule_label, "PCA_standard_result_plot_{}_{}.png".format(dataset_name,10),10, edge=(-5,20,-5,25))
     plot_result(X_pca_standard, molecule_name, molecule_label, "PCA_standard_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-5,20,-5,25))
+    plot_result(X_pca_standard, molecule_name, molecule_label, "PCA_standard_result_plot_{}_{}_log_log.png".format(dataset_name,10),10, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
+    plot_result(X_pca_standard, molecule_name, molecule_label, "PCA_standard_result_plot_{}_{}_log_log.png".format(dataset_name,20),20, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
 
 
 
@@ -719,7 +732,7 @@ if __name__ == "__main__":
 
 
 
-    fig,ax = plt.subplots(figsize=(10,5))
+    fig,ax = plt.subplots(figsize=(10,3))
     #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
     plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[:,0], label="PLS1",linewidth=5.0)
@@ -737,7 +750,7 @@ if __name__ == "__main__":
     plt.close()
 
 
-    fig,ax = plt.subplots(figsize=(10,5))
+    fig,ax = plt.subplots(figsize=(10,3))
     #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
     plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[:,0], label="PLS1",linewidth=5.0)
@@ -759,8 +772,12 @@ if __name__ == "__main__":
 
     plot_result(X_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}.png".format(dataset_name,10),10)
     plot_result(X_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}.png".format(dataset_name,20),20)
+    plot_result(X_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}_log_log.png".format(dataset_name,10),10, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
+    plot_result(X_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}_log_log.png".format(dataset_name,20),20, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
     plot_result_PLS(X_pls_standard,y_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}_score.png".format(dataset_name,10),10)
     plot_result_PLS(X_pls_standard,y_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}_score.png".format(dataset_name,20),20)
+    plot_result_PLS(X_pls_standard,y_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}_score_log_log.png".format(dataset_name,10),10, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
+    plot_result_PLS(X_pls_standard,y_pls_standard, molecule_name, molecule_label, "PLS_standard_result_plot_{}_{}_score_log_log.png".format(dataset_name,20),20, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
 
 
 
