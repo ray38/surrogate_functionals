@@ -386,11 +386,10 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     
     #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set_context("poster")
-    sns.lmplot( x="PC1", y="PC2", data=plot_data, fit_reg=False, hue='molecule_label', legend=False,size=figure_size)
+    grid = sns.lmplot( x="PC1", y="PC2", data=plot_data, fit_reg=False, hue='molecule_label', legend=False,size=figure_size)
     plt.xlabel("PC1",fontsize=30)
     plt.ylabel("PC2",fontsize=30)
-    fig.get_axes()[0].set_xscale(x_scale)
-    fig.get_axes()[0].set_yscale(y_scale)
+    grid.set(xscale=x_scale, yscale=y_scale)
     plt.tick_params(labelsize=20)
     
      
@@ -468,11 +467,10 @@ def plot_result_PLS(score_x, score_y, molecule_name, molecule_label, filename,fi
     
     #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set_context("poster")
-    sns.lmplot( x="x score", y="y score", data=plot_data, fit_reg=False, hue='molecule_label', legend=False,size=figure_size)
+    grid = sns.lmplot( x="x score", y="y score", data=plot_data, fit_reg=False, hue='molecule_label', legend=False,size=figure_size)
     plt.xlabel("x score",fontsize=30)
     plt.ylabel("y score",fontsize=30)
-    fig.get_axes()[0].set_xscale(x_scale)
-    fig.get_axes()[0].set_yscale(y_scale)
+    grid.set(xscale=x_scale, yscale=y_scale)
     plt.tick_params(labelsize=20)
      
     # Move the legend to an empty part of the plot
