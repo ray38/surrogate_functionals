@@ -495,6 +495,9 @@ if __name__ == "__main__":
     
     X_train,y, dens, molecule_name, molecule_label = get_training_data(dataset_name,setup)
 
+    X_train_backup = X_train.copy()
+    y_backup = y.copy()
+
     print np.isnan(X_train.any())
     print np.isfinite(X_train.all())
    
@@ -560,7 +563,7 @@ if __name__ == "__main__":
     plt.plot(np.arange(1,temp_len+1),pca_standard.components_[3], label="PC4",linewidth=5.0)
     plt.plot(np.arange(1,temp_len+1),pca_standard.components_[4], label="PC5",linewidth=5.0)
     plt.legend(loc='lower right')
-    ax.set_xticklabels(temp,rotation=45)
+    ax.set_xticklabels(temp,rotation=90)
     
     ax.set_xticks(np.arange(1,temp_len))
     plt.tick_params(labelsize=15)
@@ -599,7 +602,7 @@ if __name__ == "__main__":
     plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[:,3], label="PLS4",linewidth=5.0)
     plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[:,4], label="PLS5",linewidth=5.0)
     plt.legend(loc='lower right')
-    ax.set_xticklabels(temp,rotation=45)
+    ax.set_xticklabels(temp,rotation=90)
     
     ax.set_xticks(np.arange(1,temp_len))
     plt.tick_params(labelsize=15)
@@ -616,7 +619,7 @@ if __name__ == "__main__":
     plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[:,3], label="PLS4",linewidth=5.0)
     plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[:,4], label="PLS5",linewidth=5.0)
     plt.legend(loc='lower right')
-    ax.set_xticklabels(temp,rotation=45)
+    ax.set_xticklabels(temp,rotation=90)
     
     ax.set_xticks(np.arange(1,temp_len))
     plt.tick_params(labelsize=15)
@@ -640,7 +643,7 @@ if __name__ == "__main__":
 
 
 
-    X_pls,y_pls, pls = fit_pls(X_train.copy(),y.copy(),'pls_model_{}.sav'.format(dataset_name))
+    X_pls,y_pls, pls = fit_pls(X_train_backup.copy(),y_backup.copy(),'pls_model_{}.sav'.format(dataset_name))
 
 
     fig,ax = plt.subplots(figsize=(10,5))
@@ -652,7 +655,7 @@ if __name__ == "__main__":
     plt.plot(np.arange(1,temp_len+1),pls.x_weights_[:,3], label="PLS4",linewidth=5.0)
     plt.plot(np.arange(1,temp_len+1),pls.x_weights_[:,4], label="PLS5",linewidth=5.0)
     plt.legend(loc='lower right')
-    ax.set_xticklabels(temp,rotation=45)
+    ax.set_xticklabels(temp,rotation=90)
     
     ax.set_xticks(np.arange(1,temp_len))
     plt.tick_params(labelsize=15)
@@ -669,7 +672,7 @@ if __name__ == "__main__":
     plt.plot(np.arange(1,temp_len+1),pls.x_loadings_[:,3], label="PLS4",linewidth=5.0)
     plt.plot(np.arange(1,temp_len+1),pls.x_loadings_[:,4], label="PLS5",linewidth=5.0)
     plt.legend(loc='lower right')
-    ax.set_xticklabels(temp,rotation=45)
+    ax.set_xticklabels(temp,rotation=90)
     
     ax.set_xticks(np.arange(1,temp_len))
     plt.tick_params(labelsize=15)
