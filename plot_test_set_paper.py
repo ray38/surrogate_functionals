@@ -244,7 +244,7 @@ def create_df(setup):
         model_name_list += [model_name] * temp_len
         model_list += [setup[model_name]["model"]] * temp_len
 
-    d = {"Error (eV/A$^3$)": error_list, "Density": dens_list, "dataset":dataset_name_list, "model_name": model_name_list, "model":model_list, "log(Predict Energy)":log_y_list, "log(Density)":log_dens_list, "Predict Energy":y_list}
+    d = {"Error (eV/A$^3$)": error_list, "Density": dens_list, "dataset":dataset_name_list, "Model": model_name_list, "model":model_list, "log(Predict Energy)":log_y_list, "log(Density)":log_dens_list, "Predict Energy":y_list}
 
     return pd.DataFrame(data=d)
     
@@ -255,7 +255,7 @@ def plot_group_1(data,order):
     
     sns.set(style="white", palette="pastel", color_codes=True)
 
-    ax = sns.lmplot(x="Density",y="Error (eV/A$^3$)",hue="model_name",hue_order = order,data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
+    ax = sns.lmplot(x="Density",y="Error (eV/A$^3$)",hue="Model",hue_order = order,data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
     plt.xlabel("Density (1/A$^3$)",fontsize=50)
     plt.ylabel("Prediction Error (eV/A$^3$)",fontsize=50)
     plt.tick_params(labelsize=40)
@@ -274,7 +274,7 @@ def plot_group_1(data,order):
     
     sns.set(style="white", palette="pastel", color_codes=True)
 
-    ax = sns.FacetGrid(data, hue="model_name",col="model_name",col_order=order)
+    ax = sns.FacetGrid(data, hue="Model",col="Model",col_order=order)
     ax = (ax.map(plt.scatter, "Density","Error (eV/A$^3$)", edgecolor="w"))
 
     plt.savefig("test_set_plot_real_real2.png")
@@ -299,7 +299,7 @@ def plot_group_2(data,order):
     plt.savefig("test_set_plot_dens_dist_log.png")
     
     
-    number_models = data['model_name'].nunique()
+    number_models = data['Model'].nunique()
     
     
     
@@ -317,7 +317,7 @@ def plot_group_2(data,order):
     
     
     
-    groups = data.groupby("model_name")
+    groups = data.groupby("Model")
     
     fig = plt.figure(figsize=(10,3.5))
     sns.set(style="white", color_codes=True)
@@ -345,10 +345,10 @@ def plot_group_2(data,order):
     
     
     #plt.xlabel(r"$log_{10} (\rho)$",fontsize=20)
-    plt.xlabel("",fontsize=0)
+    plt.xlabel("log(Density)",fontsize=0)
     plt.ylabel("Error (eV)",fontsize=20)
     plt.tick_params(axis='y', labelsize=20)
-    plt.tick_params(axis='x', labelsize=0)
+    plt.tick_params(axis='x', labelsize=20)
     plt.xlim(-9,3)
     plt.tight_layout()
     plt.savefig("test_set_plot_dens_sumerror_log_real.png", transparent=True)
@@ -437,6 +437,7 @@ if __name__ == "__main__":
         temp_order = json.load(f)
     order = temp_order["order"]
     
-    plot_group_1(data,order)
     plot_group_2(data,order)
+    plot_group_1(data,order)
+    
 
