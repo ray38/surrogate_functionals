@@ -390,7 +390,9 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
      
     # Move the legend to an empty part of the plot
     plt.legend(loc='lower right')
+    plt.tight_layout()
     plt.savefig(filename)
+    plt.close()
 
     return
 
@@ -464,7 +466,9 @@ def plot_result_PLS(score_x, score_y, molecule_name, molecule_label, filename,fi
      
     # Move the legend to an empty part of the plot
     plt.legend(loc='lower right')
+    plt.tight_layout()
     plt.savefig(filename)
+    plt.close()
 
     return
 
@@ -537,6 +541,7 @@ if __name__ == "__main__":
     plt.tick_params(labelsize=15)
     plt.tight_layout()
     plt.savefig('PCA_explained_variance_ratio.png')
+    plt.close()
     
 
 
@@ -545,7 +550,9 @@ if __name__ == "__main__":
     fig = plt.figure(figsize=(10,3))
     plt.plot(np.arange(1,temp_len+1),pca.explained_variance_ratio_)
     fig.get_axes()[0].set_yscale('log')
+    plt.tight_layout()
     plt.savefig('PCA_explained_variance_ratio_log.png')
+    plt.close()
     
     
     fig,ax = plt.subplots(figsize=(10,5))
@@ -563,6 +570,7 @@ if __name__ == "__main__":
     plt.tick_params(labelsize=15)
     plt.tight_layout()
     plt.savefig('PCA_components_real.png')
+    plt.close()
     
     
     
@@ -592,6 +600,7 @@ if __name__ == "__main__":
     plt.tick_params(labelsize=15)
     plt.tight_layout()
     plt.savefig('PLS_x_weights_real.png')
+    plt.close()
 
 
     fig,ax = plt.subplots(figsize=(10,5))
@@ -609,6 +618,7 @@ if __name__ == "__main__":
     plt.tick_params(labelsize=15)
     plt.tight_layout()
     plt.savefig('PLS_x_loadings_real.png')
+    plt.close()
 
 
 
@@ -648,6 +658,7 @@ if __name__ == "__main__":
     plt.tick_params(labelsize=15)
     plt.tight_layout()
     plt.savefig('PCA_standard_explained_variance_ratio.png')
+    plt.close()
     
 
 
@@ -656,7 +667,9 @@ if __name__ == "__main__":
     fig = plt.figure(figsize=(10,3))
     plt.plot(np.arange(1,temp_len+1),pca_standard.explained_variance_ratio_)
     fig.get_axes()[0].set_yscale('log')
+    plt.tight_layout()
     plt.savefig('PCA_standard_explained_variance_ratio_log.png')
+    plt.close()
     
     
     fig,ax = plt.subplots(figsize=(10,5))
@@ -674,6 +687,7 @@ if __name__ == "__main__":
     plt.tick_params(labelsize=15)
     plt.tight_layout()
     plt.savefig('PCA_standard_components_real.png')
+    plt.close()
     
     
     
@@ -712,6 +726,7 @@ if __name__ == "__main__":
     plt.tick_params(labelsize=15)
     plt.tight_layout()
     plt.savefig('PLS_standard_x_weights_real.png')
+    plt.close()
 
 
     fig,ax = plt.subplots(figsize=(10,5))
@@ -729,6 +744,7 @@ if __name__ == "__main__":
     plt.tick_params(labelsize=15)
     plt.tight_layout()
     plt.savefig('PLS_standard_x_loadings_real.png')
+    plt.close()
 
 
 
