@@ -507,6 +507,81 @@ if __name__ == "__main__":
     os.chdir(model_save_dir)
 
 
+
+    temp = ['n', 'A0.02','A0.04','A0.06','A0.08','A0.10',\
+                     'A0.12','A0.14','A0.16','A0.18','A0.20',\
+                     'A0.22','A0.24','A0.26','A0.28','A0.30',\
+                     'A0.32','A0.34','A0.36','A0.38','A0.40',\
+                     'A0.42','A0.44','A0.46','A0.48','A0.50',\
+                     'A0.52','A0.54','A0.56','A0.58','A0.60',\
+                     'A0.62','A0.64','A0.66','A0.68','A0.70',\
+                     'A0.72','A0.74','A0.76','A0.78','A0.80',\
+                     'A0.82','A0.84','A0.86','A0.88','A0.90',\
+                     'A0.92','A0.94','A0.96','A0.98','A0.80',\
+                     'A1.02','A1.04','A1.06','A1.08','A1.10',\
+                     'A1.12','A1.14','A1.16','A1.18','A1.20']
+
+        #temp = ['n', 'A0.04','A0.08','A0.12','A0.16','A0.20',\
+        #             'A0.24','A0.28','A0.32','A0.36','A0.40',\
+        #             'A0.44','A0.48','A0.52','A0.56','A0.60']
+        #fig = plt.figure()
+
+
+
+
+
+
+    X_pls,y_pls, pls = fit_pls(X_train.copy(),y.copy(),'pls_model_{}.sav'.format(dataset_name))
+
+
+    fig,ax = plt.subplots(figsize=(10,5))
+    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    sns.set(font_scale = 1.5)
+    plt.plot(np.arange(1,temp_len+1),pls.x_weights_[:,0], label="PLS1",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls.x_weights_[:,1], label="PLS2",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls.x_weights_[:,2], label="PLS3",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls.x_weights_[:,3], label="PLS4",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls.x_weights_[:,4], label="PLS5",linewidth=5.0)
+    plt.legend(loc='lower right')
+    ax.set_xticklabels(temp,rotation=90)
+    
+    ax.set_xticks(np.arange(1,temp_len))
+    plt.tick_params(labelsize=15)
+    plt.tight_layout()
+    plt.savefig('PLS_x_weights_real.png')
+
+
+    fig,ax = plt.subplots(figsize=(10,5))
+    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    sns.set(font_scale = 1.5)
+    plt.plot(np.arange(1,temp_len+1),pls.x_loadings_[:,0], label="PLS1",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls.x_loadings_[:,1], label="PLS2",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls.x_loadings_[:,2], label="PLS3",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls.x_loadings_[:,3], label="PLS4",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls.x_loadings_[:,4], label="PLS5",linewidth=5.0)
+    plt.legend(loc='lower right')
+    ax.set_xticklabels(temp,rotation=90)
+    
+    ax.set_xticks(np.arange(1,temp_len))
+    plt.tick_params(labelsize=15)
+    plt.tight_layout()
+    plt.savefig('PLS_x_loadings_real.png')
+
+
+
+
+    plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,10),10)
+    plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,20),20)
+    plot_result_PLS(X_pls,y_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}_score.png".format(dataset_name,10),10)
+    plot_result_PLS(X_pls,y_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}_score.png".format(dataset_name,20),20)
+
+
+
+
+
+
+
+
     stdscaler = StandardScaler(copy=True, with_mean=True, with_std=True)
     X_train_standard = stdscaler.fit_transform(X_train)
     pickle.dump(stdscaler, open("standard_scaler.sav", 'wb'))
@@ -537,23 +612,7 @@ if __name__ == "__main__":
     fig.get_axes()[0].set_yscale('log')
     plt.savefig('PCA_standard_explained_variance_ratio_log.png')
     
-    temp = ['n', 'A0.02','A0.04','A0.06','A0.08','A0.10',\
-                 'A0.12','A0.14','A0.16','A0.18','A0.20',\
-                 'A0.22','A0.24','A0.26','A0.28','A0.30',\
-                 'A0.32','A0.34','A0.36','A0.38','A0.40',\
-                 'A0.42','A0.44','A0.46','A0.48','A0.50',\
-                 'A0.52','A0.54','A0.56','A0.58','A0.60',\
-                 'A0.62','A0.64','A0.66','A0.68','A0.70',\
-                 'A0.72','A0.74','A0.76','A0.78','A0.80',\
-                 'A0.82','A0.84','A0.86','A0.88','A0.90',\
-                 'A0.92','A0.94','A0.96','A0.98','A0.80',\
-                 'A1.02','A1.04','A1.06','A1.08','A1.10',\
-                 'A1.12','A1.14','A1.16','A1.18','A1.20']
-
-    #temp = ['n', 'A0.04','A0.08','A0.12','A0.16','A0.20',\
-    #             'A0.24','A0.28','A0.32','A0.36','A0.40',\
-    #             'A0.44','A0.48','A0.52','A0.56','A0.60']
-    #fig = plt.figure()
+    
     fig,ax = plt.subplots(figsize=(10,5))
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
@@ -643,49 +702,7 @@ if __name__ == "__main__":
 
 
 
-    X_pls,y_pls, pls = fit_pls(X_train_backup.copy(),y_backup.copy(),'pls_model_{}.sav'.format(dataset_name))
-
-
-    fig,ax = plt.subplots(figsize=(10,5))
-    sns.set(style="whitegrid", palette="pastel", color_codes=True)
-    sns.set(font_scale = 1.5)
-    plt.plot(np.arange(1,temp_len+1),pls.x_weights_[:,0], label="PLS1",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls.x_weights_[:,1], label="PLS2",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls.x_weights_[:,2], label="PLS3",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls.x_weights_[:,3], label="PLS4",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls.x_weights_[:,4], label="PLS5",linewidth=5.0)
-    plt.legend(loc='lower right')
-    ax.set_xticklabels(temp,rotation=90)
     
-    ax.set_xticks(np.arange(1,temp_len))
-    plt.tick_params(labelsize=15)
-    plt.tight_layout()
-    plt.savefig('PLS_x_weights_real.png')
-
-
-    fig,ax = plt.subplots(figsize=(10,5))
-    sns.set(style="whitegrid", palette="pastel", color_codes=True)
-    sns.set(font_scale = 1.5)
-    plt.plot(np.arange(1,temp_len+1),pls.x_loadings_[:,0], label="PLS1",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls.x_loadings_[:,1], label="PLS2",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls.x_loadings_[:,2], label="PLS3",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls.x_loadings_[:,3], label="PLS4",linewidth=5.0)
-    plt.plot(np.arange(1,temp_len+1),pls.x_loadings_[:,4], label="PLS5",linewidth=5.0)
-    plt.legend(loc='lower right')
-    ax.set_xticklabels(temp,rotation=90)
-    
-    ax.set_xticks(np.arange(1,temp_len))
-    plt.tick_params(labelsize=15)
-    plt.tight_layout()
-    plt.savefig('PLS_x_loadings_real.png')
-
-
-
-
-    plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,10),10)
-    plot_result(X_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}.png".format(dataset_name,20),20)
-    plot_result_PLS(X_pls,y_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}_score.png".format(dataset_name,10),10)
-    plot_result_PLS(X_pls,y_pls, molecule_name, molecule_label, "PLS_result_plot_{}_{}_score.png".format(dataset_name,20),20)
 
 
 
