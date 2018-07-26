@@ -544,7 +544,7 @@ if __name__ == "__main__":
     print len(pca.explained_variance_ratio_)
 
     plt.plot(np.arange(1,temp_len+1),pca.explained_variance_ratio_,linewidth=7.0)
-    plt.tick_params(labelsize=15)
+    plt.tick_params(labelsize=20)
     plt.tight_layout()
     plt.savefig('PCA_explained_variance_ratio.png')
     plt.close()
@@ -554,7 +554,8 @@ if __name__ == "__main__":
 
 
     fig = plt.figure(figsize=(10,3))
-    plt.plot(np.arange(1,temp_len+1),pca.explained_variance_ratio_)
+    plt.plot(np.arange(1,temp_len+1),pca.explained_variance_ratio_,linewidth=7.0)
+    plt.tick_params(labelsize=20)
     fig.get_axes()[0].set_yscale('log')
     plt.tight_layout()
     plt.savefig('PCA_explained_variance_ratio_log.png')
@@ -562,7 +563,7 @@ if __name__ == "__main__":
     
     
     fig,ax = plt.subplots(figsize=(10,5))
-    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
     plt.plot(np.arange(1,temp_len+1),pca.components_[0], label="PC1",linewidth=5.0)
     plt.plot(np.arange(1,temp_len+1),pca.components_[1], label="PC2",linewidth=5.0)
@@ -573,7 +574,7 @@ if __name__ == "__main__":
     ax.set_xticklabels(temp,rotation=90)
     
     ax.set_xticks(np.arange(1,temp_len))
-    plt.tick_params(labelsize=15)
+    plt.tick_params(labelsize=20)
     plt.tight_layout()
     plt.savefig('PCA_components_real.png')
     plt.close()
@@ -592,7 +593,7 @@ if __name__ == "__main__":
 
 
     fig,ax = plt.subplots(figsize=(10,5))
-    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
     plt.plot(np.arange(1,temp_len+1),pls.x_weights_[:,0], label="PLS1",linewidth=5.0)
     plt.plot(np.arange(1,temp_len+1),pls.x_weights_[:,1], label="PLS2",linewidth=5.0)
@@ -610,7 +611,7 @@ if __name__ == "__main__":
 
 
     fig,ax = plt.subplots(figsize=(10,5))
-    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
     plt.plot(np.arange(1,temp_len+1),pls.x_loadings_[:,0], label="PLS1",linewidth=5.0)
     plt.plot(np.arange(1,temp_len+1),pls.x_loadings_[:,1], label="PLS2",linewidth=5.0)
@@ -661,7 +662,7 @@ if __name__ == "__main__":
     print len(pca_standard.explained_variance_ratio_)
 
     plt.plot(np.arange(1,temp_len+1),pca_standard.explained_variance_ratio_,linewidth=7.0)
-    plt.tick_params(labelsize=15)
+    plt.tick_params(labelsize=20)
     plt.tight_layout()
     plt.savefig('PCA_standard_explained_variance_ratio.png')
     plt.close()
@@ -671,15 +672,16 @@ if __name__ == "__main__":
 
 
     fig = plt.figure(figsize=(10,3))
-    plt.plot(np.arange(1,temp_len+1),pca_standard.explained_variance_ratio_)
+    plt.plot(np.arange(1,temp_len+1),pca_standard.explained_variance_ratio_,linewidth=7.0)
     fig.get_axes()[0].set_yscale('log')
+    plt.tick_params(labelsize=20)
     plt.tight_layout()
     plt.savefig('PCA_standard_explained_variance_ratio_log.png')
     plt.close()
     
     
     fig,ax = plt.subplots(figsize=(10,5))
-    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
     plt.plot(np.arange(1,temp_len+1),pca_standard.components_[0], label="PC1",linewidth=5.0)
     plt.plot(np.arange(1,temp_len+1),pca_standard.components_[1], label="PC2",linewidth=5.0)
@@ -690,7 +692,7 @@ if __name__ == "__main__":
     ax.set_xticklabels(temp,rotation=90)
     
     ax.set_xticks(np.arange(1,temp_len))
-    plt.tick_params(labelsize=15)
+    plt.tick_params(labelsize=20)
     plt.tight_layout()
     plt.savefig('PCA_standard_components_real.png')
     plt.close()
@@ -718,7 +720,7 @@ if __name__ == "__main__":
 
 
     fig,ax = plt.subplots(figsize=(10,5))
-    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
     plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[:,0], label="PLS1",linewidth=5.0)
     plt.plot(np.arange(1,temp_len+1),pls_standard.x_weights_[:,1], label="PLS2",linewidth=5.0)
@@ -736,7 +738,7 @@ if __name__ == "__main__":
 
 
     fig,ax = plt.subplots(figsize=(10,5))
-    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set(font_scale = 1.5)
     plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[:,0], label="PLS1",linewidth=5.0)
     plt.plot(np.arange(1,temp_len+1),pls_standard.x_loadings_[:,1], label="PLS2",linewidth=5.0)
