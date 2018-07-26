@@ -384,7 +384,7 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
 
     #plt.figure(figsize=(figure_size,figure_size))
     
-    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set_context("poster")
     sns.lmplot( x="PC1", y="PC2", data=plot_data, fit_reg=False, hue='molecule_label', legend=False,size=figure_size)
     plt.xlabel("PC1",fontsize=30)
@@ -463,7 +463,7 @@ def plot_result_PLS(score_x, score_y, molecule_name, molecule_label, filename,fi
 
     #plt.figure(figsize=(figure_size,figure_size))
     
-    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    #sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set_context("poster")
     sns.lmplot( x="x score", y="y score", data=plot_data, fit_reg=False, hue='molecule_label', legend=False,size=figure_size)
     plt.xlabel("x score",fontsize=30)
