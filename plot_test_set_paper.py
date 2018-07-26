@@ -291,7 +291,7 @@ def plot_group_2(data,order):
     ax = sns.distplot(data["Density"],bins=100,kde=True,hist_kws={"linewidth": 0,"alpha": 1},kde_kws={"color": "k", "lw": 0})
     plt.savefig("test_set_plot_dens_dist_real.png")
     
-    plt.figure(figsize=(5,1.75))
+    plt.figure(figsize=(20,7))
     sns.set(style="white", palette="pastel", color_codes=True)
     ax = sns.distplot(data["log(Density)"],bins=100,kde=True,hist_kws={ "linewidth": 0,"alpha": 1},kde_kws={"color": "k", "lw": 0})
     ax.set_xlim(-9.,3.)
