@@ -379,14 +379,14 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     result["molecule_name"] = molecule_name
     result["molecule_label"] = molecule_label
 
-    data = pd.DataFrame(data=result)
+    plot_data = pd.DataFrame(data=result)
     # Use the 'hue' argument to provide a factor variable
 
     #plt.figure(figsize=(figure_size,figure_size))
     
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set_context("poster")
-    sns.lmplot( x="PC1", y="PC2", data=data, fit_reg=False, hue='molecule_label', legend=False,size=figure_size)
+    sns.lmplot( x="PC1", y="PC2", data=plot_data, fit_reg=False, hue='molecule_label', legend=False,size=figure_size)
      
     # Move the legend to an empty part of the plot
     plt.legend(loc='lower right')
@@ -395,7 +395,7 @@ def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=
     return
 
     """
-    groups = data.groupby('molecule_label')
+    groups = plot_data.groupby('molecule_label')
     fig = plt.figure(figsize=(figure_size,figure_size))
     ax3D = fig.add_subplot(111, projection='3d')
     for name, group in groups:
@@ -446,7 +446,6 @@ def plot_result_PLS(score_x, score_y, molecule_name, molecule_label, filename,fi
     x_low, x_high, y_low, y_high = edge 
     print "start plotting"
     result = {}
-    print data.shape
     result["x score"] = score_x[:,0]
     result["y score"] = score_y[:,0]
 
@@ -454,14 +453,14 @@ def plot_result_PLS(score_x, score_y, molecule_name, molecule_label, filename,fi
     result["molecule_name"] = molecule_name
     result["molecule_label"] = molecule_label
 
-    data = pd.DataFrame(data=result)
+    plot_data = pd.DataFrame(data=result)
     # Use the 'hue' argument to provide a factor variable
 
     #plt.figure(figsize=(figure_size,figure_size))
     
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
     sns.set_context("poster")
-    sns.lmplot( x="x score", y="y score", data=data, fit_reg=False, hue='molecule_label', legend=False,size=figure_size)
+    sns.lmplot( x="x score", y="y score", data=plot_data, fit_reg=False, hue='molecule_label', legend=False,size=figure_size)
      
     # Move the legend to an empty part of the plot
     plt.legend(loc='lower right')
