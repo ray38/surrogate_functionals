@@ -165,7 +165,7 @@ def initialize(setup,key):
 
     os.chdir(setup[key]["working_dir"])
 
-    with open("test_data_to_plot_large.pickle", 'rb') as handle:
+    with open("test_data_to_plot.pickle", 'rb') as handle:
         test_data = pickle.load(handle)
 
     setup[key]["test_X"] = test_data[0]
