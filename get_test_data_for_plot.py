@@ -168,10 +168,6 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "NN_LDA_residual_1M_{}_{}_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
-   
-    setup["model_save_dir"] = model_save_dir
-
     
     
     plot_save_result = get_training_data(dataset_name,setup)
@@ -180,7 +176,7 @@ if __name__ == "__main__":
     #save_resulting_figure(dens,result.x,X_train,NN_model,y)
 
     os.chdir(setup["working_dir"])
-    with open('test_data_to_plot.pickle', 'wb') as handle:
+    with open('test_data_to_plot2.pickle', 'wb') as handle:
         pickle.dump(plot_save_result, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     

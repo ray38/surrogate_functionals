@@ -345,7 +345,7 @@ def plot_group_2(data,order):
     
     
     #plt.xlabel(r"$log_{10} (\rho)$",fontsize=20)
-    plt.xlabel("log(Density)",fontsize=0)
+    plt.xlabel("log(Density)",fontsize=20)
     plt.ylabel("Error (eV)",fontsize=20)
     plt.tick_params(axis='y', labelsize=20)
     plt.tick_params(axis='x', labelsize=20)
