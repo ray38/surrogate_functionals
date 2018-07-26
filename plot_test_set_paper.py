@@ -244,7 +244,7 @@ def create_df(setup):
         model_name_list += [model_name] * temp_len
         model_list += [setup[model_name]["model"]] * temp_len
 
-    d = {"error": error_list, "dens": dens_list, "dataset":dataset_name_list, "model_name": model_name_list, "model":model_list, "log_y":log_y_list, "log_dens":log_dens_list, "y":y_list}
+    d = {"Error (eV/A$^3$)": error_list, "Density": dens_list, "dataset":dataset_name_list, "model_name": model_name_list, "model":model_list, "log(Predict Energy)":log_y_list, "log(Density)":log_dens_list, "Predict Energy":y_list}
 
     return pd.DataFrame(data=d)
     
@@ -255,7 +255,7 @@ def plot_group_1(data,order):
     
     sns.set(style="white", palette="pastel", color_codes=True)
 
-    ax = sns.lmplot(x="dens",y="error",hue="model_name",hue_order = order,data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
+    ax = sns.lmplot(x="Density",y="Error (eV/A$^3$)",hue="model_name",hue_order = order,data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
     plt.xlabel("Density (1/A$^3$)",fontsize=50)
     plt.ylabel("Prediction Error (eV/A$^3$)",fontsize=50)
     plt.tick_params(labelsize=40)
@@ -266,13 +266,6 @@ def plot_group_1(data,order):
     for i in range(len(lgnd.legendHandles)):
         lgnd.legendHandles[i]._sizes = [500]
 
-    #lgnd.legendHandles[0]._sizes = [500]
-    #lgnd.legendHandles[1]._sizes = [500]
-    #lgnd.legendHandles[2]._sizes = [500]
-    #lgnd.legendHandles[3]._sizes = [500]
-    #lgnd.legendHandles[4]._sizes = [500]
-    #lgnd.legendHandles[4]._sizes = [500]
-
     plt.tight_layout()
     plt.savefig("test_set_plot_real_real.png")
     
@@ -282,23 +275,8 @@ def plot_group_1(data,order):
     sns.set(style="white", palette="pastel", color_codes=True)
 
     ax = sns.FacetGrid(data, hue="model_name",col="model_name",col_order=order)
-    ax = (ax.map(plt.scatter, "dens","error", edgecolor="w"))
+    ax = (ax.map(plt.scatter, "Density","Error (eV/A$^3$)", edgecolor="w"))
 
-    #ax = sns.lmplot(x="dens",y="error",hue="model_name",data=data,legend=False,fit_reg=False,size=20,scatter_kws={"s": 40}, palette=("Dark2"))
-    #plt.xlabel("Density (1/A$^3$)",fontsize=50)
-    #plt.ylabel("Presiction Error (eV/A$^3$)",fontsize=50)
-    #plt.tick_params(labelsize=40)
-    #lgnd = plt.legend(["Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],fontsize=40)
-    
-    #print lgnd.legendHandles
-
-    #lgnd.legendHandles[0]._sizes = [500]
-    #lgnd.legendHandles[1]._sizes = [500]
-    #lgnd.legendHandles[2]._sizes = [500]
-    #lgnd.legendHandles[3]._sizes = [500]
-    #lgnd.legendHandles[4]._sizes = [500]
-
-    #plt.tight_layout()
     plt.savefig("test_set_plot_real_real2.png")
     
     
@@ -310,16 +288,12 @@ def plot_group_2(data,order):
     sns.set(font_scale = 2)
     plt.figure()
     sns.set(style="white", palette="pastel", color_codes=True)
-    #ax = sns.distplot(data["dens"],bw=.0015)
-    #ax.fig.get_axes()[0].set_xscale('log')
-    ax = sns.distplot(data["dens"],bins=100,kde=True,hist_kws={"linewidth": 0,"alpha": 1},kde_kws={"color": "k", "lw": 0})
+    ax = sns.distplot(data["Density"],bins=100,kde=True,hist_kws={"linewidth": 0,"alpha": 1},kde_kws={"color": "k", "lw": 0})
     plt.savefig("test_set_plot_dens_dist_real.png")
     
     plt.figure(figsize=(5,1.75))
     sns.set(style="white", palette="pastel", color_codes=True)
-    #ax = sns.distplot(data["log_dens"],bw=.0015)
-    #ax.fig.get_axes()[0].set_xscale('log')
-    ax = sns.distplot(data["log_dens"],bins=100,kde=True,hist_kws={ "linewidth": 0,"alpha": 1},kde_kws={"color": "k", "lw": 0})
+    ax = sns.distplot(data["log(Density)"],bins=100,kde=True,hist_kws={ "linewidth": 0,"alpha": 1},kde_kws={"color": "k", "lw": 0})
     ax.set_xlim(-9.,3.)
     plt.tight_layout()
     plt.savefig("test_set_plot_dens_dist_log.png")
@@ -330,88 +304,14 @@ def plot_group_2(data,order):
     
     
     
-    dens_max = data["dens"].max()
-    dens_min = data["dens"].min()
-    
-    dens_intervals,dens_interval_medians = get_intervals(np.linspace(dens_min,dens_max, num=100))
-    
-    
-    
-    groups = data.groupby("model_name")
-    
-    fig = plt.figure()
-    sns.set(style="white", color_codes=True)
-    current_palette = sns.color_palette("cubehelix", number_models)
-    sns.set_palette(current_palette)
-    for name, group in groups:
-        print name
-        if name == "refit VWN":
-            sum_error_result = []
-            for count, interval in enumerate(dens_intervals):
-                temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
-                sum_error_result.append(temp['error'].sum())
-
-            plt.plot(dens_interval_medians, sum_error_result,label=name)
-    for name, group in groups:
-        print name
-        if name != "refit VWN":
-            sum_error_result = []
-            for count, interval in enumerate(dens_intervals):
-                temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
-                sum_error_result.append(temp['error'].sum())
-
-            plt.plot(dens_interval_medians, sum_error_result,label=name)
-    #ax.fig.get_axes()[0].set_xscale('log')
-    plt.legend(order, loc='upper right')
-    plt.savefig("test_set_plot_dens_sumerror_real_real.png")
     
     
     
     
     
     
-    dens_max = data["dens"].max()
-    dens_min = data["dens"].min()
-    
-    dens_intervals,dens_interval_medians = get_intervals(np.linspace(dens_min,dens_max, num=100))
-    
-    
-    
-    groups = data.groupby("model_name")
-    
-    fig = plt.figure()
-    sns.set(style="white", color_codes=True)
-    current_palette = sns.color_palette("cubehelix", number_models)
-    sns.set_palette(current_palette)
-    for name, group in groups:
-        if name == "refit VWN":
-            sum_error_result = []
-            for count, interval in enumerate(dens_intervals):
-                temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
-                sum_error_result.append(temp['error'].sum())
-
-            plt.plot(dens_interval_medians, sum_error_result,label=name)
-    for name, group in groups:
-        if name != "refit VWN":
-            sum_error_result = []
-            for count, interval in enumerate(dens_intervals):
-                temp = group[ (group['dens'] >= interval[0]) & (group['dens'] < interval[1])]
-                sum_error_result.append(temp['error'].sum())
-
-            plt.plot(dens_interval_medians, sum_error_result,label=name)
-    fig.get_axes()[0].set_yscale('symlog')
-    plt.legend(order,loc='upper right')
-    plt.savefig("test_set_plot_dens_sumerror_real_symlog.png")
-    
-    
-    
-    
-    
-    
-    
-    
-    log_dens_max = data["log_dens"].max()
-    log_dens_min = data["log_dens"].min()
+    log_dens_max = data["log(Density)"].max()
+    log_dens_min = data["log(Density)"].min()
     
     log_dens_intervals,log_dens_interval_medians = get_intervals(np.linspace(log_dens_min,log_dens_max, num=100))
     
@@ -428,16 +328,16 @@ def plot_group_2(data,order):
         if name == "refit VWN":
             log_sum_error_result = []
             for count, interval in enumerate(log_dens_intervals):
-                temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
-                log_sum_error_result.append(temp['error'].sum())
+                temp = group[ (group['log(Density)'] >= interval[0]) & (group['log(Density)'] < interval[1])]
+                log_sum_error_result.append(temp['Error (eV/A$^3$)'].sum())
 
             plt.plot(log_dens_interval_medians, log_sum_error_result,label=name,linewidth=5.0)
     for name, group in groups:
         if name != "refit VWN":
             log_sum_error_result = []
             for count, interval in enumerate(log_dens_intervals):
-                temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
-                log_sum_error_result.append(temp['error'].sum())
+                temp = group[ (group['log(Density)'] >= interval[0]) & (group['log(Density)'] < interval[1])]
+                log_sum_error_result.append(temp['Error (eV/A$^3$)'].sum())
 
             plt.plot(log_dens_interval_medians, log_sum_error_result,label=name,linewidth=5.0)
     #ax.fig.get_axes()[0].set_xscale('log')
@@ -453,43 +353,6 @@ def plot_group_2(data,order):
     plt.tight_layout()
     plt.savefig("test_set_plot_dens_sumerror_log_real.png", transparent=True)
     
-    
-    
-    
-    
-    
-    log_dens_max = data["log_dens"].max()
-    log_dens_min = data["log_dens"].min()
-    
-    log_dens_intervals,log_dens_interval_medians = get_intervals(np.linspace(log_dens_min,log_dens_max, num=100))
-    
-    
-    
-    groups = data.groupby("model_name")
-    
-    fig = plt.figure()
-    sns.set(style="white", color_codes=True)
-    current_palette = sns.color_palette("cubehelix", number_models)
-    sns.set_palette(current_palette)
-    for name, group in groups:
-        if name == "refit VWN":
-            log_sum_error_result = []
-            for count, interval in enumerate(log_dens_intervals):
-                temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
-                log_sum_error_result.append(temp['error'].sum())
-
-            plt.plot(log_dens_interval_medians, log_sum_error_result,label=name)
-    for name, group in groups:
-        if name != "refit VWN":
-            log_sum_error_result = []
-            for count, interval in enumerate(log_dens_intervals):
-                temp = group[ (group['log_dens'] >= interval[0]) & (group['log_dens'] < interval[1])]
-                log_sum_error_result.append(temp['error'].sum())
-
-            plt.plot(log_dens_interval_medians, log_sum_error_result,label=name)
-    fig.get_axes()[0].set_yscale('symlog')
-    plt.legend(order,loc='upper left')
-    plt.savefig("test_set_plot_dens_sumerror_log_symlog.png")
     
     
 
