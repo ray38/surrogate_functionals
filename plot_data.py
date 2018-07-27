@@ -137,8 +137,8 @@ def plot_result(x,y,x_name,y_name, filename,figure_size,x_scale = "linear",y_sca
     result = {}
     print x.shape
     print y.shape
-    result[x_name] = x
-    result[y_name] = y
+    result[x_name] = x.tolist()
+    result[y_name] = y.tolist()
 
 
     plot_data = pd.DataFrame(data=result)
