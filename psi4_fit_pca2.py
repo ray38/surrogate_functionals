@@ -369,10 +369,7 @@ def fit_manifold(data,filename,method,n_neighbors = 10, n_components = 2):
 
 
 def plot_parity(x,y,x_name,y_name, molecule_name, molecule_label, filename,figure_size, edge=(0,0,0,0),x_scale = "linear",y_scale="linear"):
-    x_low, x_high, y_low, y_high = edge 
-    print "start plotting"
     result = {}
-    print data.shape
     result[x_name] = x
     result[y_name] = y
 
