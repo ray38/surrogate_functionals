@@ -133,7 +133,7 @@ def predict(n,LDA_x,X,NN_model,y):
 
 
   
- def plot_result(x,y,x_name,y_name, filename,figure_size,x_scale = "linear",y_scale="linear"):
+def plot_result(x,y,x_name,y_name, filename,figure_size,x_scale = "linear",y_scale="linear"):
     result = {}
     print data.shape
     result[x_name] = x
