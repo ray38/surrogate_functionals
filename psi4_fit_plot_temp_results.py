@@ -389,8 +389,6 @@ if __name__ == "__main__":
     with open(setup_filename) as f:
         setup = json.load(f)
 
-    with open(fit_setup_filename) as f:
-        fit_setup = json.load(f)
 
     K.set_floatx('float64')
     K.floatx()
