@@ -367,6 +367,42 @@ def fit_manifold(data,filename,method,n_neighbors = 10, n_components = 2):
     print X_transform.shape
     return X_transform, model
 
+
+def plot_parity(x,y,x_name,y_name, molecule_name, molecule_label, filename,figure_size, edge=(0,0,0,0),x_scale = "linear",y_scale="linear"):
+    x_low, x_high, y_low, y_high = edge 
+    print "start plotting"
+    result = {}
+    print data.shape
+    result[x_name] = x
+    result[y_name] = y
+
+
+    result["molecule_name"] = molecule_name
+    result["molecule_label"] = molecule_label
+
+    plot_data = pd.DataFrame(data=result)
+    # Use the 'hue' argument to provide a factor variable
+
+    #plt.figure(figsize=(figure_size,figure_size))
+    
+    #sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    sns.set_context("poster")
+    grid = sns.lmplot( x=x_name, y=y_name, data=plot_data, fit_reg=False, hue='molecule_label', legend=False,size=figure_size)
+    plt.xlabel("PC1",fontsize=30)
+    plt.ylabel("PC2",fontsize=30)
+    grid.set(xscale=x_scale, yscale=y_scale)
+    plt.tick_params(labelsize=20)
+    
+     
+    # Move the legend to an empty part of the plot
+    plt.legend(loc='lower right')
+    plt.tight_layout()
+    plt.savefig(filename)
+    plt.close()
+
+    return
+
+
 def plot_result(data, molecule_name, molecule_label, filename,figure_size, edge=(0,0,0,0),x_scale = "linear",y_scale="linear"):
     x_low, x_high, y_low, y_high = edge 
     print "start plotting"

@@ -71,107 +71,6 @@ def get_start_loss(log_filename,loss):
     else:
         raise ValueError
 
-def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
-
-    loss_list = ["mse","sae","mean_squared_error", "mean_absolute_error", "mean_absolute_percentage_error", "mean_squared_logarithmic_error", "squared_hinge", "hinge", "categorical_hinge", "logcosh", "categorical_crossentropy", "sparse_categorical_crossentropy", "binary_crossentropy", "kullback_leibler_divergence", "poisson", "cosine_proximity"]
-    if loss not in loss_list:
-        raise NotImplemented
-
-
-    filename = "NN.h5"
-    log_filename = "NN_fit_log.log"
-    temp_check_filename = "NN_fit_checkpoint.log"
-    num_samples = len(y)
-
-    n_layers = setup["NN_setup"]["number_layers"]
-    n_per_layer = setup["NN_setup"]["number_neuron_per_layer"]
-    activation = setup["NN_setup"]["activation"]
-
-
-
-    try:
-        model = load_model(filename, custom_objects={'sae': sae})
-        restart = True
-        print 'model loaded: ' + filename
-    except:
-        restart = False
-        n = int(n_per_layer)
-        k = len(X[0])
-        print n,k
-        model = Sequential()
-        model.add(Dense(output_dim =n, input_dim = k, activation = activation))
-    
-        if n_layers > 1:        
-            for i in range(int(n_layers-1)):
-                model.add(Dense(input_dim = n, output_dim  = n, activation = activation))
-        model.add(Dense(input_dim = n,output_dim =1, activation = 'linear'))
-    
-    #    model.add(Dense(input_dim = 1,output_dim =1, activation = 'linear',  init='uniform'))
-    
-    print 'model set'
-    default_lr = 0.001
-    adam = keras.optimizers.Adam(lr=default_lr / slowdown_factor)
-    if loss == "sae":
-        model.compile(loss=sae,#loss='mse',#loss='mean_absolute_percentage_error',#custom_loss,
-                  optimizer=adam)
-                  #metrics=['mae'])
-    else:
-        model.compile(loss=loss,#loss='mean_absolute_percentage_error',#custom_loss,
-                  optimizer=adam)
-
-    print model.summary()
-    print model.get_config()
-    
-    est_start = time.time()
-    history_callback = model.fit(X, y, nb_epoch=1, batch_size=50000, shuffle=True)
-    est_epoch_time = time.time()-est_start
-    if est_epoch_time >= 30.:
-        num_epoch = 1
-    else:
-        num_epoch = int(math.floor(30./est_epoch_time))
-    if restart == True:
-        try:
-            start_loss = get_start_loss(log_filename,loss)
-        except:
-            loss_history = history_callback.history["loss"]
-            start_loss = np.array(loss_history)[0]
-    else:
-        loss_history = history_callback.history["loss"]
-        start_loss = np.array(loss_history)[0]
-    
-    log(log_filename, "\n loss: {} \t start: {} \t slowdown: {} \t early stop: {} \t target tolerence: {}".format(loss, str(start_loss), slowdown_factor, early_stop_trials, tol))
-    
-    best_loss = start_loss
-    best_model = model
-    keep_going = True
-    
-    count_epochs = 0
-    log(log_filename, "\n updated best: "+ str(start_loss) + " \t epochs since last update: " + str(count_epochs) + " \t loss: " + loss)
-    while keep_going:
-        count_epochs += 1
-        print count_epochs
-        history_callback = model.fit(X, y, nb_epoch=num_epoch, batch_size=50000, shuffle=True)
-        loss_history = history_callback.history["loss"]
-        new_loss = np.array(loss_history)[-1]
-        write(temp_check_filename, "\n updated best: "+ str(new_loss) + " \t epochs since last update: " + str(count_epochs) + " \t loss: " + loss + "\t num_samples: " + str(num_samples))
-        if new_loss < best_loss:
-            model.save(filename)
-            print 'model saved'
-            best_model = model
-            if loss == "sae":
-                log(log_filename, "\n updated best: "+ str(new_loss) + " \t epochs since last update: " + str(count_epochs) + " \t loss: " + loss + " \t projected error: " + str(((new_loss/1e6)*0.02*0.02*0.02*27.2114)*125/3)  )
-            else:
-                log(log_filename, "\n updated best: "+ str(new_loss) + " \t epochs since last update: " + str(count_epochs) + " \t loss: " + loss)
-            best_loss = new_loss
-            count_epochs = 0
-        if new_loss < tol:
-            keep_going = False
-        if count_epochs >=early_stop_trials:
-            keep_going = False
-    
-
-    best_model.save("NN_{}_{}_backup.h5".format(loss,best_loss))
-    return best_model, best_loss
 
 
 def fit_with_LDA(density,energy):
@@ -179,25 +78,8 @@ def fit_with_LDA(density,energy):
     filename = "LDA_model.sav"
     text_filename = "LDA_model_result.txt"
 
-    #try: 
-    #    temp_res = pickle.load(open(filename, 'rb'))
-    #    res = temp_res
-    #except:
-    #    x0 = get_x0()
-    #
-    #    density = np.asarray(density)
-    #    energy = np.asarray(energy)
-    #
-    #   res = scipy.optimize.minimize(LDA_least_suqare_fit, x0, args=(density,energy), method='nelder-mead',options={'xtol': 1e-13, 'disp': True, 'maxiter': 100000})
-
-    #    print res.x
-    #    pickle.dump(res, open(filename, 'wb'))
     temp_res = pickle.load(open(filename, 'rb'))
     res = temp_res
-    log(text_filename, str(res.x))
-    log(text_filename, '\nMSE: {}'.format(np.mean(np.square(lda_x(density,res.x) + lda_c(density,res.x) - energy))))
-    log(text_filename, '\nMAE: {}'.format(np.mean(np.abs(lda_x(density,res.x) + lda_c(density,res.x) - energy))))
-    log(text_filename, '\nMSD: {}'.format(np.mean(lda_x(density,res.x) + lda_c(density,res.x) - energy)))
 
 
     predict_y = predict_LDA(density,res.x)
@@ -488,7 +370,7 @@ def get_training_data(dataset_name,setup):
     return X_train, y_train, dens
 
 
-def fit_model(LDA_result, dens, X_train, residual, y, loss, tol, slowdown_factor, early_stop_trials):
+def fit_model(LDA_result, dens, X_train, residual, loss, tol, slowdown_factor, early_stop_trials):
 
     NN_model,loss_result = fit_with_KerasNN(X_train * 1e6, residual * 1e6, loss, tol, slowdown_factor, early_stop_trials)
     save_resulting_figure(dens,LDA_result.x,X_train,NN_model,y,loss,loss_result)
@@ -501,14 +383,8 @@ if __name__ == "__main__":
 
     setup_filename = sys.argv[1]
     dataset_name = sys.argv[2]
-    fit_setup_filename = sys.argv[3]
-    #loss = sys.argv[3]
-    #slowdown_factor = float(sys.argv[4])
-    #tol = float(sys.argv[5])
-    #try:
-    #    early_stop_trials = int(sys.argv[6])
-    #except:
-    #    early_stop_trials = 100
+    NN_model_name = sys.argv[3]
+
 
     with open(setup_filename) as f:
         setup = json.load(f)
@@ -547,14 +423,42 @@ if __name__ == "__main__":
     setup['LDA_model'] = LDA_result
 
 
-    for fit_setup in fit_setup['fit_setup']:
-        loss = fit_setup['loss']
-        slowdown_factor = fit_setup['slowdown']
-        early_stop_trials = fit_setup['early_stop']
-        tol = fit_setup['tol']
-        fit_model(LDA_result, dens, X_train, residual, y, loss, tol, slowdown_factor, early_stop_trials*2)
-    #NN_model = fit_with_KerasNN(X_train * 1e6, residual * 1e6, loss, tol, slowdown_factor, early_stop_trials)
-    #save_resulting_figure(dens,result.x,X_train,NN_model,y)
+    if NN_model_name == "NN.h5":
+
+        loss_value,loss = get_start_loss(fit_log_name)
+        try:
+            NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
+        except:
+            NN_model = load_model(NN_model_name)
+        NN_model.save("NN_{}_{}_backup.h5".format(loss,loss_value))
+
+
+    else:
+        temp = NN_model_name.split("_")
+        if temp[1] == "mean" and temp[2] == "absolute" and temp[3] == "percentage":
+            loss = "mean_absolute_percentage_error"
+            loss_value = temp[5]
+        else:
+            loss = temp[1]
+            loss_value = temp[2]
+        try:
+            NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
+        except:
+            NN_model = load_model(NN_model_name)
+
+
+
+
+    loss_result,loss = get_start_loss("NN_fit_log.log")
+
+    try:
+        NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
+    except:
+        NN_model = load_model(NN_model_name)
+    NN_model.save("NN_{}_{}_backup.h5".format(loss,loss_value))
+
+    save_resulting_figure(dens,LDA_result.x,X_train,NN_model,y,loss,loss_value)
+
 
 
 
