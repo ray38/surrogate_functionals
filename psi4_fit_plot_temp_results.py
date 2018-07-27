@@ -59,15 +59,15 @@ def map_to_0_1(arr, maxx, minn):
 def map_back(arr, maxx, minn):
     return np.add(np.multiply(arr,(maxx-minn)),minn)
 
-def get_start_loss(log_filename,loss):
+def get_start_loss(log_filename):
     
     with open(log_filename, 'r') as f:
         for line in f:
             pass
         temp = line
     
-    if temp.strip().startswith('updated') and temp.split()[9] == loss:
-        return float(temp.split()[2])
+    if temp.strip().startswith('updated'):
+        return float(temp.split()[2]), temp.split()[9]
     else:
         raise ValueError
 
