@@ -146,9 +146,9 @@ def plot_result(x,y,x_name,y_name, filename,figure_size,x_scale = "linear",y_sca
     sns.set_context("poster")
     #grid = sns.lmplot( x=x_name, y=y_name, data=plot_data, fit_reg=False, legend=False,size=figure_size,aspect=2.0)
 
-    fig, ax = plt.subplots(figsize=(20,5))
+    fig, ax = plt.subplots(figsize=(20,10))
 
-    ax.scatter(x, y,alpha=0.3)
+    ax.scatter(x, y,s=2.0,alpha=0.6)
 
     plt.xlabel(x_name,fontsize=30)
     plt.ylabel(y_name,fontsize=30)
@@ -189,16 +189,16 @@ if __name__ == "__main__":
     y_name = "Energy Density (eV/$A^3$)"
 
     plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(10,"real","real"),10,x_scale = "linear",y_scale="linear")
-    plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(20,"real","real"),20,x_scale = "linear",y_scale="linear")
+    #plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(20,"real","real"),20,x_scale = "linear",y_scale="linear")
     plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(10,"log","real"),10,x_scale = "log",y_scale="linear")
-    plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(20,"log","real"),20,x_scale = "log",y_scale="linear")
+    #plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(20,"log","real"),20,x_scale = "log",y_scale="linear")
     plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(10,"log","symlog"),10,x_scale = "log",y_scale="symlog")
-    plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(20,"log","symlog"),20,x_scale = "log",y_scale="symlog")
+    #plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(20,"log","symlog"),20,x_scale = "log",y_scale="symlog")
     y_name = "E. Dens. Residual (eV/$A^3$)"
     plot_result(dens,residual,x_name,y_name, "data_plot_residual_dens_{}_{}_{}.png".format(10,"log","real"),10,x_scale = "log",y_scale="linear")
-    plot_result(dens,residual,x_name,y_name, "data_plot_residual_dens_{}_{}_{}.png".format(10,"log","real"),20,x_scale = "log",y_scale="linear")
+    #plot_result(dens,residual,x_name,y_name, "data_plot_residual_dens_{}_{}_{}.png".format(10,"log","real"),20,x_scale = "log",y_scale="linear")
     plot_result(dens,residual,x_name,y_name, "data_plot_residual_dens_{}_{}_{}.png".format(10,"log","symlog"),10,x_scale = "log",y_scale="symlog")
-    plot_result(dens,residual,x_name,y_name, "data_plot_residual_dens_{}_{}_{}.png".format(10,"log","symlog"),20,x_scale = "log",y_scale="symlog")
+    #plot_result(dens,residual,x_name,y_name, "data_plot_residual_dens_{}_{}_{}.png".format(10,"log","symlog"),20,x_scale = "log",y_scale="symlog")
 
 
     result = {}
@@ -210,7 +210,6 @@ if __name__ == "__main__":
     plt.figure(figsize=(20,10))
     sns.set(style="white", palette="pastel", color_codes=True)
     ax = sns.distplot(data["log(Density)"],bins=100,kde=True,hist_kws={ "linewidth": 0,"alpha": 1},kde_kws={"color": "k", "lw": 0})
-    ax.set_xlim(-9.,3.)
     plt.tight_layout()
     plt.savefig("dens_dist_log.png")
     plt.close()
