@@ -160,6 +160,9 @@ def plot_result(x,y,x_name,y_name, filename,figure_size,x_scale = "linear",y_sca
         ax.set_xlim(1e-9,300.0)
     else:
         ax.set_xlim(0.0,300.0)
+
+    if y_scale == "log":
+        ax.set_ylim(1e-10,1500.0)
     plt.tick_params(labelsize=20)
     
      
