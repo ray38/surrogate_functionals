@@ -189,12 +189,15 @@ if __name__ == "__main__":
     x_name = "Density"
     y_name = "Energy Density (eV/$A^3$)"
 
-    plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(10,"real","real"),10,x_scale = "linear",y_scale="linear")
-    #plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(20,"real","real"),20,x_scale = "linear",y_scale="linear")
     plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(10,"log","real"),10,x_scale = "log",y_scale="linear")
+    plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(10,"log","symlog"),10,x_scale = "log",y_scale="symlog")
+    plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(10,"real","real"),10,x_scale = "linear",y_scale="linear")
+
+    #plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(20,"real","real"),20,x_scale = "linear",y_scale="linear")
+    
     plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(10,"symlog","real"),10,x_scale = "symlog",y_scale="linear")
     #plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(20,"log","real"),20,x_scale = "log",y_scale="linear")
-    plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(10,"log","symlog"),10,x_scale = "log",y_scale="symlog")
+    
     plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(10,"symlog","symlog"),10,x_scale = "symlog",y_scale="symlog")
     #plot_result(dens,y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(20,"log","symlog"),20,x_scale = "log",y_scale="symlog")
     y_name = "E. Dens. Residual (eV/$A^3$)"
