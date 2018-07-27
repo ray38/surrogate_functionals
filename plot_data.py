@@ -209,7 +209,7 @@ if __name__ == "__main__":
     plot_data = pd.DataFrame(data=result)
     plt.figure(figsize=(20,10))
     sns.set(style="white", palette="pastel", color_codes=True)
-    ax = sns.distplot(data["log(Density)"],bins=100,kde=True,hist_kws={ "linewidth": 0,"alpha": 1},kde_kws={"color": "k", "lw": 0})
+    ax = sns.distplot(plot_data["log(Density)"],bins=100,kde=True,hist_kws={ "linewidth": 0,"alpha": 1},kde_kws={"color": "k", "lw": 0})
     plt.tight_layout()
     plt.savefig("dens_dist_log.png")
     plt.close()
