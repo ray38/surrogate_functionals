@@ -146,12 +146,12 @@ def plot_result(x,y,x_name,y_name, filename,figure_size,x_scale = "linear",y_sca
     sns.set_context("poster")
     #grid = sns.lmplot( x=x_name, y=y_name, data=plot_data, fit_reg=False, legend=False,size=figure_size,aspect=2.0)
 
-    fig, ax = plt.subplots(figsize=(20,10))
+    fig, ax = plt.subplots(figsize=(40,20))
 
-    ax.scatter(x, y,s=3.0,alpha=0.6)
+    ax.scatter(x, y,s=6.0,alpha=0.8)
 
-    plt.xlabel(x_name,fontsize=30)
-    plt.ylabel(y_name,fontsize=30)
+    plt.xlabel(x_name,fontsize=60)
+    plt.ylabel(y_name,fontsize=60)
     #grid.set(xscale=x_scale, yscale=y_scale)
 
     ax.set_xscale(x_scale)
@@ -163,7 +163,7 @@ def plot_result(x,y,x_name,y_name, filename,figure_size,x_scale = "linear",y_sca
 
     if y_scale == "log":
         ax.set_ylim(1e-10,1500.0)
-    plt.tick_params(labelsize=25)
+    plt.tick_params(labelsize=50)
     
      
     # Move the legend to an empty part of the plot
