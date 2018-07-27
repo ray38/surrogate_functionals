@@ -163,7 +163,7 @@ def plot_result(x,y,x_name,y_name, filename,figure_size,x_scale = "linear",y_sca
 
     if y_scale == "log":
         ax.set_ylim(1e-10,1500.0)
-    plt.tick_params(labelsize=20)
+    plt.tick_params(labelsize=25)
     
      
     # Move the legend to an empty part of the plot
@@ -180,6 +180,7 @@ if __name__ == "__main__":
 
     data_filename = sys.argv[1]
     LDA_filename = sys.argv[2]
+    sns.set(style="white", palette="pastel", color_codes=True)
 
     print "start"
     
