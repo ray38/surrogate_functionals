@@ -137,11 +137,11 @@ def plot_result(x,y,x_name,y_name, filename,figure_size,x_scale = "linear",y_sca
     result = {}
     print x.shape
     print y.shape
-    result[x_name] = x.tolist()
-    result[y_name] = y.tolist()
+    #result[x_name] = x.tolist()
+    #result[y_name] = y.tolist()
 
 
-    plot_data = pd.DataFrame(data=result)
+    #plot_data = pd.DataFrame(data=result)
 
     sns.set_context("poster")
     #grid = sns.lmplot( x=x_name, y=y_name, data=plot_data, fit_reg=False, legend=False,size=figure_size,aspect=2.0)
@@ -202,9 +202,8 @@ if __name__ == "__main__":
 
 
     result = {}
-    print data.shape
-    result["Density"] = dens
-    result["log(Density)"] = np.log10(dens)
+    result["Density"] = dens.tolist()
+    result["log(Density)"] = np.log10(dens).tolist()
 
 
     plot_data = pd.DataFrame(data=result)
