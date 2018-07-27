@@ -515,7 +515,7 @@ if __name__ == "__main__":
     y_backup = y.copy()
 
     predict_y = predict_LDA(dens,LDA_model.x)
-    residual = energy - predict_y
+    residual = y_backup - predict_y
 
     print np.isnan(X_train.any())
     print np.isfinite(X_train.all())
@@ -712,11 +712,11 @@ if __name__ == "__main__":
 
 
     stdscaler = StandardScaler(copy=True, with_mean=True, with_std=True)
-    X_train_standard = stdscaler.fit_transform(X_train)
+    X_train_standard = stdscaler.fit_transform(X_train_backup)
     pickle.dump(stdscaler, open("standard_scaler.sav", 'wb'))
 
     stdscaler2 = StandardScaler(copy=True, with_mean=True, with_std=True)
-    y_standard = stdscaler2.fit_transform(y)
+    y_standard = stdscaler2.fit_transform(y_backup)
     pickle.dump(stdscaler2, open("standard_scaler_y.sav", 'wb'))
 
 
