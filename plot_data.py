@@ -217,9 +217,11 @@ if __name__ == "__main__":
     result["log(Density)"] = np.log10(dens).tolist()
 
 
+
     plot_data = pd.DataFrame(data=result)
     plt.figure(figsize=(20,10))
     sns.set(style="white", palette="pastel", color_codes=True)
+    print "start plotting pd"
     ax = sns.distplot(plot_data["log(Density)"],bins=100,kde=True,hist_kws={ "linewidth": 0,"alpha": 1},kde_kws={"color": "k", "lw": 0})
     plt.tight_layout()
     plt.savefig("dens_dist_log.png")
