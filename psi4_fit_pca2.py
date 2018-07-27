@@ -486,9 +486,12 @@ if __name__ == "__main__":
 
     setup_filename = sys.argv[1]
     dataset_name = sys.argv[2]
+    LDA_filename = sys.argv[3]
 
     with open(setup_filename) as f:
         setup = json.load(f)
+
+    LDA_model = pickle.load(open(LDA_filename, 'rb'))
 
 
     h = float(setup['grid_spacing'])
@@ -510,6 +513,9 @@ if __name__ == "__main__":
 
     X_train_backup = X_train.copy()
     y_backup = y.copy()
+
+    predict_y = predict_LDA(dens,LDA_model.x)
+    residual = energy - predict_y
 
     print np.isnan(X_train.any())
     print np.isfinite(X_train.all())
@@ -589,6 +595,60 @@ if __name__ == "__main__":
     plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}.png".format(dataset_name,20),20, edge=(-5,20,-5,25))
     plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}_log_log.png".format(dataset_name,10),10, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
     plot_result(X_pca, molecule_name, molecule_label, "PCA_result_plot_{}_{}_log_log.png".format(dataset_name,20),20, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
+
+
+
+
+
+    X_residual_pls,y_residual_pls, pls_residual = fit_pls(X_train.copy(),residual.copy(),'pls_residual_model_{}.sav'.format(dataset_name))
+
+
+    fig,ax = plt.subplots(figsize=(10,3))
+    #sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    sns.set(font_scale = 1.5)
+    plt.plot(np.arange(1,temp_len+1),pls_residual.x_weights_[:,0], label="PLS1",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_residual.x_weights_[:,1], label="PLS2",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_residual.x_weights_[:,2], label="PLS3",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_residual.x_weights_[:,3], label="PLS4",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_residual.x_weights_[:,4], label="PLS5",linewidth=5.0)
+    plt.legend(loc='lower right')
+    ax.set_xticklabels(temp,rotation=90)
+    
+    ax.set_xticks(np.arange(1,temp_len))
+    plt.tick_params(labelsize=15)
+    plt.tight_layout()
+    plt.savefig('PLS_residual_x_weights_real.png')
+    plt.close()
+
+
+    fig,ax = plt.subplots(figsize=(10,3))
+    #sns.set(style="whitegrid", palette="pastel", color_codes=True)
+    sns.set(font_scale = 1.5)
+    plt.plot(np.arange(1,temp_len+1),pls_residual.x_loadings_[:,0], label="PLS1",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_residual.x_loadings_[:,1], label="PLS2",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_residual.x_loadings_[:,2], label="PLS3",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_residual.x_loadings_[:,3], label="PLS4",linewidth=5.0)
+    plt.plot(np.arange(1,temp_len+1),pls_residual.x_loadings_[:,4], label="PLS5",linewidth=5.0)
+    plt.legend(loc='lower right')
+    ax.set_xticklabels(temp,rotation=90)
+    
+    ax.set_xticks(np.arange(1,temp_len))
+    plt.tick_params(labelsize=15)
+    plt.tight_layout()
+    plt.savefig('PLS_residual_x_loadings_real.png')
+    plt.close()
+
+
+
+
+    plot_result(X_residual_pls, molecule_name, molecule_label, "PLS_residual_result_plot_{}_{}.png".format(dataset_name,10),10)
+    plot_result(X_residual_pls, molecule_name, molecule_label, "PLS_residual_result_plot_{}_{}.png".format(dataset_name,20),20)
+    plot_result(X_residual_pls, molecule_name, molecule_label, "PLS_residual_result_plot_{}_{}_log_log.png".format(dataset_name,10),10, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
+    plot_result(X_residual_pls, molecule_name, molecule_label, "PLS_residual_result_plot_{}_{}_log_log.png".format(dataset_name,20),20, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
+    plot_result_PLS(X_residual_pls,y_residual_pls, molecule_name, molecule_label, "PLS_residual_result_plot_{}_{}_score.png".format(dataset_name,10),10)
+    plot_result_PLS(X_residual_pls,y_residual_pls, molecule_name, molecule_label, "PLS_residual_result_plot_{}_{}_score.png".format(dataset_name,20),20)
+    plot_result_PLS(X_residual_pls,y_residual_pls, molecule_name, molecule_label, "PLS_residual_result_plot_{}_{}_score_log_log.png".format(dataset_name,10),10, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
+    plot_result_PLS(X_residual_pls,y_residual_pls, molecule_name, molecule_label, "PLS_residual_result_plot_{}_{}_score_log_log.png".format(dataset_name,20),20, edge=(-5,20,-5,25),x_scale = "symlog",y_scale="symlog")
 
 
 
