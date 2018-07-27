@@ -207,6 +207,9 @@ if __name__ == "__main__":
 
     y_name = "- Energy Density (eV/$A^3$)"
     plot_result(dens,-1.0*y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(10,"log","log"),10,x_scale = "log",y_scale="log")
+    plot_result(dens,-1.0*y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(10,"log","real"),10,x_scale = "log",y_scale="linear")
+    plot_result(dens,-1.0*y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(10,"real","real"),10,x_scale = "linear",y_scale="linear")
+    plot_result(dens,-1.0*y,x_name,y_name, "data_plot_epxc_dens_{}_{}_{}.png".format(10,"real","log"),10,x_scale = "linear",y_scale="log")
 
     y_name = "E. Dens. Residual (eV/$A^3$)"
     plot_result(dens,residual,x_name,y_name, "data_plot_residual_dens_{}_{}_{}.png".format(10,"log","real"),10,x_scale = "log",y_scale="linear")
