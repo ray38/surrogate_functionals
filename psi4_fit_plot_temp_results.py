@@ -423,7 +423,7 @@ if __name__ == "__main__":
 
     if NN_model_name == "NN.h5":
 
-        loss_value,loss = get_start_loss(fit_log_name)
+        loss_value,loss = get_start_loss("NN_fit_log.log")
         try:
             NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
         except:
