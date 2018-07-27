@@ -144,10 +144,18 @@ def plot_result(x,y,x_name,y_name, filename,figure_size,x_scale = "linear",y_sca
     plot_data = pd.DataFrame(data=result)
 
     sns.set_context("poster")
-    grid = sns.lmplot( x=x_name, y=y_name, data=plot_data, fit_reg=False, legend=False,size=figure_size,aspect=2.0)
+    #grid = sns.lmplot( x=x_name, y=y_name, data=plot_data, fit_reg=False, legend=False,size=figure_size,aspect=2.0)
+
+    fig, ax = plt.subplots(figsize=(20,5))
+
+    ax.scatter(x, y,alpha=0.3)
+
     plt.xlabel(x_name,fontsize=30)
     plt.ylabel(y_name,fontsize=30)
-    grid.set(xscale=x_scale, yscale=y_scale)
+    #grid.set(xscale=x_scale, yscale=y_scale)
+
+    ax.set_xscale(x_scale)
+    ax.set_yscale(y_scale)
     plt.tick_params(labelsize=20)
     
      
