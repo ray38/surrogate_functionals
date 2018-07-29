@@ -310,7 +310,7 @@ def plot_group_2(data,order):
             groups = subdata.groupby("Model")
             number_models = subdata['Model'].nunique()
             
-            fig = plt.figure(figsize=(10,2.5))
+            fig = plt.figure(figsize=(10,4.0))
             sns.set(style="white", color_codes=True)
             current_palette = sns.color_palette("cubehelix", number_models)
             print current_palette
@@ -337,11 +337,11 @@ def plot_group_2(data,order):
             
             #plt.xlabel(r"$log_{10} (\rho)$",fontsize=20)
             plt.xlabel("log(Density)",fontsize=20)
-            plt.ylabel("Error (eV)",fontsize=20)
+            plt.ylabel("{} Error (eV)".format(molecule_name),fontsize=20)
             plt.tick_params(axis='y', labelsize=20)
             plt.tick_params(axis='x', labelsize=20)
             plt.xlim(-9,3)
-            plt.ylim(0.0,120.0)
+            plt.ylim(-20.0,160.0)
             plt.tight_layout()
             #plt.savefig("test_set_plot_dens_sumerror_log_real_{}.png".format(molecule_name), transparent=True)
             plt.savefig("test_set_plot_dens_sumerror_log_real_{}.png".format(molecule_name))
