@@ -363,7 +363,7 @@ def plot_group_3(data,order):
     gps = data.groupby("Molecule")
     molecule_list = ["CH3OH", "H2O","CH4","H2"]
 
-    available_models = subdata['Model'].unique()
+    available_models = data['Model'].unique()
     print "available_models: {}".format(available_models)
 
 
