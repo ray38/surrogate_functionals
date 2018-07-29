@@ -308,6 +308,7 @@ def plot_group_2(data,order):
         if molecule_name in molecule_list:
     
             groups = subdata.groupby("Model")
+            number_models = subdata['Model'].nunique()
             
             fig = plt.figure(figsize=(10,3.5))
             sns.set(style="white", color_codes=True)
