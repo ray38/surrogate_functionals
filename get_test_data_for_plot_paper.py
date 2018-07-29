@@ -101,11 +101,12 @@ def get_training_data(dataset_name,setup):
     for directory in data_paths:
         temp_molecule_subsampled_data, temp_molecule_random_data = read_data_from_one_dir(directory)
         overall_subsampled_data += temp_molecule_subsampled_data
-        overall_random_data += random_subsampling(temp_molecule_random_data, num_random_per_molecule)
+        subsampled_random_data = random_subsampling(temp_molecule_random_data, num_random_per_molecule)
+        overall_random_data += subsampled_random_data
         temp_molecule_name = directory.split('/')[-2]
         print directory.split('/')
         print "molecule name: {}".format(temp_molecule_name)
-        molecule_list += [temp_molecule_name] * num_random_per_molecule
+        molecule_list += [temp_molecule_name] * len(subsampled_random_data)
 
 
 
