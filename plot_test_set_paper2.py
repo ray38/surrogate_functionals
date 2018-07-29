@@ -377,7 +377,7 @@ def plot_group_3(data,order):
     for model in available_models:
         log_sum_error_result[model] = {}
         for molecule_name in molecule_list:
-            log_sum_error_result[model][molecule_name] = {}
+            log_sum_error_result[model][molecule_name] = []
 
 
 
