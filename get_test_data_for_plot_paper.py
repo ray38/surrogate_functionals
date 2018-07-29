@@ -110,6 +110,8 @@ def get_training_data(dataset_name,setup):
 
 
 
+
+
     list_subsample = setup["subsample_feature_list"]
     temp_list_subsample = setup["subsample_feature_list"]
     if temp_list_subsample == []:
@@ -143,7 +145,7 @@ def get_training_data(dataset_name,setup):
     y_train = np.asarray(y_train).reshape((len(y_train),1))
     dens = np.asarray(dens).reshape((len(dens),1))
 
-    molecule = []
+    print len(y_train), len(molecule_list)
     
     return X_train, y_train, dens, molecule_list
 
