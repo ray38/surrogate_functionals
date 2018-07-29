@@ -395,6 +395,7 @@ def plot_group_3(data,order):
                     for count, interval in enumerate(log_dens_intervals):
                         temp = group[ (group['log(Density)'] >= interval[0]) & (group['log(Density)'] < interval[1])]
                         #log_sum_error_result[molecule_name][model_name].append(temp['Error (eV/A$^3$)'].sum())
+                        print type(log_sum_error_result[model_name][molecule_name])
                         log_sum_error_result[model_name][molecule_name].append(temp['Error (eV/A$^3$)'].sum())
 
             for model_name, group in groups:
@@ -403,6 +404,7 @@ def plot_group_3(data,order):
                     for count, interval in enumerate(log_dens_intervals):
                         temp = group[ (group['log(Density)'] >= interval[0]) & (group['log(Density)'] < interval[1])]
                         #log_sum_error_result[molecule_name][model_name].append(temp['Error (eV/A$^3$)'].sum())
+                        print type(log_sum_error_result[model_name][molecule_name])
                         log_sum_error_result[model_name][molecule_name].append(temp['Error (eV/A$^3$)'].sum())
 
                     
