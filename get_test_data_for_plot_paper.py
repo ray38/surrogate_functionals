@@ -121,7 +121,7 @@ def get_training_data(dataset_name,setup):
     #    overall_subsampled_data = subsampling_system_with_PCA(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
 
 
-    overall = overall_random_data + overall_subsampled_data
+    overall = overall_random_data# + overall_subsampled_data
     #overall = overall_subsampled_data
 
 
