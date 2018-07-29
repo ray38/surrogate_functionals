@@ -341,8 +341,10 @@ def plot_group_2(data,order):
             plt.tick_params(axis='y', labelsize=20)
             plt.tick_params(axis='x', labelsize=20)
             plt.xlim(-9,3)
+            plt.xlim(0.0,120.0)
             plt.tight_layout()
-            plt.savefig("test_set_plot_dens_sumerror_log_real_{}.png".format(molecule_name), transparent=True)
+            #plt.savefig("test_set_plot_dens_sumerror_log_real_{}.png".format(molecule_name), transparent=True)
+            plt.savefig("test_set_plot_dens_sumerror_log_real_{}.png".format(molecule_name))
             plt.close()
     
     
