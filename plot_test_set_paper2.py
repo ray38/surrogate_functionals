@@ -172,6 +172,7 @@ def initialize(setup,key):
     setup[key]["test_y"] = test_data[1]
     setup[key]["test_dens"] = test_data[2]
     setup[key]["molecule_name"] = test_data[3]
+    print "original length: {} \t molecule_name_list length: {}".format(len(test_data[1]), len(test_data[3]))
 
     return
     
@@ -198,6 +199,7 @@ def initialize_svwn(setup,key):
     setup["refit VWN"]["test_y"] = test_data[1]
     setup["refit VWN"]["test_dens"] = test_data[2]
     setup["refit VWN"]["molecule_name"] = test_data[3]
+    print "original length: {} \t molecule_name_list length: {}".format(len(test_data[1]), len(test_data[3]))
 
     return
 
@@ -248,6 +250,7 @@ def create_df(setup):
         model_list += [setup[model_name]["model"]] * temp_len
         molecule_name_list += setup[model_name]["molecule_name"]
 
+    print "original length: {} \t molecule_name_list length: {}".format(len(y_list), len(molecule_name_list))
     d = {"Error (eV/A$^3$)": error_list, "Density": dens_list, "Molecule": molecule_name_list, "dataset":dataset_name_list, "Model": model_name_list, "model":model_list, "log(Predict Energy)":log_y_list, "log(Density)":log_dens_list, "Predict Energy":y_list}
 
     return pd.DataFrame(data=d)
