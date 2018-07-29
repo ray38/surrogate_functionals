@@ -298,7 +298,7 @@ def plot_group_2(data,order):
     log_dens_intervals,log_dens_interval_medians = get_intervals(np.linspace(log_dens_min,log_dens_max, num=100))
     
     gps = data.groupby("Molecule")
-    molecule_list = ["CO", "CO2","O3"]
+    molecule_list = ["CH3OH", "H2O","CH4","H2"]
 
     for molecule_name, subdata in gps:
 
