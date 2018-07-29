@@ -367,7 +367,7 @@ if __name__ == "__main__":
     print "start"
     
     try:
-        with open('test_set_plot.pickle', 'rb') as handle:
+        with open('test_set_plot_molecule.pickle', 'rb') as handle:
             data = pickle.load(handle)
 
     except:
@@ -413,7 +413,7 @@ if __name__ == "__main__":
 
         data = create_df(setup)
 
-        with open('test_set_plot.pickle', 'wb') as handle:
+        with open('test_set_plot_molecule.pickle', 'wb') as handle:
             pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     print "start ploting"
