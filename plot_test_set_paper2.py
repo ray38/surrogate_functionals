@@ -310,7 +310,7 @@ def plot_group_2(data,order):
             groups = subdata.groupby("Model")
             number_models = subdata['Model'].nunique()
             
-            fig = plt.figure(figsize=(10,3.5))
+            fig = plt.figure(figsize=(10,2.5))
             sns.set(style="white", color_codes=True)
             current_palette = sns.color_palette("cubehelix", number_models)
             print current_palette
@@ -341,17 +341,102 @@ def plot_group_2(data,order):
             plt.tick_params(axis='y', labelsize=20)
             plt.tick_params(axis='x', labelsize=20)
             plt.xlim(-9,3)
-            plt.xlim(0.0,120.0)
+            plt.ylim(0.0,120.0)
             plt.tight_layout()
             #plt.savefig("test_set_plot_dens_sumerror_log_real_{}.png".format(molecule_name), transparent=True)
             plt.savefig("test_set_plot_dens_sumerror_log_real_{}.png".format(molecule_name))
             plt.close()
     
+
+    return
+
+
+def plot_group_3(data,order):
     
+    
+    
+    log_dens_max = data["log(Density)"].max()
+    log_dens_min = data["log(Density)"].min()
+    
+    log_dens_intervals,log_dens_interval_medians = get_intervals(np.linspace(log_dens_min,log_dens_max, num=100))
+    
+    gps = data.groupby("Molecule")
+    molecule_list = ["CH3OH", "H2O","CH4","H2"]
+
+    available_models = subdata['Model'].unique()
+    print "available_models: {}".format(available_models)
+
+
+    log_sum_error_result = {}
+
+    #for molecule_name in molecule_list:
+    #    log_sum_error_result[molecule_name] = {}
+    #    for model in available_models:
+    #        log_sum_error_result[molecule_name][model] = {}
+
+    for model in available_models:
+        log_sum_error_result[model] = {}
+        for molecule_name in molecule_list:
+            log_sum_error_result[model][molecule_name] = {}
+
+
+
+    for molecule_name, subdata in gps:
+
+        if molecule_name in molecule_list:
+    
+            groups = subdata.groupby("Model")
+            number_models = subdata['Model'].nunique()
+            
+            
+            for model_name, group in groups:
+                if model_name == "refit VWN":
+                    log_sum_error_result = []
+                    for count, interval in enumerate(log_dens_intervals):
+                        temp = group[ (group['log(Density)'] >= interval[0]) & (group['log(Density)'] < interval[1])]
+                        #log_sum_error_result[molecule_name][model_name].append(temp['Error (eV/A$^3$)'].sum())
+                        log_sum_error_result[model_name][molecule_name].append(temp['Error (eV/A$^3$)'].sum())
+
+                    plt.plot(log_dens_interval_medians, log_sum_error_result,label=name,linewidth=5.0)
+            for model_name, group in groups:
+                if model_name != "refit VWN":
+                    log_sum_error_result = []
+                    for count, interval in enumerate(log_dens_intervals):
+                        temp = group[ (group['log(Density)'] >= interval[0]) & (group['log(Density)'] < interval[1])]
+                        #log_sum_error_result[molecule_name][model_name].append(temp['Error (eV/A$^3$)'].sum())
+                        log_sum_error_result[model_name][molecule_name].append(temp['Error (eV/A$^3$)'].sum())
+
+                    
     
 
+    fig = plt.figure(figsize=(10,10.0))
+    sns.set(style="white", color_codes=True)
+    current_palette = sns.color_palette("cubehelix", number_models)
+    print current_palette
+    sns.set_palette(current_palette)
+
+    for model in available_models:
+
+        temp_plot = np.asarray(log_sum_error_result[model]["H2O"]) + np.asarray(log_sum_error_result[model]["CH4"]) - np.asarray(log_sum_error_result[model]["CH3OH"]) - np.asarray(log_sum_error_result[model]["H2"]) 
+
+
+        plt.plot(log_dens_interval_medians, temp_plot,label=model,linewidth=5.0)
+    #ax.fig.get_axes()[0].set_xscale('log')
+    plt.legend(order,loc='upper left',fontsize=15)
     
     
+    #plt.xlabel(r"$log_{10} (\rho)$",fontsize=20)
+    plt.xlabel("log(Density)",fontsize=20)
+    plt.ylabel("Error (eV)",fontsize=20)
+    plt.tick_params(axis='y', labelsize=20)
+    plt.tick_params(axis='x', labelsize=20)
+    plt.xlim(-9,3)
+    #plt.xlim(0.0,120.0)
+    plt.tight_layout()
+    #plt.savefig("test_set_plot_dens_sumerror_log_real_{}.png".format(molecule_name), transparent=True)
+    plt.savefig("test_set_plot_dens_sumerror_log_real_CH3OH_formation.png")
+    plt.close()
+
     return
 
 
