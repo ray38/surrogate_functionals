@@ -397,7 +397,6 @@ def plot_group_3(data,order):
                         #log_sum_error_result[molecule_name][model_name].append(temp['Error (eV/A$^3$)'].sum())
                         log_sum_error_result[model_name][molecule_name].append(temp['Error (eV/A$^3$)'].sum())
 
-                    plt.plot(log_dens_interval_medians, log_sum_error_result,label=name,linewidth=5.0)
             for model_name, group in groups:
                 if model_name != "refit VWN":
                     log_sum_error_result = []
