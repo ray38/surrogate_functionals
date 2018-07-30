@@ -398,7 +398,7 @@ if __name__ == "__main__":
     setup_filename = sys.argv[1]
     dataset_name = sys.argv[2]
     NN_model_name = sys.argv[3]
-    PC_component = sys.argv[4]
+    PC_component = int(sys.argv[4])
 
 
     with open(setup_filename) as f:
