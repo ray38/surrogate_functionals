@@ -434,23 +434,14 @@ if __name__ == "__main__":
     stdandard_scaler_filename = "standard_scaler.sav"
     PCA_model_filename = "PCA.sav"
 
-    try:
-        standard_scaler = pickle.load(open(stdandard_scaler_filename, 'rb'))
-        X_train = standard_scaler.transform(X_train)
-        try:
-            PCA_model = pickle.load(open(PCA_model_filename, 'rb'))
-            
-            X_train = transform_pca(PCA_model,X_train,PC_component)
-        except:
-            PCA_model = fit_pca(X_train,PCA_model_filename)
-            X_train = transform_pca(PCA_model,X_train,PC_component)
 
-    except:
-        standard_scaler = StandardScaler(copy=True, with_mean=True, with_std=True)
-        X_train = standard_scaler.fit_transform(X_train)
-        pickle.dump(standard_scaler, open(stdandard_scaler_filename, 'wb'))
-        PCA_model = fit_pca(X_train,PCA_model_filename)
-        X_train = transform_pca(PCA_model,X_train,PC_component)
+    standard_scaler = pickle.load(open(stdandard_scaler_filename, 'rb'))
+    X_train = standard_scaler.transform(X_train)
+
+    PCA_model = pickle.load(open(PCA_model_filename, 'rb'))
+        
+    X_train = transform_pca(PCA_model,X_train,PC_component)
+
 
 
     os.chdir(model_save_dir)
