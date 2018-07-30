@@ -398,6 +398,7 @@ if __name__ == "__main__":
     setup_filename = sys.argv[1]
     dataset_name = sys.argv[2]
     NN_model_name = sys.argv[3]
+    PC_component = sys.argv[4]
 
 
     with open(setup_filename) as f:
@@ -416,8 +417,9 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "NN_LDA_residual_1M_{}_{}_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
-   
+    #model_save_dir = working_dir + "/" + "NN_LDA_residual_1M_{}_{}_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
+    model_save_dir = working_dir + "/" + "NN_LDA_residual_1M_{}_{}_{}_PCA_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"],PC_component)
+    
     setup["model_save_dir"] = model_save_dir
 
     
@@ -485,13 +487,13 @@ if __name__ == "__main__":
 
 
 
-    loss_result,loss = get_start_loss("NN_fit_log.log")
+    #loss_result,loss = get_start_loss("NN_fit_log.log")
 
-    try:
-        NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
-    except:
-        NN_model = load_model(NN_model_name)
-    NN_model.save("NN_{}_{}_backup.h5".format(loss,loss_value))
+    #try:
+    #    NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
+    #except:
+    #    NN_model = load_model(NN_model_name)
+    #NN_model.save("NN_{}_{}_backup.h5".format(loss,loss_value))
 
     save_resulting_figure(dens,LDA_result.x,X_train,NN_model,y,loss,loss_value)
 

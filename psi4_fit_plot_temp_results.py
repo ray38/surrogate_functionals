@@ -447,13 +447,13 @@ if __name__ == "__main__":
 
 
 
-    loss_result,loss = get_start_loss("NN_fit_log.log")
+    #loss_result,loss = get_start_loss("NN_fit_log.log")
 
-    try:
-        NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
-    except:
-        NN_model = load_model(NN_model_name)
-    NN_model.save("NN_{}_{}_backup.h5".format(loss,loss_value))
+    #try:
+    #    NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
+    #except:
+    #    NN_model = load_model(NN_model_name)
+    #NN_model.save("NN_{}_{}_backup.h5".format(loss,loss_value))
 
     save_resulting_figure(dens,LDA_result.x,X_train,NN_model,y,loss,loss_value)
 
