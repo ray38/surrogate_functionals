@@ -303,29 +303,29 @@ for x0, y0, z0 in origin_list:
 			temp_theta2_list = np.linspace(0.0, 1.0, num_rot) 
 			temp_theta3_list = np.linspace(0.0, 1.0, num_rot) 
 			paramlist = list(itertools.product(temp_theta1_list,temp_theta2_list,temp_theta3_list))
+		   
 		    
-		    """
-			counter = 0
-			for theta1, theta2, theta3 in paramlist:
-				counter +=1
+			#counter = 0
+			#for theta1, theta2, theta3 in paramlist:
+			#	counter +=1
 
-				x_temp, y_temp, z_temp = rotate_coord_mat2(x.copy(),y.copy(),z.copy(),theta1,theta2,theta3)
-				temp_result, temp_angle = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil_Re_1, stencil_Im_1, pad)
-				error =  temp_result - truth
+			#	x_temp, y_temp, z_temp = rotate_coord_mat2(x.copy(),y.copy(),z.copy(),theta1,theta2,theta3)
+			#	temp_result, temp_angle = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil_Re_1, stencil_Im_1, pad)
+			#	error =  temp_result - truth
 				#print "origin:{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(counter_origin,r, counter,l, m,error/truth, truth, error)
-				print "origin:{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(counter_origin,r, counter,l, m, truth, error, temp_angle)
-				truth_list.append(truth)
-				result_list.append(temp_result)
+			#	print "origin:{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(counter_origin,r, counter,l, m, truth, error, temp_angle)
+			#	truth_list.append(truth)
+			#	result_list.append(temp_result)
 
-				result_percent_error_list.append((error/truth)*100.0)
-				result_error_list.append(error)
-				r_list.append(str(r))
-				l_list.append(str(l))
-				m_list.append(str(m))
-				theta1_list.append(str(theta1))
-				theta2_list.append(str(theta2))
-				theta3_list.append(str(theta3))
-			"""
+			#	result_percent_error_list.append((error/truth)*100.0)
+			#	result_error_list.append(error)
+			#	r_list.append(str(r))
+			#	l_list.append(str(l))
+			#	m_list.append(str(m))
+			#	theta1_list.append(str(theta1))
+			#	theta2_list.append(str(theta2))
+			#	theta3_list.append(str(theta3))
+			
 
 			temp_result_list = []
 			temp_angle_list = []
@@ -336,6 +336,7 @@ for x0, y0, z0 in origin_list:
 				temp_result, temp_angle = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil_Re_1, stencil_Im_1, pad)
 				temp_result_list.append(temp_result)
 				temp_angle_list.append(temp_angle)
+				print counter
 
 			truth = np.mean(temp_result_list)
 			counter = 0
