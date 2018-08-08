@@ -294,9 +294,9 @@ for x0, y0, z0 in origin_list:
 				stencil_Re_1, stencil_Im_1, pad = calc_harmonic_stencil(h, h, h, r, l, -1, accuracy = 6)
 
 
-			truth,_ = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil_Re_1, stencil_Im_1, pad)
-			if truth == 0:
-				truth = 1e-30
+			#truth,_ = get_result(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil_Re_1, stencil_Im_1, pad)
+			#if truth == 0:
+			#	truth = 1e-30
 
 			theta1 = theta2 = theta3 = 0.0
 			temp_theta1_list = np.linspace(0.0, 1.0, num_rot)
@@ -304,6 +304,7 @@ for x0, y0, z0 in origin_list:
 			temp_theta3_list = np.linspace(0.0, 1.0, num_rot) 
 			paramlist = list(itertools.product(temp_theta1_list,temp_theta2_list,temp_theta3_list))
 		    
+		    """
 			counter = 0
 			for theta1, theta2, theta3 in paramlist:
 				counter +=1
@@ -324,6 +325,36 @@ for x0, y0, z0 in origin_list:
 				theta1_list.append(str(theta1))
 				theta2_list.append(str(theta2))
 				theta3_list.append(str(theta3))
+			"""
+
+			temp_result_list = []
+			temp_angle_list = []
+			counter = 0
+			for theta1, theta2, theta3 in paramlist:
+				counter +=1
+				x_temp, y_temp, z_temp = rotate_coord_mat2(x.copy(),y.copy(),z.copy(),theta1,theta2,theta3)
+				temp_result, temp_angle = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0, h, stencil_Re_1, stencil_Im_1, pad)
+				temp_result_list.append(temp_result)
+				temp_angle_list.append(temp_angle)
+
+			truth = np.mean(temp_result_list)
+			counter = 0
+			for temp_result,temp_angle in zip(temp_result_list,temp_angle_list):
+				counter +=1
+				error =  temp_result - truth
+				#print "origin:{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(counter_origin,r, counter,l, m,error/truth, truth, error)
+				print "origin:{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(counter_origin,r, counter,l, m, truth, error, temp_angle)
+				truth_list.append(truth)
+				result_list.append(temp_result)
+				result_percent_error_list.append((error/truth)*100.0)
+				result_error_list.append(error)
+				r_list.append(str(r))
+				l_list.append(str(l))
+				m_list.append(str(m))
+				theta1_list.append(str(theta1))
+				theta2_list.append(str(theta2))
+				theta3_list.append(str(theta3))
+
 
 	d = {"r":r_list, "m":m_list, "l":l_list, "truth":truth_list, "result":result_list,"log_truth":np.log10(np.abs(truth_list)),"log_result":np.log10(np.abs(result_list)),"error":result_error_list, "percent_error":result_percent_error_list,"log_error": ma.log10(np.abs(result_error_list)).filled(-30.0).tolist(), "log_percent_error": ma.log10(np.abs(result_percent_error_list)).filled(-7.0).tolist(), "theta1":theta1_list, "theta2":theta2_list, "theta3": theta3_list}
 	data = pd.DataFrame(data=d)
