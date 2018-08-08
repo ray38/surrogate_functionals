@@ -279,14 +279,14 @@ def get_training_data(dataset_name,setup,upper):
     #overall = overall_subsampled_data
 
 
+    print "before cutoff: {}".format(len(overall))
 
     X_train = []
     y_train = []
     dens = []
 
     for entry in overall:
-#               if entry[0] >= lower and entry[0] <= upper:
-        if entry[0] <= upper:
+        if entry[1] <= upper:
             X_train.append(list(entry[1:]))
             dens.append(entry[1])
             y_train.append(entry[0])
@@ -295,6 +295,8 @@ def get_training_data(dataset_name,setup,upper):
     X_train = (np.asarray(X_train))
     y_train = np.asarray(y_train).reshape((len(y_train),1))
     dens = np.asarray(dens).reshape((len(dens),1))
+
+    print "after cutoff: {}".format(len(dens))
     
     return X_train, y_train, dens, overall_molecule_name, overall_molecule_label
 
