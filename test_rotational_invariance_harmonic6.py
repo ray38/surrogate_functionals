@@ -232,11 +232,9 @@ h = 0.02
 temp_x = 0.5
 
 
-xv = np.linspace(-temp_x,temp_x,num_grid)
-yv = [0.0]
-zv = [0.0]
-#yv = np.linspace(-temp_y,temp_y,ny)
-#zv = np.linspace(-temp_z,temp_z,nz)
+xv = np.linspace(-temp_x,temp_x,nx)
+yv = np.linspace(-temp_y,temp_y,ny)
+zv = np.linspace(-temp_z,temp_z,nz)
 
 x, y, z = np.meshgrid(xv, yv, zv)
 #x,y,z = rotate_coord_mat2(x1,y1,z1)
@@ -268,9 +266,11 @@ truth_list = []
 result_list = []
 
 
-temp_x0_list = np.linspace(-0.5, 0.5, num_grid)
-temp_y0_list = np.linspace(-0.5, 0.5, num_grid) 
-temp_z0_list = np.linspace(-0.5, 0.5, num_grid) 
+temp_x0_list = np.linspace(-0.3, 0.0, num_grid)
+#temp_y0_list = np.linspace(-0.5, 0.5, num_grid) 
+#temp_z0_list = np.linspace(-0.5, 0.5, num_grid) 
+temp_y0_list = [0.0]
+temp_z0_list = [0.0]
 origin_list = list(itertools.product(temp_x0_list,temp_y0_list,temp_z0_list))
 
 
