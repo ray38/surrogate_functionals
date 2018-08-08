@@ -231,6 +231,12 @@ def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e, convolu
             if stencil[0] == "harmonic":
                 temp_convolution_result_Re,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil[1],0)
                 temp_convolution_result_Im,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil[2],0)
+
+                temp_Re = temp_convolution_result_Re[(shape[0])/2][(shape[1])/2][(shape[2])/2]
+                temp_Im = temp_convolution_result_Im[(shape[0])/2][(shape[1])/2][(shape[2])/2]
+
+                result.append(math.sqrt(temp_Re * temp_Re + temp_Im * temp_Im))
+
             else:
                 pass
         else:
