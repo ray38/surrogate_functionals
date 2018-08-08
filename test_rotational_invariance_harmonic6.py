@@ -225,11 +225,11 @@ num_grid = int(sys.argv[2])
 nx, ny, nz = (25,25,25)
 h = 0.02
 
-#temp_x = (float(nx)-1.0)*h/2.0
-#temp_y = (float(ny)-1.0)*h/2.0
-#temp_z = (float(nz)-1.0)*h/2.0
+temp_x = (float(nx)-1.0)*h/2.0
+temp_y = (float(ny)-1.0)*h/2.0
+temp_z = (float(nz)-1.0)*h/2.0
 
-temp_x = 0.5
+#temp_x = 0.5
 
 
 xv = np.linspace(-temp_x,temp_x,nx)
