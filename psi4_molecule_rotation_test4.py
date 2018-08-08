@@ -227,8 +227,8 @@ def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e, convolu
     result = [temp_gamma[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_gradient[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_exc[(shape[0])/2][(shape[1])/2][(shape[2])/2], temp_tau[(shape[0])/2][(shape[1])/2][(shape[2])/2]]
 
     for stencil in convolution_property_stencils:
-        print type(stencil)
-        if type(stencil) == "list":
+        #print type(stencil)
+        if isinstance(stencil,(list,)):
             if stencil[0] == "harmonic":
                 temp_convolution_result_Re,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil[1],0)
                 temp_convolution_result_Im,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil[2],0)
