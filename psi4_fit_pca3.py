@@ -223,7 +223,7 @@ def read_data_from_one_dir(directory):
 
 
 
-def get_training_data(dataset_name,setup,upper):
+def get_training_data(dataset_name,setup,lower,upper):
 
     colormap = {"C2H2":0,
                 "C2H4":1,
@@ -286,7 +286,7 @@ def get_training_data(dataset_name,setup,upper):
     dens = []
 
     for entry in overall:
-        if entry[1] <= upper:
+        if entry[1] >= lower and entry[1] <= upper:
             X_train.append(list(entry[1:]))
             dens.append(entry[1])
             y_train.append(entry[0])
@@ -523,7 +523,8 @@ if __name__ == "__main__":
     setup_filename = sys.argv[1]
     dataset_name = sys.argv[2]
     LDA_filename = sys.argv[3]
-    upper = float(sys.argv[4])
+    lower = float(sys.argv[4])
+    upper = float(sys.argv[5])
 
     with open(setup_filename) as f:
         setup = json.load(f)
@@ -540,13 +541,13 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "PCA_result_subsampled_no_target_{}".format(upper)
+    model_save_dir = working_dir + "/" + "PCA_result_subsampled_no_target_{}_{}".format(lower,upper)
    
     setup["model_save_dir"] = model_save_dir
 
     
     
-    X_train,y, dens, molecule_name, molecule_label = get_training_data(dataset_name,setup, upper)
+    X_train,y, dens, molecule_name, molecule_label = get_training_data(dataset_name,setup,lower, upper)
 
     X_train_backup = X_train.copy()
     y_backup = y.copy()
