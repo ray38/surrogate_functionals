@@ -67,6 +67,12 @@ if __name__ == "__main__":
 	plt.savefig("formation_energy_violin_swarm_plot2.png")
 
 
+
+
+
+
+
+
 	plt.figure()
 
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
