@@ -197,22 +197,22 @@ def plot_result(data,sig_x, sig_y, sig_z):
 	plt.savefig("harmonic_rotational_invariance_test_error.png")
 
 	plt.figure()
-	ax = sns.scatterplot(x="truth", y="error", data=data,hue="m")
+	ax = sns.lmplot(x="truth", y="error", data=data,hue="m")
 	plt.tight_layout()
 	plt.savefig("harmonic_rotational_invariance_test_truth_error.png")
 
 	plt.figure()
-	ax = sns.scatterplot(x="log_truth", y="log_error", data=data,hue="m")
+	ax = sns.lmplot(x="log_truth", y="log_error", data=data,hue="m")
 	plt.tight_layout()
 	plt.savefig("harmonic_rotational_invariance_test_truth_error_log.png")
 
 	plt.figure()
-	ax = sns.scatterplot(x="result", y="error", data=data,hue="m")
+	ax = sns.lmplot(x="result", y="error", data=data,hue="m")
 	plt.tight_layout()
 	plt.savefig("harmonic_rotational_invariance_test_result_error.png")
 
 	plt.figure()
-	ax = sns.scatterplot(x="log_result", y="log_error", data=data,hue="m")
+	ax = sns.lmplot(x="log_result", y="log_error", data=data,hue="m")
 	plt.tight_layout()
 	plt.savefig("harmonic_rotational_invariance_test_result_error_log.png")
 
