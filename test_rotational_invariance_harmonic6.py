@@ -108,7 +108,7 @@ def rotate_coord_mat2(x,y,z,theta1,theta2,theta3):
 def f(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0):
 
 	#return np.exp(-(np.square(x.copy()-x0)/(2.0*sig_x*sig_x)) -(np.square(y.copy()-y0)/(2.0*sig_y*sig_y)) -(np.square(z.copy()-z0)/(2.0*sig_z*sig_z))  )
-	return 1e6 * np.exp(-np.divide(np.square(x.copy()),(2.0*sig_x*sig_x)) - np.divide(np.square(y.copy()),(2.0*sig_y*sig_y)) - np.divide(np.square(z.copy()),(2.0*sig_z*sig_z))  )
+	return 1e12 * np.exp(-np.divide(np.square(x.copy()),(2.0*sig_x*sig_x)) - np.divide(np.square(y.copy()),(2.0*sig_y*sig_y)) - np.divide(np.square(z.copy()),(2.0*sig_z*sig_z))  )
 
 
 def f2(x,y,z,sig_x,sig_y,sig_z,x0,y0,z0):
