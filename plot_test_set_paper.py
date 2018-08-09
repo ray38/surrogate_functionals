@@ -436,6 +436,8 @@ if __name__ == "__main__":
     with open(order_filename) as f:
         temp_order = json.load(f)
     order = temp_order["order"]
+
+    print data
     
     plot_group_2(data,order)
     plot_group_1(data,order)
