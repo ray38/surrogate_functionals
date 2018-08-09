@@ -68,8 +68,8 @@
 
 	"Ave. Dens. 0.1 200":{	"dataset": "epxc_aver_0-10_real_real",
 			"model":"NN_LDA_residual_1M_40_2_relu", 
-			"filename":"predict_sae_26790011.491_formation_log.log",
-			"model_filename":"NN_sae_26790011.491_backup.h5",
+			"filename":"predict_sae_19643353.5296_formation_log_back.log",
+			"model_filename":"NN_sae_19643353.5296_backup.h5",
 			"size":200},
 
 
