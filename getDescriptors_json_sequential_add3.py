@@ -173,6 +173,45 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MC_surface_ha
                 temp_result = np.sqrt(temp_result)
 
                 MC_surface_spherical_harmonic_grp.create_dataset(dataset_name,data=temp_result)
+
+
+        for r in r_list:
+            dataset_name = 'MC_surface_shperical_harmonic_3_{}'.format(str(r).replace('.','-'))
+            if dataset_name not in MC_surface_spherical_harmonic_grp.keys():
+                print "start: {} MC_surface_shperical 3 ".format(r)
+                stencils = MC_surface_harmonic_stencil_dict["3"][str(r)][0]
+                pad = MC_surface_harmonic_stencil_dict["3"][str(r)][1]
+
+                temp_result = np.zeros_list(carve_out_matrix(extented_n.copy()))
+
+                for temp_stencil in stencils:
+                    temp_temp_result_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,hx,hy,hz,1,temp_stencil,0)
+                    temp_temp_result = carve_out_matrix(temp_temp_result_extend)
+                    temp_result = np.add(temp_result, np.square(temp_temp_result))
+
+                temp_result = np.sqrt(temp_result)
+
+                MC_surface_spherical_harmonic_grp.create_dataset(dataset_name,data=temp_result)
+
+
+
+        for r in r_list:
+            dataset_name = 'MC_surface_shperical_harmonic_4_{}'.format(str(r).replace('.','-'))
+            if dataset_name not in MC_surface_spherical_harmonic_grp.keys():
+                print "start: {} MC_surface_shperical 4 ".format(r)
+                stencils = MC_surface_harmonic_stencil_dict["4"][str(r)][0]
+                pad = MC_surface_harmonic_stencil_dict["4"][str(r)][1]
+
+                temp_result = np.zeros_list(carve_out_matrix(extented_n.copy()))
+
+                for temp_stencil in stencils:
+                    temp_temp_result_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,hx,hy,hz,1,temp_stencil,0)
+                    temp_temp_result = carve_out_matrix(temp_temp_result_extend)
+                    temp_result = np.add(temp_result, np.square(temp_temp_result))
+
+                temp_result = np.sqrt(temp_result)
+
+                MC_surface_spherical_harmonic_grp.create_dataset(dataset_name,data=temp_result)
                 
 
         
@@ -242,6 +281,8 @@ def prepare_MC_surface_harmonic_stencil_stencils(r_list,h):
     MC_surface_harmonic_stencil_dict = {}
     MC_surface_harmonic_stencil_dict["1"] = {}
     MC_surface_harmonic_stencil_dict["2"] = {}
+    MC_surface_harmonic_stencil_dict["3"] = {}
+    MC_surface_harmonic_stencil_dict["4"] = {}
 
     for r in r_list:
 
@@ -258,6 +299,34 @@ def prepare_MC_surface_harmonic_stencil_stencils(r_list,h):
         stencil_Re_6, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 2, 6, accuracy = 6)
         MC_surface_harmonic_stencil_dict["2"][str(r)] = [[stencil_Re_1,stencil_Re_2,stencil_Re_3,stencil_Re_4,stencil_Re_5,stencil_Re_6], pad ]
 
+        stencil_Re_1, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 1, accuracy = 6)
+        stencil_Re_2, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 2, accuracy = 6)
+        stencil_Re_3, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 3, accuracy = 6)
+        stencil_Re_4, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 4, accuracy = 6)
+        stencil_Re_5, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 5, accuracy = 6)
+        stencil_Re_6, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 6, accuracy = 6)
+        stencil_Re_7, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 7, accuracy = 6)
+        stencil_Re_8, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 8, accuracy = 6)
+        stencil_Re_9, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 9, accuracy = 6)
+        stencil_Re_10, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 10, accuracy = 6)
+        MC_surface_harmonic_stencil_dict["3"][str(r)] = [[stencil_Re_1,stencil_Re_2,stencil_Re_3,stencil_Re_4,stencil_Re_5,stencil_Re_6,stencil_Re_7,stencil_Re_8,stencil_Re_9,stencil_Re_10], pad ]
+
+        stencil_Re_1, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 1, accuracy = 6)
+        stencil_Re_2, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 2, accuracy = 6)
+        stencil_Re_3, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 3, accuracy = 6)
+        stencil_Re_4, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 4, accuracy = 6)
+        stencil_Re_5, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 5, accuracy = 6)
+        stencil_Re_6, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 6, accuracy = 6)
+        stencil_Re_7, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 7, accuracy = 6)
+        stencil_Re_8, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 8, accuracy = 6)
+        stencil_Re_9, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 9, accuracy = 6)
+        stencil_Re_10, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 10, accuracy = 6)
+        stencil_Re_11, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 11, accuracy = 6)
+        stencil_Re_12, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 12, accuracy = 6)
+        stencil_Re_13, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 13, accuracy = 6)
+        stencil_Re_14, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 14, accuracy = 6)
+        stencil_Re_15, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 15, accuracy = 6)
+        MC_surface_harmonic_stencil_dict["4"][str(r)] = [[stencil_Re_1,stencil_Re_2,stencil_Re_3,stencil_Re_4,stencil_Re_5,stencil_Re_6,stencil_Re_7,stencil_Re_8,stencil_Re_9,stencil_Re_10,stencil_Re_11,stencil_Re_12,stencil_Re_13,stencil_Re_14,stencil_Re_15], pad ]
 
 
     return MC_surface_harmonic_stencil_dict
