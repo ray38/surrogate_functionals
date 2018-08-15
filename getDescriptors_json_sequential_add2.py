@@ -188,8 +188,8 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,harmonic_sten
                 stencil_Re = harmonic_stencil_dict["1"]["-1"][str(r)][0]
                 stencil_Im = harmonic_stencil_dict["1"]["-1"][str(r)][1]
                 pad = harmonic_stencil_dict["1"]["-1"][str(r)][2]
-                temp_result_Re_extend,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil_Re,0)
-                temp_result_Im_extend,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil_Im,0)
+                temp_result_Re_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,hx,hy,hz,1,stencil_Re,0)
+                temp_result_Im_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,hx,hy,hz,1,stencil_Im,0)
 
                 temp_result_Re = carve_out_matrix(temp_result_Re_extend)
                 temp_result_Im = carve_out_matrix(temp_result_Im_extend)
@@ -205,8 +205,8 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,harmonic_sten
                 stencil_Re = harmonic_stencil_dict["1"]["0"][str(r)][0]
                 stencil_Im = harmonic_stencil_dict["1"]["0"][str(r)][1]
                 pad = harmonic_stencil_dict["1"]["0"][str(r)][2]
-                temp_result_Re_extend,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil_Re,0)
-                temp_result_Im_extend,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil_Im,0)
+                temp_result_Re_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,hx,hy,hz,1,stencil_Re,0)
+                temp_result_Im_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,hx,hy,hz,1,stencil_Im,0)
 
                 temp_result_Re = carve_out_matrix(temp_result_Re_extend)
                 temp_result_Im = carve_out_matrix(temp_result_Im_extend)
@@ -222,8 +222,8 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,harmonic_sten
                 stencil_Re = harmonic_stencil_dict["1"]["1"][str(r)][0]
                 stencil_Im = harmonic_stencil_dict["1"]["1"][str(r)][1]
                 pad = harmonic_stencil_dict["1"]["1"][str(r)][2]
-                temp_result_Re_extend,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil_Re,0)
-                temp_result_Im_extend,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil_Im,0)
+                temp_result_Re_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,hx,hy,hz,1,stencil_Re,0)
+                temp_result_Im_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,hx,hy,hz,1,stencil_Im,0)
 
                 temp_result_Re = carve_out_matrix(temp_result_Re_extend)
                 temp_result_Im = carve_out_matrix(temp_result_Im_extend)

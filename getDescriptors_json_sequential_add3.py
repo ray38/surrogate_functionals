@@ -140,53 +140,39 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MC_surface_ha
             dataset_name = 'MC_surface_shperical_harmonic_1_{}'.format(str(r).replace('.','-'))
             if dataset_name not in MC_surface_spherical_harmonic_grp.keys():
                 print "start: {} MC_surface_shperical 1 ".format(r)
-                stencil_Re = harmonic_stencil_dict["1"]["-1"][str(r)][0]
-                stencil_Im = harmonic_stencil_dict["1"]["-1"][str(r)][1]
-                pad = harmonic_stencil_dict["1"]["-1"][str(r)][2]
-                temp_result_Re_extend,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil_Re,0)
-                temp_result_Im_extend,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil_Im,0)
+                stencils = MC_surface_harmonic_stencil_dict["1"][str(r)][0]
+                pad = MC_surface_harmonic_stencil_dict["1"][str(r)][1]
 
-                temp_result_Re = carve_out_matrix(temp_result_Re_extend)
-                temp_result_Im = carve_out_matrix(temp_result_Im_extend)
+                temp_result = np.zeros_list(carve_out_matrix(extented_n.copy()))
 
-                temp_result = np.sqrt(np.add(np.square(temp_result_Re), np.square(temp_result_Im)))
+                for temp_stencil in stencils:
+                    temp_temp_result_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,hx,hy,hz,1,temp_stencil,0)
+                    temp_temp_result = carve_out_matrix(temp_temp_result_extend)
+                    temp_result = np.add(temp_result, np.square(temp_temp_result))
 
-                spherical_harmonic_grp.create_dataset(dataset_name,data=temp_result)
+                temp_result = np.sqrt(temp_result)
 
-        for r in r_list:
-            dataset_name = 'shperical_harmonic_1_0_{}'.format(str(r).replace('.','-'))
-            if dataset_name not in asym_integral_grp.keys():
-                print "start: {} shperical 1 0".format(r)
-                stencil_Re = harmonic_stencil_dict["1"]["0"][str(r)][0]
-                stencil_Im = harmonic_stencil_dict["1"]["0"][str(r)][1]
-                pad = harmonic_stencil_dict["1"]["0"][str(r)][2]
-                temp_result_Re_extend,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil_Re,0)
-                temp_result_Im_extend,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil_Im,0)
+                MC_surface_spherical_harmonic_grp.create_dataset(dataset_name,data=temp_result)
 
-                temp_result_Re = carve_out_matrix(temp_result_Re_extend)
-                temp_result_Im = carve_out_matrix(temp_result_Im_extend)
 
-                temp_result = np.sqrt(np.add(np.square(temp_result_Re), np.square(temp_result_Im)))
-
-                spherical_harmonic_grp.create_dataset(dataset_name,data=temp_result)
 
         for r in r_list:
-            dataset_name = 'shperical_harmonic_1_1_{}'.format(str(r).replace('.','-'))
-            if dataset_name not in asym_integral_grp.keys():
-                print "start: {} shperical 1 1".format(r)
-                stencil_Re = harmonic_stencil_dict["1"]["1"][str(r)][0]
-                stencil_Im = harmonic_stencil_dict["1"]["1"][str(r)][1]
-                pad = harmonic_stencil_dict["1"]["1"][str(r)][2]
-                temp_result_Re_extend,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil_Re,0)
-                temp_result_Im_extend,_ = get_fftconv_with_known_stencil_no_wrap(n,hx,hy,hz,1,stencil_Im,0)
+            dataset_name = 'MC_surface_shperical_harmonic_2_{}'.format(str(r).replace('.','-'))
+            if dataset_name not in MC_surface_spherical_harmonic_grp.keys():
+                print "start: {} MC_surface_shperical 2 ".format(r)
+                stencils = MC_surface_harmonic_stencil_dict["2"][str(r)][0]
+                pad = MC_surface_harmonic_stencil_dict["2"][str(r)][1]
 
-                temp_result_Re = carve_out_matrix(temp_result_Re_extend)
-                temp_result_Im = carve_out_matrix(temp_result_Im_extend)
+                temp_result = np.zeros_list(carve_out_matrix(extented_n.copy()))
 
-                temp_result = np.sqrt(np.add(np.square(temp_result_Re), np.square(temp_result_Im)))
+                for temp_stencil in stencils:
+                    temp_temp_result_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,hx,hy,hz,1,temp_stencil,0)
+                    temp_temp_result = carve_out_matrix(temp_temp_result_extend)
+                    temp_result = np.add(temp_result, np.square(temp_temp_result))
 
-                spherical_harmonic_grp.create_dataset(dataset_name,data=temp_result)
+                temp_result = np.sqrt(temp_result)
 
+                MC_surface_spherical_harmonic_grp.create_dataset(dataset_name,data=temp_result)
                 
 
         
