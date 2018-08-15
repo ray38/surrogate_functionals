@@ -146,7 +146,7 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MC_surface_ha
                 temp_result = np.zeros_like(carve_out_matrix(extented_n.copy()))
 
                 for temp_stencil in stencils:
-                    temp_temp_result_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,hx,hy,hz,1,temp_stencil,0)
+                    temp_temp_result_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,h,h,h,1,temp_stencil,0)
                     temp_temp_result = carve_out_matrix(temp_temp_result_extend)
                     temp_result = np.add(temp_result, np.square(temp_temp_result))
 
@@ -166,7 +166,7 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MC_surface_ha
                 temp_result = np.zeros_like(carve_out_matrix(extented_n.copy()))
 
                 for temp_stencil in stencils:
-                    temp_temp_result_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,hx,hy,hz,1,temp_stencil,0)
+                    temp_temp_result_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,h,h,h,1,temp_stencil,0)
                     temp_temp_result = carve_out_matrix(temp_temp_result_extend)
                     temp_result = np.add(temp_result, np.square(temp_temp_result))
 
@@ -185,7 +185,7 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MC_surface_ha
                 temp_result = np.zeros_like(carve_out_matrix(extented_n.copy()))
 
                 for temp_stencil in stencils:
-                    temp_temp_result_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,hx,hy,hz,1,temp_stencil,0)
+                    temp_temp_result_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,h,h,h,1,temp_stencil,0)
                     temp_temp_result = carve_out_matrix(temp_temp_result_extend)
                     temp_result = np.add(temp_result, np.square(temp_temp_result))
 
@@ -205,7 +205,7 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MC_surface_ha
                 temp_result = np.zeros_like(carve_out_matrix(extented_n.copy()))
 
                 for temp_stencil in stencils:
-                    temp_temp_result_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,hx,hy,hz,1,temp_stencil,0)
+                    temp_temp_result_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,h,h,h,1,temp_stencil,0)
                     temp_temp_result = carve_out_matrix(temp_temp_result_extend)
                     temp_result = np.add(temp_result, np.square(temp_temp_result))
 
