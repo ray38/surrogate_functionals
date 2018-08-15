@@ -245,7 +245,7 @@ def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e, convolu
                     temp_temp_result = temp_convolution_result[(shape[0])/2][(shape[1])/2][(shape[2])/2]
                     temp_result += temp_temp_result * temp_temp_result
 
-                result.append(temp_result)
+                result.append(math.sqrt(temp_result))
 
             else:
                 pass
@@ -522,7 +522,7 @@ if __name__ == "__main__":
     #temp_y0_list = np.linspace(-0.4, 0.4, num_grid)
     temp_x0_list = [0.0]
     temp_y0_list = [0.0]
-    temp_z0_list = np.linspace(-0.369226, num_grid)
+    temp_z0_list = np.linspace(-0.4, num_grid)
     origin_list = list(itertools.product(temp_x0_list,temp_y0_list,temp_z0_list))
 
     temp_theta1_list = np.linspace(0.0, 0.25, num_rot)
