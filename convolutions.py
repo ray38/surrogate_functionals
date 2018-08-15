@@ -896,18 +896,195 @@ def get_harmonic_fftconv(n, hx, hy, hz, r, l, m, accuracy = 5):
     return temp_result_Re[pad_temp:-pad_temp, pad_temp:-pad_temp, pad_temp:-pad_temp], temp_result_Im[pad_temp:-pad_temp, pad_temp:-pad_temp, pad_temp:-pad_temp], pad
 
 
+
+
+
+
+
+def MC_surface_spherical_harmonic(x, y, z, l, m):
+    r = math.sqrt(x*x + y*y + z*z)
+    x_hat = x/r
+    y_hat = y/r
+    z_hat = z/r
+
+    if l == 0:
+        return 1.0
+
+    if l == 1:
+        if m == 1:
+            return x_hat
+        if m == 2:
+            return y_hat
+        if m == 3:
+            return z_hat
+
+    if l == 2:
+        if m == 1:
+            return 3.0 * x_hat * x_hat - 1.0
+        if m == 2:
+            return 3.0 * x_hat * y_hat
+        if m == 3:
+            return 3.0 * x_hat * z_hat
+        if m == 4:
+            return 3.0 * y_hat * y_hat - 1.0
+        if m == 5:
+            return 3.0 * y_hat * z_hat
+        if m == 6:
+            return 3.0 * z_hat * z_hat - 1.0
+
+    if l == 3:
+        if m == 1:
+            return 15.0 * x_hat * x_hat * x_hat - 9.0 * x_hat
+        if m == 2:
+            return 15.0 * x_hat * x_hat * y_hat - 3.0 * y_hat
+        if m == 3:
+            return 15.0 * x_hat * x_hat * z_hat - 3.0 * z_hat
+        if m == 4:
+            return 15.0 * x_hat * y_hat * y_hat - 3.0 * x_hat
+        if m == 5:
+            return 15.0 * x_hat * y_hat * z_hat
+        if m == 6:
+            return 15.0 * x_hat * z_hat * z_hat - 3.0 * x_hat
+        if m == 7:
+            return 15.0 * y_hat * y_hat * y_hat - 9.0 * y_hat
+        if m == 8:
+            return 15.0 * y_hat * y_hat * z_hat - 3.0 * z_hat
+        if m == 9:
+            return 15.0 * y_hat * z_hat * z_hat - 3.0 * y_hat 
+        if m == 10:
+            return 15.0 * z_hat * z_hat * z_hat - 9.0 * z_hat
+
+    if l == 4:
+        if m == 1:
+            return 105.0 * x_hat * x_hat * x_hat * x_hat - 90.0 * x_hat * x_hat + 9.0
+        if m == 2:
+            return 105.0 * x_hat * x_hat * x_hat * y_hat - 45.0 * x_hat * y_hat
+        if m == 3:
+            return 105.0 * x_hat * x_hat * x_hat * z_hat - 45.0 * x_hat * z_hat
+        if m == 4:
+            return 105.0 * x_hat * x_hat * y_hat * y_hat - 15.0 * x_hat * x_hat - 15.0 * y_hat * y_hat + 3.0
+        if m == 5:
+            return 105.0 * x_hat * x_hat * y_hat * z_hat - 15.0 * y_hat * z_hat
+        if m == 6:
+            return 105.0 * x_hat * x_hat * z_hat * z_hat - 15.0 * x_hat * x_hat - 15.0 * z_hat * z_hat + 3.0
+        if m == 7:
+            return 105.0 * x_hat * y_hat * y_hat * y_hat - 45.0 * x_hat * y_hat
+        if m == 8:
+            return 105.0 * x_hat * y_hat * y_hat * z_hat - 15.0 * x_hat * z_hat
+        if m == 9:
+            return 105.0 * x_hat * y_hat * z_hat * z_hat - 15.0 * x_hat * y_hat
+        if m == 10:
+            return 105.0 * x_hat * z_hat * z_hat * z_hat - 45.0 * x_hat * z_hat
+        if m == 11:
+            return 105.0 * y_hat * y_hat * y_hat * y_hat - 90.0 * y_hat * y_hat + 9.0
+        if m == 12:
+            return 105.0 * y_hat * y_hat * y_hat * z_hat - 45.0 * y_hat * z_hat
+        if m == 13:
+            return 105.0 * y_hat * y_hat * z_hat * z_hat - 15.0 * y_hat * y_hat - 15.0 * z_hat * z_hat + 3.0
+        if m == 14:
+            return 105.0 * y_hat * z_hat * z_hat * z_hat - 45.0 * y_hat * z_hat
+        if m == 15:
+            return 105.0 * z_hat * z_hat * z_hat * z_hat - 90.0 * z_hat * z_hat + 9.0
+
+def MC_surface_spherical_harmonic_cutoff(x, y, z, l, m, cutoff):
+    r = math.sqrt(x*x + y*y + z*z)
+    if r <= cutoff:
+        return MC_surface_spherical_harmonic(x, y, z, l, m)
+    else:
+        return 0
+
+
+
+def calc_MC_surface_harmonic_stencil_value(min_max, r, l, m, accuracy):
+    
+    
+
+    x_min = min_max[0]
+    x_max = min_max[1]
+    y_min = min_max[2]
+    y_max = min_max[3]
+    z_min = min_max[4]
+    z_max = min_max[5]
+
+    dx = (x_max-x_min) / accuracy
+    dy = (y_max-y_min) / accuracy
+    dz = (z_max-z_min) / accuracy
+    dv = dx*dy*dz
+
+    x_li = np.linspace(x_min, x_max, num=accuracy)
+    y_li = np.linspace(y_min, y_max, num=accuracy)
+    z_li = np.linspace(z_min, z_max, num=accuracy)
+    
+    coord_list = list(itertools.product(x_li,y_li,z_li))
+
+    Re = 0.0
+
+    for x,y,z in coord_list:
+        temp_Re = MC_surface_spherical_harmonic_cutoff(x, y, z, l, m, r)
+        Re += temp_Re * dv
+
+    return Re
+
+
+
+def calc_MC_surface_harmonic_stencil(hx, hy, hz, r, l, m, accuracy = 5):
+    # calculate the stencil
+
+    # initialize the stencil with right dimensions
+    dim_x = int(2.* math.ceil( r/hx )) + 1
+    dim_y = int(2.* math.ceil( r/hy )) + 1
+    dim_z = int(2.* math.ceil( r/hz )) + 1
+
+    print dim_x, dim_y, dim_z
+
+    stencil_Re = np.zeros((dim_x, dim_y, dim_z))
+    stencil_Im = np.zeros((dim_x, dim_y, dim_z))
+
+    min_max_matrix = get_min_max_matrix(dim_x, dim_y, dim_z, hx, hy, hz)
+
+    for index, x in np.ndenumerate(stencil_Re):
+        temp_Re = calc_MC_surface_harmonic_stencil_value(min_max_matrix[index], r, l, m, accuracy)
+        stencil_Re[index] = temp_Re
+    
+    # caclulate the coordinate of the sphere center
+
+    #print stencil_Im
+    #print stencil_Re
+
+    #plot_stencil(stencil_Im, min_max_matrix)
+    #plot_stencil(stencil_Re, min_max_matrix)
+    
+    
+    padx = int(math.ceil(float(dim_x)/2.))
+    pady = int(math.ceil(float(dim_y)/2.))
+    padz = int(math.ceil(float(dim_z)/2.))
+    
+    pad = (padx,pady,padz)
+
+    
+    return stencil_Re, pad
+
+def get_MC_surface_harmonic_fftconv(n, hx, hy, hz, r, l, m, accuracy = 5):
+    # get the stencil and do the convolution
+    
+    stencil_Re, pad = calc_MC_surface_harmonic_stencil(hx, hy, hz, r, l, m, accuracy = accuracy)
+    pad_temp = int(math.ceil(r*2. / min([hx,hy,hz])))
+    wrapped_n = np.pad(n, pad_temp, mode='wrap')
+    temp_result_Re = fftconvolve(wrapped_n,stencil_Re, mode = 'same')
+    return temp_result_Re[pad_temp:-pad_temp, pad_temp:-pad_temp, pad_temp:-pad_temp], pad
+
+
+
+
+
 if __name__ == "__main__":
     r = 0.12
     h = 0.02
-    l = 2
+    l = 1
     #calc_harmonic_stencil(0.02, 0.02, 0.02, 0.22, 1, 1, 6)
-    stencil_Re_0, stencil_Im_0, pad = calc_harmonic_stencil(h, h, h, r, l, -2, accuracy = 6)
-    stencil_Re_1, stencil_Im_1, pad = calc_harmonic_stencil(h, h, h, r, l, -1, accuracy = 6)
-    stencil_Re_2, stencil_Im_2, pad = calc_harmonic_stencil(h, h, h, r, l, 0, accuracy = 6)
-    stencil_Re_3, stencil_Im_3, pad = calc_harmonic_stencil(h, h, h, r, l, 1, accuracy = 6)
-    stencil_Re_4, stencil_Im_4, pad = calc_harmonic_stencil(h, h, h, r, l, 2, accuracy = 6)
-
-    stencil_Re = stencil_Re_0 + stencil_Re_1 + stencil_Re_2 + stencil_Re_3 + stencil_Re_4
+    stencil_Re_1, pad = calc_harmonic_stencil(h, h, h, r, l, 1, accuracy = 6)
+    stencil_Re_2, pad = calc_harmonic_stencil(h, h, h, r, l, 1, accuracy = 6)
+    stencil_Re_3, pad = calc_harmonic_stencil(h, h, h, r, l, 1, accuracy = 6)
     #stencil_Im = stencil_Im_0 + stencil_Im_1 + stencil_Im_2 + stencil_Im_3 + stencil_Im_4
 
     dim_x = int(2.* math.ceil( r/h )) + 1
@@ -917,7 +1094,4 @@ if __name__ == "__main__":
 
     min_max_matrix = get_min_max_matrix(dim_x, dim_y, dim_z, h, h, h)
 
-
-    #plot_stencil(stencil_Im, min_max_matrix)
     plot_stencil(stencil_Re, min_max_matrix)
-    #get_min_max_matrix(3, 3, 3, 0.02, 0.02, 0.02)
