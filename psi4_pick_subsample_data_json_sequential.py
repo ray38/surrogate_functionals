@@ -172,20 +172,25 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
 
 
         group_name = 'asym_integral'
-        temp_list = setup["asym_desc_r_list"]
-        if len(temp_list) > 0:
-            for r_list_count in temp_list:
-                dataset_name = 'asym_integral_x_{}'.format(str(r_list_count).replace('.','-'))
-                temp_data = np.asarray(data[group_name][dataset_name])
-                result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
+        try:
+            temp_list = setup["asym_desc_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'asym_integral_x_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
 
-                dataset_name = 'asym_integral_y_{}'.format(str(r_list_count).replace('.','-'))
-                temp_data = np.asarray(data[group_name][dataset_name])
-                result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
+                    dataset_name = 'asym_integral_y_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
 
-                dataset_name = 'asym_integral_z_{}'.format(str(r_list_count).replace('.','-'))
-                temp_data = np.asarray(data[group_name][dataset_name])
-                result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
+                    dataset_name = 'asym_integral_z_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
+        except:
+            pass
+
+
 
         group_name = 'asym_integral'
         try:
@@ -203,6 +208,58 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
                     result_list.append(transform_data(temp_data1 + temp_data2 + temp_data3 , setup['asymsum_desc_transform']))
         except:
             pass
+
+
+
+        group_name = 'MC_surface_spherical_harmonic'
+        try:
+            temp_list = setup["MC_surface_spherical_harmonic_1_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'MC_surface_shperical_harmonic_1_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['MC_surface_spherical_harmonic_1_transform']))
+        except:
+            pass
+
+        try:
+            temp_list = setup["MC_surface_spherical_harmonic_2_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'MC_surface_shperical_harmonic_2_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['MC_surface_spherical_harmonic_2_transform']))
+        except:
+            pass
+
+        try:
+            temp_list = setup["MC_surface_spherical_harmonic_3_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'MC_surface_shperical_harmonic_3_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['MC_surface_spherical_harmonic_3_transform']))
+        except:
+            pass
+
+        try:
+            temp_list = setup["MC_surface_spherical_harmonic_4_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'MC_surface_shperical_harmonic_4_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['MC_surface_spherical_harmonic_4_transform']))
+        except:
+            pass
+
+
+
+
+
+
+
+
+
         
         result = zip(*result_list)
         print "done picking: {} {} {}".format(i,j,k)
