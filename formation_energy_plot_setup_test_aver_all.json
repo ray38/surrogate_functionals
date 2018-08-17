@@ -32,8 +32,8 @@
 
 	"Ave. Dens. 0.02 200":{	"dataset": "epxc_aver_0-02_real_real",
 			"model":"NN_LDA_residual_1M_200_2_relu", 
-			"filename":"predict_sae_216194979.248_formation_log.log",
-			"model_filename":"NN_sae_216194979.248_backup.h5",
+			"filename":"predict_sae_111608225.964_formation_log.log",
+			"model_filename":"NN_sae_111608225.964_backup.h5",
 			"size":200},
 
 	"Ave. Dens. 0.06 40":{	"dataset": "epxc_aver_0-06_real_real",
@@ -44,14 +44,14 @@
 
 	"Ave. Dens. 0.06 100":{	"dataset": "epxc_aver_0-06_real_real",
 			"model":"NN_LDA_residual_1M_100_2_relu", 
-			"filename":"predict_sae_46767040.2919_formation_log.log",
-			"model_filename":"NN_sae_46767040.2919_backup.h5",
+			"filename":"predict_sae_45914167.3177_formation_log.log",
+			"model_filename":"NN_sae_45914167.3177_backup.h5",
 			"size":100},
 
 	"Ave. Dens. 0.06 200":{	"dataset": "epxc_aver_0-06_real_real",
 			"model":"NN_LDA_residual_1M_200_2_relu", 
-			"filename":"predict_sae_98780654.4544_formation_log.log",
-			"model_filename":"NN_sae_98780654.4544_backup.h5",
+			"filename":"predict_sae_42196365.9373_formation_log.log",
+			"model_filename":"NN_sae_42196365.9373_backup.h5",
 			"size":200},
 
 	"Ave. Dens. 0.1 40":{	"dataset": "epxc_aver_0-10_real_real",
@@ -62,14 +62,14 @@
 
 	"Ave. Dens. 0.1 100":{	"dataset": "epxc_aver_0-10_real_real",
 			"model":"NN_LDA_residual_1M_100_2_relu", 
-			"filename":"predict_sae_19643353.5296_formation_log.log",
-			"model_filename":"NN_sae_19643353.5296_backup.h5",
+			"filename":"predict_sae_8736992.56361_formation_log.log",
+			"model_filename":"NN_sae_8736992.56361_backup.h5",
 			"size":100},
 
 	"Ave. Dens. 0.1 200":{	"dataset": "epxc_aver_0-10_real_real",
 			"model":"NN_LDA_residual_1M_200_2_relu", 
-			"filename":"predict_sae_19643353.5296_formation_log_back.log",
-			"model_filename":"NN_sae_19643353.5296_backup.h5",
+			"filename":"predict_sae_7722885.42684_formation_log_back.log",
+			"model_filename":"NN_sae_7722885.42684_backup.h5",
 			"size":200},
 
 
@@ -81,14 +81,14 @@
 
 	"Ave. Dens. 0.2 100":{	"dataset": "epxc_aver_0-20_real_real",
 			"model":"NN_LDA_residual_1M_100_2_relu", 
-			"filename":"predict_sae_21163732.8948_formation_log.log",
-			"model_filename":"NN_sae_21163732.8948_backup.h5",
+			"filename":"predict_sae_20109414.025_formation_log.log",
+			"model_filename":"NN_sae_20109414.025_backup.h5",
 			"size":100},
 
 	"Ave. Dens. 0.2 200":{	"dataset": "epxc_aver_0-20_real_real",
 			"model":"NN_LDA_residual_1M_200_2_relu", 
-			"filename":"predict_sae_23485240.8046_formation_log.log",
-			"model_filename":"NN_sae_23485240.8046_backup.h5",
+			"filename":"predict_sae_17746061.3013_formation_log.log",
+			"model_filename":"NN_sae_17746061.3013_backup.h5",
 			"size":200},
 
 	"Ave. Dens. 0.4 40":{	"dataset": "epxc_aver_0-40_real_real",
@@ -105,7 +105,7 @@
 
 	"Ave. Dens. 0.4 200":{	"dataset": "epxc_aver_0-40_real_real",
 			"model":"NN_LDA_residual_1M_200_2_relu", 
-			"filename":"predict_sae_18254876.533_formation_log.log",
-			"model_filename":"NN_sae_18254876.533_backup.h5",
+			"filename":"predict_sae_16654829.7976_formation_log.log",
+			"model_filename":"NN_sae_16654829.7976_backup.h5",
 			"size":200}
 }
