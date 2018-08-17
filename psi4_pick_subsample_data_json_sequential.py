@@ -361,7 +361,7 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
             subsample_data_overall_block_list.append(subsample_data_overall_block)
             subsample_data_overall_block = []
 
-
+    subsample_data_overall_block_list.append(subsample_data_overall_block)
     subsample_data_overall = []
     for block in subsample_data_overall_block_list:
         subsample_data_overall += block
