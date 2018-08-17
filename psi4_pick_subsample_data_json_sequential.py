@@ -253,13 +253,6 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
             pass
 
 
-
-
-
-
-
-
-
         
         result = zip(*result_list)
         print "done picking: {} {} {}".format(i,j,k)
@@ -471,6 +464,7 @@ if __name__ == "__main__":
         
 
         process_one_molecule(molecule, functional,h,L,N, setup)
+        #test
         
         
         
