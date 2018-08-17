@@ -1,3 +1,5 @@
+from __future__ import division
+
 # -*- coding: utf-8 -*-
 """
 Created on Tue Oct 24 09:43:05 2017
@@ -41,7 +43,7 @@ from sklearn import manifold
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.preprocessing import StandardScaler
 
-from __future__ import division
+
 
 import numpy as np
 
