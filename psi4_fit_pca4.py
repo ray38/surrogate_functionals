@@ -41,14 +41,14 @@ from sklearn import manifold
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.preprocessing import StandardScaler
 
-from __future__ import division, print_function
+from __future__ import division
 
 import numpy as np
 
 try:
     from pylab import plt
 except ImportError:
-    print('Unable to import pylab. R_pca.plot_fit() will not work.')
+    print 'Unable to import pylab. R_pca.plot_fit() will not work.'
 
 try:
     # Python 2: 'xrange' is the iterative version
@@ -110,7 +110,7 @@ class R_pca:
             err = self.norm_p(np.abs(self.D - Lk - Sk), 2)
             iter += 1
             if (iter % iter_print) == 0 or iter == 1 or iter > max_iter or err <= _tol:
-                print('iteration: {0}, error: {1}'.format(iter, err))
+                print 'iteration: {0}, error: {1}'.format(iter, err)
 
         self.L = Lk
         self.S = Sk
@@ -129,7 +129,7 @@ class R_pca:
 
         ymin = np.nanmin(self.D)
         ymax = np.nanmax(self.D)
-        print('ymin: {0}, ymax: {1}'.format(ymin, ymax))
+        print 'ymin: {0}, ymax: {1}'.format(ymin, ymax)
 
         numplots = np.min([n, nrows * ncols])
         plt.figure()
