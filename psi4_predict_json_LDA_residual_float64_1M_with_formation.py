@@ -310,7 +310,7 @@ def load_data_each_block(molecule,functional,i,j,k, dataset_setup, data_dir_full
     except:
         pass
 
-    #try:
+    try:
         temp_list = dataset_setup["MC_surface_spherical_harmonic_3_r_list"]
         if len(temp_list) > 0:
             for r_list_count in temp_list:
