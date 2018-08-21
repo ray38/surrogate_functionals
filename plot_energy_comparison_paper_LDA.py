@@ -54,34 +54,8 @@ if __name__ == "__main__":
 	print data
 
 
-	energy_text_dict = {}
-	formation_energy_text_dict = {}
-
-	groups = data.groupby("model_name")
-    for name, group in groups:
-		energy_text_dict[name] = "MAE: {:6.2f} \nRMSE: {:6.2f}".format(np.mean(np.abs(group['exc_error'])), np.sqrt(np.mean(np.square(group['exc_error']))))
-		formation_energy_text_dict[name] = "MAE: {:6.2f} \nRMSE: {:6.2f}"format(np.mean(np.abs(group['formation_exc_error'])), np.sqrt(np.mean(np.square(group['formation_exc_error']))))
-
-    energy_text_list = []
-    formation_energy_text_list = []
-
-    for key in order:
-    	energy_text_list.append(energy_text_dict[key])
-    	formation_energy_text_list.append(formation_energy_text_dict[key])
-
-    xpos_list = range(len(order))
-
-	#temp_xticklabel = [r"$\bar \lambda_{q,(40,2)}^{0.0}$",r"$\bar \lambda_{q,(100,2)}^{0.0}$",r"$\bar \lambda_{q,(200,2)}^{0.0}$",\
-	#				   r"$\bar \lambda_{q,(40,2)}^{0.02}$",r"$\bar \lambda_{q,(100,2)}^{0.02}$",r"$\bar \lambda_{q,(200,2)}^{0.02}$",\
-	#				   r"$\bar \lambda_{q,(40,2)}^{0.06}$",r"$\bar \lambda_{q,(100,2)}^{0.06}$",r"$\bar \lambda_{q,(200,2)}^{0.06}$",\
-	#				   r"$\bar \lambda_{q,(40,2)}^{0.1}$",r"$\bar \lambda_{q,(100,2)}^{0.1}$",r"$\bar \lambda_{q,(200,2)}^{0.1}$",\
-	#				   r"$\bar \lambda_{q,(40,2)}^{0.2}$",r"$\bar \lambda_{q,(100,2)}^{0.2}$",r"$\bar \lambda_{q,(200,2)}^{0.2}$",\
-	#				   r"$\bar \lambda_{q,(40,2)}^{0.4}$",r"$\bar \lambda_{q,(100,2)}^{0.4}$",r"$\bar \lambda_{q,(200,2)}^{0.4}$"]
 
 
-	temp_xticklabel = [r"$\bar \lambda_{q,(40,2)}^{0.0}$",r"$\bar \lambda_{q,(40,2)}^{0.02}$",r"$\bar \lambda_{q,(40,2)}^{0.06}$",r"$\bar \lambda_{q,(40,2)}^{0.1}$",r"$\bar \lambda_{q,(40,2)}^{0.2}$",r"$\bar \lambda_{q,(40,2)}^{0.4}$",\
-					   r"$\bar \lambda_{q,(100,2)}^{0.0}$",r"$\bar \lambda_{q,(100,2)}^{0.02}$",r"$\bar \lambda_{q,(100,2)}^{0.06}$",r"$\bar \lambda_{q,(100,2)}^{0.1}$",r"$\bar \lambda_{q,(100,2)}^{0.2}$",r"$\bar \lambda_{q,(100,2)}^{0.4}$",\
-					   r"$\bar \lambda_{q,(200,2)}^{0.0}$",r"$\bar \lambda_{q,(200,2)}^{0.02}$",r"$\bar \lambda_{q,(200,2)}^{0.06}$",r"$\bar \lambda_{q,(200,2)}^{0.1}$",r"$\bar \lambda_{q,(200,2)}^{0.2}$",r"$\bar \lambda_{q,(200,2)}^{0.4}$"]
 
 
 
@@ -92,10 +66,10 @@ if __name__ == "__main__":
 	ax1 = sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",order = order,data=data,split=True,inner=None,palette={"training":"b","test":"y"})
 	sns.despine(left=True)
 	ax2 = sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='training_test',order = order, split=True, color='k', alpha=0.7, palette=("Dark2"))
-	#ax1.set_xticklabels(ax1.get_xticklabels(),rotation=45)
-	#ax2.set_xticklabels(ax2.get_xticklabels(),rotation=45)
-	ax1.set_xticklabels(temp_xticklabel,rotation=90)
-	ax2.set_xticklabels(temp_xticklabel,rotation=90)
+	ax1.set_xticklabels(ax1.get_xticklabels(),rotation=90)
+	ax2.set_xticklabels(ax2.get_xticklabels(),rotation=90)
+	#ax1.set_xticklabels(temp_xticklabel,rotation=90)
+	#ax2.set_xticklabels(temp_xticklabel,rotation=90)
 	plt.xlabel("Model", fontsize=25)
 	plt.ylabel("Error in Formation Energy (eV)", fontsize=25)
 	plt.tick_params('both',labelsize='20')
@@ -103,9 +77,6 @@ if __name__ == "__main__":
 	handles1, _ = ax1.get_legend_handles_labels()
 	#ax1.legend(handles1, ["Training set", "Test set"],fontsize=20,bbox_to_anchor=(0.6, 0.4), loc=2)
 	ax1.legend(handles1, ["Training set", "Test set"],fontsize=20, loc=1)
-
-	for i in range(len(xpos_list)):
-    	ax1.text(xpos_list[i], 0.0, formation_energy_text_list[i])
 
 	plt.tight_layout()
 	plt.savefig("formation_energy_violin_swarm_plot2.png")
@@ -123,19 +94,16 @@ if __name__ == "__main__":
 	ax1 = sns.violinplot(x="model_name",y="exc_error",hue="training_test",order = order,data=data,split=True,inner=None,palette={"training":"b","test":"y"})
 	sns.despine(left=True)
 	ax2 = sns.swarmplot(x="model_name",y="exc_error",data=data, hue='training_test',order = order, split=True, color='k', alpha=0.7, palette=("Dark2"))
-	#ax1.set_xticklabels(ax1.get_xticklabels(),rotation=45)
-	#ax2.set_xticklabels(ax2.get_xticklabels(),rotation=45)
-	ax1.set_xticklabels(temp_xticklabel,rotation=90)
-	ax2.set_xticklabels(temp_xticklabel,rotation=90)
+	ax1.set_xticklabels(ax1.get_xticklabels(),rotation=90)
+	ax2.set_xticklabels(ax2.get_xticklabels(),rotation=90)
+	#ax1.set_xticklabels(temp_xticklabel,rotation=90)
+	#ax2.set_xticklabels(temp_xticklabel,rotation=90)
 	plt.xlabel("Model", fontsize=25)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=25)
 	plt.tick_params('both',labelsize='20')
 
 	handles1, _ = ax1.get_legend_handles_labels()
 	ax1.legend(handles1, ["Training set", "Test set"],fontsize=20, loc=1)
-
-	for i in range(len(xpos_list)):
-    	ax1.text(xpos_list[i], 0.0, energy_text_list[i])
 
 	plt.tight_layout()
 	plt.savefig("energy_violin_swarm_plot2.png")
@@ -168,9 +136,8 @@ if __name__ == "__main__":
         g.set_xticklabels(rotation=90,fontsize=30)
         g.set_yticklabels(fontsize=40)
 	sns.despine(left=True)
-	handles, _ = g.ax.get_legend_handles_labels()
-	plt.legend(handles, temp_xticklabel,bbox_to_anchor=(0, 0.4), loc=2,fontsize=25)
-	#plt.legend(bbox_to_anchor=(0, 0.4), loc=2,fontsize=25)
+	#plt.legend(bbox_to_anchor=(1, 1), loc=2)
+	plt.legend(bbox_to_anchor=(0, 0.4), loc=2,fontsize=25)
 	plt.ylabel("Error in Formation Energy (eV)", fontsize=40)
 	plt.xlabel("", fontsize=40)
 	#g.legend( ["Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],loc='upper right',fontsize=15)
@@ -188,9 +155,8 @@ if __name__ == "__main__":
         g.set_xticklabels(rotation=90,fontsize=30)
         g.set_yticklabels(fontsize=40)
 	sns.despine(left=True)
-	handles, _ = g.ax.get_legend_handles_labels()
-	plt.legend(handles, temp_xticklabel,bbox_to_anchor=(0.25, 1.0), loc=1,fontsize=25)
-	#plt.legend(bbox_to_anchor=(0.25, 1.0), loc=1,fontsize=25)
+	#plt.legend(bbox_to_anchor=(1, 1), loc=2)
+	plt.legend(bbox_to_anchor=(0.25, 1.0), loc=1,fontsize=25)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=40)
 	plt.xlabel("", fontsize=18)
 	plt.tight_layout()
