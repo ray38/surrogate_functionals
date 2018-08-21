@@ -55,7 +55,12 @@ if __name__ == "__main__":
 
 
 
-
+	temp_xticklabel = [r"$\bar \lambda^{0.0}$",\
+					   r"$\bar \lambda^{0.02}$",\
+					   r"$\bar \lambda^{0.06}$",\
+					   r"$\bar \lambda^{0.1}$",\
+					   r"$\bar \lambda^{0.2}$",\
+					   r"$\bar \lambda^{0.4}$"]
 
 
 
@@ -67,8 +72,10 @@ if __name__ == "__main__":
 	ax1 = sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",order = order,data=data,split=True,inner=None,palette={"training":"b","test":"y"})
 	sns.despine(left=True)
 	ax2 = sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='training_test',order = order, split=True, color='k', alpha=0.7, palette=("Dark2"))
-	ax1.set_xticklabels(ax1.get_xticklabels(),rotation=45)
-	ax2.set_xticklabels(ax2.get_xticklabels(),rotation=45)
+	#ax1.set_xticklabels(ax1.get_xticklabels(),rotation=45)
+	#ax2.set_xticklabels(ax2.get_xticklabels(),rotation=45)
+	ax1.set_xticklabels(temp_xticklabel,rotation=90)
+	ax2.set_xticklabels(temp_xticklabel,rotation=90)
 	plt.xlabel("Model", fontsize=25)
 	plt.ylabel("Error in Formation Energy (eV)", fontsize=25)
 	plt.tick_params('both',labelsize='20')
@@ -93,8 +100,10 @@ if __name__ == "__main__":
 	ax1 = sns.violinplot(x="model_name",y="exc_error",hue="training_test",order = order,data=data,split=True,inner=None,palette={"training":"b","test":"y"})
 	sns.despine(left=True)
 	ax2 = sns.swarmplot(x="model_name",y="exc_error",data=data, hue='training_test',order = order, split=True, color='k', alpha=0.7, palette=("Dark2"))
-	ax1.set_xticklabels(ax1.get_xticklabels(),rotation=45)
-	ax2.set_xticklabels(ax2.get_xticklabels(),rotation=45)
+	#ax1.set_xticklabels(ax1.get_xticklabels(),rotation=45)
+	#ax2.set_xticklabels(ax2.get_xticklabels(),rotation=45)
+	ax1.set_xticklabels(temp_xticklabel,rotation=90)
+	ax2.set_xticklabels(temp_xticklabel,rotation=90)
 	plt.xlabel("Model", fontsize=25)
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=25)
 	plt.tick_params('both',labelsize='20')
