@@ -147,7 +147,7 @@ if __name__ == "__main__":
 	sns.despine(left=True)
 	#plt.legend(bbox_to_anchor=(1, 1), loc=2)
 	handles, _ = g.ax.get_legend_handles_labels()
-	g.legend(handles, temp_xticklabel)
+	plt.legend(handles, temp_xticklabel)
 	#plt.legend(bbox_to_anchor=(0, 0.4), loc=2,fontsize=25)
 	plt.ylabel("Error in Formation Energy (eV)", fontsize=40)
 	plt.xlabel("", fontsize=40)
