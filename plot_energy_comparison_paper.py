@@ -102,7 +102,7 @@ if __name__ == "__main__":
 	ax1.legend(handles1, ["Training set", "Test set"],fontsize=20, loc=1)
 
 	for i in range(len(xpos_list)):
-		ax1.text(xpos_list[i], -11.0, formation_energy_text_list[i],fontsize=11)
+		ax1.text(xpos_list[i], -11.0, formation_energy_text_list[i],fontsize=15)
 
 	plt.tight_layout()
 	plt.savefig("formation_energy_violin_swarm_plot2_aver.png")
@@ -132,7 +132,7 @@ if __name__ == "__main__":
 	ax1.legend(handles1, ["Training set", "Test set"],fontsize=20, loc=1)
 
 	for i in range(len(xpos_list)):
-		ax1.text(xpos_list[i], -20.0, energy_text_list[i],fontsize=11)
+		ax1.text(xpos_list[i], 125.0, energy_text_list[i],fontsize=15)
 
 	plt.tight_layout()
 	plt.savefig("energy_violin_swarm_plot2_aver.png")
