@@ -21,17 +21,17 @@
 
 	"Ave. Dens. 0.1":{	"dataset": "epxc_aver_0-10_real_real",
 			"model":"NN_LDA_residual_1M_40_2_relu", 
-			"filename":"predict_sae_11881793.5132_formation_log.log",
-			"model_filename":"NN_sae_11881793.5132_backup.h5"},
+			"filename":"predict_sae_11725962.7448_formation_log.log",
+			"model_filename":"NN_sae_11725962.7448_backup.h5"},
 
 
 	"Ave. Dens. 0.2":{	"dataset": "epxc_aver_0-20_real_real",
 			"model":"NN_LDA_residual_1M_40_2_relu", 
-			"filename":"predict_sae_22773897.4461_formation_log.log",
-			"model_filename":"NN_sae_22773897.4461_backup.h5"},
+			"filename":"predict_sae_22505364.417_formation_log.log",
+			"model_filename":"NN_sae_22505364.417_backup.h5"},
 
 	"Ave. Dens. 0.4":{	"dataset": "epxc_aver_0-40_real_real",
 			"model":"NN_LDA_residual_1M_40_2_relu", 
-			"filename":"predict_sae_24446166.8941_formation_log.log",
-			"model_filename":"NN_sae_24446166.8941_backup.h5"}
+			"filename":"predict_sae_27757858.173_formation_log.log",
+			"model_filename":"NN_sae_27757858.173_backup.h5"}
 }
