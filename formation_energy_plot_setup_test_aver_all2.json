@@ -1,6 +1,6 @@
 {
 
-	"Ave. Dens. 0.0 40":{	"dataset": "epxc_LDA_real_real",
+	"$\bar \lambda_{q,(40,2)}^{0.0}$":{	"dataset": "epxc_LDA_real_real",
 			"model":"NN_LDA_residual_1M_20_2_relu", 
 			"filename":"predict_sae_226193896.623_formation_log.log",
 			"model_filename":"NN_sae_226193896.623_backup.h5",
