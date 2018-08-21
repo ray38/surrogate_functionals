@@ -54,6 +54,23 @@ if __name__ == "__main__":
 	print data
 
 
+	energy_text_dict = {}
+	formation_energy_text_dict = {}
+
+	groups = data.groupby("model_name")
+    for name, group in groups:
+        energy_text_dict[name] = "MAE: {:6.2f} \nRMSE: {:6.2f}".format(np.mean(np.abs(group['exc_error'])), np.sqrt(np.mean(np.square(group['exc_error']))))
+        formation_energy_text_dict[name] = "MAE: {:6.2f} \nRMSE: {:6.2f}"format(np.mean(np.abs(group['formation_exc_error'])), np.sqrt(np.mean(np.square(group['formation_exc_error']))))
+
+    energy_text_list = []
+    formation_energy_text_list = []
+
+    for key in order:
+    	energy_text_list.append(energy_text_dict[key])
+    	formation_energy_text_list.append(formation_energy_text_dict[key])
+
+    xpos_list = range(len(order))
+
 	#temp_xticklabel = [r"$\bar \lambda_{q,(40,2)}^{0.0}$",r"$\bar \lambda_{q,(100,2)}^{0.0}$",r"$\bar \lambda_{q,(200,2)}^{0.0}$",\
 	#				   r"$\bar \lambda_{q,(40,2)}^{0.02}$",r"$\bar \lambda_{q,(100,2)}^{0.02}$",r"$\bar \lambda_{q,(200,2)}^{0.02}$",\
 	#				   r"$\bar \lambda_{q,(40,2)}^{0.06}$",r"$\bar \lambda_{q,(100,2)}^{0.06}$",r"$\bar \lambda_{q,(200,2)}^{0.06}$",\
@@ -87,6 +104,9 @@ if __name__ == "__main__":
 	#ax1.legend(handles1, ["Training set", "Test set"],fontsize=20,bbox_to_anchor=(0.6, 0.4), loc=2)
 	ax1.legend(handles1, ["Training set", "Test set"],fontsize=20, loc=1)
 
+	for i in range(len(xpos_list)):
+    	ax1.text(xpos_list[i], 0.0, formation_energy_text_list[i])
+
 	plt.tight_layout()
 	plt.savefig("formation_energy_violin_swarm_plot2.png")
 
@@ -113,6 +133,9 @@ if __name__ == "__main__":
 
 	handles1, _ = ax1.get_legend_handles_labels()
 	ax1.legend(handles1, ["Training set", "Test set"],fontsize=20, loc=1)
+
+	for i in range(len(xpos_list)):
+    	ax1.text(xpos_list[i], 0.0, energy_text_list[i])
 
 	plt.tight_layout()
 	plt.savefig("energy_violin_swarm_plot2.png")
