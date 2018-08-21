@@ -105,7 +105,7 @@ if __name__ == "__main__":
 		ax1.text(xpos_list[i], -11.0, formation_energy_text_list[i],fontsize=11)
 
 	plt.tight_layout()
-	plt.savefig("formation_energy_violin_swarm_plot2.png")
+	plt.savefig("formation_energy_violin_swarm_plot2_aver.png")
 
 
 
@@ -135,7 +135,7 @@ if __name__ == "__main__":
 		ax1.text(xpos_list[i], -20.0, energy_text_list[i],fontsize=11)
 
 	plt.tight_layout()
-	plt.savefig("energy_violin_swarm_plot2.png")
+	plt.savefig("energy_violin_swarm_plot2_aver.png")
 
 
 
@@ -173,7 +173,7 @@ if __name__ == "__main__":
 	plt.xlabel("", fontsize=40)
 	#g.legend( ["Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],loc='upper right',fontsize=15)
 	plt.tight_layout()
-	plt.savefig("formation_factor_plot.png")
+	plt.savefig("formation_factor_plot_aver.png")
 
 
 
@@ -193,7 +193,7 @@ if __name__ == "__main__":
 	plt.ylabel("Error in Absolute Energy (eV)", fontsize=40)
 	plt.xlabel("", fontsize=18)
 	plt.tight_layout()
-	plt.savefig("energy_factor_plot.png")
+	plt.savefig("energy_factor_plot_aver.png")
 	
 	
 	
