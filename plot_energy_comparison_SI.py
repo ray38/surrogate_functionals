@@ -54,14 +54,17 @@ if __name__ == "__main__":
 	print data
 
 
-	temp_xticklabel = [r"$\bar \lambda_{q,(40,2)}^{0.0}$",r"$\bar \lambda_{q,(100,2)}^{0.0}$",r"$\bar \lambda_{q,(200,2)}^{0.0}$",\
-					   r"$\bar \lambda_{q,(40,2)}^{0.02}$",r"$\bar \lambda_{q,(100,2)}^{0.02}$",r"$\bar \lambda_{q,(200,2)}^{0.02}$",\
-					   r"$\bar \lambda_{q,(40,2)}^{0.06}$",r"$\bar \lambda_{q,(100,2)}^{0.06}$",r"$\bar \lambda_{q,(200,2)}^{0.06}$",\
-					   r"$\bar \lambda_{q,(40,2)}^{0.1}$",r"$\bar \lambda_{q,(100,2)}^{0.1}$",r"$\bar \lambda_{q,(200,2)}^{0.1}$",\
-					   r"$\bar \lambda_{q,(40,2)}^{0.2}$",r"$\bar \lambda_{q,(100,2)}^{0.2}$",r"$\bar \lambda_{q,(200,2)}^{0.2}$",\
-					   r"$\bar \lambda_{q,(40,2)}^{0.4}$",r"$\bar \lambda_{q,(100,2)}^{0.4}$",r"$\bar \lambda_{q,(200,2)}^{0.4}$"]
+	#temp_xticklabel = [r"$\bar \lambda_{q,(40,2)}^{0.0}$",r"$\bar \lambda_{q,(100,2)}^{0.0}$",r"$\bar \lambda_{q,(200,2)}^{0.0}$",\
+	#				   r"$\bar \lambda_{q,(40,2)}^{0.02}$",r"$\bar \lambda_{q,(100,2)}^{0.02}$",r"$\bar \lambda_{q,(200,2)}^{0.02}$",\
+	#				   r"$\bar \lambda_{q,(40,2)}^{0.06}$",r"$\bar \lambda_{q,(100,2)}^{0.06}$",r"$\bar \lambda_{q,(200,2)}^{0.06}$",\
+	#				   r"$\bar \lambda_{q,(40,2)}^{0.1}$",r"$\bar \lambda_{q,(100,2)}^{0.1}$",r"$\bar \lambda_{q,(200,2)}^{0.1}$",\
+	#				   r"$\bar \lambda_{q,(40,2)}^{0.2}$",r"$\bar \lambda_{q,(100,2)}^{0.2}$",r"$\bar \lambda_{q,(200,2)}^{0.2}$",\
+	#				   r"$\bar \lambda_{q,(40,2)}^{0.4}$",r"$\bar \lambda_{q,(100,2)}^{0.4}$",r"$\bar \lambda_{q,(200,2)}^{0.4}$"]
 
 
+	temp_xticklabel = [r"$\bar \lambda_{q,(40,2)}^{0.0}$",r"$\bar \lambda_{q,(40,2)}^{0.02}$",r"$\bar \lambda_{q,(40,2)}^{0.06}$",r"$\bar \lambda_{q,(40,2)}^{0.1}$",r"$\bar \lambda_{q,(40,2)}^{0.2}$",r"$\bar \lambda_{q,(40,2)}^{0.4}$",\
+					   r"$\bar \lambda_{q,(100,2)}^{0.0}$",r"$\bar \lambda_{q,(100,2)}^{0.02}$",r"$\bar \lambda_{q,(100,2)}^{0.06}$",r"$\bar \lambda_{q,(100,2)}^{0.1}$",r"$\bar \lambda_{q,(100,2)}^{0.2}$",r"$\bar \lambda_{q,(100,2)}^{0.4}$",\
+					   r"$\bar \lambda_{q,(200,2)}^{0.0}$",r"$\bar \lambda_{q,(200,2)}^{0.02}$",r"$\bar \lambda_{q,(200,2)}^{0.06}$",r"$\bar \lambda_{q,(200,2)}^{0.1}$",r"$\bar \lambda_{q,(200,2)}^{0.2}$",r"$\bar \lambda_{q,(200,2)}^{0.4}$"]
 
 
 
@@ -143,7 +146,7 @@ if __name__ == "__main__":
         g.set_yticklabels(fontsize=40)
 	sns.despine(left=True)
 	#plt.legend(bbox_to_anchor=(1, 1), loc=2)
-	plt.legend(bbox_to_anchor=(0, 0.4), loc=2,fontsize=25)
+	plt.legend(temp_xticklabel,bbox_to_anchor=(0, 0.4), loc=2,fontsize=25)
 	plt.ylabel("Error in Formation Energy (eV)", fontsize=40)
 	plt.xlabel("", fontsize=40)
 	#g.legend( ["Model 1", "Model 2", "Model 3", "Model 4", "Model 5"],loc='upper right',fontsize=15)
