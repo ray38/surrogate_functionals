@@ -68,7 +68,7 @@ if __name__ == "__main__":
 	sns.despine(left=True)
 	ax2 = sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='training_test',order = order, split=True, color='k', alpha=0.7, palette=("Dark2"))
 	#ax1.set_xticklabels(ax1.get_xticklabels(),rotation=45)
-	ax1.set_xticklabels(["$\bar \lambda_{q,(40,2)}^{0.0}$","Ave. Dens. 0.0 100","Ave. Dens. 0.0 200","Ave. Dens. 0.02 40","Ave. Dens. 0.02 100","Ave. Dens. 0.02 200","Ave. Dens. 0.06 40","Ave. Dens. 0.06 100","Ave. Dens. 0.06 200","Ave. Dens. 0.1 40","Ave. Dens. 0.1 100","Ave. Dens. 0.1 200","Ave. Dens. 0.2 40","Ave. Dens. 0.2 100","Ave. Dens. 0.2 200","Ave. Dens. 0.4 40","Ave. Dens. 0.4 100","Ave. Dens. 0.4 200"])
+	ax1.set_xticklabels([r"$\bar \lambda_{q,(40,2)}^{0.0}$","Ave. Dens. 0.0 100","Ave. Dens. 0.0 200","Ave. Dens. 0.02 40","Ave. Dens. 0.02 100","Ave. Dens. 0.02 200","Ave. Dens. 0.06 40","Ave. Dens. 0.06 100","Ave. Dens. 0.06 200","Ave. Dens. 0.1 40","Ave. Dens. 0.1 100","Ave. Dens. 0.1 200","Ave. Dens. 0.2 40","Ave. Dens. 0.2 100","Ave. Dens. 0.2 200","Ave. Dens. 0.4 40","Ave. Dens. 0.4 100","Ave. Dens. 0.4 200"])
 	ax2.set_xticklabels(ax2.get_xticklabels(),rotation=45)
 	plt.xlabel("Model", fontsize=25)
 	plt.ylabel("Error in Formation Energy (eV)", fontsize=25)
