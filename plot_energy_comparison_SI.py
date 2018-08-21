@@ -59,8 +59,8 @@ if __name__ == "__main__":
 
 	groups = data.groupby("model_name")
 	for name, group in groups:
-		energy_text_dict[name] = "MAE:\n{:6.2f}\n\nRMSE:\n{:6.2f}".format(np.mean(np.abs(group['exc_error'])), np.sqrt(np.mean(np.square(group['exc_error']))))
-		formation_energy_text_dict[name] = "MAE:\n{:6.2f}\n\nRMSE:\n{:6.2f}".format(np.mean(np.abs(group['formation_exc_error'])), np.sqrt(np.mean(np.square(group['formation_exc_error']))))
+		energy_text_dict[name] = "MAE:\n{:6.2f}\nRMSE:\n{:6.2f}".format(np.mean(np.abs(group['exc_error'])), np.sqrt(np.mean(np.square(group['exc_error']))))
+		formation_energy_text_dict[name] = "MAE:\n{:6.2f}\nRMSE:\n{:6.2f}".format(np.mean(np.abs(group['formation_exc_error'])), np.sqrt(np.mean(np.square(group['formation_exc_error']))))
 
 	energy_text_list = []
 	formation_energy_text_list = []
