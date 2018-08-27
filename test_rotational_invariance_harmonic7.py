@@ -342,6 +342,7 @@ for x0, y0, z0 in origin_list:
 
 			stencil_list = []
 			for i in range(1, m+1):
+				print l, i
 				temp_stencil, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, l, i, accuracy = 6)
 				stencil_list.append(temp_stencil)
 
