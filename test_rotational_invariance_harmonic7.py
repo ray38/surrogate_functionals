@@ -361,7 +361,7 @@ for x0, y0, z0 in origin_list:
 				x_temp, y_temp, z_temp = rotate_coord_mat2(x.copy(),y.copy(),z.copy(),theta1,theta2,theta3)
 				temp_result = get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0,test_rot_symmetry, h, stencil_list, pad)
 				temp_result_list.append(temp_result)
-				print counter
+				print "{}\t{}".format(counter, temp_result)
 
 			truth = np.mean(temp_result_list)
 			counter = 0
