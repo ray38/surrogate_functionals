@@ -213,7 +213,7 @@ def get_result(x_temp, y_temp, z_temp,sig_x,sig_y,sig_z,x0,y0,z0,rotation_symm, 
 	temp_result = 0.0
 	for stencil in stencil_list:
 
-		print stencil
+		#print stencil
 		temp_conv,_ = get_fftconv_with_known_stencil_no_wrap(n,h,h,h,1,stencil,pad)
 
 		temp = temp_conv[(temp_conv.shape[0]-1)/2, (temp_conv.shape[1]-1)/2, (temp_conv.shape[2]-1)/2]
