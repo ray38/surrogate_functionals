@@ -281,7 +281,7 @@ def plot_result(data,sig_x, sig_y, sig_z):
 num_rot = int(sys.argv[1])
 num_grid = int(sys.argv[2])
 test_rot_symmetry = float(sys.argv[3])
-nx, ny, nz = (14,14,14)
+nx, ny, nz = (16,16,16)
 h = 0.02
 
 temp_x = (float(nx)-1.0)*h/2.0
@@ -329,7 +329,6 @@ result_list = []
 #temp_y0_list = np.linspace(-0.5, 0.5, num_grid) 
 #temp_z0_list = np.linspace(-0.5, 0.5, num_grid) 
 temp_x0_list = [0.0]
-temp_z0_list = [0.0]
 temp_y0_list = [0.0]
 temp_z0_list = [0.0]
 origin_list = list(itertools.product(temp_x0_list,temp_y0_list,temp_z0_list))
@@ -338,7 +337,7 @@ origin_list = list(itertools.product(temp_x0_list,temp_y0_list,temp_z0_list))
 counter_origin = 0
 for x0, y0, z0 in origin_list:
 	counter_origin +=1 
-	for r in [ 0.10, 0.18]:
+	for r in [ 0.10, 0.14]:
 		for l, m in [(0,1),(1, 3), (2, 6)]:
 
 			stencil_list = []
