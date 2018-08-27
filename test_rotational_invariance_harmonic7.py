@@ -304,13 +304,13 @@ x, y, z = np.meshgrid(xv, yv, zv)
 #plot_stencil(plot_n, min_max_matrix)
 
 
-#sig_x = np.random.uniform(0.05, 0.9)
-#sig_y = np.random.uniform(0.05, 0.9)
-#sig_z = np.random.uniform(0.05, 0.9)
+sig_x = np.random.uniform(0.05, 0.9)
+sig_y = np.random.uniform(0.05, 0.9)
+sig_z = np.random.uniform(0.05, 0.9)
 
-sig_x = 0.1
-sig_y = 0.1
-sig_z = 0.1
+#sig_x = 0.1
+#sig_y = 0.1
+#sig_z = 0.1
 
 result_percent_error_list = []
 result_error_list = []
@@ -339,7 +339,7 @@ counter_origin = 0
 for x0, y0, z0 in origin_list:
 	counter_origin +=1 
 	for r in [ 0.10, 0.18]:
-		for l, m in [(1, 3), (2, 6)]:
+		for l, m in [(0,1),(1, 3), (2, 6)]:
 
 			stencil_list = []
 			for i in range(1, m+1):
