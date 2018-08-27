@@ -986,6 +986,9 @@ def MC_surface_spherical_harmonic(x, y, z, l, m):
         if m == 15:
             return 105.0 * z_hat * z_hat * z_hat * z_hat - 90.0 * z_hat * z_hat + 9.0
 
+
+
+
 def MC_surface_spherical_harmonic_cutoff(x, y, z, l, m, cutoff):
     r = math.sqrt(x*x + y*y + z*z)
     if r <= cutoff:
@@ -1077,14 +1080,176 @@ def get_MC_surface_harmonic_fftconv(n, hx, hy, hz, r, l, m, accuracy = 5):
 
 
 
+
+def MC_surface_spherical_harmonic_n(x, y, z, l, n):
+    r = math.sqrt(x*x + y*y + z*z)
+    x_hat = x/r
+    y_hat = y/r
+    z_hat = z/r
+
+    if l == 0:
+        return 1.0
+
+    if l == 1:
+        if n == "100":
+            return x_hat
+        if n == "010":
+            return y_hat
+        if n == "001":
+            return z_hat
+
+    if l == 2:
+        if n == "200":
+            return 3.0 * x_hat * x_hat - 1.0
+        if n == "110":
+            return 3.0 * x_hat * y_hat
+        if n == "101":
+            return 3.0 * x_hat * z_hat
+        if n == "020":
+            return 3.0 * y_hat * y_hat - 1.0
+        if n == "011":
+            return 3.0 * y_hat * z_hat
+        if n == "002":
+            return 3.0 * z_hat * z_hat - 1.0
+
+    if l == 3:
+        if n == "300":
+            return 15.0 * x_hat * x_hat * x_hat - 9.0 * x_hat
+        if n == "210":
+            return 15.0 * x_hat * x_hat * y_hat - 3.0 * y_hat
+        if n == "201":
+            return 15.0 * x_hat * x_hat * z_hat - 3.0 * z_hat
+        if n == "120":
+            return 15.0 * x_hat * y_hat * y_hat - 3.0 * x_hat
+        if n == "111":
+            return 15.0 * x_hat * y_hat * z_hat
+        if n == "102":
+            return 15.0 * x_hat * z_hat * z_hat - 3.0 * x_hat
+        if n == "030":
+            return 15.0 * y_hat * y_hat * y_hat - 9.0 * y_hat
+        if n == "021":
+            return 15.0 * y_hat * y_hat * z_hat - 3.0 * z_hat
+        if n == "012":
+            return 15.0 * y_hat * z_hat * z_hat - 3.0 * y_hat 
+        if n == "003":
+            return 15.0 * z_hat * z_hat * z_hat - 9.0 * z_hat
+
+    if l == 4:
+        if n == "400":
+            return 105.0 * x_hat * x_hat * x_hat * x_hat - 90.0 * x_hat * x_hat + 9.0
+        if n == "310":
+            return 105.0 * x_hat * x_hat * x_hat * y_hat - 45.0 * x_hat * y_hat
+        if n == "301":
+            return 105.0 * x_hat * x_hat * x_hat * z_hat - 45.0 * x_hat * z_hat
+        if n == "220":
+            return 105.0 * x_hat * x_hat * y_hat * y_hat - 15.0 * x_hat * x_hat - 15.0 * y_hat * y_hat + 3.0
+        if n == "211":
+            return 105.0 * x_hat * x_hat * y_hat * z_hat - 15.0 * y_hat * z_hat
+        if n == "202":
+            return 105.0 * x_hat * x_hat * z_hat * z_hat - 15.0 * x_hat * x_hat - 15.0 * z_hat * z_hat + 3.0
+        if n == "130":
+            return 105.0 * x_hat * y_hat * y_hat * y_hat - 45.0 * x_hat * y_hat
+        if n == "121":
+            return 105.0 * x_hat * y_hat * y_hat * z_hat - 15.0 * x_hat * z_hat
+        if n == "112":
+            return 105.0 * x_hat * y_hat * z_hat * z_hat - 15.0 * x_hat * y_hat
+        if n == "103":
+            return 105.0 * x_hat * z_hat * z_hat * z_hat - 45.0 * x_hat * z_hat
+        if n == "040":
+            return 105.0 * y_hat * y_hat * y_hat * y_hat - 90.0 * y_hat * y_hat + 9.0
+        if n == "031":
+            return 105.0 * y_hat * y_hat * y_hat * z_hat - 45.0 * y_hat * z_hat
+        if n == "022":
+            return 105.0 * y_hat * y_hat * z_hat * z_hat - 15.0 * y_hat * y_hat - 15.0 * z_hat * z_hat + 3.0
+        if n == "013":
+            return 105.0 * y_hat * z_hat * z_hat * z_hat - 45.0 * y_hat * z_hat
+        if n == "004":
+            return 105.0 * z_hat * z_hat * z_hat * z_hat - 90.0 * z_hat * z_hat + 9.0
+
+
+def MC_surface_spherical_harmonic_cutoff_n(x, y, z, l, n, cutoff):
+    r = math.sqrt(x*x + y*y + z*z)
+    if r <= cutoff:
+        return MC_surface_spherical_harmonic_n(x, y, z, l, n)
+    else:
+        return 0
+
+
+
+def calc_MC_surface_harmonic_stencil_value_n(min_max, r, l, n, accuracy):
+    
+    
+
+    x_min = min_max[0]
+    x_max = min_max[1]
+    y_min = min_max[2]
+    y_max = min_max[3]
+    z_min = min_max[4]
+    z_max = min_max[5]
+
+    dx = (x_max-x_min) / accuracy
+    dy = (y_max-y_min) / accuracy
+    dz = (z_max-z_min) / accuracy
+    dv = dx*dy*dz
+
+    x_li = np.linspace(x_min, x_max, num=accuracy)
+    y_li = np.linspace(y_min, y_max, num=accuracy)
+    z_li = np.linspace(z_min, z_max, num=accuracy)
+    
+    coord_list = list(itertools.product(x_li,y_li,z_li))
+
+    Re = 0.0
+
+    for x,y,z in coord_list:
+        temp_Re = MC_surface_spherical_harmonic_cutoff_n(x, y, z, l, n, r)
+        Re += temp_Re * dv
+
+    return Re
+
+
+
+def calc_MC_surface_harmonic_stencil_n(hx, hy, hz, r, l, n, accuracy = 5):
+    # calculate the stencil
+
+    # initialize the stencil with right dimensions
+    dim_x = int(2.* math.ceil( r/hx )) + 1
+    dim_y = int(2.* math.ceil( r/hy )) + 1
+    dim_z = int(2.* math.ceil( r/hz )) + 1
+
+    print dim_x, dim_y, dim_z
+
+    stencil_Re = np.zeros((dim_x, dim_y, dim_z))
+    stencil_Im = np.zeros((dim_x, dim_y, dim_z))
+
+    min_max_matrix = get_min_max_matrix(dim_x, dim_y, dim_z, hx, hy, hz)
+
+    for index, x in np.ndenumerate(stencil_Re):
+        temp_Re = calc_MC_surface_harmonic_stencil_value_n(min_max_matrix[index], r, l, n, accuracy)
+        stencil_Re[index] = temp_Re
+
+       
+    padx = int(math.ceil(float(dim_x)/2.))
+    pady = int(math.ceil(float(dim_y)/2.))
+    padz = int(math.ceil(float(dim_z)/2.))
+    
+    pad = (padx,pady,padz)
+
+    
+    return stencil_Re, pad
+
+
+def sum_magnitude(li):
+    result = np.zeros_like(li[0])
+    for entry in li:
+        result = np.add(result,np.square(entry))
+    return
+
 if __name__ == "__main__":
-    r = 0.12
+    r = 0.16
     h = 0.02
-    l = 1
+    l = 3
     #calc_harmonic_stencil(0.02, 0.02, 0.02, 0.22, 1, 1, 6)
-    stencil_Re_1, pad = calc_harmonic_stencil(h, h, h, r, l, 1, accuracy = 6)
-    stencil_Re_2, pad = calc_harmonic_stencil(h, h, h, r, l, 1, accuracy = 6)
-    stencil_Re_3, pad = calc_harmonic_stencil(h, h, h, r, l, 1, accuracy = 6)
+    stencil_Re_1, pad = calc_MC_surface_harmonic_stencil_n(h, h, h, r, l, "111", accuracy = 6)
     #stencil_Im = stencil_Im_0 + stencil_Im_1 + stencil_Im_2 + stencil_Im_3 + stencil_Im_4
 
     dim_x = int(2.* math.ceil( r/h )) + 1
@@ -1094,4 +1259,4 @@ if __name__ == "__main__":
 
     min_max_matrix = get_min_max_matrix(dim_x, dim_y, dim_z, h, h, h)
 
-    plot_stencil(stencil_Re, min_max_matrix)
+    plot_stencil(stencil_Re_1, min_max_matrix)
