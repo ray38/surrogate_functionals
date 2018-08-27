@@ -312,6 +312,10 @@ sig_x = 0.1
 sig_y = 0.1
 sig_z = 0.1
 
+plot_n = f1(x,y,z,sig_x,sig_y,sig_z, 0.0, 0.0, 0.0,test_rot_symmetry)
+min_max_matrix = get_min_max_matrix(nx, ny, nz, h, h, h)
+plot_stencil(plot_n, min_max_matrix)
+
 result_percent_error_list = []
 result_error_list = []
 gradient_list = []
