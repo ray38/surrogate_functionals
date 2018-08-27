@@ -133,9 +133,9 @@ def f(x,y,z,sig_x,sig_y,sig_z,rotation_symm):
 	phi = np.arctan(np.divide(y,x))
 
 	radial = np.cos(phi * rotation_symm)
-	axial = 1e5# * np.exp(-np.divide(np.square(x.copy()),(2.0*sig_x*sig_x)) - np.divide(np.square(y.copy()),(2.0*sig_y*sig_y)) - np.divide(np.square(z.copy()),(2.0*sig_z*sig_z))  )
+	axial = 1e3# * np.exp(-np.divide(np.square(x.copy()),(2.0*sig_x*sig_x)) - np.divide(np.square(y.copy()),(2.0*sig_y*sig_y)) - np.divide(np.square(z.copy()),(2.0*sig_z*sig_z))  )
 
-	return np.multiply(radial,axial)
+	return np.multiply(radial,axial) + 1e4
 
 def plot_stencil(stencil, min_max_matrix):
 
