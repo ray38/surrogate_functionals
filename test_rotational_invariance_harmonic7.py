@@ -135,7 +135,7 @@ def f(x,y,z,sig_x,sig_y,sig_z,rotation_symm):
 	radial = np.cos(phi * rotation_symm)
 	axial = 1e3# * np.exp(-np.divide(np.square(x.copy()),(2.0*sig_x*sig_x)) - np.divide(np.square(y.copy()),(2.0*sig_y*sig_y)) - np.divide(np.square(z.copy()),(2.0*sig_z*sig_z))  )
 
-	return np.multiply(radial,axial) + 1e4
+	return np.multiply(radial,axial)
 
 def plot_stencil(stencil, min_max_matrix):
 
@@ -158,7 +158,7 @@ def plot_stencil(stencil, min_max_matrix):
     fig = plt.figure()
     cmap = plt.get_cmap("bwr")
     ax = fig.add_subplot(111, projection='3d')
-    ax.scatter(x_temp, y_temp, z_temp, c=n, cmap=cmap,linewidths=0,s=10.0)
+    ax.scatter(x_temp, y_temp, z_temp, c=n, cmap=cmap,linewidths=0,s=10.0,vmax = 1e3, vmin = -1e3)
     plt.show()
 
     return
