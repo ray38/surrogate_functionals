@@ -281,7 +281,7 @@ def plot_result(data,sig_x, sig_y, sig_z):
 num_rot = int(sys.argv[1])
 num_grid = int(sys.argv[2])
 test_rot_symmetry = float(sys.argv[3])
-nx, ny, nz = (13,13,13)
+nx, ny, nz = (14,14,14)
 h = 0.02
 
 temp_x = (float(nx)-1.0)*h/2.0
