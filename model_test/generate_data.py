@@ -224,6 +224,8 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_option
     scf_e, scf_wfn = psi4.energy(xc, molecule=molecule, return_wfn=True)
 
     time_scf = time.time() - time_start
+
+    print "SCF time: {}".format(time_scf)
     
     X0 = -Lx/2.
     Y0 = -Ly/2.
