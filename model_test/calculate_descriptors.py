@@ -251,23 +251,14 @@ def process_one_molecule(molecule, functional,h,L,N,r_list):
 
 if __name__ == "__main__":
 
-    setup_filename = sys.argv[1]
-    molecule = sys.argv[2]
-
-
-    #with open(setup_filename, encoding='utf-8') as f:
-    with open(setup_filename) as f:
-        setup = json.load(f)
-
-    print setup
-
+    molecule = sys.argv[1]
     
     print "start"
-    h = float(setup['grid_spacing'])
-    L = float(setup['box_dimension'])
-    N = int(setup['number_segment_per_side'])
-    functional = setup['functionals']
-    r_list = setup['r_list']
+    h = float(sys.argv[2])
+    L = float(sys.argv[3])
+    N = int(sys.argv[4])
+    functional = "B3LYP"
+    r_list = [0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16, 0.18, 0.2, 0.22, 0.24, 0.26, 0.28, 0.3, 0.32, 0.34, 0.36, 0.38, 0.4]
 
     #for functional in functionals:
     print "start process molecule"
