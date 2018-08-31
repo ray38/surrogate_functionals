@@ -157,20 +157,22 @@ def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e):
     w = np.ones_like(z)*dv
     
     temp_filename =  '{}_{}_{}_{}_{}.hdf5'.format(molecule_name,xc,i,j,k)
-    if os.path.isfile(temp_filename) == False:
-        temp_out = process_one_section(x,y,z,w,x_start,x_end,y_start,y_end,z_start,z_end,out_shape,scf_wfn,scf_e)
+    #if os.path.isfile(temp_filename) == False:
+    temp_out = process_one_section(x,y,z,w,x_start,x_end,y_start,y_end,z_start,z_end,out_shape,scf_wfn,scf_e)
 #        print type(temp_out['epsilon_xc'])
 #        print temp_out['epsilon_xc'].shape
-        
-        with h5py.File(temp_filename) as data:
-            for key in temp_out:
-                data.create_dataset(key,data=temp_out[key])
-            data.create_dataset('h_x',data=[h])
-            data.create_dataset('h_y',data=[h])
-            data.create_dataset('h_z',data=[h])
+    
+    with h5py.File(temp_filename) as data:
+        for key in temp_out:
+            data.create_dataset(key,data=temp_out[key])
+        data.create_dataset('h_x',data=[h])
+        data.create_dataset('h_y',data=[h])
+        data.create_dataset('h_z',data=[h])
+    block_fd_Exc = np.sum(temp_out["epsilon_xc"])
+    print "Total Exc: {}".format(block_fd_Exc)
 
 
-    return
+    return block_fd_Exc
     
 def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_options=None):
 
@@ -235,11 +237,12 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_option
     y_inc = Ly/Ny
     z_inc = Lz/Nz
 
-
+    Total_fd_Exc = 0.0
     for i in range(Nx):
         for j in range(Ny):
             for k in range(Nz):
-                process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e)
+                temp_block_fd_Exc = process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e)
+                Total_fd_Exc += temp_block_fd_Exc
 
     time_total = time.time() - time_start
 
@@ -247,6 +250,7 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_option
     os.chdir(cwd)
     #log(log_filename, "SCF time: {} \nTotal time: {}".format(time_scf,time_total))
     print "SCF time: {} \nTotal time: {}".format(time_scf,time_total)
+    print "Total fd Exc: {}".format(Total_fd_Exc)
     return
 
 
