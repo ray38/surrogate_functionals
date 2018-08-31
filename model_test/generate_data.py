@@ -243,7 +243,8 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, psi4_option
 
     
     os.chdir(cwd)
-    log(log_filename, "SCF time: {} \nTotal time: {}".format(time_scf,time_total))
+    #log(log_filename, "SCF time: {} \nTotal time: {}".format(time_scf,time_total))
+    print "SCF time: {} \nTotal time: {}".format(time_scf,time_total)
     return
 
 
