@@ -16,6 +16,7 @@ import os
 #import multiprocessing
 import itertools
 import json
+import time
 
 
 def read_system(mol,xc,Nx_center,Ny_center,Nz_center,Nx,Ny,Nz,data_name):
@@ -239,10 +240,12 @@ def process_one_molecule(molecule, functional,h,L,N,r_list):
     paramlist = list(itertools.product(i_li,j_li,k_li))
     
 
-
+    print "start convolution"
+    start = time.time()
     for i,j,k in paramlist:
         process(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list,MC_surface_harmonic_stencil_dict)
-        
+        print "After step {} {} {}: {}".format(i,j,k,time.time()-start)
+    print "Total time: {}".format(time.time()-start)
     
     
     os.chdir(cwd)
@@ -258,7 +261,7 @@ if __name__ == "__main__":
     L = float(sys.argv[3])
     N = int(sys.argv[4])
     functional = "B3LYP"
-    r_list = [0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16, 0.18, 0.2, 0.22, 0.24, 0.26, 0.28, 0.3, 0.32, 0.34, 0.36, 0.38, 0.4]
+    r_list = [0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16, 0.18, 0.2]
 
     #for functional in functionals:
     print "start process molecule"
