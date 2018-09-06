@@ -390,7 +390,7 @@ if __name__ == "__main__":
     #N = int(sys.argv[5])
 
     #h = 0.01
-    L = 0.36
+    L = 0.24
     N = 1
     #xc = 'PBE'
 
