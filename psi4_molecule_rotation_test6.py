@@ -497,9 +497,9 @@ if __name__ == "__main__":
     temp_z0_list = np.linspace(-0.4, num_grid)
     origin_list = list(itertools.product(temp_x0_list,temp_y0_list,temp_z0_list))
 
-    temp_theta1_list = np.linspace(0.0, 0.25, num_rot)
-    temp_theta2_list = np.linspace(0.0, 0.25, num_rot) 
-    temp_theta3_list = np.linspace(0.0, 0.25, num_rot) 
+    temp_theta1_list = np.linspace(0.0, 0.5, num_rot)
+    temp_theta2_list = np.linspace(0.0, 0.5, num_rot) 
+    temp_theta3_list = np.linspace(0.0, 0.5, num_rot) 
     paramlist = list(itertools.product(temp_theta1_list,temp_theta2_list,temp_theta3_list))
     
     
