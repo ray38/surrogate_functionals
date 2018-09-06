@@ -291,10 +291,10 @@ def process_one_molecule(molecule, functional,h,L,N,r_list):
 #    pool.join()
 
 
-    for i,j,k in paramlist:
-        process(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list,asym_stencil_list,asym_pad_list)
+    #for i,j,k in paramlist:
+    #    process(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list,asym_stencil_list,asym_pad_list)
         
-    
+    process(molecule, functional,0,1,3,h,N,r_list,stencil_list,pad_list,asym_stencil_list,asym_pad_list)
     
     os.chdir(cwd)
     return
