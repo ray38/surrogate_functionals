@@ -1,0 +1,25 @@
+{
+	
+	"fit_setup": [
+		{
+			"loss": "mse",
+			"tol": 1e-10,
+			"slowdown": 1.0, 
+			"early_stop": 300
+		},
+		{
+			"loss": "mse",
+			"tol": 1e-10,
+			"slowdown": 10.0, 
+			"early_stop": 300
+		},
+		{
+			"loss": "mse",
+			"tol": 1e-10,
+			"slowdown": 100.0, 
+			"early_stop": 300
+		}
+
+	]
+
+}
