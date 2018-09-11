@@ -4,6 +4,12 @@ Created on Tue Oct 24 09:43:05 2017
 
 @author: ray
 """
+import matplotlib
+matplotlib.use('Agg') 
+import matplotlib.cm as cm
+from mpl_toolkits.mplot3d import Axes3D
+import mpl_toolkits.mplot3d.axes3d as p3
+import matplotlib.pyplot as plt
 
 import numpy as np
 import sys
