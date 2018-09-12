@@ -292,7 +292,7 @@ def load_data_each_block(molecule,functional,i,j,k, dataset_setup, data_dir_full
     group_name = 'MC_surface_spherical_harmonic'
 
     try:
-        temp_list = setup["MC_surface_spherical_harmonic_0_r_list"]
+        temp_list = dataset_setup["MC_surface_spherical_harmonic_0_r_list"]
         if len(temp_list) > 0:
             for r_list_count in temp_list:
                 dataset_name = 'MC_surface_shperical_harmonic_0_{}'.format(str(r_list_count).replace('.','-'))
