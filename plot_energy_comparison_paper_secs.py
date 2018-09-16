@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-	ax1 = sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",order = order,data=data,split=True,inner=None,palette={"training":"b","test":"y"})
+	ax1 = sns.violinplot(x="model_name",y="formation_exc_error",hue="training_test",order = order,data=data,split=True,inner=None,palette={"training":"b","test":"r"})
 	sns.despine(left=True)
 	ax2 = sns.swarmplot(x="model_name",y="formation_exc_error",data=data, hue='training_test',order = order, split=True, color='k', alpha=0.7, palette=("Dark2"))
 	#ax1.set_xticklabels(ax1.get_xticklabels(),rotation=45)
@@ -117,7 +117,7 @@ if __name__ == "__main__":
 
 	sns.set(style="whitegrid", palette="pastel", color_codes=True)
 
-	ax1 = sns.violinplot(x="model_name",y="exc_error",hue="training_test",order = order,data=data,split=True,inner=None,palette={"training":"b","test":"y"})
+	ax1 = sns.violinplot(x="model_name",y="exc_error",hue="training_test",order = order,data=data,split=True,inner=None,palette={"training":"b","test":"r"})
 	sns.despine(left=True)
 	ax2 = sns.swarmplot(x="model_name",y="exc_error",data=data, hue='training_test',order = order, split=True, color='k', alpha=0.7, palette=("Dark2"))
 	#ax1.set_xticklabels(ax1.get_xticklabels(),rotation=45)
