@@ -19,6 +19,7 @@ import time
 import math
 import json
 from glob import glob
+import sklearn
 from sklearn import linear_model
 from keras.models import Sequential
 from keras.models import load_model
@@ -176,7 +177,7 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
 
 def fit_with_model(density,energy,setup):
 
-    filename = setup["model_filename"]
+    filename = setup["model_name"]
     text_filename = "base_model_result.txt"
 
     poly_model = pickle.load(open(filename, 'rb'))
