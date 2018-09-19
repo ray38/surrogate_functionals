@@ -130,7 +130,7 @@ def process_normal_descriptors(molecule, functional,i,j,k):
         
     return
 
-def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list,MC_surface_harmonic_stencil_dict):
+def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MC_surface_harmonic_stencil_dict):
     
     result_filename = "{}_{}_{}_{}_{}_all_descriptors.hdf5".format(molecule,functional,i,j,k)
     Nx = Ny = Nz = N
@@ -210,12 +210,12 @@ def prepare_MC_surface_harmonic_stencil_stencils(r_list,h):
     return MC_surface_harmonic_stencil_dict
 
 
-def process(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list,MC_surface_harmonic_stencil_dict):
+def process(molecule, functional,i,j,k,h,N,r_list,MC_surface_harmonic_stencil_dict):
     result_filename = "{}_{}_{}_{}_{}_all_descriptors.hdf5".format(molecule,functional,i,j,k)
     if os.path.isfile(result_filename) == False:
         print 'start {} {} {}'.format(i,j,k)
         process_normal_descriptors(molecule, functional,i,j,k)
-        process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list,MC_surface_harmonic_stencil_dict)
+        process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MC_surface_harmonic_stencil_dict)
     
 
 def process_one_molecule(molecule, functional,h,L,N,r_list):
@@ -242,7 +242,7 @@ def process_one_molecule(molecule, functional,h,L,N,r_list):
     print "start convolution"
     start = time.time()
     for i,j,k in paramlist:
-        process(molecule, functional,i,j,k,h,N,r_list,stencil_list,pad_list,MC_surface_harmonic_stencil_dict)
+        process(molecule, functional,i,j,k,h,N,r_list,MC_surface_harmonic_stencil_dict)
         print "After step {} {} {}: {}".format(i,j,k,time.time()-start)
     print "Total time: {}".format(time.time()-start)
     
