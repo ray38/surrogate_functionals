@@ -137,28 +137,34 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,
     extented_n = read_system(molecule,functional,i,j,k,Nx,Ny,Nz,'rho')
 
     with h5py.File(result_filename,'a') as data:
-        
-        ave_dens_grp = data.create_group('average_density')
 
-        try:
-            ave_dens_grp = data['average_density']
-        except:
-            ave_dens_grp = data.create_group('average_density')
 
         try:
             MC_surface_spherical_harmonic_grp = data['MC_surface_spherical_harmonic']
         except:
             MC_surface_spherical_harmonic_grp = data.create_group('MC_surface_spherical_harmonic')
 
- 
-        for index, r in enumerate(r_list):
-            dataset_name = 'average_density_{}'.format(str(r).replace('.','-'))
-            if dataset_name not in ave_dens_grp.keys():
-                temp_data, temp_pad = calculate_ave_density_desc(extented_n.copy(),r,h,h,h,stencil_list[index],pad_list[index])
-                ave_dens_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
-
 
         for r in r_list:
+            dataset_name = 'MC_surface_shperical_harmonic_0_{}'.format(str(r).replace('.','-'))
+            if dataset_name not in MC_surface_spherical_harmonic_grp.keys():
+                print "start: {} MC_surface_shperical 0 ".format(r)
+                stencils = MC_surface_harmonic_stencil_dict["0"][str(r)][0]
+                pad = MC_surface_harmonic_stencil_dict["0"][str(r)][1]
+
+                temp_result = np.zeros_like(carve_out_matrix(extented_n.copy()))
+
+                for temp_stencil in stencils:
+                    temp_temp_result_extend,_ = get_fftconv_with_known_stencil_no_wrap(extented_n,h,h,h,1,temp_stencil,0)
+                    temp_temp_result = carve_out_matrix(temp_temp_result_extend)
+                    temp_result = np.add(temp_result, np.square(temp_temp_result))
+
+                temp_result = np.sqrt(temp_result)
+
+                MC_surface_spherical_harmonic_grp.create_dataset(dataset_name,data=temp_result)
+
+
+
             dataset_name = 'MC_surface_shperical_harmonic_1_{}'.format(str(r).replace('.','-'))
             if dataset_name not in MC_surface_spherical_harmonic_grp.keys():
                 print "start: {} MC_surface_shperical 1 ".format(r)
@@ -181,26 +187,20 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,stencil_list,
     return
 
 
-def prepare_integral_stencils(r_list,h):
-    print 'start preparing integral stencils'
-    stencil_list = []
-    pad_list = []
-    for r in r_list:
-        temp_stencil,temp_pad = get_integration_stencil(h, h, h, r, accuracy = get_auto_accuracy(h,h,h, r))
-        stencil_list.append(temp_stencil)
-        pad_list.append(temp_pad)
-    return stencil_list, pad_list
-
 
 def prepare_MC_surface_harmonic_stencil_stencils(r_list,h):
 
     MC_surface_harmonic_stencil_dict = {}
+    MC_surface_harmonic_stencil_dict["0"] = {}
     MC_surface_harmonic_stencil_dict["1"] = {}
     MC_surface_harmonic_stencil_dict["2"] = {}
     MC_surface_harmonic_stencil_dict["3"] = {}
     MC_surface_harmonic_stencil_dict["4"] = {}
 
     for r in r_list:
+
+        stencil_Re_1, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 0, 1, accuracy = 6)
+        MC_surface_harmonic_stencil_dict["0"][str(r)] = [[stencil_Re_1], pad ]
 
         stencil_Re_1, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 1, 1, accuracy = 6)
         stencil_Re_2, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 1, 2, accuracy = 6)
@@ -228,7 +228,6 @@ def process_one_molecule(molecule, functional,h,L,N,r_list):
         raise NotImplementedError
     
     os.chdir(cwd + '/' + dir_name)
-    stencil_list,pad_list = prepare_integral_stencils(r_list,h)
     MC_surface_harmonic_stencil_dict = prepare_MC_surface_harmonic_stencil_stencils(r_list,h)
 
     
