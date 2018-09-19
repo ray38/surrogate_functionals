@@ -201,6 +201,7 @@ def prepare_integral_stencils(r_list,h):
 def prepare_MC_surface_harmonic_stencil_stencils(r_list,h):
 
     MC_surface_harmonic_stencil_dict = {}
+    MC_surface_harmonic_stencil_dict["0"] = {}
     MC_surface_harmonic_stencil_dict["1"] = {}
     MC_surface_harmonic_stencil_dict["2"] = {}
     MC_surface_harmonic_stencil_dict["3"] = {}
