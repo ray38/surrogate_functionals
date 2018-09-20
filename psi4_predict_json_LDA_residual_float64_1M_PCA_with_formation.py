@@ -326,17 +326,19 @@ def process_each_block(molecule, i,j,k, setup, data_dir_full):
     y_sum = np.sum(y)
     y_predict_sum = np.sum(y_predict)
     error = y-y_predict
+    absolute_error = np.abs(error)
     
 #    fraction_error = np.divide(error, y)
     sum_error = y_sum - y_predict_sum
+    sum_absolute_error = np.sum(absolute_error)
     
     os.chdir(setup["model_save_dir"])
     log(setup["predict_full_log_name"],"\ndone predicting: " + molecule + "\t took time: " + str(time.time()-start)+ "\t" + str(i) + "\t" + str(j) + "\t" + str(k))
-    log(setup["predict_full_log_name"],"\nenergy: " + str(y_sum) + "\tpredicted energy: " + str(y_predict_sum) + "\tpredicted error: " + str(sum_error)) 
+    log(setup["predict_full_log_name"],"\nenergy: " + str(y_sum) + "\tpredicted energy: " + str(y_predict_sum) + "\tpredict error: " + str(sum_error) + "\tabsolute error: " + str(sum_absolute_error))
 
     os.chdir(setup["model_save_dir"])
 
-    return sum_error, y_predict_sum, y_sum   
+    return sum_error, sum_absolute_error,y_predict_sum, y_sum   
 
 
 
@@ -364,14 +366,16 @@ def process_one_molecule(molecule, setup):
     k_li = range(Nz)
     
     system_sum_error = 0 
+    system_sum_absolute_error = 0
     system_y_predict_sum = 0
     system_y_sum = 0 
     
     paramlist = list(itertools.product(i_li,j_li,k_li))
     for i,j,k in paramlist:
         
-        sum_error, y_predict_sum, y_sum = process_each_block(molecule, i,j,k, setup, data_dir_full)
+        sum_error, sum_absolute_error,y_predict_sum, y_sum = process_each_block(molecule, i,j,k, setup, data_dir_full)
         system_sum_error += sum_error
+        system_sum_absolute_error += sum_absolute_error
         system_y_predict_sum += y_predict_sum
         system_y_sum += y_sum
 
@@ -383,8 +387,8 @@ def process_one_molecule(molecule, setup):
     log(setup["predict_full_log_name"],"\n\ndone predicting: " + molecule )
     log(setup["predict_full_log_name"],"\nenergy: " + str(system_y_sum) + "\tpredicted energy: " + str(system_y_predict_sum) + "\tpredicted error: " + str(system_sum_error)+ "\n") 
     
-    log(setup["predict_error_log_name"], "\n{}\t{}\t{}\t{}".format(molecule, system_y_sum, system_y_predict_sum, system_sum_error))
-    return system_sum_error, system_y_predict_sum,system_y_sum
+    log(setup["predict_error_log_name"], "\n{}\t{}\t{}\t{}\t{}".format(molecule, system_y_sum, system_y_predict_sum, system_sum_error,system_sum_absolute_error))
+    return system_sum_error,system_sum_absolute_error, system_y_predict_sum,system_y_sum
 
     
 
@@ -588,6 +592,7 @@ if __name__ == "__main__":
     setup["result_data"] = {}
 
     error_list = []
+    absolute_error_list = []
 
     for molecule in setup["molecule_list"]:
         setup["result_data"][molecule] = {}
@@ -606,10 +611,14 @@ if __name__ == "__main__":
                     temp_original_energy = float(temp[1])
                     temp_predict_energy  = float(temp[2])
                     temp_error  = float(temp[3])
+                    temp_absolute_error  = float(temp[4])
                     setup["result_data"][temp_name]['predict_exc'] = temp_predict_energy
                     setup["result_data"][temp_name]['original_exc'] = temp_original_energy
+                    setup["result_data"][temp_name]['sum_error'] = temp_error
+                    setup["result_data"][temp_name]['sum_absolute_error'] = temp_absolute_error
                     setup["result_data"][temp_name]["exist"] = True
                     error_list.append(temp_error)
+                    absolute_error_list.append(temp_absolute_error)
 
     except:
         pass
@@ -625,12 +634,14 @@ if __name__ == "__main__":
         if setup["result_data"][molecule]["exist"] == False:
             try:
                 
-                temp_error,temp_y_predict,temp_y = process_one_molecule(molecule, setup)
+                temp_error,temp_absolute_error, temp_y_predict,temp_y = process_one_molecule(molecule, setup)
                 error_list.append(temp_error)
-
+                absolute_error_list.append(temp_absolute_error)
                 #setup["result_data"][molecule] = {}
                 setup["result_data"][molecule]['predict_exc'] = temp_y_predict
                 setup["result_data"][molecule]['original_exc'] = temp_y
+                setup["result_data"][temp_name]['sum_error'] = temp_error
+                setup["result_data"][temp_name]['sum_absolute_error'] = temp_absolute_error
             except:
                 log(setup["predict_log_name"],"\n\n Failed")
                 log(setup["predict_full_log_name"],"\n\n Failed") 
@@ -686,18 +697,22 @@ if __name__ == "__main__":
     formation_energies_predict_en        = get_formation_energies(compound_predict_en_dict.copy(),ref_offset_predict_en.copy(),composition_dict)
     #formation_energies_compare_en   = get_formation_energies(compare_energy_dict.copy(),ref_offset_compare_en.copy(),composition_dict)
 
-
-    print '{:10}\t{}\t{}'.format('name', 'form. E. 1', 'form. E. 2')
-    print '--------- 1: predicted xc energy  2: psi4 xc energy projected on fd-grid\n'
-    for key in formation_energies_original_en.keys():
-        #print '{:10}\t{:8.5f}\t{:8.5f}'.format(key,formation_energies_original_en[key],formation_energies_predict_en[key])
-        print '{}\t{}\t{}\t{}\t{}'.format(key,compound_original_en_dict[key][0],compound_predict_en_dict[key][0],formation_energies_original_en[key][0],formation_energies_predict_en[key][0])
-
-
     with open(setup["predict_formation_log_name"], "wb") as f:
         #writer = csv.writer(f)
         writer = csv.writer(f, delimiter='\t')
-        for key in formation_energies_original_en.keys():
-            temp = [key,compound_original_en_dict[key][0],compound_predict_en_dict[key][0],(compound_original_en_dict[key][0]-compound_predict_en_dict[key][0]),formation_energies_original_en[key][0],formation_energies_predict_en[key][0],(formation_energies_original_en[key][0]-formation_energies_predict_en[key][0])]
+        #for key in formation_energies_original_en.keys():
+        for key in ["C2H2", "C2H4", "C2H6", "CH3OH", "CH4", "CO", "CO2", "H2", "H2O", "HCN", "HNC", "N2", "N2O", "NH3", "O3", "NCCN", "N2H4", "HCOOH", "H2O2", "H2CO", "H2CCO", "glycine", "CH3CHO", "CH3CN", "CH3NO2"]:
+            temp = [key,compound_original_en_dict[key][0],compound_predict_en_dict[key][0],(compound_original_en_dict[key][0]-compound_predict_en_dict[key][0]),formation_energies_original_en[key][0],formation_energies_predict_en[key][0],(formation_energies_original_en[key][0]-formation_energies_predict_en[key][0]), setup["result_data"][key]['sum_absolute_error']]
             writer.writerow(temp)
+
+
+    print '{:10}\t{}\t{}'.format('name', 'form. E. 1', 'form. E. 2')
+    print '--------- 1: predicted xc energy  2: psi4 xc energy projected on fd-grid\n'
+    #for key in formation_energies_original_en.keys():
+    for key in ["C2H2", "C2H4", "C2H6", "CH3OH", "CH4", "CO", "CO2", "H2", "H2O", "HCN", "HNC", "N2", "N2O", "NH3", "O3", "NCCN", "N2H4", "HCOOH", "H2O2", "H2CO", "H2CCO", "glycine", "CH3CHO", "CH3CN", "CH3NO2"]:
+        #print '{:10}\t{:8.5f}\t{:8.5f}'.format(key,formation_energies_original_en[key],formation_energies_predict_en[key])
+        print '{}\t{}\t{}\t{}\t{}\t{}'.format(key,compound_original_en_dict[key][0],compound_predict_en_dict[key][0],formation_energies_original_en[key][0],formation_energies_predict_en[key][0], setup["result_data"][key]['sum_absolute_error'])
+
+
+    
 
