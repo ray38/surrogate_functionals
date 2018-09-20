@@ -627,8 +627,6 @@ if __name__ == "__main__":
 
     print setup["result_data"]
 
-#    data = {}
-
     
     for molecule in setup["molecule_list"]:
         if setup["result_data"][molecule]["exist"] == False:
