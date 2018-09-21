@@ -147,9 +147,9 @@ def process_normal_descriptors(molecule, functional,i,j,k,r_list,asym_list, MCSH
         temp["asym_integral"][dataset_name] = np.asarray(raw_data["asym_integral"][dataset_name])
 
     for r in MCSH_list:
-        dataset_name = 'MC_surface_spherical_harmonic_0_{}'.format(str(r).replace('.','-'))
+        dataset_name = 'MC_surface_shperical_harmonic_0_{}'.format(str(r).replace('.','-'))
         temp["MCSH"][dataset_name] = np.asarray(raw_data["MC_surface_spherical_harmonic"][dataset_name])
-        dataset_name = 'MC_surface_spherical_harmonic_1_{}'.format(str(r).replace('.','-'))
+        dataset_name = 'MC_surface_shperical_harmonic_1_{}'.format(str(r).replace('.','-'))
         temp["MCSH"][dataset_name] = np.asarray(raw_data["MC_surface_spherical_harmonic"][dataset_name])
 
     raw_data.close()
@@ -184,11 +184,11 @@ def process_normal_descriptors(molecule, functional,i,j,k,r_list,asym_list, MCSH
             asym_integral_grp.create_dataset(dataset_name,data=temp["asym_integral"][dataset_name])
 
         for r in MCSH_list:
-            original_dataset_name = 'MC_surface_spherical_harmonic_0_{}'.format(str(r).replace('.','-'))
+            original_dataset_name = 'MC_surface_shperical_harmonic_0_{}'.format(str(r).replace('.','-'))
             dataset_name = 'MCSH_1_1_{}'.format(str(r).replace('.','-'))
             MCSH_grp.create_dataset(dataset_name,data=temp["MCSH"][original_dataset_name])
 
-            original_dataset_name = 'MC_surface_spherical_harmonic_1_{}'.format(str(r).replace('.','-'))
+            original_dataset_name = 'MC_surface_shperical_harmonic_1_{}'.format(str(r).replace('.','-'))
             dataset_name = 'MCSH_2_1_{}'.format(str(r).replace('.','-'))
             MCSH_grp.create_dataset(dataset_name,data=temp["MCSH"][original_dataset_name])
 
