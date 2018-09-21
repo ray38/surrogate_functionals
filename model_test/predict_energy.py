@@ -360,9 +360,11 @@ def process_one_molecule(molecule, molecule_data_directory, setup):
     
 
 
-def initialize(setup,NN_model_filename,LDA_model_filename):
+def initialize(setup):
 
 
+    NN_model_filename = setup["NN_model_filename"]
+    LDA_model_filename = setup["LDA_model_filename"]
     try:
         NN_model = load_model(NN_model_filename, custom_objects={'sae': sae})
     except:
@@ -414,7 +416,7 @@ if __name__ == "__main__":
 
 
 
-    initialize(setup,NN_model_filename)
+    initialize(setup)
 
     temp_error,temp_absolute_error, temp_y_predict,temp_y = process_one_molecule(molecule,molecule_data_directory, setup)
 
