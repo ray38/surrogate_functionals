@@ -350,10 +350,10 @@ def process_one_molecule(molecule, molecule_data_directory, setup):
 
     os.chdir(setup["working_dir"])
     log(setup["predict_log_name"],"\n\ndone predicting: " + molecule )
-    log(setup["predict_log_name"],"\nenergy: " + str(system_y_sum) + "\tpredicted energy: " + str(system_y_predict_sum) + "\tpredicted error: " + str(system_sum_error)+ "\ttotal time: " + str(time.time()-system_start_time)+ "\n")
+    log(setup["predict_log_name"],"\nenergy: " + str(system_y_sum) + "\tpredicted energy: " + str(system_y_predict_sum) + "\tpredicted error: " + str(system_sum_error) + "\tpredicted absolute error: " + str(system_sum_absolute_error)+ "\ttotal time: " + str(time.time()-system_start_time)+ "\n")
 
     log(setup["predict_full_log_name"],"\n\ndone predicting: " + molecule )
-    log(setup["predict_full_log_name"],"\nenergy: " + str(system_y_sum) + "\tpredicted energy: " + str(system_y_predict_sum) + "\tpredicted error: " + str(system_sum_error)+ "\ttotal time: " + str(time.time()-system_start_time)+ "\n") 
+    log(setup["predict_full_log_name"],"\nenergy: " + str(system_y_sum) + "\tpredicted energy: " + str(system_y_predict_sum) + "\tpredicted error: " + str(system_sum_error) + "\tpredicted absolute error: " + str(system_sum_absolute_error)+ "\ttotal time: " + str(time.time()-system_start_time)+ "\n") 
     
     log(setup["predict_error_log_name"], "\n{}\t{}\t{}\t{}\t{}".format(molecule, system_y_sum, system_y_predict_sum, system_sum_error,system_sum_absolute_error))
     return system_sum_error,system_sum_absolute_error, system_y_predict_sum,system_y_sum
