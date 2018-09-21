@@ -347,7 +347,7 @@ def process_one_molecule(molecule, molecule_data_directory, setup):
         system_y_sum += y_sum
 
 
-    os.chdir(setup["model_save_dir"])
+    os.chdir(setup["working_dir"])
     log(setup["predict_log_name"],"\n\ndone predicting: " + molecule )
     log(setup["predict_log_name"],"\nenergy: " + str(system_y_sum) + "\tpredicted energy: " + str(system_y_predict_sum) + "\tpredicted error: " + str(system_sum_error)+ "\n")
 
