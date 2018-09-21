@@ -123,7 +123,7 @@ def predict_LDA(n,LDA_x):
 
 
 
-def predict_each_block(setup,dens,X,y):
+def predict_each_block(setup,dens,X):
 
     NN_model = setup["NN_model"]
     LDA_model = setup["LDA_model"]
@@ -290,7 +290,7 @@ def process_each_block(molecule, i,j,k, setup, molecule_data_directory):
 
     start = time.time()
     dens, X = load_data_each_block(molecule,functional,i,j,k, setup["dataset_setup"], molecule_data_directory)
-    predict_y = predict_each_block(setup, dens, X, y)
+    predict_y = predict_each_block(setup, dens, X)
     dv = h*h*h
     y_predict = predict_y*dv*27.2114
     y_predict_sum = np.sum(y_predict)
