@@ -230,10 +230,10 @@ def process_one_molecule(molecule, functional,h,L,N,r_list):
 
 
 
-    #for i,j,k in paramlist:
-    #    process(molecule, functional,i,j,k,h,N,r_list,MCSH_stencil_dict)
+    for i,j,k in paramlist:
+        process(molecule, functional,i,j,k,h,N,r_list,MCSH_stencil_dict)
         
-    process(molecule, functional,0,0,0,h,N,r_list,MCSH_stencil_dict)
+    #process(molecule, functional,0,0,0,h,N,r_list,MCSH_stencil_dict)
     
     os.chdir(cwd)
     return
