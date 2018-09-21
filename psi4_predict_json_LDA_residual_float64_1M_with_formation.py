@@ -666,8 +666,8 @@ if __name__ == "__main__":
                 #setup["result_data"][molecule] = {}
                 setup["result_data"][molecule]['predict_exc'] = temp_y_predict
                 setup["result_data"][molecule]['original_exc'] = temp_y
-                setup["result_data"][temp_name]['sum_error'] = temp_error
-                setup["result_data"][temp_name]['sum_absolute_error'] = temp_absolute_error
+                setup["result_data"][molecule]['sum_error'] = temp_error
+                setup["result_data"][molecule]['sum_absolute_error'] = temp_absolute_error
             except:
                 log(setup["predict_log_name"],"\n\n Failed")
                 log(setup["predict_full_log_name"],"\n\n Failed") 
