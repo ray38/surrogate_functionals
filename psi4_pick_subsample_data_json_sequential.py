@@ -211,57 +211,48 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
 
 
 
-        group_name = 'MC_surface_spherical_harmonic'
+        group_name = 'MCSH'
         try:
-            temp_list = setup["MC_surface_spherical_harmonic_0_r_list"]
+            temp_list = setup["MCSH_1_1_r_list"]
             if len(temp_list) > 0:
                 for r_list_count in temp_list:
-                    dataset_name = 'MC_surface_shperical_harmonic_0_{}'.format(str(r_list_count).replace('.','-'))
+                    dataset_name = 'MCSH_1_1_{}'.format(str(r_list_count).replace('.','-'))
                     temp_data = np.asarray(data[group_name][dataset_name])
-                    result_list.append(transform_data(temp_data, setup['MC_surface_spherical_harmonic_0_transform']))
+                    result_list.append(transform_data(temp_data, setup['MCSH_1_1_transform']))
         except:
             pass
 
 
         try:
-            temp_list = setup["MC_surface_spherical_harmonic_1_r_list"]
+            temp_list = setup["MCSH_2_1_r_list"]
             if len(temp_list) > 0:
                 for r_list_count in temp_list:
-                    dataset_name = 'MC_surface_shperical_harmonic_1_{}'.format(str(r_list_count).replace('.','-'))
+                    dataset_name = 'MCSH_2_1_{}'.format(str(r_list_count).replace('.','-'))
                     temp_data = np.asarray(data[group_name][dataset_name])
-                    result_list.append(transform_data(temp_data, setup['MC_surface_spherical_harmonic_1_transform']))
+                    result_list.append(transform_data(temp_data, setup['MCSH_2_1_transform']))
         except:
             pass
 
         try:
-            temp_list = setup["MC_surface_spherical_harmonic_2_r_list"]
+            temp_list = setup["MCSH_3_1_r_list"]
             if len(temp_list) > 0:
                 for r_list_count in temp_list:
-                    dataset_name = 'MC_surface_shperical_harmonic_2_{}'.format(str(r_list_count).replace('.','-'))
+                    dataset_name = 'MCSH_3_1_{}'.format(str(r_list_count).replace('.','-'))
                     temp_data = np.asarray(data[group_name][dataset_name])
-                    result_list.append(transform_data(temp_data, setup['MC_surface_spherical_harmonic_2_transform']))
+                    result_list.append(transform_data(temp_data, setup['MCSH_3_1_transform']))
         except:
             pass
 
         try:
-            temp_list = setup["MC_surface_spherical_harmonic_3_r_list"]
+            temp_list = setup["MCSH_3_2_r_list"]
             if len(temp_list) > 0:
                 for r_list_count in temp_list:
-                    dataset_name = 'MC_surface_shperical_harmonic_3_{}'.format(str(r_list_count).replace('.','-'))
+                    dataset_name = 'MCSH_3_2_{}'.format(str(r_list_count).replace('.','-'))
                     temp_data = np.asarray(data[group_name][dataset_name])
-                    result_list.append(transform_data(temp_data, setup['MC_surface_spherical_harmonic_3_transform']))
+                    result_list.append(transform_data(temp_data, setup['MCSH_3_2_transform']))
         except:
             pass
 
-        try:
-            temp_list = setup["MC_surface_spherical_harmonic_4_r_list"]
-            if len(temp_list) > 0:
-                for r_list_count in temp_list:
-                    dataset_name = 'MC_surface_shperical_harmonic_4_{}'.format(str(r_list_count).replace('.','-'))
-                    temp_data = np.asarray(data[group_name][dataset_name])
-                    result_list.append(transform_data(temp_data, setup['MC_surface_spherical_harmonic_4_transform']))
-        except:
-            pass
 
 
         
@@ -390,55 +381,6 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
     with open(overall_subsample_filename, 'wb') as handle:
         pickle.dump(subsample_data_overall, handle, protocol=2)
 
-
-
-
-
-#    subsample_data_overall = []
-#    random_data_overall = []
-#    for i,j,k in paramlist:
-#        temp_subsample_filename = "{}_{}_{}_subsampled_data.p".format(i,j,k)
-#        temp_random_filename = "{}_{}_{}_random_data.p".format(i,j,k)
-#        try:
-#            temp_subsample = pickle.load(open(temp_subsample_filename,'rb'))
-#            subsample_data_overall += temp_subsample
-#        except:
-#            print temp_subsample_filename + " load failed! passed!"
-
-#        try:
-#            temp_random = pickle.load(open(temp_random_filename,'rb'))
-#            random_data_overall += temp_random
-#        except:
-#            print temp_random_filename + " load failed! passed!"
-
-#    overall_random_filename = "overall_random_data.p"
-#    overall_subsample_filename = "overall_subsampled_data.p"
-#    overall_subsample_log_filename = "overall_subsample_log.log"
-
-#    with open(overall_random_filename, 'wb') as handle:
-#        pickle.dump(random_data_overall, handle, protocol=2)
-
-
-#    list_subsample = setup["subsample_feature_list"]
-#    temp_list_subsample = setup["subsample_feature_list"]
-#    if temp_list_subsample == []:
-#        for m in range(len(subsample_data_overall[0])):
-#            temp_list_subsample.append(m)
-#    print temp_list_subsample
-
-
-#    log(overall_subsample_log_filename,"\nstart overall sub-sampling") 
-#    sample_start = time.time() 
-#    log(overall_subsample_log_filename,"\nlength before: " + str(len(subsample_data_overall)))
-#    if len(temp_list_subsample) <= 10:
-#        subsample_data_overall = subsampling_system(subsample_data_overall, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
-#    else:
-#        subsample_data_overall = subsampling_system_with_PCA(subsample_data_overall, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
-#    log(overall_subsample_log_filename,"\nmolecule overall length after: " + str(len(subsample_data_overall)))  
-#    log(overall_subsample_log_filename,"\nfinished overall sampling, took: " + str(time.time()-sample_start))
-
-#    with open(overall_subsample_filename, 'wb') as handle:
-#        pickle.dump(subsample_data_overall, handle, protocol=2)
 
     return
 
