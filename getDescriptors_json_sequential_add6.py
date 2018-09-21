@@ -175,7 +175,7 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MCSH_stencil_
 
 
 
-def prepare_MCSH_stencil_stencils(r_list,h):
+def prepare_MCSH_stencils(r_list,h):
 
     MCSH_stencil_dict = {}
     MCSH_stencil_dict["1_1"] = {}
@@ -218,7 +218,7 @@ def process_one_molecule(molecule, functional,h,L,N,r_list):
         raise NotImplementedError
     
     os.chdir(cwd + '/' + dir_name)
-    MCSH_stencil_dict = prepare_MC_surface_harmonic_stencil_stencils(r_list,h)
+    MCSH_stencil_dict = prepare_MCSH_stencils(r_list,h)
     
     
     Nx = Ny = Nz = N
