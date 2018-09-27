@@ -535,7 +535,7 @@ if __name__ == "__main__":
     working_dir = os.getcwd() + '/' + dir_name + '/' + dataset_name
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "NN_{}_{}_{}_{}".format(setup["fit_type"],setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
+    model_save_dir = working_dir + "/" + "NN_{}_{}_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
     setup["model_save_dir"] = model_save_dir
 
 
