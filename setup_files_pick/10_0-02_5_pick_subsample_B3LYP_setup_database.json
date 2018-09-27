@@ -2622,7 +2622,7 @@
 		"subsample_feature_list": []
 	},
 
-	"epxc_MCSH_2_0-04_real_real": {
+	"epxc_MCSH_3_0-04_real_real": {
 		"database_directory": "/nv/hp13/xlei38/medford-shared/users/xlei38/psi4_molecule_sec_database",
 		"grid_spacing": 0.02,
 		"box_dimension": 10.0,
@@ -4537,7 +4537,7 @@
 		"subsample_feature_list": []
 	},
 
-	"Vxc_MCSH_2_0-04_real_real": {
+	"Vxc_MCSH_3_0-04_real_real": {
 		"database_directory": "/nv/hp13/xlei38/medford-shared/users/xlei38/psi4_molecule_sec_database",
 		"grid_spacing": 0.02,
 		"box_dimension": 10.0,
@@ -6989,7 +6989,7 @@
 		"subsample_feature_list": []
 	},
 
-	"tau_MCSH_2_0-04_real_real": {
+	"tau_MCSH_3_0-04_real_real": {
 		"database_directory": "/nv/hp13/xlei38/medford-shared/users/xlei38/psi4_molecule_sec_database",
 		"grid_spacing": 0.02,
 		"box_dimension": 10.0,
