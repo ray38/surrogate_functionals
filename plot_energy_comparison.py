@@ -83,13 +83,16 @@ def read_formation_energy_file(key,setup):
                 temp_original_formation_energy = float(temp[4])
                 temp_predict_formation_energy  = float(temp[5])
                 temp_formation_energy_error  = float(temp[6])
+                temp_energy_absolte_error  = float(temp[7])
                 setup[key]["result_data"][temp_name]['predict_exc'] = temp_predict_energy
                 setup[key]["result_data"][temp_name]['original_exc'] = temp_original_energy
                 setup[key]["result_data"][temp_name]['exc_error'] = temp_energy_error
                 setup[key]["result_data"][temp_name]['predict_formation_exc'] = temp_predict_formation_energy
                 setup[key]["result_data"][temp_name]['original_formation_exc'] = temp_original_formation_energy
                 setup[key]["result_data"][temp_name]['formation_exc_error'] = temp_formation_energy_error
+                setup[key]["result_data"][temp_name]['exc_absolute_error'] = temp_energy_absolte_error
 
+                setup[key]["exc_absolute_error_list"].append(temp_energy_absolte_error)
                 setup[key]["exc_error_list"].append(temp_energy_error)
                 setup[key]["formation_exc_error_list"].append(temp_formation_energy_error)
 
@@ -105,6 +108,7 @@ def determine_training_test(molecule_name):
 def prepare_pandas_dataframe(setup):
     predict_exc_list = []
     original_exc_list = []
+    exc_absolute_error_list = []
     exc_error_list = []
     predict_formation_exc_list = []
     original_formation_exc_list = []
@@ -126,12 +130,13 @@ def prepare_pandas_dataframe(setup):
             molecule_name_list.append(molecule_name)
             predict_exc_list.append(setup[model_name]["result_data"][molecule_name]['predict_exc'])
             original_exc_list.append(setup[model_name]["result_data"][molecule_name]['original_exc'])
+            exc_absolute_error_list.append(setup[model_name]["result_data"][molecule_name]['exc_absolute_error'])
             exc_error_list.append(setup[model_name]["result_data"][molecule_name]['exc_error'])
             predict_formation_exc_list.append(setup[model_name]["result_data"][molecule_name]['predict_formation_exc'])
             original_formation_exc_list.append(setup[model_name]["result_data"][molecule_name]['original_formation_exc'])
             formation_exc_error_list.append(setup[model_name]["result_data"][molecule_name]['formation_exc_error'])
 
-    d = {"predict_exc":predict_exc_list, "original_exc":original_exc_list, "exc_error":exc_error_list, \
+    d = {"predict_exc":predict_exc_list, "original_exc":original_exc_list, "exc_absolute_error":exc_absolute_error_list,"exc_error":exc_error_list, \
         "predict_formation_exc":predict_formation_exc_list, "original_formation_exc":original_formation_exc_list, "formation_exc_error": formation_exc_error_list, \
         "molecule_name": molecule_name_list, "training_test":training_test_list, "dataset":dataset_name_list, \
         "model_name":model_name_list, "model":model_list, "filename":filename_list}
