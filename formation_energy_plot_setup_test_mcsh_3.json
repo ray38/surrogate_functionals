@@ -1,0 +1,32 @@
+{
+	"refit VWN":{	"dataset": "epxc_refitted_SVWN",
+			"model":"Model1", 
+			"filename":"predict_LDA_formation_log.log",
+			"model_filename":"LDA_model.sav"},
+
+	"MCSH3 0.0":{	"dataset": "epxc_LDA_real_real",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_45283220.7187_formation_log.log",
+			"model_filename":"NN_sae_45283220.7187_backup.h5"},
+
+	"MCSH3 0.02":{	"dataset": "epxc_MCSH_3_0-02_real_real",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_8426565.76902_formation_log.log",
+			"model_filename":"NN_sae_8426565.76902_backup.h5"},
+
+	"MCSH3 0.04":{	"dataset": "epxc_MCSH_3_0-04_real_real",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_3186930.01684_formation_log.log",
+			"model_filename":"NN_sae_3186930.01684_backup.h5"},
+
+	"MCSH3 0.08":{	"dataset": "epxc_MCSH_3_0-08_real_real",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_1799493.30275_formation_log.log",
+			"model_filename":"NN_sae_1799493.30275_backup.h5"},
+
+
+	"MCSH3 0.2":{	"dataset": "epxc_MCSH_3_0-20_real_real",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_973669.333597_formation_log.log",
+			"model_filename":"NN_sae_973669.333597_backup.h5"}
+}
