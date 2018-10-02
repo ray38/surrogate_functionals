@@ -161,7 +161,7 @@ if __name__ == "__main__":
 		ax1.text(xpos_list[i], 125.0, energy_text_list[i],fontsize=15)
 
 	plt.tight_layout()
-	plt.savefig("energy_violin_swarm_plot_MCSH.png")
+	plt.savefig("energy_absolute_violin_swarm_plot_MCSH.png")
 
 
 
