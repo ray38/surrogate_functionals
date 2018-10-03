@@ -78,8 +78,8 @@ if __name__ == "__main__":
 
 	temp_xticklabel = [r"$r-VWN$",r"$\bar \lambda^{0.0}$",\
 					   r"$\bar \lambda^{0.02}$",\
-					   r"$\bar \lambda^{0.06}$",\
-					   r"$\bar \lambda^{0.1}$",\
+					   r"$\bar \lambda^{0.04}$",\
+					   r"$\bar \lambda^{0.08}$",\
 					   r"$\bar \lambda^{0.2}$",\
 					   r"$\bar \lambda^{0.4}$"]
 
