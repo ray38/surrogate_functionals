@@ -29,7 +29,6 @@ def log(log_filename, text):
 
 def process_each_block(molecule,functional,i,j,k, setup, data_dir, order_list, r_list):
     data_filename = "{}_{}_{}_{}_{}_all_descriptors.hdf5".format(molecule,functional,i,j,k)
-    molecule_dir = setup["working_dir"] + '/data/' + molecule
 
     os.chdir(data_dir)
 
