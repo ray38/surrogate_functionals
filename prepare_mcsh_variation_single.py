@@ -146,6 +146,8 @@ def prepare_df(result_dict, order_list, r_list):
         temp_original = result_dict[key]["original"]
         temp_normalized = result_dict[key]["normalized"]
         #for i in range(len(order_list)):
+        print r_list
+        print range(len(r_list))
         for j in range(len(r_list)):
             print j, temp_original[0][j], temp_original[1][j], temp_original[2][j], temp_original[3][j]
             molecule_list.append(key)
