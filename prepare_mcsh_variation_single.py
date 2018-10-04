@@ -166,7 +166,7 @@ def process_one_molecule(molecule, functional,h,L,N, setup, order_list, r_list):
 
     os.chdir(setup["cwd"])
 
-
+    print original_result_array, normalized_result_array
     return original_result_array, normalized_result_array
 
 
