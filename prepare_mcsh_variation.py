@@ -154,6 +154,7 @@ def process_one_molecule(molecule, functional,h,L,N, setup, order_list, r_list):
     
 
     for i,j,k in paramlist:
+        print "{} {} {} {}".format(molecule, i, j, k)
         temp_original_result_array, temp_normalized_result_array = process_each_block(molecule,functional,i,j,k, setup, data_dir, order_list, r_list)
         original_result_array = np.add(original_result_array, temp_original_result_array)
         normalized_result_array = np.add(normalized_result_array, temp_normalized_result_array)
