@@ -101,7 +101,7 @@ def process_one_molecule(molecule, functional,h,L,N, setup, order_list, r_list):
 
 
     #Nx = Ny = Nz = N
-    Nx = Ny = Nz = 2
+    Nx = Ny = Nz = 1
     
     i_li = range(Nx)
     j_li = range(Ny)
