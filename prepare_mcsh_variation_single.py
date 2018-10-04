@@ -77,7 +77,7 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir, order_list, r
         original_result_array[3][j] = temp_sum
         normalized_result_array[3][j] = temp_normalized
 
-    print original_result_array, normalized_result_array
+
     return original_result_array, normalized_result_array
 
 
@@ -138,6 +138,7 @@ def prepare_df(result_dict, order_list, r_list):
     normalized_2_2_list = []
 
     print result_dict.keys()
+    print result_dict
 
     for key in result_dict.keys():
         temp_original = result_dict[key]["original"]
@@ -190,7 +191,8 @@ if __name__ == "__main__":
     result = {}
     for molecule in molecules:
 
-        original_result_array, normalized_result_array = process_one_molecule(molecule, functional,h,L,N, setup, order_list, r_list)
+        temp_original_result_array, temp_normalized_result_array = process_one_molecule(molecule, functional,h,L,N, setup, order_list, r_list)
+        print temp_original_result_array, temp_normalized_result_array
         result[molecule] = {}
         result[molecule]["original"] = original_result_array
         result[molecule]["normalized"] =  normalized_result_array
