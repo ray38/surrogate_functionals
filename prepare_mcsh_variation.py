@@ -208,14 +208,12 @@ def prepare_df(result_dict, order_list, r_list):
 
 if __name__ == "__main__":
 
-    setup_database_filename = sys.argv[1]
-    setup_name = sys.argv[2]
+    setup_filename = sys.argv[1]
 
 
-    with open(setup_database_filename) as f:
-        setup_database = json.load(f)
+    with open(setup_filename) as f:
+        setup = json.load(f)
 
-    setup = setup_database[setup_name]
     h = float(setup['grid_spacing'])
     L = float(setup['box_dimension'])
     N = int(setup['number_segment_per_side'])
