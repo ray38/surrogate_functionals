@@ -100,8 +100,8 @@ def process_one_molecule(molecule, functional,h,L,N, setup, order_list, r_list):
 
 
 
-    #Nx = Ny = Nz = N
-    Nx = Ny = Nz = 1
+    Nx = Ny = Nz = N
+    #Nx = Ny = Nz = 1
     
     i_li = range(Nx)
     j_li = range(Ny)
@@ -141,13 +141,10 @@ def prepare_df(result_dict, order_list, r_list):
     print result_dict
 
     for key in result_dict.keys():
-        print key
-        print "start"
+
         temp_original = result_dict[key]["original"]
         temp_normalized = result_dict[key]["normalized"]
         #for i in range(len(order_list)):
-        print r_list
-        print range(len(r_list))
         for j in range(len(r_list)):
             print j, temp_original[0][j], temp_original[1][j], temp_original[2][j], temp_original[3][j]
             molecule_list.append(key)
@@ -197,7 +194,6 @@ if __name__ == "__main__":
     for molecule in molecules:
 
         temp_original_result_array, temp_normalized_result_array = process_one_molecule(molecule, functional,h,L,N, setup, order_list, r_list)
-        print temp_original_result_array, temp_normalized_result_array
         result[molecule] = {}
         result[molecule]["original"] = temp_original_result_array
         result[molecule]["normalized"] =  temp_normalized_result_array
