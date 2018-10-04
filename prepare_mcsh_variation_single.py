@@ -126,7 +126,7 @@ def process_one_molecule(molecule, functional,h,L,N, setup, order_list, r_list):
 def prepare_df(result_dict, order_list, r_list):
 
     molecule_list = []
-    r_list = []
+    r_result_list = []
     original_0_1_list = []
     original_1_1_list = []
     original_2_1_list = []
@@ -152,7 +152,7 @@ def prepare_df(result_dict, order_list, r_list):
             print j, temp_original[0][j], temp_original[1][j], temp_original[2][j], temp_original[3][j]
             molecule_list.append(key)
 
-            r_list.append(r_list[j])
+            r_result_list.append(r_list[j])
             original_0_1_list.append(temp_original[0][j])
             original_1_1_list.append(temp_original[1][j])
             original_2_1_list.append(temp_original[2][j])
@@ -165,7 +165,7 @@ def prepare_df(result_dict, order_list, r_list):
 
 
     print molecule_list
-    d = {"molecule": molecule_list, "r":r_list, \
+    d = {"molecule": molecule_list, "r":r_result_list, \
          "original_0_1": original_0_1_list, "original_1_1": original_1_1_list, "original_2_1": original_2_1_list, "original_2_2": original_2_2_list,\
          "normalized_0_1": normalized_0_1_list, "normalized_1_1": normalized_1_1_list, "normalized_2_1": normalized_2_1_list, "normalized_2_2": normalized_2_2_list}
 
