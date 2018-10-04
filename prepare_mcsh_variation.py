@@ -240,9 +240,9 @@ if __name__ == "__main__":
         result[molecule]["normalized"] =  normalized_result_array
 
     
-    data = prepare_df(result, order_list, r_list)
+        data = prepare_df(result, order_list, r_list)
 
-    with open('mcsh_variation.pickle', 'wb') as handle:
-        pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        with open('mcsh_variation.pickle', 'wb') as handle:
+            pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
         
         
