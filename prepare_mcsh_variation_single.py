@@ -187,8 +187,8 @@ def prepare_df(result_dict, order_list, r_list):
     print result_dict.keys()
 
     for key in result_dict.keys():
-        temp_original = result[molecule]["original"]
-        temp_normalized = result[molecule]["normalized"]
+        temp_original = result_dict[key]["original"]
+        temp_normalized = result_dict[key]["normalized"]
         #for i in range(len(order_list)):
         for j in range(len(r_list)):
             molecule_list.append(key)
