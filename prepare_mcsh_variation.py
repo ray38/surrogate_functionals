@@ -52,6 +52,7 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir, order_list, r
     group_name = 'MCSH'
 
     for j in range(len(r_list)):
+        r = r_list[j]
         dataset_name = 'MCSH_1_1_{}'.format(str(r_list[j]).replace('.','-'))
         temp_data = np.asarray(data[group_name][dataset_name])
         temp_sum = np.sum(temp_data)
