@@ -165,6 +165,8 @@ def process_one_molecule(molecule, functional,h,L,N, setup, order_list, r_list):
 
     os.chdir(setup["cwd"])
 
+    print original_result_array, normalized_result_array
+
 
     return original_result_array, normalized_result_array
 
@@ -184,8 +186,8 @@ def prepare_df(result_dict, order_list, r_list):
     normalized_2_2_list = []
 
     for key in result_dict.keys():
-        temp_original = result[molecule]["original"]
-        temp_normalized = result[molecule]["normalized"]
+        temp_original = result_dict[key]["original"]
+        temp_normalized = result_dict[key]["normalized"]
         #for i in range(len(order_list)):
         for j in range(len(r_list)):
             molecule_list.append(key)
