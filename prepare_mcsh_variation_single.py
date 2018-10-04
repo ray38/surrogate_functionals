@@ -141,6 +141,8 @@ def prepare_df(result_dict, order_list, r_list):
     print result_dict
 
     for key in result_dict.keys():
+        print key
+        print "start"
         temp_original = result_dict[key]["original"]
         temp_normalized = result_dict[key]["normalized"]
         #for i in range(len(order_list)):
