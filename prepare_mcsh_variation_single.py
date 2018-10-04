@@ -37,13 +37,6 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir, order_list, r
     data =  h5py.File(data_filename,'r')
     
 
-    result_list = []
-
-    result_dict = {}
-    result_dict["original"] = {}
-    result_dict["normalized"] = {}
-
-    
 
     original_result_array = np.zeros((len(order_list), len(r_list)))
 
@@ -53,6 +46,7 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir, order_list, r
     group_name = 'MCSH'
 
     for j in range(len(r_list)):
+        print "start {}".format(r)
         r = r_list[j]
         dataset_name = 'MCSH_1_1_{}'.format(str(r_list[j]).replace('.','-'))
         temp_data = np.asarray(data[group_name][dataset_name])
@@ -82,48 +76,6 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir, order_list, r
         original_result_array[3][j] = temp_sum
         normalized_result_array[3][j] = temp_normalized
 
-
-    """
-    for r in [0.02,0.04,0.06,0.08,0.1,0.12,0.14,0.16,0.18,0.2,0.22,0.24,0.26,0.28,0.3,0.32,0.34,0.36,0.38,0.4]:
-        dataset_name = 'MCSH_1_1_{}'.format(str(r).replace('.','-'))
-        temp_data = np.asarray(data[group_name][dataset_name])
-        temp_sum = np.sum(temp_data)
-        temp_normalized = temp_sum / ((4./3.)*math.pi*r*r*r)
-        result_dict["original"]["MCSH_1_1"][r] = temp_sum
-        result_dict["normalized"]["MCSH_1_1"][r] = temp_normalized
-
-
-
-        dataset_name = 'MCSH_2_1_{}'.format(str(r).replace('.','-'))
-        temp_data = np.asarray(data[group_name][dataset_name])
-        temp_sum = np.sum(temp_data)
-        temp_normalized = temp_sum / ((4./3.)*math.pi*r*r*r)
-        result_dict["original"]["MCSH_2_1"][r] = temp_sum
-        result_dict["normalized"]["MCSH_2_1"][r] = temp_normalized
-
-        dataset_name = 'MCSH_3_1_{}'.format(str(r).replace('.','-'))
-        temp_data = np.asarray(data[group_name][dataset_name])
-        temp_sum = np.sum(temp_data)
-        temp_normalized = temp_sum / ((4./3.)*math.pi*r*r*r)
-        result_dict["original"]["MCSH_3_1"][r] = temp_sum
-        result_dict["normalized"]["MCSH_3_1"][r] = temp_normalized
-
-        dataset_name = 'MCSH_3_2_{}'.format(str(r).replace('.','-'))
-        temp_data = np.asarray(data[group_name][dataset_name])
-        temp_sum = np.sum(temp_data)
-        temp_normalized = temp_sum / ((4./3.)*math.pi*r*r*r)
-        result_dict["original"]["MCSH_3_2"][r] = temp_sum
-        result_dict["normalized"]["MCSH_3_2"][r] = temp_normalized
-
-
-    os.chdir(molecule_dir)
-
-
-    os.chdir(data_dir_full)
-
-
-    return result_dict
-    """
 
     return original_result_array, normalized_result_array
 
