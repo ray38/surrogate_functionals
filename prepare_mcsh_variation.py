@@ -132,12 +132,12 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir, order_list, r
 def process_one_molecule(molecule, functional,h,L,N, setup, order_list, r_list):
 
     data_dir = "{}_{}_{}_{}_{}".format(molecule,functional,str(L).replace('.','-'),str(h).replace('.','-'),N)
-    os.chdir(data_dir)
+
     
     if os.path.isdir(data_dir) == False:
         print '\n****Error: Cant find the data directory! ****\n'
         raise NotImplementedError
-
+    os.chdir(data_dir)
     
 
     original_result_array = np.zeros((len(order_list), len(r_list)))
