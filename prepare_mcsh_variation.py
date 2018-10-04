@@ -18,6 +18,7 @@ import json
 
 import itertools
 import multiprocessing
+import pandas as pd
 
 
 def log(log_filename, text):
