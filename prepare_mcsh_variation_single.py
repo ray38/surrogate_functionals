@@ -194,8 +194,8 @@ if __name__ == "__main__":
         temp_original_result_array, temp_normalized_result_array = process_one_molecule(molecule, functional,h,L,N, setup, order_list, r_list)
         print temp_original_result_array, temp_normalized_result_array
         result[molecule] = {}
-        result[molecule]["original"] = original_result_array
-        result[molecule]["normalized"] =  normalized_result_array
+        result[molecule]["original"] = temp_original_result_array
+        result[molecule]["normalized"] =  temp_normalized_result_array
 
     
     data = prepare_df(result, order_list, r_list)
