@@ -179,7 +179,7 @@ if __name__ == "__main__":
 
     data = prepare_pandas_dataframe(setup)
 
-    with open('formation_to_plot.pickle', 'wb') as handle:
+    with open('formation_to_plot_LDA.pickle', 'wb') as handle:
         pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
