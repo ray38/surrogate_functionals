@@ -12,11 +12,12 @@
 
 	"refit VWN":{	"dataset": "epxc_refitted_SVWN",
 			"model":"Model1", 
-			"filename":"predict_refitted_SVWN_formation_log.log",
+			"filename":"predict_LDA_formation_log.log",
 			"model_filename":"LDA_model.sav"},
 
 	"NN [LDA]":{	"dataset": "epxc_LDA_real_real",
-			"model":"NN_LDA_residual_1M_20_2_relu", 
-			"filename":"predict_sae_226193896.623_formation_log.log",
-			"model_filename":"NN_sae_226193896.623_backup.h5"}
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_45283220.7187_formation_log.log",
+			"model_filename":"NN_sae_45283220.7187_backup.h5"}
+
 }

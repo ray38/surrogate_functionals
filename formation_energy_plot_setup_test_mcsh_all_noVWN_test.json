@@ -1,0 +1,48 @@
+{
+
+
+	"MCSH1 0.02":{	"dataset": "epxc_MCSH_1_0-02_real_real",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_44839681.438_formation_log.log",
+			"model_filename":"NN_sae_44839681.438_backup.h5"},
+
+	"MCSH1 0.08":{	"dataset": "epxc_MCSH_1_0-08_real_real",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_13151793.972_formation_log.log",
+			"model_filename":"NN_sae_13151793.972_backup.h5"},
+
+	"MCSH1 0.2":{	"dataset": "epxc_MCSH_1_0-20_real_real",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_8642137.10728_formation_log.log",
+			"model_filename":"NN_sae_8642137.10728_backup.h5"},
+
+	"MCSH2 0.02":{	"dataset": "epxc_MCSH_2_0-02_real_real",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_15953824.0328_formation_log.log",
+			"model_filename":"NN_sae_15953824.0328_backup.h5"},
+
+	"MCSH2 0.08":{	"dataset": "epxc_MCSH_2_0-08_real_real",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_1048924.81128_formation_log.log",
+			"model_filename":"NN_sae_1048924.81128_backup.h5"},
+
+	"MCSH2 0.2":{	"dataset": "epxc_MCSH_2_0-20_real_real",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_1310406.97012_formation_log.log",
+			"model_filename":"NN_sae_1310406.97012_backup.h5"},
+
+	"MCSH3 0.02":{	"dataset": "epxc_MCSH_3_0-02_real_real",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_8426565.76902_formation_log.log",
+			"model_filename":"NN_sae_8426565.76902_backup.h5"},
+
+	"MCSH3 0.08":{	"dataset": "epxc_MCSH_3_0-08_real_real",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_1799493.30275_formation_log.log",
+			"model_filename":"NN_sae_1799493.30275_backup.h5"},
+
+	"MCSH3 0.2":{	"dataset": "epxc_MCSH_3_0-20_real_real",
+			"model":"NN_LDA_residual_1M_100_2_relu", 
+			"filename":"predict_sae_973669.333597_formation_log.log",
+			"model_filename":"NN_sae_973669.333597_backup.h5"}
+}
