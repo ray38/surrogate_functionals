@@ -66,7 +66,6 @@ def get_start_loss(log_filename):
 def read_formation_energy_file(key,setup):
     os.chdir(setup[key]["model_save_dir"])
     setup[key]["result_data"] = {}
-    setup[key]["exc_absolute_error_list"] = []
     setup[key]["exc_error_list"] = []
     setup[key]["formation_exc_error_list"] = []
 
@@ -91,7 +90,7 @@ def read_formation_energy_file(key,setup):
                 setup[key]["result_data"][temp_name]['original_formation_exc'] = temp_original_formation_energy
                 setup[key]["result_data"][temp_name]['formation_exc_error'] = temp_formation_energy_error
 
-                setup[key]["exc_absolute_error_list"].append(temp_energy_absolte_error)
+
                 setup[key]["exc_error_list"].append(temp_energy_error)
                 setup[key]["formation_exc_error_list"].append(temp_formation_energy_error)
 
