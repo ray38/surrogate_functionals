@@ -287,7 +287,7 @@ def plot_group_2(data,order):
     
     groups = data.groupby("Model")
     
-    fig = plt.figure(figsize=(10,3.5))
+    fig = plt.figure(figsize=(10,7.0))
     sns.set(style="white", color_codes=True)
     current_palette = sns.color_palette("cubehelix", number_models)
     print current_palette
