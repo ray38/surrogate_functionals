@@ -165,7 +165,7 @@ def initialize(setup,key):
 
     os.chdir(setup[key]["working_dir"])
 
-    with open("test_data_to_plot_large.pickle", 'rb') as handle:
+    with open("test_data_to_plot_extra_large.pickle", 'rb') as handle:
         test_data = pickle.load(handle)
 
     setup[key]["test_X"] = test_data[0]
@@ -174,30 +174,6 @@ def initialize(setup,key):
 
     return
     
-def initialize_svwn(setup,key):
-    os.chdir(setup[key]["model_save_dir"])
-    fit_log_name = "NN_fit_log.log"
-    
-    LDA_model_name = "LDA_model.sav"
-    #NN_model_name = "NN.h5"
-
-
-    LDA_model = pickle.load(open("LDA_model.sav", 'rb'))
-
-    setup["refit VWN"]["LDA_model"] = LDA_model
-    setup["refit VWN"]["model"] = "refitted_SVWN"
-    setup["refit VWN"]["dataset"] = "epxc_refitted_SVWN"
-
-    os.chdir(setup[key]["working_dir"])
-
-    with open("test_data_to_plot_large.pickle", 'rb') as handle:
-        test_data = pickle.load(handle)
-
-    setup["refit VWN"]["test_X"] = test_data[0]
-    setup["refit VWN"]["test_y"] = test_data[1]
-    setup["refit VWN"]["test_dens"] = test_data[2]
-
-    return
 
 
 def process_one_model(setup,key):
@@ -371,7 +347,7 @@ if __name__ == "__main__":
     print "start"
     
     try:
-        with open('test_set_plot.pickle', 'rb') as handle:
+        with open('test_set_plot_MCSH.pickle', 'rb') as handle:
             data = pickle.load(handle)
 
     except:
@@ -412,7 +388,7 @@ if __name__ == "__main__":
 
         data = create_df(setup)
 
-        with open('test_set_plot.pickle', 'wb') as handle:
+        with open('test_set_plot_MCSH.pickle', 'wb') as handle:
             pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     print "start ploting"
