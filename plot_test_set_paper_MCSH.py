@@ -309,6 +309,14 @@ def plot_group_2(data,order):
 
             plt.plot(log_dens_interval_medians, log_sum_error_result,label=name,linewidth=5.0)
     #ax.fig.get_axes()[0].set_xscale('log')
+    legend_text = [r"$NN[\bar \lambda^{(0)}_{0.04}]$",\
+                   r"$NN[\bar \lambda^{(0)}_{0.2}]$",\
+                   r"$NN[\bar \lambda^{(1)}_{0.04}]$",\
+                   r"$NN[\bar \lambda^{(1)}_{0.2}]$",\
+                   r"$NN[\bar \lambda^{(2)}_{0.04}]$",\
+                   r"$NN[\bar \lambda^{(2)}_{0.2}]$"]
+
+
     plt.legend(order,loc='upper left',fontsize=15)
     
     
