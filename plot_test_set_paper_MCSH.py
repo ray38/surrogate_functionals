@@ -317,7 +317,7 @@ def plot_group_2(data,order):
                    r"$NN[\bar \lambda^{(2)}_{0.2}]$"]
 
 
-    plt.legend(order,loc='upper left',fontsize=15)
+    plt.legend(legend_text ,loc='upper left',fontsize=15)
     
     
     #plt.xlabel(r"$log_{10} (\rho)$",fontsize=20)
