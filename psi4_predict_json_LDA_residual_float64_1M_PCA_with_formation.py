@@ -298,6 +298,48 @@ def load_data_each_block(molecule,functional,i,j,k, dataset_setup, data_dir_full
             result_list.append(transform_data(temp_data, dataset_setup['asym_desc_transform']))
 
     
+    group_name = 'MCSH'
+
+    try:
+        temp_list = dataset_setup["MCSH_1_1_r_list"]
+        if len(temp_list) > 0:
+            for r_list_count in temp_list:
+                dataset_name = 'MCSH_1_1_{}'.format(str(r_list_count).replace('.','-'))
+                temp_data = np.asarray(data[group_name][dataset_name])
+                result_list.append(transform_data(temp_data, dataset_setup['MCSH_1_1_transform']))
+    except:
+        pass
+
+    
+    try:
+        temp_list = dataset_setup["MCSH_2_1_r_list"]
+        if len(temp_list) > 0:
+            for r_list_count in temp_list:
+                dataset_name = 'MCSH_2_1_{}'.format(str(r_list_count).replace('.','-'))
+                temp_data = np.asarray(data[group_name][dataset_name])
+                result_list.append(transform_data(temp_data, dataset_setup['MCSH_2_1_transform']))
+    except:
+        pass
+
+    try:
+        temp_list = dataset_setup["MCSH_3_1_r_list"]
+        if len(temp_list) > 0:
+            for r_list_count in temp_list:
+                dataset_name = 'MCSH_3_1_{}'.format(str(r_list_count).replace('.','-'))
+                temp_data = np.asarray(data[group_name][dataset_name])
+                result_list.append(transform_data(temp_data, dataset_setup['MCSH_3_1_transform']))
+    except:
+        pass
+
+    try:
+        temp_list = dataset_setup["MCSH_3_2_r_list"]
+        if len(temp_list) > 0:
+            for r_list_count in temp_list:
+                dataset_name = 'MCSH_3_2_{}'.format(str(r_list_count).replace('.','-'))
+                temp_data = np.asarray(data[group_name][dataset_name])
+                result_list.append(transform_data(temp_data, dataset_setup['MCSH_3_2_transform']))
+    except:
+        pass
 
     result = zip(*result_list)
     y = zip(*y)
