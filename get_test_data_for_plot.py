@@ -116,7 +116,7 @@ def get_training_data(dataset_name,setup):
     #    overall_subsampled_data = subsampling_system_with_PCA(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
 
 
-    overall = overall_random_data# + overall_subsampled_data
+    overall = overall_random_data + overall_subsampled_data
     #overall = overall_subsampled_data
 
 
@@ -176,7 +176,7 @@ if __name__ == "__main__":
     #save_resulting_figure(dens,result.x,X_train,NN_model,y)
 
     os.chdir(setup["working_dir"])
-    with open('test_data_to_plot_large.pickle', 'wb') as handle:
+    with open('test_data_to_plot_large_subsample.pickle', 'wb') as handle:
         pickle.dump(plot_save_result, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     
