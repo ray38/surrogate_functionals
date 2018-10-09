@@ -176,7 +176,7 @@ if __name__ == "__main__":
     #save_resulting_figure(dens,result.x,X_train,NN_model,y)
 
     os.chdir(setup["working_dir"])
-    with open('test_data_to_plot_large_subsample.pickle', 'wb') as handle:
+    with open('test_data_to_plot_extra_large_subsample.pickle', 'wb') as handle:
         pickle.dump(plot_save_result, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     
