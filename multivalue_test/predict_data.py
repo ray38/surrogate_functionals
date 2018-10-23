@@ -192,6 +192,7 @@ if __name__ == "__main__":
     y_predict = y_predict*dv*27.2114
 
     result = {}
+    result["X"] = X
     result["y"] = y
     result["dens"] = dens
     result["y_predict"] = y_predict
