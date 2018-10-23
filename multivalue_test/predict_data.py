@@ -183,7 +183,7 @@ if __name__ == "__main__":
     X,y, dens = get_data(datafile)
    
 
-    y_predict = predict_LDA_residual(dens,LDA_model.x,X,NN_model)
+    y_predict = predict_LDA_residual(dens,LDA_model.x,X,model)
     error = y - y_predict
 
 
