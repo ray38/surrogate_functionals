@@ -183,7 +183,6 @@ if __name__ == "__main__":
     X,y, dens = get_data(datafile)
    
 
-    residual, LDA_result = fit_with_LDA(dens,y)
     y_predict = predict_LDA_residual(dens,LDA_model.x,X,NN_model)
     error = y - y_predict
 
