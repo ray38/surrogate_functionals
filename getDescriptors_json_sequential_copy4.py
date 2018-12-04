@@ -113,7 +113,7 @@ def create_dataset(database, dataset_name, data):
     return
 
 
-def process_normal_descriptors(molecule, functional,i,j,k,r_list,asym_list, MCSH_list):
+def process_normal_descriptors(molecule, functional,i,j,k,r_list,asym_list, MCSH_list, MCSH_list2):
     
     raw_data_filename = "{}_{}_{}_{}_{}_all_descriptors.hdf5".format(molecule,functional,i,j,k)
     result_filename = "{}_{}_{}_{}_{}_all_descriptors.hdf5".format(molecule,functional,i,j,k)
