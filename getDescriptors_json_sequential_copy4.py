@@ -164,7 +164,6 @@ def process_normal_descriptors(molecule, functional,i,j,k,r_list,asym_list, MCSH
         create_dataset(database, 'tau', tau)
 
         ave_dens_grp = database.create_group('average_density')
-        asym_integral_grp = database.create_group('asym_integral')
         MCSH_grp = database.create_group('MCSH')
         derivative_grp = database.create_group('derivative')
 
