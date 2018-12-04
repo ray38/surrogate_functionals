@@ -229,7 +229,7 @@ def process_one_molecule(molecule, functional,h,L,N,r_list,asym_list, MCSH_list,
 
     for i,j,k in paramlist:
         if i !=0 or j != 0 or k != 0:
-            process(molecule, functional,i,j,k,h,N,r_list,asym_list, MCSH_list)
+            process(molecule, functional,i,j,k,h,N,r_list,asym_list, MCSH_list, MCSH_list2)
         
     #process(molecule, functional,0,0,0,h,N,r_list,asym_list, MCSH_list, MCSH_list2)
 
