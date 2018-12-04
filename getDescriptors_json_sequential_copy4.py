@@ -200,12 +200,12 @@ def process_normal_descriptors(molecule, functional,i,j,k,r_list,asym_list, MCSH
 
 
 
-def process(molecule, functional,i,j,k,h,N,r_list,asym_list, MCSH_list):
+def process(molecule, functional,i,j,k,h,N,r_list,asym_list, MCSH_list, MCSH_list2):
     
-    process_normal_descriptors(molecule, functional,i,j,k,r_list,asym_list, MCSH_list)
+    process_normal_descriptors(molecule, functional,i,j,k,r_list,asym_list, MCSH_list, MCSH_list2)
     return
 
-def process_one_molecule(molecule, functional,h,L,N,r_list,asym_list, MCSH_list):
+def process_one_molecule(molecule, functional,h,L,N,r_list,asym_list, MCSH_list, MCSH_list2):
     cwd = os.getcwd()
     dir_name = "{}_{}_{}_{}_{}".format(molecule,functional,str(L).replace('.','-'),str(h).replace('.','-'),N)
     print dir_name
@@ -230,7 +230,7 @@ def process_one_molecule(molecule, functional,h,L,N,r_list,asym_list, MCSH_list)
     #for i,j,k in paramlist:
     #    process(molecule, functional,i,j,k,h,N,r_list,asym_list, MCSH_list)
         
-    process(molecule, functional,0,0,0,h,N,r_list,asym_list, MCSH_list)
+    process(molecule, functional,0,0,0,h,N,r_list,asym_list, MCSH_list, MCSH_list2)
 
     
     os.chdir(cwd)
