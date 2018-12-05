@@ -205,9 +205,9 @@ def prepare_MCSH_stencils(r_list,h):
     for r in r_list:
 
 
-        stencil_Re_1, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 2, accuracy = 6)
-        stencil_Re_4, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 3, accuracy = 6)
-        stencil_Re_6, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 4, accuracy = 6)
+        stencil_Re_2, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 2, accuracy = 6)
+        stencil_Re_3, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 3, accuracy = 6)
+        stencil_Re_4, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 4, accuracy = 6)
         stencil_Re_6, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 6, accuracy = 6)
         stencil_Re_8, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 8, accuracy = 6)
         stencil_Re_9, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 9, accuracy = 6)
