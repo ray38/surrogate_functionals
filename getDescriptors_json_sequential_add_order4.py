@@ -223,7 +223,7 @@ def prepare_MCSH_stencils(r_list,h):
     MCSH_stencil_dict["4_1"] = {}
     MCSH_stencil_dict["4_2"] = {}
     MCSH_stencil_dict["4_3"] = {}
-    MCSH_stencil_dict["4_1"] = {}
+    MCSH_stencil_dict["4_4"] = {}
 
     for r in r_list:
 
