@@ -213,6 +213,16 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
 
         group_name = 'MCSH'
         try:
+            temp_list = setup["MCSH_0_1_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'MCSH_0_1_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['MCSH_0_1_transform']))
+        except:
+            pass
+
+        try:
             temp_list = setup["MCSH_1_1_r_list"]
             if len(temp_list) > 0:
                 for r_list_count in temp_list:
@@ -234,6 +244,16 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
             pass
 
         try:
+            temp_list = setup["MCSH_2_2_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'MCSH_2_2_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['MCSH_2_2_transform']))
+        except:
+            pass
+
+        try:
             temp_list = setup["MCSH_3_1_r_list"]
             if len(temp_list) > 0:
                 for r_list_count in temp_list:
@@ -250,6 +270,16 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
                     dataset_name = 'MCSH_3_2_{}'.format(str(r_list_count).replace('.','-'))
                     temp_data = np.asarray(data[group_name][dataset_name])
                     result_list.append(transform_data(temp_data, setup['MCSH_3_2_transform']))
+        except:
+            pass
+
+        try:
+            temp_list = setup["MCSH_3_3_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'MCSH_3_3_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['MCSH_3_3_transform']))
         except:
             pass
 

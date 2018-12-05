@@ -172,20 +172,25 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
 
 
         group_name = 'asym_integral'
-        temp_list = setup["asym_desc_r_list"]
-        if len(temp_list) > 0:
-            for r_list_count in temp_list:
-                dataset_name = 'asym_integral_x_{}'.format(str(r_list_count).replace('.','-'))
-                temp_data = np.asarray(data[group_name][dataset_name])
-                result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
+        try:
+            temp_list = setup["asym_desc_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'asym_integral_x_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
 
-                dataset_name = 'asym_integral_y_{}'.format(str(r_list_count).replace('.','-'))
-                temp_data = np.asarray(data[group_name][dataset_name])
-                result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
+                    dataset_name = 'asym_integral_y_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
 
-                dataset_name = 'asym_integral_z_{}'.format(str(r_list_count).replace('.','-'))
-                temp_data = np.asarray(data[group_name][dataset_name])
-                result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
+                    dataset_name = 'asym_integral_z_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['asym_desc_transform']))
+        except:
+            pass
+
+
 
         group_name = 'asym_integral'
         try:
@@ -201,6 +206,80 @@ def process_each_block(molecule,functional,i,j,k, setup, data_dir_full):
                     dataset_name = 'asym_integral_z_{}'.format(str(r_list_count).replace('.','-'))
                     temp_data3 = np.asarray(data[group_name][dataset_name])
                     result_list.append(transform_data(temp_data1 + temp_data2 + temp_data3 , setup['asymsum_desc_transform']))
+        except:
+            pass
+
+
+
+        group_name = 'MCSH'
+        try:
+            temp_list = setup["MCSH_0_1_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'MCSH_0_1_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['MCSH_0_1_transform']))
+        except:
+            pass
+
+        try:
+            temp_list = setup["MCSH_1_1_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'MCSH_1_1_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['MCSH_1_1_transform']))
+        except:
+            pass
+
+
+        try:
+            temp_list = setup["MCSH_2_1_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'MCSH_2_1_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['MCSH_2_1_transform']))
+        except:
+            pass
+
+        try:
+            temp_list = setup["MCSH_2_2_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'MCSH_2_2_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['MCSH_2_2_transform']))
+        except:
+            pass
+
+        try:
+            temp_list = setup["MCSH_3_1_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'MCSH_3_1_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['MCSH_3_1_transform']))
+        except:
+            pass
+
+        try:
+            temp_list = setup["MCSH_3_2_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'MCSH_3_2_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['MCSH_3_2_transform']))
+        except:
+            pass
+
+        try:
+            temp_list = setup["MCSH_3_3_r_list"]
+            if len(temp_list) > 0:
+                for r_list_count in temp_list:
+                    dataset_name = 'MCSH_3_3_{}'.format(str(r_list_count).replace('.','-'))
+                    temp_data = np.asarray(data[group_name][dataset_name])
+                    result_list.append(transform_data(temp_data, setup['MCSH_3_3_transform']))
         except:
             pass
 
