@@ -14,7 +14,8 @@ import random
 from sklearn import preprocessing
 import time
 import sys
-from sklearn.decomposition import RandomizedPCA, PCA
+#from sklearn.decomposition import RandomizedPCA, PCA
+from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 try: import cPickle as pickle
 except: import pickle
@@ -48,14 +49,16 @@ def get_data_process(li, list_of_index):
     return np.asarray(result)
     
 def PCA_analysis(data, n_components = 2):
-    pca = RandomizedPCA(n_components = n_components )
+    #pca = RandomizedPCA(n_components = n_components )
+    pca = PCA(n_components = n_components, svd_solver = "randomized" )
     X_pca = pca.fit_transform(data)
 #    plot(X_pca)
     return X_pca, sum(pca.explained_variance_ratio_)
     
 def PCA_analysis_desc(data,list_desc):
     data_process = get_data_process(data, list_desc)
-    pca = RandomizedPCA(n_components=2)
+    #pca = RandomizedPCA(n_components=2)
+    pca = PCA(n_components = 2, svd_solver = "randomized" )
     X_pca = pca.fit_transform(data_process)
 #    plot(X_pca)
     return X_pca, pca.components_[0], pca.components_[1]
