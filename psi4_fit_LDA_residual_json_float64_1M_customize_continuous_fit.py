@@ -122,6 +122,7 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
     print model.summary()
     print model.get_config()
     
+    history_callback_kickoff = model.fit(X, y, nb_epoch=1, batch_size=50000, shuffle=True)
     est_start = time.time()
     history_callback = model.fit(X, y, nb_epoch=1, batch_size=50000, shuffle=True)
     est_epoch_time = time.time()-est_start
