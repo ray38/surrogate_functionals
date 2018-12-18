@@ -122,13 +122,14 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
     print model.summary()
     print model.get_config()
     
+    history_callback = model.fit(X, y, nb_epoch=1, batch_size=50000)
     est_start = time.time()
     history_callback = model.fit(X, y, nb_epoch=1, batch_size=50000)
     est_epoch_time = time.time()-est_start
-    if est_epoch_time >= 30.:
+    if est_epoch_time >= 20.:
         num_epoch = 1
     else:
-        num_epoch = int(math.floor(30./est_epoch_time))
+        num_epoch = int(math.floor(20./est_epoch_time))
     if restart == True:
         try:
             start_loss = get_start_loss(log_filename,loss)
