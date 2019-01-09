@@ -71,7 +71,7 @@ def get_start_loss(log_filename,loss):
     else:
         raise ValueError
 
-def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
+def fit_with_KerasNN(setup, X, y, loss, tol, slowdown_factor, early_stop_trials):
 
     loss_list = ["mse","sae","mean_squared_error", "mean_absolute_error", "mean_absolute_percentage_error", "mean_squared_logarithmic_error", "squared_hinge", "hinge", "categorical_hinge", "logcosh", "categorical_crossentropy", "sparse_categorical_crossentropy", "binary_crossentropy", "kullback_leibler_divergence", "poisson", "cosine_proximity"]
     if loss not in loss_list:
@@ -403,9 +403,9 @@ def get_training_data(dataset_name,setup, dataset_setup):
     return X_train, y_train, dens
 
 
-def fit_model(LDA_result, dens, X_train, residual, y, loss, tol, slowdown_factor, early_stop_trials):
+def fit_model(setup,LDA_result, dens, X_train, residual, y, loss, tol, slowdown_factor, early_stop_trials):
 
-    NN_model,loss_result = fit_with_KerasNN(X_train * 1e6, residual * 1e6, loss, tol, slowdown_factor, early_stop_trials)
+    NN_model,loss_result = fit_with_KerasNN(setup,X_train * 1e6, residual * 1e6, loss, tol, slowdown_factor, early_stop_trials)
     save_resulting_figure(dens,LDA_result.x,X_train,NN_model,y,loss,loss_result)
 
     return NN_model
@@ -467,7 +467,7 @@ def process_dataset(setup_filename, dataset_setup_filename, dataset_name, fit_se
         slowdown_factor = fit_setup['slowdown']
         early_stop_trials = fit_setup['early_stop']
         tol = fit_setup['tol']
-        fit_model(LDA_result, dens, X_train, residual, y, loss, tol, slowdown_factor, early_stop_trials)
+        fit_model(setup,LDA_result, dens, X_train, residual, y, loss, tol, slowdown_factor, early_stop_trials)
     #NN_model = fit_with_KerasNN(X_train * 1e6, residual * 1e6, loss, tol, slowdown_factor, early_stop_trials)
     #save_resulting_figure(dens,result.x,X_train,NN_model,y)
 
