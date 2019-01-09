@@ -415,7 +415,7 @@ if __name__ == "__main__":
 
 
     setup_filename = sys.argv[1]
-    dataset_setup_file = sys.argv[2]
+    dataset_setup_filename = sys.argv[2]
     dataset_name = sys.argv[3]
     fit_setup_filename = sys.argv[4]
     #training_data_filename = sys.argv[5]
