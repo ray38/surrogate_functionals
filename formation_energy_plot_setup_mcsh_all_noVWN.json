@@ -2,8 +2,8 @@
 
 	"MCSH0 0.0":{	"dataset": "epxc_LDA_real_real",
 			"model":"NN_LDA_residual_1M_100_2_relu", 
-			"filename":"predict_sae_45283220.7187_formation_log.log",
-			"model_filename":"NN_sae_45283220.7187_backup.h5"},
+			"filename":"predict_sae_45436396.5942_formation_log.log",
+			"model_filename":"NN_sae_45436396.5942_backup.h5"},
 
 	"MCSH0 0.02":{	"dataset": "epxc_MCSH_0_0-02_real_real",
 			"model":"NN_LDA_residual_1M_100_2_relu", 
