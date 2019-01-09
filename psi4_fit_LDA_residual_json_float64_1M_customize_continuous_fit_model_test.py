@@ -457,7 +457,7 @@ if __name__ == "__main__":
     if os.path.isdir(model_save_dir) == False:
         os.makedirs(model_save_dir)
 
-    os.chdir(working_dir)
+    os.chdir(data_dir)
     #residual,li_model = fit_with_Linear(dens,y)
 
     residual, LDA_result = fit_with_LDA(dens,y)
