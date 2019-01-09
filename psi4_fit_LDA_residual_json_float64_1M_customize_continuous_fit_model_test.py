@@ -424,6 +424,9 @@ if __name__ == "__main__":
     with open(setup_filename) as f:
         setup = json.load(f)
 
+    with open(dataset_setup_filename) as f:
+        dataset_setup = json.load(f)
+
     with open(fit_setup_filename) as f:
         fit_setup = json.load(f)
 
@@ -449,7 +452,7 @@ if __name__ == "__main__":
 
     
     
-    X_train,y, dens = get_training_data(dataset_name,setup)
+    X_train,y, dens = get_training_data(dataset_name,setup, dataset_setup)
    
     if os.path.isdir(model_save_dir) == False:
         os.makedirs(model_save_dir)
