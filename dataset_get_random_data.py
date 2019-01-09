@@ -94,7 +94,7 @@ def get_training_data(dataset_name,setup):
     
     temp = str(len(overall))
     with open(temp + "_random_data.p", 'wb') as handle:
-        pickle.dump(random_data, handle, protocol=2)
+        pickle.dump(overall, handle, protocol=2)
 
     return 
 
