@@ -476,8 +476,8 @@ if __name__ == "__main__":
     
     setup_filename = sys.argv[1]
     dataset_setup_filename = sys.argv[2]
-    dataset_name = sys.argv[3]
-    fit_setup_filename = sys.argv[4]
+    #dataset_name = sys.argv[3]
+    fit_setup_filename = sys.argv[3]
 
     dataset_list = [ "epxc_LDA_real_real","epxc_MCSH_0_0-02_real_real","epxc_MCSH_0_0-04_real_real","epxc_MCSH_0_0-08_real_real",\
     "epxc_MCSH_0_0-20_real_real","epxc_MCSH_1_0-02_real_real","epxc_MCSH_1_0-04_real_real","epxc_MCSH_1_0-08_real_real","epxc_MCSH_1_0-20_real_real",\
