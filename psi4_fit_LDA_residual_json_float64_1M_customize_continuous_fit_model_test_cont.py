@@ -129,7 +129,7 @@ def fit_with_KerasNN(setup, X, y, loss, tol, slowdown_factor, early_stop_trials)
     if est_epoch_time >= 2.:
         num_epoch = 1
     else:
-        num_epoch = 4#int(math.floor(2./est_epoch_time))
+        num_epoch = 3#int(math.floor(2./est_epoch_time))
     if restart == True:
         try:
             start_loss = get_start_loss(log_filename,loss)
