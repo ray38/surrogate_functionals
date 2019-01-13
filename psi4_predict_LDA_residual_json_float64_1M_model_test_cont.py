@@ -82,9 +82,6 @@ def test_KerasNN(X, y):
     log_filename = "NN_test_result.log"
     num_samples = len(y)
 
-    n_layers = setup["NN_setup"]["number_layers"]
-    n_per_layer = setup["NN_setup"]["number_neuron_per_layer"]
-    activation = setup["NN_setup"]["activation"]
 
 
     model = load_model(filename, custom_objects={'sae': sae})
