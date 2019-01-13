@@ -294,4 +294,4 @@ if __name__ == "__main__":
 
     for dataset_name in dataset_list:
         os.chdir(cwd)
-        process_dataset(setup_filename, dataset_setup_filename, dataset_name, fit_setup_filename)
+        process_dataset(setup_filename, dataset_setup_filename, dataset_name)
