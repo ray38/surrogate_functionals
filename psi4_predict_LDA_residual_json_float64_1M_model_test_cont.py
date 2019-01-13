@@ -95,7 +95,7 @@ def test_KerasNN(X, y):
 
     abs_error = np.sum(np.abs(y_predict - y_original)) *0.02 * 0.02 * 0.02 *27.2114
 
-    log(log_filename,"numbery: {}\t predicted_y: {}\t absolute_error: {}\t error:{}".format(num_samples, y_original_result, y_predict_result, error, abs_error))
+    log(log_filename,"number: {} \t y: {}\t predicted_y: {}\t absolute_error: {}\t error:{}".format(num_samples, y_original_result, y_predict_result, error, abs_error))
 
     return
 
