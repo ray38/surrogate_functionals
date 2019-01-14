@@ -406,7 +406,10 @@ def get_training_data(dataset_name,setup, dataset_setup):
 def fit_model(LDA_result, dens, X_train, residual, y, loss, tol, slowdown_factor, early_stop_trials):
 
     NN_model,loss_result = fit_with_KerasNN(X_train * 1e6, residual * 1e6, loss, tol, slowdown_factor, early_stop_trials)
-    save_resulting_figure(dens,LDA_result.x,X_train,NN_model,y,loss,loss_result)
+    try:
+        save_resulting_figure(dens,LDA_result.x,X_train,NN_model,y,loss,loss_result)
+    except:
+        pass
 
     return NN_model
 
