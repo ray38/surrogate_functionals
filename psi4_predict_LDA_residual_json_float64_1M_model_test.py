@@ -73,18 +73,12 @@ def get_start_loss(log_filename,loss):
 
 def test_KerasNN(X, y):
 
-    loss_list = ["mse","sae","mean_squared_error", "mean_absolute_error", "mean_absolute_percentage_error", "mean_squared_logarithmic_error", "squared_hinge", "hinge", "categorical_hinge", "logcosh", "categorical_crossentropy", "sparse_categorical_crossentropy", "binary_crossentropy", "kullback_leibler_divergence", "poisson", "cosine_proximity"]
-    if loss not in loss_list:
-        raise NotImplemented
+
 
 
     filename = "NN.h5"
     log_filename = "NN_test_result.log"
     num_samples = len(y)
-
-    n_layers = setup["NN_setup"]["number_layers"]
-    n_per_layer = setup["NN_setup"]["number_neuron_per_layer"]
-    activation = setup["NN_setup"]["activation"]
 
 
     model = load_model(filename, custom_objects={'sae': sae})
@@ -98,7 +92,7 @@ def test_KerasNN(X, y):
 
     abs_error = np.sum(np.abs(y_predict - y_original)) *0.02 * 0.02 * 0.02 *27.2114
 
-    log(log_filename,"numbery: {}\t predicted_y: {}\t absolute_error: {}\t error:{}".format(num_samples, y_original_result, y_predict_result, error, abs_error))
+    log(log_filename,"\nnumber: {} \t y: {}\t predicted_y: {}\t absolute_error: {}\t error:{}".format(num_samples, y_original_result, y_predict_result, error, abs_error))
 
     return
 
