@@ -129,7 +129,7 @@ def predict(n,LDA_x,X,NN_model,y):
     error = y - predict_y
 
 
-    return predict_y, error
+    return predict_y*0.02*0.02*0.02*27.2114, error*0.02*0.02*0.02*27.2114
 
 
 def predict_svwn(n,LDA_x,y):
@@ -141,7 +141,7 @@ def predict_svwn(n,LDA_x,y):
     error = y - predict_y
 
 
-    return predict_y, error
+    return predict_y *0.02*0.02*0.02*27.2114, error*0.02*0.02*0.02*27.2114
 
 def initialize(setup,key):
     os.chdir(setup[key]["model_save_dir"])
@@ -151,12 +151,12 @@ def initialize(setup,key):
     NN_model_name = str(setup[key]["model_filename"])
     #NN_model_name = "NN.h5"
 
-    #try:
-    print NN_model_name
-    print type(NN_model_name)
-    NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
-    #except:
-    #    NN_model = load_model(NN_model_name)
+    try:
+        print NN_model_name
+        print type(NN_model_name)
+        NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
+    except:
+        NN_model = load_model(NN_model_name)
 
 
     LDA_model = pickle.load(open("LDA_model.sav", 'rb'))
