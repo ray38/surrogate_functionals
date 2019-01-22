@@ -148,7 +148,7 @@ def initialize(setup,key):
     fit_log_name = "NN_fit_log.log"
     
     LDA_model_name = "LDA_model.sav"
-    NN_model_name = setup[key]["model_filename"]
+    NN_model_name = str(setup[key]["model_filename"])
     #NN_model_name = "NN.h5"
 
     #try:
