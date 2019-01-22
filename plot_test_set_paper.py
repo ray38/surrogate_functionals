@@ -186,7 +186,7 @@ def initialize_svwn(setup,key):
 
     LDA_model = pickle.load(open("LDA_model.sav", 'rb'))
 
-    setup["r-WN"]["LDA_model"] = LDA_model
+    setup["r-VWN"]["LDA_model"] = LDA_model
     setup["r-VWN"]["model"] = "refitted_SVWN"
     setup["r-VWN"]["dataset"] = "epxc_refitted_SVWN"
 
