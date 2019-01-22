@@ -151,10 +151,10 @@ def initialize(setup,key):
     NN_model_name = setup[key]["model_filename"]
     #NN_model_name = "NN.h5"
 
-    try:
-        NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
-    except:
-        NN_model = load_model(NN_model_name)
+    #try:
+    NN_model = load_model(NN_model_name, custom_objects={'sae': sae})
+    #except:
+    #    NN_model = load_model(NN_model_name)
 
 
     LDA_model = pickle.load(open("LDA_model.sav", 'rb'))
