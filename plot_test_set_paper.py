@@ -343,7 +343,7 @@ def plot_group_2(data,order):
                 temp = group[ (group['log(Density)'] >= interval[0]) & (group['log(Density)'] < interval[1])]
                 log_sum_error_result.append(temp['Error (eV/A$^3$)'].sum())
 
-            plt.plot(log_dens_interval_medians, log_sum_error_result,label=plotname,linewidth=5.0)
+            plt.plot(log_dens_interval_medians, log_sum_error_result,label=r"$NN[\bar \lambda^{(0)}_{0.0}]$",linewidth=5.0)
     #ax.fig.get_axes()[0].set_xscale('log')
     plt.legend(order,loc='upper left',fontsize=15)
     
