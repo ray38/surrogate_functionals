@@ -184,18 +184,18 @@ def initialize_svwn(setup,key):
 
     LDA_model = pickle.load(open("LDA_model.sav", 'rb'))
 
-    setup["refit VWN"]["LDA_model"] = LDA_model
-    setup["refit VWN"]["model"] = "refitted_SVWN"
-    setup["refit VWN"]["dataset"] = "epxc_refitted_SVWN"
+    setup["r-WN"]["LDA_model"] = LDA_model
+    setup["r-VWN"]["model"] = "refitted_SVWN"
+    setup["r-VWN"]["dataset"] = "epxc_refitted_SVWN"
 
     os.chdir(setup[key]["working_dir"])
 
     with open("test_data_to_plot_large.pickle", 'rb') as handle:
         test_data = pickle.load(handle)
 
-    setup["refit VWN"]["test_X"] = test_data[0]
-    setup["refit VWN"]["test_y"] = test_data[1]
-    setup["refit VWN"]["test_dens"] = test_data[2]
+    setup["r-VWN"]["test_X"] = test_data[0]
+    setup["r-VWN"]["test_y"] = test_data[1]
+    setup["r-VWN"]["test_dens"] = test_data[2]
 
     return
 
@@ -213,9 +213,9 @@ def process_one_model(setup,key):
 def process_svwn_model(setup,key):
     print "start: SVWN"
     initialize_svwn(setup,key)
-    temp_predict_y, temp_error = predict_svwn(setup["refit VWN"]["test_dens"],setup["refit VWN"]["LDA_model"].x,setup["refit VWN"]["test_y"])
-    setup["refit VWN"]["predict_y"] = temp_predict_y
-    setup["refit VWN"]["error"] = temp_error
+    temp_predict_y, temp_error = predict_svwn(setup["r-VWN"]["test_dens"],setup["r-VWN"]["LDA_model"].x,setup["r-VWN"]["test_y"])
+    setup["r-VWN"]["predict_y"] = temp_predict_y
+    setup["r-VWN"]["error"] = temp_error
     print "end: SVWN"
     return temp_predict_y, temp_error
 
@@ -325,7 +325,7 @@ def plot_group_2(data,order):
     print current_palette
     sns.set_palette(current_palette)
     for name, group in groups:
-        if name == "refit VWN":
+        if name == "r-VWN":
             log_sum_error_result = []
             for count, interval in enumerate(log_dens_intervals):
                 temp = group[ (group['log(Density)'] >= interval[0]) & (group['log(Density)'] < interval[1])]
@@ -333,7 +333,7 @@ def plot_group_2(data,order):
 
             plt.plot(log_dens_interval_medians, log_sum_error_result,label=name,linewidth=5.0)
     for name, group in groups:
-        if name != "refit VWN":
+        if name != "r-VWN":
             log_sum_error_result = []
             for count, interval in enumerate(log_dens_intervals):
                 temp = group[ (group['log(Density)'] >= interval[0]) & (group['log(Density)'] < interval[1])]
@@ -416,7 +416,7 @@ if __name__ == "__main__":
             os.chdir(main_dir)
             process_one_model(setup,key)
         os.chdir(main_dir)
-        setup["refit VWN"] = {}
+        setup["r-VWN"] = {}
         try:
             process_svwn_model(setup,"NN [LDA]")
         except:
