@@ -334,12 +334,14 @@ def plot_group_2(data,order):
             plt.plot(log_dens_interval_medians, log_sum_error_result,label=name,linewidth=5.0)
     for name, group in groups:
         if name != "r-VWN":
+            if name == "NN [LDA]":
+                plotname = r"$NN[\bar \lambda^{(0)}_{0.0}]$"
             log_sum_error_result = []
             for count, interval in enumerate(log_dens_intervals):
                 temp = group[ (group['log(Density)'] >= interval[0]) & (group['log(Density)'] < interval[1])]
                 log_sum_error_result.append(temp['Error (eV/A$^3$)'].sum())
 
-            plt.plot(log_dens_interval_medians, log_sum_error_result,label=name,linewidth=5.0)
+            plt.plot(log_dens_interval_medians, log_sum_error_result,label=plotname,linewidth=5.0)
     #ax.fig.get_axes()[0].set_xscale('log')
     plt.legend(order,loc='upper left',fontsize=15)
     

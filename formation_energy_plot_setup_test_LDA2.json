@@ -1,22 +1,8 @@
 {
-	"SVWN": {	"dataset": "epxc_SVWN",
-			"model":"model", 
-			"filename":"SVWN_formation_energy.log",
-			"model_filename":"test_model.sav"},
 
-
-	"PBE": {	"dataset": "epxc_PBE",
-			"model":"model", 
-			"filename":"PBE_formation_energy.log",
-			"model_filename":"test_model.sav"},
-
-	"refit VWN":{	"dataset": "epxc_refitted_SVWN",
-			"model":"Model1", 
-			"filename":"predict_LDA_formation_log.log",
-			"model_filename":"LDA_model.sav"},
-
-	"NN [LDA]":{	"dataset": "epxc_LDA_real_real",
+	"MCSH0 0.0":{	"dataset": "epxc_LDA_real_real",
 			"model":"NN_LDA_residual_1M_100_2_relu", 
 			"filename":"predict_sae_45436396.5942_formation_log.log",
 			"model_filename":"NN_sae_45436396.5942_backup.h5"}
+
 }
