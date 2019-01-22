@@ -421,10 +421,10 @@ if __name__ == "__main__":
             process_one_model(setup,key)
         os.chdir(main_dir)
         setup["r-VWN"] = {}
-        try:
-            process_svwn_model(setup,"NN [LDA]")
-        except:
-            process_svwn_model(setup,"Ave. Dens. 0.0")
+        #try:
+        process_svwn_model(setup,"NN [LDA]")
+        #except:
+        #    process_svwn_model(setup,"Ave. Dens. 0.0")
         os.chdir(main_dir)
 
         data = create_df(setup)
