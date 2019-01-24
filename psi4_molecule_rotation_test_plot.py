@@ -91,10 +91,10 @@ if __name__ == "__main__":
     if choice == 1:
         plot_quantity = str(sys.argv[3])
         if plot_quantity == "original":
-            quantity_list = ["Gamma","Gradient","exc", "tau"]
+            property_list = ["Gamma","Gradient","exc", "tau"]
         if plot_quantity == "MCSH":
             r = float(sys.argv[4])
-            quantity_list = ["MCSH 0,1 {}".format(r), "MCSH 1,1 {}".format(r), "MCSH 2,1 {}".format(r), "MCSH 2,2 {}".format(r), "MCSH 3,1 {}".format(r), "MCSH 3,2 {}".format(r), "MCSH 3,3 {}".format(r)]
+            property_list = ["MCSH 0,1 {}".format(r), "MCSH 1,1 {}".format(r), "MCSH 2,1 {}".format(r), "MCSH 2,2 {}".format(r), "MCSH 3,1 {}".format(r), "MCSH 3,2 {}".format(r), "MCSH 3,3 {}".format(r)]
         plot_result1(d,property_list)
     
 
