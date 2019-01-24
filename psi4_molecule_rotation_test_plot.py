@@ -43,6 +43,25 @@ def plot_result(data):
 
     return
 
+def plot_result1(d,property_list):
+    data = d[d.Property.isin(property_list)]
+    plt.figure()
+        
+    sns.set(style="whitegrid", palette="pastel", color_codes=True)
+
+    #ax = sns.violinplot(x = "Molecule",y="Value",row="Type", col="Property",data=data)
+    
+    ax = sns.factorplot(x = "Molecule",y="Value",row="Type", col="Property",data=data, kind="violin", split=True,sharey = False, size = 6, aspect = 1.5)
+
+    plt.tight_layout()
+    plt.savefig("Molecule_rotational_invariance_test1.png")
+    plt.cla()
+    plt.close()
+
+
+
+    return
+
 def plot_result2(data):
     plt.figure()
         
@@ -67,11 +86,20 @@ if __name__ == "__main__":
 
     data_filename = sys.argv[1]
     choice = int(sys.argv[2])
-
-    data = pd.read_pickle(data_filename)
+    d = pd.read_pickle(data_filename)
 
     if choice == 1:
-    	plot_result(data)
+        plot_quantity = str(sys.argv[3])
+        if plot_quantity = "original":
+            quantity_list = []
+        if plot_quantity = "MCSH":
+            r = float(sys.argv[4])
+            quantity_list = ["MCSH 0,1 {}".format(r), "MCSH 1,1 {}".format(r), "MCSH 2,1 {}".format(r), "MCSH 2,2 {}".format(r), "MCSH 3,1 {}".format(r), "MCSH 3,2 {}".format(r), "MCSH 3,3 {}".format(r)]
+        plot_result1(d,property_list)
+    
+
+    #if choice == 1:
+    #	plot_result(data)
 
     elif choice ==2:
-    	plot_result2(data)
+    	plot_result2(d)
