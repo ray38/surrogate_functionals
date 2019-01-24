@@ -44,7 +44,12 @@ def plot_result(data):
     return
 
 def plot_result1(d,property_list):
-    data = d[d.Property.isin(property_list)]
+    if property_list == []:
+        data = d
+    else:
+        print property_list
+        data = d[d.Property.isin(property_list)]
+    print data
     plt.figure()
         
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
@@ -95,6 +100,8 @@ if __name__ == "__main__":
         if plot_quantity == "MCSH":
             r = float(sys.argv[4])
             property_list = ["MCSH 0,1 {}".format(r), "MCSH 1,1 {}".format(r), "MCSH 2,1 {}".format(r), "MCSH 2,2 {}".format(r), "MCSH 3,1 {}".format(r), "MCSH 3,2 {}".format(r), "MCSH 3,3 {}".format(r)]
+        if plot_quantity == "all":
+            property_list = []
         plot_result1(d,property_list)
     
 
