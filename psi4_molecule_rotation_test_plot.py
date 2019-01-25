@@ -59,7 +59,7 @@ def plot_result1(d,property_list):
     
     ax = sns.factorplot(x = "Molecule",y="Value",row="Type", col="Property",data=data, kind="violin", split=True,sharey = False, size = 6, aspect = 1.5)
 
-    plt.tight_layout()
+    #plt.tight_layout()
     plt.savefig("Molecule_rotational_invariance_test1.png")
     plt.cla()
     plt.close()
