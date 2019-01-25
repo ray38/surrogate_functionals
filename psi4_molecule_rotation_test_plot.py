@@ -53,7 +53,7 @@ def plot_result1(d,property_list):
     plt.figure()
         
     sns.set(style="whitegrid", palette="pastel", color_codes=True)
-    sns.set(font_scale=2)
+    sns.set(font_scale=1.5)
 
     #ax = sns.violinplot(x = "Molecule",y="Value",row="Type", col="Property",data=data)
     
