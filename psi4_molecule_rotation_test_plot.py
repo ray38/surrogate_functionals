@@ -58,8 +58,7 @@ def plot_result1(d,property_list):
     #ax = sns.violinplot(x = "Molecule",y="Value",row="Type", col="Property",data=data)
     
     ax = sns.factorplot(x = "Molecule",y="Value",row="Type", col="Property",data=data, kind="violin", split=True,sharey = False, size = 6, aspect = 1.5)
-    #plt.set_xticklabels(rotation=‌​45)
-    #plt.ticklabel_format(style='plain', axis='y')
+    plt.ticklabel_format(style='plain', axis='y')
     plt.tight_layout()
     plt.savefig("Molecule_rotational_invariance_test1.png")
     plt.cla()
