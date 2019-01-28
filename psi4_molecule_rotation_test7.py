@@ -529,7 +529,7 @@ if __name__ == "__main__":
             counter +=1
             print theta1, theta2, theta3
             temp_coordinate = transform_coord_mat(np.transpose(copy.deepcopy(original_coordinates)),theta1,theta2,theta3, x0,y0,z0)
-
+            print temp_coordinate
             temp_molecule = {}
             temp_molecule["atoms"] = original_molecule["atoms"]
             temp_molecule["symmetry"] = original_molecule["symmetry"]
