@@ -533,6 +533,7 @@ if __name__ == "__main__":
             log("log.log","\n{}\t{}\t{}".format(theta1, theta2, theta3)) 
             temp_coordinate = transform_coord_mat(np.transpose(copy.deepcopy(original_coordinates)),theta1,theta2,theta3, x0,y0,z0)
             print temp_coordinate
+            log("log.log","\n{}".format(temp_coordinate)) 
             temp_molecule = {}
             temp_molecule["atoms"] = original_molecule["atoms"]
             temp_molecule["symmetry"] = original_molecule["symmetry"]
@@ -561,7 +562,7 @@ if __name__ == "__main__":
 
         temp_truth = np.mean(np.asarray(result_list), axis=0)
         #print temp_truth
-        log("log.log",str(temp_truth)) 
+        log("log.log","\n{}".format(temp_truth)) 
 
         for temp_result in result_list:
             
