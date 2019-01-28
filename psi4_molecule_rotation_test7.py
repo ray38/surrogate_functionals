@@ -526,7 +526,7 @@ if __name__ == "__main__":
         result_list = []
 
         for theta1, theta2, theta3 in paramlist:
-            
+            counter +=1
             print theta1, theta2, theta3
             temp_coordinate = transform_coord_mat(np.transpose(copy.deepcopy(original_coordinates)),theta1,theta2,theta3, x0,y0,z0)
 
@@ -538,12 +538,28 @@ if __name__ == "__main__":
             temp_molecule_setup = read_json_data(temp_molecule)
             temp_result = process_system(temp_molecule_setup,molecule_name,xc,h,L,N, convolution_property_stencils)
 
+            for i in range(12 + (len(convolution_properties)*3)):
+
+                theta1_list.append(theta1)
+                theta2_list.append(theta2)
+                theta3_list.append(theta3)
+
+                x0_list.append(x0)
+                y0_list.append(y0)
+                z0_list.append(z0)
+
+                molecule_name_list.append(molecule_name)
+
+                counter_list.append(counter)
+
+                origin_counter_list.append(origin_counter)
+
             result_list.append(temp_result)
 
         temp_truth = np.mean(np.asarray(result_list), axis=0)
 
         for temp_result in result_list:
-            counter +=1
+            
             temp_error = temp_result - temp_truth
             temp_temp_percent_error = (temp_error/temp_truth)*100.0
             temp_percent_error = np.zeros_like(temp_temp_percent_error)
@@ -629,21 +645,7 @@ if __name__ == "__main__":
 
 
 
-            for i in range(12 + (len(convolution_properties)*3)):
-
-                theta1_list.append(theta1)
-                theta2_list.append(theta2)
-                theta3_list.append(theta3)
-
-                x0_list.append(x0)
-                y0_list.append(y0)
-                z0_list.append(z0)
-
-                molecule_name_list.append(molecule_name)
-
-                counter_list.append(counter)
-
-                origin_counter_list.append(origin_counter)
+            
 
 
 
