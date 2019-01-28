@@ -308,7 +308,7 @@ def process_system(molecule, molecule_name, xc, h, cell, convolution_property_st
     z_inc = Lz
 
 
-    result = process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e, convolution_property_stencils, x0, y0, z0)
+    result = process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,0,0,0 ,dv,scf_wfn,scf_e, convolution_property_stencils, x0, y0, z0)
 
     
     #os.chdir(cwd) 
