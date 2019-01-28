@@ -403,7 +403,8 @@ if __name__ == "__main__":
     convolution_properties = []
     convolution_property_stencils = []
 
-    r_list = [0.06, 0.1, 0.14]
+    #r_list = [0.06, 0.1, 0.14]
+    r_list = [0.1]
 
     for r in r_list:
 
@@ -494,7 +495,7 @@ if __name__ == "__main__":
 
     #temp_x0_list = np.linspace(-0.4, 0.4, num_grid)
     #temp_y0_list = np.linspace(-0.4, 0.4, num_grid)
-    temp_x0_list = [0.0]
+    temp_x0_list = [0.02]
     temp_y0_list = [0.0]
     temp_z0_list = np.linspace(-0.5, 0.5, num_grid)
     origin_list = list(itertools.product(temp_x0_list,temp_y0_list,temp_z0_list))
@@ -541,6 +542,7 @@ if __name__ == "__main__":
 
             temp_molecule_setup = read_json_data(temp_molecule)
             temp_result = process_system(temp_molecule_setup,molecule_name,xc,h,L,N, convolution_property_stencils)
+            log("log.log","\n{}".format(temp_result)) 
 
             for i in range(12 + (len(convolution_properties)*3)):
 
