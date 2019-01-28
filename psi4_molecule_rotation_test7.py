@@ -180,15 +180,15 @@ def process_one_section(x,y,z,w,x_start,x_end,y_start,y_end,z_start,z_end,out_sh
 
     return output
     
-def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e, convolution_property_stencils, x0, y0, z0):
+def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e, convolution_property_stencils):
 
-    x_start = X0 + float(i) * x_inc - x0
-    y_start = Y0 + float(j) * y_inc - y0
-    z_start = Z0 + float(k) * z_inc - z0
+    x_start = X0 + float(i) * x_inc 
+    y_start = Y0 + float(j) * y_inc 
+    z_start = Z0 + float(k) * z_inc 
     
-    x_end = x_start + x_inc - hx - x0
-    y_end = y_start + y_inc - hy - y0
-    z_end = z_start + z_inc - hz - z0
+    x_end = x_start + x_inc - hx 
+    y_end = y_start + y_inc - hy 
+    z_end = z_start + z_inc - hz 
     
     print "\n x: {}:{} \t {}:{} \t {}:{}".format(x_start,x_end,y_start,y_end,z_start,z_end)
     
@@ -264,7 +264,7 @@ def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e, convolu
     return np.asarray(result)
 
     
-def process_system(molecule, molecule_name, xc, h, cell, convolution_property_stencils, x0, y0, z0,psi4_options=None):
+def process_system(molecule, molecule_name, xc, h, cell, convolution_property_stencils,psi4_options=None):
     cwd = os.getcwd()
     
     if psi4_options == None:
@@ -308,7 +308,7 @@ def process_system(molecule, molecule_name, xc, h, cell, convolution_property_st
     z_inc = Lz
 
 
-    result = process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,0,0,0 ,dv,scf_wfn,scf_e, convolution_property_stencils, x0, y0, z0)
+    result = process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,0,0,0 ,dv,scf_wfn,scf_e, convolution_property_stencils)
 
     
     #os.chdir(cwd) 
@@ -326,7 +326,8 @@ def read_json_data(data):
     for i in range(len(data['atoms'])):
         temp = '{}\t{}\t{}\t{}\n'.format(data['atoms'][i], data['coordinates'][i][0],data['coordinates'][i][1],data['coordinates'][i][2])
         result += temp
-    result += '\t symmetry {}'.format(data['symmetry'])
+    result += '\t symmetry {}\n'.format(data['symmetry'])
+    result += '\t nocom'
     return psi4.geometry(result)
 
 
@@ -522,7 +523,7 @@ if __name__ == "__main__":
         for theta1, theta2, theta3 in paramlist:
             counter +=1
             log("log.log","\n{}\t{}\t{}".format(theta1, theta2, theta3)) 
-            temp_coordinate = transform_coord_mat(np.transpose(copy.deepcopy(original_coordinates)),theta1,theta2,theta3, 0,0,0)
+            temp_coordinate = transform_coord_mat(np.transpose(copy.deepcopy(original_coordinates)),theta1,theta2,theta3, x0, y0, z0)
             print temp_coordinate
             log("log.log","\n{}".format(temp_coordinate)) 
             temp_molecule = {}
@@ -531,7 +532,7 @@ if __name__ == "__main__":
             temp_molecule["coordinates"] = temp_coordinate
 
             temp_molecule_setup = read_json_data(temp_molecule)
-            temp_result = process_system(temp_molecule_setup,molecule_name,xc,h,L,convolution_property_stencils, x0, y0, z0)
+            temp_result = process_system(temp_molecule_setup,molecule_name,xc,h,L,convolution_property_stencils)
             log("log.log","\n{}".format(temp_result)) 
 
             for i in range(12 + (len(convolution_properties)*3)):
