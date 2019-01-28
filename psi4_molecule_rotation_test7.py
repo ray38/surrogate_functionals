@@ -557,6 +557,7 @@ if __name__ == "__main__":
             result_list.append(temp_result)
 
         temp_truth = np.mean(np.asarray(result_list), axis=0)
+        print temp_truth
 
         for temp_result in result_list:
             
