@@ -93,7 +93,7 @@ def remap(in_vector, map_array, out_shape):
     return in_vector
     
 
-def process_one_section(x,y,z,w,out_shape,scf_wfn,scf_e):
+def process_one_section(x,y,z,w,x_start,x_end,y_start,y_end,z_start,z_end,out_shape,scf_wfn,scf_e):
         
     # Get DFT density
     C = np.array(scf_wfn.Ca_subset("AO", "OCC"))
@@ -206,7 +206,7 @@ def process(X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e, convolu
     w = np.ones_like(z)*dv
     
     temp_filename =  '{}_{}_{}_{}_{}.hdf5'.format(molecule_name,xc,i,j,k)
-    temp_out = process_one_section(x,y,z,w,out_shape,scf_wfn,scf_e)
+    temp_out = process_one_section(x,y,z,w,x_start,x_end,y_start,y_end,z_start,z_end,out_shape,scf_wfn,scf_e)
 
 
 
