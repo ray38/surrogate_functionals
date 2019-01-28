@@ -15,12 +15,12 @@ try: import cPickle as pickle
 except: import pickle
 import itertools
 
-import matplotlib
+#import matplotlib
 #matplotlib.use('Agg') 
-import matplotlib.cm as cm
-from mpl_toolkits.mplot3d import Axes3D
-import mpl_toolkits.mplot3d.axes3d as p3
-import matplotlib.pyplot as plt
+#import matplotlib.cm as cm
+#from mpl_toolkits.mplot3d import Axes3D
+#import mpl_toolkits.mplot3d.axes3d as p3
+#import matplotlib.pyplot as plt
 
 '''
 Differenciations
@@ -837,11 +837,11 @@ def plot_stencil(stencil, min_max_matrix):
     z_temp = z.flatten()
 
 
-    fig = plt.figure()
-    cmap = plt.get_cmap("bwr")
-    ax = fig.add_subplot(111, projection='3d')
-    ax.scatter(x_temp, y_temp, z_temp, c=n, cmap=cmap,linewidths=0,s=10.0)
-    plt.show()
+    #fig = plt.figure()
+    #cmap = plt.get_cmap("bwr")
+    #ax = fig.add_subplot(111, projection='3d')
+    #ax.scatter(x_temp, y_temp, z_temp, c=n, cmap=cmap,linewidths=0,s=10.0)
+    #plt.show()
 
     return
 
@@ -1259,4 +1259,4 @@ if __name__ == "__main__":
 
     min_max_matrix = get_min_max_matrix(dim_x, dim_y, dim_z, h, h, h)
 
-    plot_stencil(stencil_Re_1, min_max_matrix)
+    #plot_stencil(stencil_Re_1, min_max_matrix)
