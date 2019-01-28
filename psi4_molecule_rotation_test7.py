@@ -527,7 +527,7 @@ if __name__ == "__main__":
 
         for theta1, theta2, theta3 in paramlist:
             
-
+            print theta1, theta2, theta3
             temp_coordinate = transform_coord_mat(np.transpose(copy.deepcopy(original_coordinates)),theta1,theta2,theta3, x0,y0,z0)
 
             temp_molecule = {}
