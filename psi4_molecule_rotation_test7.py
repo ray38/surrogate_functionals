@@ -18,16 +18,16 @@ import multiprocessing
 import json
 import itertools
 import pandas as pd
-import seaborn as sns
+#import seaborn as sns
 import copy
 
-import matplotlib
+#import matplotlib
 #matplotlib.use('agg')
-matplotlib.pyplot.switch_backend('agg')
-import matplotlib.cm as cm
-from mpl_toolkits.mplot3d import Axes3D
-import mpl_toolkits.mplot3d.axes3d as p3
-import matplotlib.pyplot as plt
+#matplotlib.pyplot.switch_backend('agg')
+#import matplotlib.cm as cm
+#from mpl_toolkits.mplot3d import Axes3D
+#import mpl_toolkits.mplot3d.axes3d as p3
+#import matplotlib.pyplot as plt
 
 from convolutions import get_differenciation_conv, get_integration_stencil,get_auto_accuracy,get_fftconv_with_known_stencil_no_wrap,get_asym_integration_stencil,get_asym_integration_fftconv,get_asym_integral_fftconv_with_known_stencil
 from convolutions import get_first_grad_stencil, get_second_grad_stencil, get_third_grad_stencil, get_MC_surface_harmonic_fftconv, calc_MC_surface_harmonic_stencil
