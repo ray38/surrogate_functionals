@@ -393,8 +393,8 @@ if __name__ == "__main__":
     convolution_properties = []
     convolution_property_stencils = []
 
-    #r_list = [0.06, 0.1, 0.14]
-    r_list = [0.1]
+    r_list = [0.06, 0.1, 0.14]
+    #r_list = [0.1]
 
     for r in r_list:
 
