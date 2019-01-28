@@ -32,6 +32,10 @@ import matplotlib.pyplot as plt
 from convolutions import get_differenciation_conv, get_integration_stencil,get_auto_accuracy,get_fftconv_with_known_stencil_no_wrap,get_asym_integration_stencil,get_asym_integration_fftconv,get_asym_integral_fftconv_with_known_stencil
 from convolutions import get_first_grad_stencil, get_second_grad_stencil, get_third_grad_stencil, get_MC_surface_harmonic_fftconv, calc_MC_surface_harmonic_stencil
 
+def log(log_filename, text):
+    with open(log_filename, "a") as myfile:
+        myfile.write(text)
+    return
 
 def generate_3d2(x1, x2, x3):
 
@@ -433,28 +437,27 @@ if __name__ == "__main__":
         convolution_property_stencils.append(["MC_surface_harmonic",[stencil_Re_2_2,stencil_Re_2_3,stencil_Re_2_5]])
         convolution_properties.append("MCSH {},{} {}".format(2,2,r))
 
-    for r in r_list:
+#    for r in r_list:
+
+#        stencil_Re_3_2, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 2, accuracy = 6)
+#        stencil_Re_3_3, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 3, accuracy = 6)
+#        stencil_Re_3_4, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 4, accuracy = 6)
+#        stencil_Re_3_6, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 6, accuracy = 6)
+#        stencil_Re_3_8, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 8, accuracy = 6)
+#        stencil_Re_3_9, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 9, accuracy = 6)
+#        convolution_property_stencils.append(["MC_surface_harmonic",[stencil_Re_3_2,stencil_Re_3_3,stencil_Re_3_4,stencil_Re_3_6,stencil_Re_3_8,stencil_Re_3_9]])
+#        convolution_properties.append("MCSH {},{} {}".format(3,1,r))
+#
+#        stencil_Re_3_1, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 1, accuracy = 6)
+#        stencil_Re_3_7, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 7, accuracy = 6)
+#        stencil_Re_3_10, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 10, accuracy = 6)
+#        convolution_property_stencils.append(["MC_surface_harmonic",[stencil_Re_3_1,stencil_Re_3_7,stencil_Re_3_10]])
+#        convolution_properties.append("MCSH {},{} {}".format(3,2,r))
 
 
-        stencil_Re_3_2, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 2, accuracy = 6)
-        stencil_Re_3_3, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 3, accuracy = 6)
-        stencil_Re_3_4, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 4, accuracy = 6)
-        stencil_Re_3_6, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 6, accuracy = 6)
-        stencil_Re_3_8, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 8, accuracy = 6)
-        stencil_Re_3_9, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 9, accuracy = 6)
-        convolution_property_stencils.append(["MC_surface_harmonic",[stencil_Re_3_2,stencil_Re_3_3,stencil_Re_3_4,stencil_Re_3_6,stencil_Re_3_8,stencil_Re_3_9]])
-        convolution_properties.append("MCSH {},{} {}".format(3,1,r))
-
-        stencil_Re_3_1, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 1, accuracy = 6)
-        stencil_Re_3_7, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 7, accuracy = 6)
-        stencil_Re_3_10, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 10, accuracy = 6)
-        convolution_property_stencils.append(["MC_surface_harmonic",[stencil_Re_3_1,stencil_Re_3_7,stencil_Re_3_10]])
-        convolution_properties.append("MCSH {},{} {}".format(3,2,r))
-
-
-        stencil_Re_3_5, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 5, accuracy = 6)
-        convolution_property_stencils.append(["MC_surface_harmonic",[stencil_Re_3_5]])
-        convolution_properties.append("MCSH {},{} {}".format(3,3,r))
+#        stencil_Re_3_5, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 5, accuracy = 6)
+#        convolution_property_stencils.append(["MC_surface_harmonic",[stencil_Re_3_5]])
+#        convolution_properties.append("MCSH {},{} {}".format(3,3,r))
 
 
 
@@ -527,7 +530,7 @@ if __name__ == "__main__":
 
         for theta1, theta2, theta3 in paramlist:
             counter +=1
-            print theta1, theta2, theta3
+            log("log.log","\n{}\t{}\t{}".format(theta1, theta2, theta3)) 
             temp_coordinate = transform_coord_mat(np.transpose(copy.deepcopy(original_coordinates)),theta1,theta2,theta3, x0,y0,z0)
             print temp_coordinate
             temp_molecule = {}
@@ -557,7 +560,8 @@ if __name__ == "__main__":
             result_list.append(temp_result)
 
         temp_truth = np.mean(np.asarray(result_list), axis=0)
-        print temp_truth
+        #print temp_truth
+        log("log.log",str(temp_truth)) 
 
         for temp_result in result_list:
             
