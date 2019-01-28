@@ -394,8 +394,8 @@ if __name__ == "__main__":
     convolution_properties = []
     convolution_property_stencils = []
 
-    #r_list = [0.06, 0.1, 0.14]
-    r_list = [0.1]
+    r_list = [0.06, 0.1, 0.14]
+    #r_list = [0.1]
 
     for r in r_list:
 
@@ -413,7 +413,43 @@ if __name__ == "__main__":
         convolution_properties.append("MCSH {},{} {}".format(1,1,r))
 
 
+    for r in r_list:
 
+
+        stencil_Re_2_1, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 2, 1, accuracy = 6)
+        stencil_Re_2_4, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 2, 4, accuracy = 6)
+        stencil_Re_2_6, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 2, 6, accuracy = 6)
+        convolution_property_stencils.append(["MC_surface_harmonic",[stencil_Re_2_1,stencil_Re_2_4,stencil_Re_2_6]])
+        convolution_properties.append("MCSH {},{} {}".format(2,1,r))
+
+
+        stencil_Re_2_2, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 2, 2, accuracy = 6)
+        stencil_Re_2_3, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 2, 3, accuracy = 6)
+        stencil_Re_2_5, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 2, 5, accuracy = 6)
+        convolution_property_stencils.append(["MC_surface_harmonic",[stencil_Re_2_2,stencil_Re_2_3,stencil_Re_2_5]])
+        convolution_properties.append("MCSH {},{} {}".format(2,2,r))
+
+    for r in r_list:
+
+        stencil_Re_3_2, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 2, accuracy = 6)
+        stencil_Re_3_3, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 3, accuracy = 6)
+        stencil_Re_3_4, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 4, accuracy = 6)
+        stencil_Re_3_6, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 6, accuracy = 6)
+        stencil_Re_3_8, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 8, accuracy = 6)
+        stencil_Re_3_9, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 9, accuracy = 6)
+        convolution_property_stencils.append(["MC_surface_harmonic",[stencil_Re_3_2,stencil_Re_3_3,stencil_Re_3_4,stencil_Re_3_6,stencil_Re_3_8,stencil_Re_3_9]])
+        convolution_properties.append("MCSH {},{} {}".format(3,1,r))
+
+        stencil_Re_3_1, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 1, accuracy = 6)
+        stencil_Re_3_7, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 7, accuracy = 6)
+        stencil_Re_3_10, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 10, accuracy = 6)
+        convolution_property_stencils.append(["MC_surface_harmonic",[stencil_Re_3_1,stencil_Re_3_7,stencil_Re_3_10]])
+        convolution_properties.append("MCSH {},{} {}".format(3,2,r))
+
+
+        stencil_Re_3_5, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 5, accuracy = 6)
+        convolution_property_stencils.append(["MC_surface_harmonic",[stencil_Re_3_5]])
+        convolution_properties.append("MCSH {},{} {}".format(3,3,r))
 
 
 
