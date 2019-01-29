@@ -407,8 +407,8 @@ if __name__ == "__main__":
     for r in r_list:
 
         stencil_Re_1_1, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 1, 1, accuracy = 6)
-        stencil_Re_1_2, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 1, 1, accuracy = 6)
-        stencil_Re_1_3, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 1, 1, accuracy = 6)
+        stencil_Re_1_2, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 1, 2, accuracy = 6)
+        stencil_Re_1_3, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 1, 3, accuracy = 6)
         convolution_property_stencils.append(["MC_surface_harmonic",[stencil_Re_1_1,stencil_Re_1_2,stencil_Re_1_3]])
         convolution_properties.append("MCSH {},{} {}".format(1,1,r))
 
