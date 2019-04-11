@@ -36,14 +36,16 @@ import matplotlib.pyplot as plt
 from subsampling import subsampling_system,random_subsampling,subsampling_system_with_PCA
 import keras.backend as K
 
-from sklearn.decomposition import RandomizedPCA, PCA
+#from sklearn.decomposition import RandomizedPCA, PCA
+from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
 
 
 def fit_pca(data,filename):
     print "start fitting pca"
-    pca = RandomizedPCA()
+#    pca = RandomizedPCA()
+    pca = PCA(svd_solver='randomized')
     X_pca = pca.fit_transform(data)
     pickle.dump(pca, open(filename, 'wb'))
     return pca
