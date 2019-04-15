@@ -140,8 +140,9 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
     print model.summary()
     print model.get_config()
     
+    history_callback_kickoff = model.fit(X, y, nb_epoch=1, batch_size=100000, shuffle=True)
     est_start = time.time()
-    history_callback = model.fit(X, y, nb_epoch=1, batch_size=50000)
+    history_callback = model.fit(X, y, nb_epoch=1, batch_size=100000)
     est_epoch_time = time.time()-est_start
     if est_epoch_time >= 30.:
         num_epoch = 1
@@ -168,7 +169,7 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
     while keep_going:
         count_epochs += 1
         print count_epochs
-        history_callback = model.fit(X, y, nb_epoch=num_epoch, batch_size=50000, shuffle=True)
+        history_callback = model.fit(X, y, nb_epoch=num_epoch, batch_size=100000, shuffle=True)
         loss_history = history_callback.history["loss"]
         new_loss = np.array(loss_history)[-1]
         write(temp_check_filename, "\n updated best: "+ str(new_loss) + " \t epochs since last update: " + str(count_epochs) + " \t loss: " + loss + "\t num_samples: " + str(num_samples))
@@ -411,10 +412,10 @@ def get_training_data(dataset_name,setup):
     return X_train, y_train, dens
 
 
-def fit_model(dens, X_train, residual, loss, tol, slowdown_factor, early_stop_trials):
+def fit_model(dens, X_train, y, residual, loss, tol, slowdown_factor, early_stop_trials):
 
     NN_model,loss_result = fit_with_KerasNN(X_train * 1e6, residual * 1e6, loss, tol, slowdown_factor, early_stop_trials)
-    save_resulting_figure(dens,X_train,NN_model,y,loss,loss_result)
+    save_resulting_figure(dens,X_train,NN_model,residual,loss,loss_result)
 
     return NN_model
 
@@ -501,7 +502,7 @@ if __name__ == "__main__":
         slowdown_factor = fit_setup['slowdown']
         early_stop_trials = fit_setup['early_stop']
         tol = fit_setup['tol']
-        fit_model(dens, X_train, y-y_linear, loss, tol, slowdown_factor, early_stop_trials*2)
+        fit_model(dens, X_train, y, y-y_linear, loss, tol, slowdown_factor, early_stop_trials)
 
 
 
