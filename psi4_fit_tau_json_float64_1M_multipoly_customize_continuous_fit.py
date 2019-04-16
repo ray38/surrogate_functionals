@@ -41,6 +41,16 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
 
+from sklearn.linear_model import Ridge
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.pipeline import make_pipeline
+
+
+def fit_poly_model(X,y,degree,filename):
+    poly_model = make_pipeline(PolynomialFeatures(degree), Ridge())
+    poly_model.fit(X, y)
+    pickle.dump(poly_model, open(filename, 'wb'))
+    return poly_model
 
 def fit_pca(data,filename):
     print "start fitting pca"
@@ -426,7 +436,7 @@ if __name__ == "__main__":
     setup_filename = sys.argv[1]
     dataset_name = sys.argv[2]
     fit_setup_filename = sys.argv[3]
-    PC_component = int(sys.argv[4])
+    polynomial_order = int(sys.argv[4])
 
     with open(setup_filename) as f:
         setup = json.load(f)
@@ -446,7 +456,7 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "NN_1M_{}_{}_{}_multilinear_PCA_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"],PC_component)
+    model_save_dir = working_dir + "/" + "NN_1M_{}_{}_{}_multipoly_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"],polynomial_order)
    
     setup["model_save_dir"] = model_save_dir
 
@@ -460,36 +470,26 @@ if __name__ == "__main__":
     os.chdir(working_dir)
 
     stdandard_scaler_filename = "standard_scaler.sav"
-    PCA_model_filename = "PCA.sav"
-    linear_model_filename = "linear.sav"
+    poly_model_filename = "poly_{}_model.sav".format(polynomial_order)
 
     try:
         standard_scaler = pickle.load(open(stdandard_scaler_filename, 'rb'))
         X_train = standard_scaler.transform(X_train)
         try:
-            linear_model = pickle.load(open(linear_model_filename, 'rb'))
-            y_linear = linear_model.predict(X_train)
+            poly_model = pickle.load(open(poly_model_filename, 'rb'))
+            y_poly = poly_model.predict(X_train)
         except:
-            linear_model = LinearRegression().fit(X_train, y)
-            pickle.dump(linear_model, open(linear_model_filename, 'wb'))
-            y_linear = linear_model.predict(X_train)
+            poly_model = fit_poly_model(X_train,y,polynomial_order,poly_model_filename)
+            y_poly = poly_model.predict(X_train)
 
-        try:
-            PCA_model = pickle.load(open(PCA_model_filename, 'rb'))
-            X_train = transform_pca(PCA_model,X_train,PC_component)
-        except:
-            PCA_model = fit_pca(X_train,PCA_model_filename)
-            X_train = transform_pca(PCA_model,X_train,PC_component)
+
 
     except:
         standard_scaler = StandardScaler(copy=True, with_mean=True, with_std=True)
         X_train = standard_scaler.fit_transform(X_train)
         pickle.dump(standard_scaler, open(stdandard_scaler_filename, 'wb'))
-        poly_model = LinearRegression().fit(X_train, y)
-        pickle.dump(linear_model, open(linear_model_filename, 'wb'))
-        y_linear = linear_model.predict(X_train)
-        PCA_model = fit_pca(X_train,PCA_model_filename)
-        X_train = transform_pca(PCA_model,X_train,PC_component)
+        poly_model = fit_poly_model(X_train,y,polynomial_order,poly_model_filename)
+        y_poly = poly_model.predict(X_train)
 
 
 
@@ -502,7 +502,7 @@ if __name__ == "__main__":
         slowdown_factor = fit_setup['slowdown']
         early_stop_trials = fit_setup['early_stop']
         tol = fit_setup['tol']
-        fit_model(dens, X_train, y, y-y_linear, loss, tol, slowdown_factor, early_stop_trials)
+        fit_model(dens, X_train, y, y-y_poly, loss, tol, slowdown_factor, early_stop_trials)
 
 
 
