@@ -495,7 +495,7 @@ if __name__ == "__main__":
 
     os.chdir(model_save_dir)
     
-    save_data_figure(dens, X_train, y)
+    save_data_figure(dens, X_train, y-y_poly)
 
     for fit_setup in fit_setup['fit_setup']:
         loss = fit_setup['loss']
