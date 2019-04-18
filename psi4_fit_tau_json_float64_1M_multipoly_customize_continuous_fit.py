@@ -47,10 +47,22 @@ from sklearn.pipeline import make_pipeline
 
 
 def fit_poly_model(X,y,degree,filename):
-    poly_model = make_pipeline(PolynomialFeatures(degree), Ridge())
-    poly_model.fit(X, y)
-    pickle.dump(poly_model, open(filename, 'wb'))
+    poly = PolynomialFeatures(degree)
+    X_poly = poly.fit_transform(X_train)
+    poly_model = LinearRegression().fit(X_poly, y_train)
+    #y_predict = linear_model.predict(X_poly)
+
+
+    #poly_model = make_pipeline(PolynomialFeatures(degree), Ridge())
+    #poly_model.fit(X, y)
+    #pickle.dump(poly_model, open(filename, 'wb'))
     return poly_model
+def predict_poly_model(X,poly_model,degree):
+    poly = PolynomialFeatures(degree)
+    X_poly = poly.fit_transform(X_train)
+    y_predict = poly_model.predict(X_poly)
+    return y_predict
+
 
 def fit_pca(data,filename):
     print "start fitting pca"
@@ -300,26 +312,26 @@ def save_resulting_figure(n,X,NN_model,y,loss,loss_result):
     return
 
 
-def save_data_figure(n,X,y):
+def save_data_figure(n,y_plot, filename = "starting_data_plot.png"):
 
     dens = n
 
 
     log_dens = np.log10(n)
 
-    log_y = np.log10(y)
+    log_y = np.log10(y_plot)
 
 
 
     fig, axes = plt.subplots(2, 2, figsize=(100,100))
     ((ax1, ax2),(ax3,ax4)) = axes
-    ax1.scatter(dens, y,            c= 'red',  lw = 0,label='original',alpha=1.0)
+    ax1.scatter(dens, y_plot,            c= 'red',  lw = 0,label='original',alpha=1.0)
     legend = ax1.legend(loc="best", shadow=False, scatterpoints=1, fontsize=80, markerscale=10)
     ax1.tick_params(labelsize=80)
     ax1.set_xlabel('density', fontsize=100)
     ax1.set_ylabel('energy density', fontsize=100)
 
-    ax2.scatter(log_dens, y,            c= 'red',  lw = 0,label='original',alpha=1.0)
+    ax2.scatter(log_dens, y_plot,            c= 'red',  lw = 0,label='original',alpha=1.0)
     legend = ax2.legend(loc="best", shadow=False, scatterpoints=1, fontsize=80, markerscale=10)
     ax2.tick_params(labelsize=80)
     ax2.set_xlabel('log10 density', fontsize=100)
@@ -337,7 +349,8 @@ def save_data_figure(n,X,y):
     ax4.set_xlabel('log10 density', fontsize=100)
     ax4.set_ylabel('log10 negative energy density', fontsize=100)
 
-    plt.savefig('starting_data_plot.png')
+    #plt.savefig('starting_data_plot.png')
+    plt.savefig(filename)
 
     return
 
@@ -398,8 +411,8 @@ def get_training_data(dataset_name,setup):
     #else:
     #    overall_subsampled_data = subsampling_system_with_PCA(overall_subsampled_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
 
-    pickle.dump( overall_subsampled_data, open( "subsampled_data.p", "wb" ) )
-    pickle.dump( overall_random_data, open( "random_data.p", "wb" ) )
+    #pickle.dump( overall_subsampled_data, open( "subsampled_data.p", "w" ) )
+    #pickle.dump( overall_random_data, open( "random_data.p", "w" ) )
 
     overall = overall_random_data + overall_subsampled_data
     #overall = overall_subsampled_data
@@ -479,10 +492,11 @@ if __name__ == "__main__":
         X_train = standard_scaler.transform(X_train)
         try:
             poly_model = pickle.load(open(poly_model_filename, 'rb'))
-            y_poly = poly_model.predict(X_train)
+            y_poly = predict_poly_model(X_train, poly_model,polynomial_order)
+            #y_poly = poly_model.predict(X_train)
         except:
             poly_model = fit_poly_model(X_train,y,polynomial_order,poly_model_filename)
-            y_poly = poly_model.predict(X_train)
+            y_poly = predict_poly_model(X_train, poly_model,polynomial_order)
 
 
 
@@ -497,7 +511,8 @@ if __name__ == "__main__":
 
     os.chdir(model_save_dir)
     
-    save_data_figure(dens, X_train, y-y_poly)
+    save_data_figure(dens, y-y_poly, filename = "starting_data_plot_residual.png")
+    save_data_figure(dens, y, filename = "starting_data_plot_y.png")
 
     for fit_setup in fit_setup['fit_setup']:
         loss = fit_setup['loss']
