@@ -48,7 +48,7 @@ from sklearn.pipeline import make_pipeline
 
 def fit_poly_model(X,y,degree,filename):
     poly = PolynomialFeatures(degree)
-    X_poly = poly.fit_transform(Xn)
+    X_poly = poly.fit_transform(X)
     poly_model = LinearRegression().fit(X_poly, y)
     #y_predict = linear_model.predict(X_poly)
 
