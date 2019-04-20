@@ -42,10 +42,10 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 
 
-def fit_poly_model(X,y,degree,filename, log_filename = "fit.log"):
+def fit_poly_model(X,y,degree,filename, intercept = True, log_filename = "fit.log"):
     poly = PolynomialFeatures(degree)
     X_poly = poly.fit_transform(X)
-    poly_model = LinearRegression().fit(X_poly, y)
+    poly_model = LinearRegression(intercept = intercept, n_jobs = -1).fit(X_poly, y)
     #y_predict = linear_model.predict(X_poly)
 
 
