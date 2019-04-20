@@ -120,7 +120,7 @@ def predict(X,NN_model):
     #return NN_model.predict(X)
     return NN_model.predict(X*1e6)/1e6
 
-def save_resulting_figure(n,X,y,predct_y):
+def save_resulting_figure(n,X,y,predict_y):
 
     dens = n
 
