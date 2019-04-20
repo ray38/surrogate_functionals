@@ -406,7 +406,7 @@ if __name__ == "__main__":
     
     save_data_figure(dens, y-y_poly, filename = "starting_data_plot_residual.png")
     save_data_figure(dens, y, filename = "starting_data_plot_y.png")
-    save_resulting_figure(n,X_train,y,y_poly)
+    save_resulting_figure(dens,X_train,y,y_poly)
 
 
 
