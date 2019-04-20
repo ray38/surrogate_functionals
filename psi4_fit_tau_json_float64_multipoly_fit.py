@@ -30,7 +30,6 @@ try: import cPickle as pickle
 except: import pickle
 import matplotlib.pyplot as plt
 from subsampling import subsampling_system,random_subsampling,subsampling_system_with_PCA
-import keras.backend as K
 
 #from sklearn.decomposition import RandomizedPCA, PCA
 from sklearn.decomposition import PCA
@@ -42,10 +41,10 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 
 
-def fit_poly_model(X,y,degree,filename, intercept = True, log_filename = "fit.log"):
+def fit_poly_model(X,y,degree,filename, fit_intercept = True, log_filename = "fit.log"):
     poly = PolynomialFeatures(degree)
     X_poly = poly.fit_transform(X)
-    poly_model = LinearRegression(intercept = intercept, n_jobs = -1).fit(X_poly, y)
+    poly_model = LinearRegression(fit_intercept = fit_intercept, n_jobs = -1).fit(X_poly, y)
     #y_predict = linear_model.predict(X_poly)
 
 
@@ -388,7 +387,7 @@ if __name__ == "__main__":
             y_poly = predict_poly_model(X_train, poly_model,polynomial_order)
             #y_poly = poly_model.predict(X_train)
         except:
-            poly_model = fit_poly_model(X_train,y,polynomial_order,poly_model_filename)
+            poly_model = fit_poly_model(X_train,y,polynomial_order,poly_model_filename, fit_intercept = fit_intercept)
             y_poly = predict_poly_model(X_train, poly_model,polynomial_order)
 
 
@@ -397,7 +396,7 @@ if __name__ == "__main__":
         standard_scaler = StandardScaler(copy=True, with_mean=True, with_std=True)
         X_train = standard_scaler.fit_transform(X_train)
         pickle.dump(standard_scaler, open(stdandard_scaler_filename, 'w'))
-        poly_model = fit_poly_model(X_train,y,polynomial_order,poly_model_filename)
+        poly_model = fit_poly_model(X_train,y,polynomial_order,poly_model_filename, fit_intercept = fit_intercept)
         y_poly = predict_poly_model(X_train, poly_model,polynomial_order)
 
 
