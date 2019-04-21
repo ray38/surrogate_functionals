@@ -23,10 +23,6 @@ from numpy import mean, sqrt, square, arange
 try: import cPickle as pickle
 except: import pickle
 import time
-from keras.models import Sequential
-from keras.models import load_model
-from keras.layers import Dense, Activation
-from keras import backend as K
 import matplotlib.pyplot as plt
 import pprint
 from sklearn import linear_model
@@ -572,7 +568,7 @@ if __name__ == "__main__":
     dataset_name = sys.argv[3]
     functional = sys.argv[4]
     polynomial_order = int(sys.argv[5])
-    fit_intercept = int(sys.argv[6])
+    intercept = int(sys.argv[6])
 
     if intercept == 0:
         fit_intercept = False
