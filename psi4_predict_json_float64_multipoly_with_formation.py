@@ -628,26 +628,26 @@ if __name__ == "__main__":
 
     os.chdir(setup["model_save_dir"])
 
-    try:
-        with open(setup["predict_error_log_name"],'rb') as f:
-            for line in f:
-                if line.strip() != '':
-                    temp = line.strip().split()
-                    temp_name = temp[0]
-                    temp_original_energy = float(temp[1])
-                    temp_predict_energy  = float(temp[2])
-                    temp_error  = float(temp[3])
-                    temp_absolute_error  = float(temp[4])
-                    setup["result_data"][temp_name]['predict_exc'] = temp_predict_energy
-                    setup["result_data"][temp_name]['original_exc'] = temp_original_energy
-                    setup["result_data"][temp_name]['sum_error'] = temp_error
-                    setup["result_data"][temp_name]['sum_absolute_error'] = temp_absolute_error
-                    setup["result_data"][temp_name]["exist"] = True
-                    error_list.append(temp_error)
-                    absolute_error_list.append(temp_absolute_error)
+    #try:
+    with open(setup["predict_error_log_name"],'rb') as f:
+        for line in f:
+            if line.strip() != '':
+                temp = line.strip().split()
+                temp_name = temp[0]
+                temp_original_energy = float(temp[1])
+                temp_predict_energy  = float(temp[2])
+                temp_error  = float(temp[3])
+                temp_absolute_error  = float(temp[4])
+                setup["result_data"][temp_name]['predict_exc'] = temp_predict_energy
+                setup["result_data"][temp_name]['original_exc'] = temp_original_energy
+                setup["result_data"][temp_name]['sum_error'] = temp_error
+                setup["result_data"][temp_name]['sum_absolute_error'] = temp_absolute_error
+                setup["result_data"][temp_name]["exist"] = True
+                error_list.append(temp_error)
+                absolute_error_list.append(temp_absolute_error)
 
-    except:
-        pass
+    #except:
+    #    pass
 
 
 
