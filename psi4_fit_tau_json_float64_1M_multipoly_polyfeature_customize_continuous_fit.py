@@ -46,23 +46,25 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 
 
-def fit_poly_model(X,y,degree,filename):
+def fit_poly_model(X,y,degree,filename, fit_intercept = True, log_filename = "fit.log"):
     poly = PolynomialFeatures(degree)
     X_poly = poly.fit_transform(X)
-    poly_model = LinearRegression().fit(X_poly, y)
+    poly_model = LinearRegression(fit_intercept = fit_intercept, n_jobs = -1).fit(X_poly, y)
     #y_predict = linear_model.predict(X_poly)
 
 
     #poly_model = make_pipeline(PolynomialFeatures(degree), Ridge())
     #poly_model.fit(X, y)
     pickle.dump(poly_model, open(filename, 'w'))
+
+    log(log_filename, "number of points fit: {}".format(len(y)))
+    log(log_filename, "fit score: {}".format(poly_model.score(X_poly, y)))
     return poly_model
 def predict_poly_model(X,poly_model,degree):
     poly = PolynomialFeatures(degree)
     X_poly = poly.fit_transform(X)
     y_predict = poly_model.predict(X_poly)
     return y_predict
-
 
 def fit_pca(data,filename):
     print "start fitting pca"
