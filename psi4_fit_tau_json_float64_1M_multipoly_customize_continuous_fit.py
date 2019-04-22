@@ -492,7 +492,7 @@ if __name__ == "__main__":
     if os.path.isdir(model_save_dir) == False:
         os.makedirs(model_save_dir)
 
-    os.chdir(working_dir)
+    os.chdir(model_save_dir)
 
     stdandard_scaler_filename = "standard_scaler.sav"
     poly_model_filename = "poly_{}_model.sav".format(polynomial_order)
@@ -519,7 +519,7 @@ if __name__ == "__main__":
 
 
 
-    os.chdir(model_save_dir)
+    
     
     save_data_figure(dens, y-y_poly, filename = "starting_data_plot_residual.png")
     save_data_figure(dens, y, filename = "starting_data_plot_y.png")
