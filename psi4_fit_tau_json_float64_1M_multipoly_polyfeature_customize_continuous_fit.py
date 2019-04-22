@@ -519,7 +519,9 @@ if __name__ == "__main__":
     
     poly = PolynomialFeatures(polynomial_order)
     X_poly = poly.fit_transform(X_train)
-
+    
+    save_data_figure(dens, y-y_poly, filename = "starting_data_plot_residual.png")
+    save_data_figure(dens, y, filename = "starting_data_plot_y.png")
 
     for fit_setup in fit_setup['fit_setup']:
         loss = fit_setup['loss']
