@@ -45,10 +45,21 @@ from sklearn.linear_model import Ridge
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 
+def degreeFeatures(X, degree):
+    if degree <= 1:
+        return X
+    else:
+        result = X.copy()
+        for i in range(2,degree+1):
+            result = np.hstack((result, X**i))
+
+        return result
+
 
 def fit_poly_model(X,y,degree,filename, fit_intercept = True, log_filename = "fit.log"):
-    poly = PolynomialFeatures(degree)
-    X_poly = poly.fit_transform(X)
+    #poly = PolynomialFeatures(degree)
+    #X_poly = poly.fit_transform(X)
+    X_poly = degreeFeatures(X, degree)
     poly_model = LinearRegression(fit_intercept = fit_intercept, n_jobs = -1).fit(X_poly, y)
     #y_predict = linear_model.predict(X_poly)
 
@@ -168,10 +179,10 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
     est_start = time.time()
     history_callback = model.fit(X, y, nb_epoch=1, batch_size=100000)
     est_epoch_time = time.time()-est_start
-    if est_epoch_time >= 15.:
+    if est_epoch_time >= 20.:
         num_epoch = 1
     else:
-        num_epoch = int(math.floor(15./est_epoch_time))
+        num_epoch = int(math.floor(20./est_epoch_time))
     if restart == True:
         try:
             start_loss = get_start_loss(log_filename,loss)
@@ -517,8 +528,10 @@ if __name__ == "__main__":
 
 
     
-    poly = PolynomialFeatures(polynomial_order)
-    X_poly = poly.fit_transform(X_train)
+    #poly = PolynomialFeatures(polynomial_order)
+    #X_poly = poly.fit_transform(X_train)
+    X_poly = degreeFeatures(X_train, polynomial_order)
+
 
     save_data_figure(dens, y-y_poly, filename = "starting_data_plot_residual.png")
     save_data_figure(dens, y, filename = "starting_data_plot_y.png")

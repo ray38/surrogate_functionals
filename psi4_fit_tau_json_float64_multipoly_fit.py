@@ -41,9 +41,20 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import make_pipeline
 
 
+def degreeFeatures(X, degree):
+    if degree <= 1:
+        return X
+    else:
+        result = X.copy()
+        for i in range(2,degree+1):
+            result = np.hstack((result, X**i))
+
+        return result
+        
 def fit_poly_model(X,y,degree,filename, fit_intercept = True, log_filename = "fit.log"):
-    poly = PolynomialFeatures(degree)
-    X_poly = poly.fit_transform(X)
+    #poly = PolynomialFeatures(degree)
+    #X_poly = poly.fit_transform(X)
+    X_poly = degreeFeatures(X, degree)
     poly_model = LinearRegression(fit_intercept = fit_intercept, n_jobs = -1).fit(X_poly, y)
     #y_predict = linear_model.predict(X_poly)
 

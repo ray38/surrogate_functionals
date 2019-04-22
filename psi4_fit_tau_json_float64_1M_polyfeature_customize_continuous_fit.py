@@ -486,9 +486,9 @@ if __name__ == "__main__":
 
 
     os.chdir(model_save_dir)
-    poly = PolynomialFeatures(polynomial_order)
-    X_poly = poly.fit_transform(X_train)
-
+    #poly = PolynomialFeatures(polynomial_order)
+    #X_poly = poly.fit_transform(X_train)
+    X_poly = degreeFeatures(X_train, polynomial_order)
 
     for fit_setup in fit_setup['fit_setup']:
         loss = fit_setup['loss']
