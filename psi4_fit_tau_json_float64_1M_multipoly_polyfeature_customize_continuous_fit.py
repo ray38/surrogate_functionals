@@ -453,6 +453,13 @@ if __name__ == "__main__":
     fit_setup_filename = sys.argv[3]
     polynomial_order = int(sys.argv[4])
 
+    intercept = int(sys.argv[5])
+
+    if intercept == 0:
+        fit_intercept = False
+    else:
+        fit_intercept = True
+
     with open(setup_filename) as f:
         setup = json.load(f)
 
