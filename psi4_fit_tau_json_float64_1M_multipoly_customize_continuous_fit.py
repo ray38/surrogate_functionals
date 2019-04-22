@@ -68,8 +68,10 @@ def fit_poly_model(X,y,degree,filename):
     pickle.dump(poly_model, open(filename, 'w'))
     return poly_model
 def predict_poly_model(X,poly_model,degree):
-    poly = PolynomialFeatures(degree)
-    X_poly = poly.fit_transform(X)
+    
+    #poly = PolynomialFeatures(degree)
+    #X_poly = poly.fit_transform(X)
+    X_poly = degreeFeatures(X, degree)
     y_predict = poly_model.predict(X_poly)
     return y_predict
 
