@@ -168,10 +168,10 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
     est_start = time.time()
     history_callback = model.fit(X, y, nb_epoch=1, batch_size=100000)
     est_epoch_time = time.time()-est_start
-    if est_epoch_time >= 30.:
+    if est_epoch_time >= 15.:
         num_epoch = 1
     else:
-        num_epoch = int(math.floor(30./est_epoch_time))
+        num_epoch = int(math.floor(15./est_epoch_time))
     if restart == True:
         try:
             start_loss = get_start_loss(log_filename,loss)
@@ -519,7 +519,7 @@ if __name__ == "__main__":
     
     poly = PolynomialFeatures(polynomial_order)
     X_poly = poly.fit_transform(X_train)
-    
+
     save_data_figure(dens, y-y_poly, filename = "starting_data_plot_residual.png")
     save_data_figure(dens, y, filename = "starting_data_plot_y.png")
 
