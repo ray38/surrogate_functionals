@@ -50,7 +50,7 @@ def degreeFeatures(X, degree):
             result = np.hstack((result, X**i))
 
         return result
-
+        
 def fit_poly_model(X,y,degree,filename, fit_intercept = True, log_filename = "fit.log"):
     poly = PolynomialFeatures(degree)
     X_poly = poly.fit_transform(X)
@@ -375,7 +375,7 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "poly_{}_{}".format(polynomial_order, fit_intercept)
+    model_save_dir = working_dir + "/" + "degree_{}_{}".format(polynomial_order, fit_intercept)
    
     setup["model_save_dir"] = model_save_dir
 
@@ -389,7 +389,7 @@ if __name__ == "__main__":
     os.chdir(model_save_dir)
 
     stdandard_scaler_filename = "standard_scaler.sav"
-    poly_model_filename = "poly_{}_{}_model.sav".format(polynomial_order, fit_intercept)
+    poly_model_filename = "degree_{}_{}_model.sav".format(polynomial_order, fit_intercept)
 
     try:
         standard_scaler = pickle.load(open(stdandard_scaler_filename, 'r'))
