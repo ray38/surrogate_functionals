@@ -55,17 +55,20 @@ def degreeFeatures(X, degree):
 
         return result
 
-def fit_poly_model(X,y,degree,filename):
+def fit_poly_model(X,y,degree,filename, fit_intercept = True, log_filename = "fit.log"):
     poly = PolynomialFeatures(degree)
     X_poly = poly.fit_transform(X)
     #X_poly = degreeFeatures(X, degree)
-    poly_model = LinearRegression().fit(X_poly, y)
+    poly_model = LinearRegression(fit_intercept = fit_intercept, n_jobs = -1).fit(X_poly, y)
     #y_predict = linear_model.predict(X_poly)
 
 
     #poly_model = make_pipeline(PolynomialFeatures(degree), Ridge())
     #poly_model.fit(X, y)
     pickle.dump(poly_model, open(filename, 'w'))
+
+    log(log_filename, "number of points fit: {}".format(len(y)))
+    log(log_filename, "fit score: {}".format(poly_model.score(X_poly, y)))
     return poly_model
 def predict_poly_model(X,poly_model,degree):
 
@@ -464,6 +467,12 @@ if __name__ == "__main__":
     dataset_name = sys.argv[2]
     fit_setup_filename = sys.argv[3]
     polynomial_order = int(sys.argv[4])
+    intercept = int(sys.argv[5])
+
+    if intercept == 0:
+        fit_intercept = False
+    else:
+        fit_intercept = True
 
     with open(setup_filename) as f:
         setup = json.load(f)
@@ -507,7 +516,7 @@ if __name__ == "__main__":
             y_poly = predict_poly_model(X_train, poly_model,polynomial_order)
             #y_poly = poly_model.predict(X_train)
         except:
-            poly_model = fit_poly_model(X_train,y,polynomial_order,poly_model_filename)
+            poly_model = fit_poly_model(X_train,y,polynomial_order,poly_model_filename, fit_intercept = fit_intercept)
             y_poly = predict_poly_model(X_train, poly_model,polynomial_order)
 
 
@@ -516,7 +525,7 @@ if __name__ == "__main__":
         standard_scaler = StandardScaler(copy=True, with_mean=True, with_std=True)
         X_train = standard_scaler.fit_transform(X_train)
         pickle.dump(standard_scaler, open(stdandard_scaler_filename, 'w'))
-        poly_model = fit_poly_model(X_train,y,polynomial_order,poly_model_filename)
+        poly_model = fit_poly_model(X_train,y,polynomial_order,poly_model_filename, fit_intercept = fit_intercept)
         y_poly = predict_poly_model(X_train, poly_model,polynomial_order)
 
 
