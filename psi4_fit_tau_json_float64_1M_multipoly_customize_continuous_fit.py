@@ -56,9 +56,9 @@ def degreeFeatures(X, degree):
         return result
 
 def fit_poly_model(X,y,degree,filename):
-    #poly = PolynomialFeatures(degree)
-    #X_poly = poly.fit_transform(X)
-    X_poly = degreeFeatures(X, degree)
+    poly = PolynomialFeatures(degree)
+    X_poly = poly.fit_transform(X)
+    #X_poly = degreeFeatures(X, degree)
     poly_model = LinearRegression().fit(X_poly, y)
     #y_predict = linear_model.predict(X_poly)
 
@@ -68,7 +68,7 @@ def fit_poly_model(X,y,degree,filename):
     pickle.dump(poly_model, open(filename, 'w'))
     return poly_model
 def predict_poly_model(X,poly_model,degree):
-    
+
     #poly = PolynomialFeatures(degree)
     #X_poly = poly.fit_transform(X)
     X_poly = degreeFeatures(X, degree)

@@ -57,9 +57,9 @@ def degreeFeatures(X, degree):
 
 
 def fit_poly_model(X,y,degree,filename, fit_intercept = True, log_filename = "fit.log"):
-    #poly = PolynomialFeatures(degree)
-    #X_poly = poly.fit_transform(X)
-    X_poly = degreeFeatures(X, degree)
+    poly = PolynomialFeatures(degree)
+    X_poly = poly.fit_transform(X)
+    #X_poly = degreeFeatures(X, degree)
     poly_model = LinearRegression(fit_intercept = fit_intercept, n_jobs = -1).fit(X_poly, y)
     #y_predict = linear_model.predict(X_poly)
 
@@ -529,9 +529,9 @@ if __name__ == "__main__":
 
 
     
-    #poly = PolynomialFeatures(polynomial_order)
-    #X_poly = poly.fit_transform(X_train)
-    X_poly = degreeFeatures(X_train, polynomial_order)
+    poly = PolynomialFeatures(polynomial_order)
+    X_poly = poly.fit_transform(X_train)
+    #X_poly = degreeFeatures(X_train, polynomial_order)
 
 
     save_data_figure(dens, y-y_poly, filename = "starting_data_plot_residual.png")
