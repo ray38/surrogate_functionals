@@ -72,9 +72,9 @@ def fit_poly_model(X,y,degree,filename, fit_intercept = True, log_filename = "fi
     log(log_filename, "fit score: {}".format(poly_model.score(X_poly, y)))
     return poly_model
 def predict_poly_model(X,poly_model,degree):
-    #poly = PolynomialFeatures(degree)
-    #X_poly = poly.fit_transform(X)
-    X_poly = degreeFeatures(X, degree)
+    poly = PolynomialFeatures(degree)
+    X_poly = poly.fit_transform(X)
+    #X_poly = degreeFeatures(X, degree)
     y_predict = poly_model.predict(X_poly)
     return y_predict
 
