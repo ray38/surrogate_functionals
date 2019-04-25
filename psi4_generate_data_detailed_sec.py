@@ -154,7 +154,7 @@ def process(count, X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e):
     z = z.ravel()
     w = np.ones_like(z)*dv
     
-    temp_filename =  '{}{}_{}_{}_{}_{}.hdf5'.format(molecule_name,count,xc,i,j,k)
+    temp_filename =  '{}_{}_{}_{}_{}_{}.hdf5'.format(molecule_name,count,xc,i,j,k)
     if os.path.isfile(temp_filename) == False:
         temp_out = process_one_section(x,y,z,w,x_start,x_end,y_start,y_end,z_start,z_end,out_shape,scf_wfn,scf_e)
 #        print type(temp_out['epsilon_xc'])
@@ -172,12 +172,7 @@ def process(count, X0,Y0,Z0,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e):
     
 def process_system(molecule, molecule_name, xc, h, cell, num_blocks, sub_step, psi4_options=None):
     cwd = os.getcwd()
-    dir_name = "{}_{}_{}_{}_{}".format(molecule_name,xc,str(cell).replace('.','-'),str(h).replace('.','-'),num_blocks)
     
-    if os.path.isdir(dir_name) == False:
-        os.makedirs(cwd + '/' + dir_name)
-    
-    os.chdir(cwd + '/' + dir_name)
     
     if psi4_options == None:
         psi4_options = {"BASIS": "aug-cc-pvtz",
@@ -231,6 +226,11 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, sub_step, p
     count = 0
     for x_step, y_step, z_step in origin_list:
         print("\n******\nstarting step: {} {} {}\n".format(x_step,y_step, z_step))
+        dir_name = "{}_{}_{}_{}_{}_{}".format(molecule_name,count,xc,str(cell).replace('.','-'),str(h).replace('.','-'),num_blocks)
+        if os.path.isdir(dir_name) == False:
+            os.makedirs(cwd + '/' + dir_name)
+        
+        os.chdir(cwd + '/' + dir_name)
         for i in range(Nx):
             for j in range(Ny):
                 for k in range(Nz):
