@@ -185,9 +185,9 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, sub_step, p
                     "E_CONVERGENCE":1e-15,
                   'DFT_BLOCK_MAX_POINTS': 500000,
                   'DFT_BLOCK_MIN_POINTS': 100000,
-                  'MAXITER': 500,
-#                  'DFT_SPHERICAL_POINTS': 302,
-#                  'DFT_RADIAL_POINTS':    75,
+                  'MAXITER': 200,
+                  'DFT_SPHERICAL_POINTS': 30000,
+                  'DFT_RADIAL_POINTS':    10000,
                   "SAVE_JK": True, }
     psi4.set_options(psi4_options)
     
