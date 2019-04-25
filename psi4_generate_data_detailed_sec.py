@@ -271,6 +271,7 @@ if __name__ == "__main__":
         h = float(sys.argv[4])
         L = float(sys.argv[5])
         N = int(sys.argv[6])
+        sub_step = int(sys.argv[7])
         
         
         with open(list_molecule_filename) as f:
@@ -308,7 +309,7 @@ if __name__ == "__main__":
                 filename = '{}_{}.hdf5'.format(mol,xc)
                 if not os.path.exists(filename):
                     try:
-                        process_system(molecules[mol],mol,xc,h,L,N)
+                        process_system(molecules[mol],mol,xc,h,L,N,sub_step)
                     except:
                         os.chdir(cwd)
                         log(failed_filename, '\n' + mol)
@@ -321,7 +322,7 @@ if __name__ == "__main__":
         h = float(sys.argv[4])
         L = float(sys.argv[5])
         N = int(sys.argv[6])
-        
+        sub_step = int(sys.argv[7])
     
         molecule_names = [molecule_name]
         
@@ -356,7 +357,7 @@ if __name__ == "__main__":
                 filename = '{}_{}.hdf5'.format(mol,xc)
                 if not os.path.exists(filename):
                     try:
-                        process_system(molecules[mol],mol,xc,h,L,N)
+                        process_system(molecules[mol],mol,xc,h,L,N,sub_step)
                     except:
                         os.chdir(cwd)
                         log(failed_filename, '\n' + mol)
