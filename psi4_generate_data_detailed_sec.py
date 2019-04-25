@@ -237,7 +237,7 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, sub_step, p
             for j in range(Ny):
                 for k in range(Nz):
                     process(count,X0 + x_step,Y0 + y_step,Z0 + z_step,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e)
-                    count += 1
+        count += 1
 
     
     os.chdir(cwd) 
