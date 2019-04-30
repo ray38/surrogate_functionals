@@ -160,47 +160,6 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MCSH_stencil_
         print "MCSH"
 
 
-#        try:
-#            ave_dens_grp = data['average_density']
-#        except:
-#            ave_dens_grp = data.create_group('average_density')
-#        print "Average Density"
-#
-#
-#        try:
-#            derivative_grp = data['derivative']
-#        except:
-#            derivative_grp = data.create_group('derivative')
-#        print "Derivative"
-#
-#
-#
-#        for index, r in enumerate(r_list):
-#            dataset_name = 'average_density_{}'.format(str(r).replace('.','-'))
-#            if dataset_name not in ave_dens_grp.keys():
-#                temp_data, temp_pad = calculate_ave_density_desc(extented_n.copy(),r,h,h,h,stencil_list[index],pad_list[index])
-#                ave_dens_grp.create_dataset(dataset_name,data=carve_out_matrix(temp_data))
-        
-
-
-#        if 'derivative_1' not in derivative_grp.keys():
-#            temp_first_deri, temp_pad = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'first',
-#                                               stencil_type = 'mid', accuracy = '2')
-#            derivative_grp.create_dataset('derivative_1',data=carve_out_matrix(temp_first_deri))
-#
-#        if 'derivative_2' not in derivative_grp.keys():
-#            temp_sec_deri, temp_pad   = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'second',
-#                                               stencil_type = 'times2', accuracy = '2')
-#            derivative_grp.create_dataset('derivative_2',data=carve_out_matrix(temp_sec_deri))
-#
-#
-#        if 'derivative_3' not in derivative_grp.keys():
-#            temp_third_deri, temp_pad = get_differenciation_conv(extented_n.copy(), h, h, h, gradient = 'third',
-#                                               stencil_type = 'times2', accuracy = '2')
-#            derivative_grp.create_dataset('derivative_3',data=carve_out_matrix(temp_third_deri))
-
-
-
         for r in r_list:
 
             dataset_name = 'MCSH_0_1_{}'.format(str(r).replace('.','-'))
