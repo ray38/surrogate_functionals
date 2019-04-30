@@ -407,7 +407,6 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MCSH_stencil_
                 MCSH_grp.create_dataset(dataset_name,data=temp_result)
 
 """
-        
     return
 
 
