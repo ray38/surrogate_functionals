@@ -232,11 +232,11 @@ def process_system(molecule, molecule_name, xc, h, cell, num_blocks, sub_step, p
         if os.path.isdir(dir_name) == False:
             os.makedirs(cwd + '/' + dir_name)
         
-        os.chdir(cwd + '/' + dir_name)
-        for i in range(Nx):
-            for j in range(Ny):
-                for k in range(Nz):
-                    process(count,X0 + x_step,Y0 + y_step,Z0 + z_step,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e)
+            os.chdir(cwd + '/' + dir_name)
+            for i in range(Nx):
+                for j in range(Ny):
+                    for k in range(Nz):
+                        process(count,X0 + x_step,Y0 + y_step,Z0 + z_step,x_inc,y_inc,z_inc,hx,hy,hz,i,j,k ,dv,scf_wfn,scf_e)
         count += 1
 
     
