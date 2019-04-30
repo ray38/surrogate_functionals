@@ -330,7 +330,7 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MCSH_stencil_
                 temp_result = np.sqrt(temp_result)
 
                 MCSH_grp.create_dataset(dataset_name,data=temp_result)
-
+    return
 
 
 """
@@ -406,9 +406,9 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MCSH_stencil_
 
                 MCSH_grp.create_dataset(dataset_name,data=temp_result)
 
-"""
-    return
 
+    return
+"""
 
 
 
