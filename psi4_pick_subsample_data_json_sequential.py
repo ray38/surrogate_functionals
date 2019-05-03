@@ -11,7 +11,8 @@ import sys
 import numpy as np
 try: import cPickle as pickle
 except: import pickle
-from subsampling import subsampling_system_with_PCA, random_subsampling, subsampling_system
+#from subsampling import subsampling_system_with_PCA, random_subsampling, subsampling_system
+from subsampling import subsampling_with_PCA, random_subsampling, subsampling
 import math
 import time
 import os
@@ -64,9 +65,9 @@ def process_data(i,j,k,log_filename,setup,processed_data):
     sample_start = time.time() 
     log(log_filename,"\nmolecule length before: " + str(len(processed_data)))
     if len(temp_list_subsample) <= 10:
-        processed_data = subsampling_system(processed_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
+        processed_data = subsampling(processed_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
     else:
-        processed_data = subsampling_system_with_PCA(processed_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
+        processed_data = subsampling_with_PCA(processed_data, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
     log(log_filename,"\nmolecule length after: " + str(len(processed_data)))  
     log(log_filename,"\nfinished sampling, took: " + str(time.time()-sample_start))
     write_data_to_file2(i,j,k,processed_data)
@@ -384,9 +385,9 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
             sample_start = time.time() 
             log(overall_subsample_log_filename,"\nlength before: " + str(len(subsample_data_overall_block)))
             if len(temp_list_subsample) <= 10:
-                subsample_data_overall_block = subsampling_system(subsample_data_overall_block, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"])/2.0, rate = float(setup["subsample_rate"]))
+                subsample_data_overall_block = subsampling(subsample_data_overall_block, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"])/2.0, rate = float(setup["subsample_rate"]))
             else:
-                subsample_data_overall_block = subsampling_system_with_PCA(subsample_data_overall_block, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"])/2.0, rate = float(setup["subsample_rate"]),start_trial_component = 9)
+                subsample_data_overall_block = subsampling_with_PCA(subsample_data_overall_block, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"])/2.0, rate = float(setup["subsample_rate"]),start_trial_component = 9)
             log(overall_subsample_log_filename,"\nmolecule overall length after: " + str(len(subsample_data_overall_block)))  
             log(overall_subsample_log_filename,"\nfinished overall sampling, took: " + str(time.time()-sample_start))
 
@@ -402,9 +403,9 @@ def process_one_molecule(molecule, functional,h,L,N, setup):
     sample_start = time.time() 
     log(overall_subsample_log_filename,"\nlength before: " + str(len(subsample_data_overall)))
     if len(temp_list_subsample) <= 10:
-        subsample_data_overall = subsampling_system(subsample_data_overall, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
+        subsample_data_overall = subsampling(subsample_data_overall, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]))
     else:
-        subsample_data_overall = subsampling_system_with_PCA(subsample_data_overall, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
+        subsample_data_overall = subsampling_with_PCA(subsample_data_overall, list_desc = list_subsample, cutoff_sig = float(setup["subsample_cutoff_sig"]), rate = float(setup["subsample_rate"]),start_trial_component = 9)
     log(overall_subsample_log_filename,"\nmolecule overall length after: " + str(len(subsample_data_overall)))  
     log(overall_subsample_log_filename,"\nfinished overall sampling, took: " + str(time.time()-sample_start))
 
