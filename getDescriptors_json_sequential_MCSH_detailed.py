@@ -479,9 +479,13 @@ def process(molecule, functional,i,j,k,h,N,r_list,MC_surface_harmonic_stencil_di
     result_filename = "{}_{}_{}_{}_{}_all_descriptors.hdf5".format(molecule,functional,i,j,k)
     print 'start {} {} {}'.format(i,j,k)
     if os.path.isfile(result_filename) == False:
+        try:
         
-        process_normal_descriptors(molecule, functional,i,j,k)
-        process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MC_surface_harmonic_stencil_dict)
+            process_normal_descriptors(molecule, functional,i,j,k)
+            process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MC_surface_harmonic_stencil_dict)
+        except:
+            print "{} failed, skipped".format(result_filename)
+            pass
     else:
         print "file exist, skipped"
     
