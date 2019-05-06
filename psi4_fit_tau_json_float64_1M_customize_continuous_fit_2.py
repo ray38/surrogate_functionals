@@ -23,6 +23,7 @@ from sklearn import linear_model
 from keras.models import Sequential
 from keras.models import load_model
 from keras.layers import Dense, Activation
+from keras.layers import Input, Dense
 from keras import backend as K
 import keras
 import scipy
