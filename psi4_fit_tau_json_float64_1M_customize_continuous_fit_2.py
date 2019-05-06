@@ -87,7 +87,7 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
     NN_setup = setup["NN_setup"]
 
 
-
+    k = len(X[0])
     try:
         model = load_model(filename, custom_objects={'sae': sae})
         restart = True
@@ -105,7 +105,7 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
                 out = Dense(units=number_nodes, activation=activation)(input_img)
                 first_bool = False
             else:
-                x = Dense(units=number_nodes, activation=activation)(out)
+                out = Dense(units=number_nodes, activation=activation)(out)
 
         model = Model(input_img, out)
 
