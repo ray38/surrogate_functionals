@@ -429,8 +429,7 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "NN_1M_{}_{}_{}".format(setup["NN_setup"]["number_neuron_per_layer"], setup["NN_setup"]["number_layers"], setup["NN_setup"]["activation"])
-   
+    model_save_dir = working_dir + "/" + "NN_1M_NN_1"
     setup["model_save_dir"] = model_save_dir
 
     
