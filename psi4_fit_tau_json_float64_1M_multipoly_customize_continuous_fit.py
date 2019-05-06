@@ -33,7 +33,7 @@ import multiprocessing
 try: import cPickle as pickle
 except: import pickle
 import matplotlib.pyplot as plt
-from subsampling import subsampling_system,random_subsampling,subsampling_system_with_PCA
+from subsampling import subsampling,random_subsampling,subsampling_with_PCA
 import keras.backend as K
 
 #from sklearn.decomposition import RandomizedPCA, PCA
