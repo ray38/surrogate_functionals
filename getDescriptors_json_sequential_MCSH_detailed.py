@@ -494,7 +494,7 @@ def process_one_molecule(molecule, functional,h,L,N,r_list):
     cwd = os.getcwd()
     MCSH_stencil_dict = prepare_MCSH_stencils(r_list,h)
 
-    for index in range(26):
+    for index in range(27):
 
         molecule_name = "{}_{}".format(molecule,index)
 

@@ -46,7 +46,7 @@
 		"MCSH_4_4_r_list": [],
 		"MCSH_4_4_transform": "real",
 		"random_pick_rate": 0.016,
-		"subsample_cutoff_sig": 0.03,
+		"subsample_cutoff_sig": 0.02,
 		"subsample_rate": 0.3,
 		"subsample_feature_list": []
 	},
@@ -98,7 +98,7 @@
 		"MCSH_4_4_r_list": [],
 		"MCSH_4_4_transform": "real",
 		"random_pick_rate": 0.016,
-		"subsample_cutoff_sig": 0.03,
+		"subsample_cutoff_sig": 0.02,
 		"subsample_rate": 0.3,
 		"subsample_feature_list": []
 	},
@@ -151,7 +151,7 @@
 		"MCSH_4_4_r_list": [],
 		"MCSH_4_4_transform": "real",
 		"random_pick_rate": 0.016,
-		"subsample_cutoff_sig": 0.03,
+		"subsample_cutoff_sig": 0.02,
 		"subsample_rate": 0.3,
 		"subsample_feature_list": []
 	}
