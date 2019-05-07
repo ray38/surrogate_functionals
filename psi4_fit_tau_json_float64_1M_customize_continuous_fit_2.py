@@ -85,7 +85,7 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
     temp_check_filename = "NN_fit_checkpoint.log"
     num_samples = len(y)
 
-    NN_setup = setup["NN_setup"]
+    NN_setup = setup["NN_setup"]["structure"]
 
 
     k = len(X[0])
@@ -431,7 +431,7 @@ if __name__ == "__main__":
 
     setup["working_dir"] = working_dir
 
-    model_save_dir = working_dir + "/" + "NN_1M_NN_1"
+    model_save_dir = working_dir + "/" + "NN_1M_{}".format(setup["NN_setup"]["name"])
     setup["model_save_dir"] = model_save_dir
 
     
@@ -450,7 +450,7 @@ if __name__ == "__main__":
         slowdown_factor = fit_setup['slowdown']
         early_stop_trials = fit_setup['early_stop']
         tol = fit_setup['tol']
-        fit_model(dens, X_train, y, loss, tol, slowdown_factor, early_stop_trials*2)
+        fit_model(dens, X_train, y, loss, tol, slowdown_factor, early_stop_trials)
 
 
 
