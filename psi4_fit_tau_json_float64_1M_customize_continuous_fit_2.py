@@ -26,6 +26,7 @@ from keras.layers import Dense, Activation
 from keras.layers import Input, Dense
 from keras.models import Model
 from keras import backend as K
+from keras.layers.advanced_activations import PReLU
 import keras
 import scipy
 
@@ -100,7 +101,10 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
         first_bool = True
         for layer_setup in NN_setup:
             number_nodes = layer_setup[0]
-            activation = layer_setup[1]
+            if layer_setup[1] == "prelu":
+                activation = PReLU()
+            else:
+                activation = layer_setup[1]
 
             if first_bool:
                 out = Dense(units=number_nodes, activation=activation)(input_img)
