@@ -102,17 +102,33 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
         first_bool = True
         for layer_setup in NN_setup:
             number_nodes = layer_setup[0]
-            if layer_setup[1] == "prelu":
-                activation = PReLU()
-            else:
-                activation = layer_setup[1]
+            #if layer_setup[1] == "prelu":
+            #    activation = PReLU()
+            #else:
+            #    activation = layer_setup[1]
+            activation = layer_setup[1]
 
             if first_bool:
-                out = Dense(units=number_nodes, activation=activation, name = "layer_{}".format(layer_count))(input_img)
-                first_bool = False
-            else:
-                out = Dense(units=number_nodes, activation=activation, name = "layer_{}".format(layer_count))(out)
+                if activation == "prelu":
+                    out = Dense(number_nodes)(input_img)
+                    Act = PReLU()
+                    out = Act(out)
+                    first_bool = False
 
+                else:
+                    out = Dense(units=number_nodes, activation=activation)(input_img)
+                    first_bool = False
+            else:
+                #out = Dense(units=number_nodes, activation=activation)(out)
+                if activation == "prelu":
+                    out = Dense(number_nodes)(out)
+                    Act = PReLU()
+                    out = Act(out)
+                    first_bool = False
+
+                else:
+                    out = Dense(units=number_nodes, activation=activation)(out)
+                    first_bool = False
             layer_count += 1
 
         model = Model(input_img, out)
