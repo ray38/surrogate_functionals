@@ -490,37 +490,41 @@ def process_one_molecule(molecule, functional,h,L,N,r_list):
     cwd = os.getcwd()
     MCSH_stencil_dict = prepare_MCSH_stencils(r_list,h)
 
-    for index in range(27):
+    #for index in range(27):
 
-        molecule_name = "{}_{}".format(molecule,index)
+        #molecule_name = "{}_{}".format(molecule,index)
+    molecule_name = molecule
+    dir_name = "{}_{}_{}_{}_{}".format(molecule_name,functional,str(L).replace('.','-'),str(h).replace('.','-'),N)
 
-        dir_name = "{}_{}_{}_{}_{}".format(molecule_name,functional,str(L).replace('.','-'),str(h).replace('.','-'),N)
+    print dir_name
+    
+    if os.path.isdir(dir_name) == False:
+        print '\n****Error: Cant find the directory! ****\n'
+        raise NotImplementedError
+    
+    os.chdir(cwd + '/' + dir_name)
+    
+    
+    
+    Nx = Ny = Nz = N
+    #i_li = range(1,Nx-1)
+    #j_li = range(1,Ny-1)
+    #k_li = range(1,Nz-1)
 
-        print dir_name
-        
-        if os.path.isdir(dir_name) == False:
-            print '\n****Error: Cant find the directory! ****\n'
-            raise NotImplementedError
-        
-        os.chdir(cwd + '/' + dir_name)
-        
-        
-        
-        Nx = Ny = Nz = N
-        i_li = range(1,Nx-1)
-        j_li = range(1,Ny-1)
-        k_li = range(1,Nz-1)
-        
-        paramlist = list(itertools.product(i_li,j_li,k_li))
+    i_li = range(Nx)
+    j_li = range(Ny)
+    k_li = range(Nz)
+    
+    paramlist = list(itertools.product(i_li,j_li,k_li))
 
 
 
-        for i,j,k in paramlist:
-            process(molecule_name, functional,i,j,k,h,N,r_list,MCSH_stencil_dict)
-            
-        #process(molecule, functional,0,0,0,h,N,r_list,MCSH_stencil_dict)
+    for i,j,k in paramlist:
+        process(molecule_name, functional,i,j,k,h,N,r_list,MCSH_stencil_dict)
         
-        os.chdir(cwd)
+    #process(molecule, functional,0,0,0,h,N,r_list,MCSH_stencil_dict)
+    
+    os.chdir(cwd)
     return
 
 
