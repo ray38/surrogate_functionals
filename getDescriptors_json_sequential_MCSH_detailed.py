@@ -289,10 +289,6 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MCSH_stencil_
                 temp_result = np.sqrt(temp_result)
 
                 MCSH_grp.create_dataset(dataset_name,data=temp_result)
-    return
-
-
-"""
 
 
             dataset_name = 'MCSH_4_1_{}'.format(str(r).replace('.','-'))
@@ -367,7 +363,7 @@ def process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MCSH_stencil_
 
 
     return
-"""
+
 
 
 
@@ -384,10 +380,10 @@ def prepare_MCSH_stencils(r_list,h):
     MCSH_stencil_dict["3_2"] = {}
     MCSH_stencil_dict["3_3"] = {}
 
-    #MCSH_stencil_dict["4_1"] = {}
-    #MCSH_stencil_dict["4_2"] = {}
-    #MCSH_stencil_dict["4_3"] = {}
-    #MCSH_stencil_dict["4_4"] = {}
+    MCSH_stencil_dict["4_1"] = {}
+    MCSH_stencil_dict["4_2"] = {}
+    MCSH_stencil_dict["4_3"] = {}
+    MCSH_stencil_dict["4_4"] = {}
 
     for r in r_list:
 
@@ -438,9 +434,9 @@ def prepare_MCSH_stencils(r_list,h):
         stencil_Re_3_5, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 3, 5, accuracy = 6)
         MCSH_stencil_dict["3_3"][str(r)] = [[stencil_Re_3_5], pad ]
 
-    return MCSH_stencil_dict
+    
 
-"""
+
     for r in r_list:
 
         stencil_Re_4_1, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 1, accuracy = 6)
@@ -470,8 +466,8 @@ def prepare_MCSH_stencils(r_list,h):
         stencil_Re_4_8, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 8, accuracy = 6)
         stencil_Re_4_9, pad =  calc_MC_surface_harmonic_stencil(h, h, h, r, 4, 9, accuracy = 6)
         MCSH_stencil_dict["4_4"][str(r)] = [[stencil_Re_4_5,stencil_Re_4_8,stencil_Re_4_9], pad ]
-"""
-    
+
+    return MCSH_stencil_dict
 
 
 
@@ -511,9 +507,9 @@ def process_one_molecule(molecule, functional,h,L,N,r_list):
         
         
         Nx = Ny = Nz = N
-        i_li = range(Nx)
-        j_li = range(Ny)
-        k_li = range(Nz)
+        i_li = range(1,Nx-1)
+        j_li = range(1,Ny-1)
+        k_li = range(1,Nz-1)
         
         paramlist = list(itertools.product(i_li,j_li,k_li))
 
