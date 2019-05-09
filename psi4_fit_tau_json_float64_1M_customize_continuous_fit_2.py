@@ -88,6 +88,11 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
 
     NN_setup = setup["NN_setup"]["structure"]
 
+    if "batch_size" in setup["NN_setup"]:
+        batch_size = setup["NN_setup"]["batch_size"]
+    else:
+        batch_size = 50000
+
 
     k = len(X[0])
     try:
@@ -149,9 +154,9 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
     print model.summary()
     print model.get_config()
     
-    history_callback = model.fit(X, y, nb_epoch=1, batch_size=50000)
+    history_callback = model.fit(X, y, nb_epoch=1, batch_size=batch_size)
     est_start = time.time()
-    history_callback = model.fit(X, y, nb_epoch=1, batch_size=50000)
+    history_callback = model.fit(X, y, nb_epoch=1, batch_size=batch_size)
     est_epoch_time = time.time()-est_start
     if est_epoch_time >= 20.:
         num_epoch = 1
@@ -178,7 +183,7 @@ def fit_with_KerasNN(X, y, loss, tol, slowdown_factor, early_stop_trials):
     while keep_going:
         count_epochs += 1
         print count_epochs
-        history_callback = model.fit(X, y, nb_epoch=num_epoch, batch_size=50000, shuffle=True)
+        history_callback = model.fit(X, y, nb_epoch=num_epoch, batch_size=batch_size, shuffle=True)
         loss_history = history_callback.history["loss"]
         new_loss = np.array(loss_history)[-1]
         write(temp_check_filename, "\n updated best: "+ str(new_loss) + " \t epochs since last update: " + str(count_epochs) + " \t loss: " + loss + "\t num_samples: " + str(num_samples))
@@ -401,7 +406,7 @@ def get_training_data(dataset_name,setup):
     pickle.dump( overall_subsampled_data, open( "subsampled_data.p", "w" ) )
     pickle.dump( overall_random_data, open( "random_data.p", "w" ) )
 
-    
+
     overall = overall_random_data + overall_subsampled_data
     #overall = overall_subsampled_data
 
