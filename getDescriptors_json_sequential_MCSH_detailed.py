@@ -474,16 +474,25 @@ def prepare_MCSH_stencils(r_list,h):
 def process(molecule, functional,i,j,k,h,N,r_list,MC_surface_harmonic_stencil_dict):
     result_filename = "{}_{}_{}_{}_{}_all_descriptors.hdf5".format(molecule,functional,i,j,k)
     print 'start {} {} {}'.format(i,j,k)
-    if os.path.isfile(result_filename) == False:
-        try:
+    #if os.path.isfile(result_filename) == False:
+    #    try:
         
-            process_normal_descriptors(molecule, functional,i,j,k)
-            process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MC_surface_harmonic_stencil_dict)
-        except:
-            print "{} failed, skipped".format(result_filename)
-            pass
-    else:
-        print "file exist, skipped"
+    #        process_normal_descriptors(molecule, functional,i,j,k)
+    #        process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MC_surface_harmonic_stencil_dict)
+    #    except:
+    #        print "{} failed, skipped".format(result_filename)
+    #        pass
+    #else:
+    #    print "file exist, skipped"
+
+    try:
+        
+        process_normal_descriptors(molecule, functional,i,j,k)
+        process_range_descriptor(molecule, functional,i,j,k,h,N,r_list,MC_surface_harmonic_stencil_dict)
+    except:
+        print "{} failed, skipped".format(result_filename)
+        pass
+    return
     
 
 def process_one_molecule(molecule, functional,h,L,N,r_list):
