@@ -325,43 +325,43 @@ def load_data_each_block(molecule,functional,i,j,k, dataset_setup, data_dir_full
     temp_MCSH_0_1_0_08 = np.asarray(data['MCSH']['MCSH_0_1_0-08'])
     temp_MCSH_0_1_0_12 = np.asarray(data['MCSH']['MCSH_0_1_0-12'])
     temp_MCSH_0_1_0_16 = np.asarray(data['MCSH']['MCSH_0_1_0-16'])
-    temp_MCSH_0_1_0_20 = np.asarray(data['MCSH']['MCSH_0_1_0-20'])
+    temp_MCSH_0_1_0_20 = np.asarray(data['MCSH']['MCSH_0_1_0-2'])
 
     temp_MCSH_1_1_0_04 = np.asarray(data['MCSH']['MCSH_1_1_0-04'])
     temp_MCSH_1_1_0_08 = np.asarray(data['MCSH']['MCSH_1_1_0-08'])
     temp_MCSH_1_1_0_12 = np.asarray(data['MCSH']['MCSH_1_1_0-12'])
     temp_MCSH_1_1_0_16 = np.asarray(data['MCSH']['MCSH_1_1_0-16'])
-    temp_MCSH_1_1_0_20 = np.asarray(data['MCSH']['MCSH_1_1_0-20'])
+    temp_MCSH_1_1_0_20 = np.asarray(data['MCSH']['MCSH_1_1_0-2'])
 
     temp_MCSH_2_1_0_04 = np.asarray(data['MCSH']['MCSH_2_1_0-04'])
     temp_MCSH_2_1_0_08 = np.asarray(data['MCSH']['MCSH_2_1_0-08'])
     temp_MCSH_2_1_0_12 = np.asarray(data['MCSH']['MCSH_2_1_0-12'])
     temp_MCSH_2_1_0_16 = np.asarray(data['MCSH']['MCSH_2_1_0-16'])
-    temp_MCSH_2_1_0_20 = np.asarray(data['MCSH']['MCSH_2_1_0-20'])
+    temp_MCSH_2_1_0_20 = np.asarray(data['MCSH']['MCSH_2_1_0-2'])
 
     temp_MCSH_2_2_0_04 = np.asarray(data['MCSH']['MCSH_2_2_0-04'])
     temp_MCSH_2_2_0_08 = np.asarray(data['MCSH']['MCSH_2_2_0-08'])
     temp_MCSH_2_2_0_12 = np.asarray(data['MCSH']['MCSH_2_2_0-12'])
     temp_MCSH_2_2_0_16 = np.asarray(data['MCSH']['MCSH_2_2_0-16'])
-    temp_MCSH_2_2_0_20 = np.asarray(data['MCSH']['MCSH_2_2_0-20'])
+    temp_MCSH_2_2_0_20 = np.asarray(data['MCSH']['MCSH_2_2_0-2'])
 
     temp_MCSH_3_1_0_04 = np.asarray(data['MCSH']['MCSH_3_1_0-04'])
     temp_MCSH_3_1_0_08 = np.asarray(data['MCSH']['MCSH_3_1_0-08'])
     temp_MCSH_3_1_0_12 = np.asarray(data['MCSH']['MCSH_3_1_0-12'])
     temp_MCSH_3_1_0_16 = np.asarray(data['MCSH']['MCSH_3_1_0-16'])
-    temp_MCSH_3_1_0_20 = np.asarray(data['MCSH']['MCSH_3_1_0-20'])
+    temp_MCSH_3_1_0_20 = np.asarray(data['MCSH']['MCSH_3_1_0-2'])
 
     temp_MCSH_3_2_0_04 = np.asarray(data['MCSH']['MCSH_3_2_0-04'])
     temp_MCSH_3_2_0_08 = np.asarray(data['MCSH']['MCSH_3_2_0-08'])
     temp_MCSH_3_2_0_12 = np.asarray(data['MCSH']['MCSH_3_2_0-12'])
     temp_MCSH_3_2_0_16 = np.asarray(data['MCSH']['MCSH_3_2_0-16'])
-    temp_MCSH_3_2_0_20 = np.asarray(data['MCSH']['MCSH_3_2_0-20'])
+    temp_MCSH_3_2_0_20 = np.asarray(data['MCSH']['MCSH_3_2_0-2'])
 
     temp_MCSH_3_3_0_04 = np.asarray(data['MCSH']['MCSH_3_3_0-04'])
     temp_MCSH_3_3_0_08 = np.asarray(data['MCSH']['MCSH_3_3_0-08'])
     temp_MCSH_3_3_0_12 = np.asarray(data['MCSH']['MCSH_3_3_0-12'])
     temp_MCSH_3_3_0_16 = np.asarray(data['MCSH']['MCSH_3_3_0-16'])
-    temp_MCSH_3_3_0_20 = np.asarray(data['MCSH']['MCSH_3_3_0-20'])
+    temp_MCSH_3_3_0_20 = np.asarray(data['MCSH']['MCSH_3_3_0-2'])
 
 
 
