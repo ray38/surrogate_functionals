@@ -253,7 +253,7 @@ def process_each_block(molecule, i,j,k, setup, data_dir_full):
     #log_filename = setup["predict_full_log_name"]
 
     start = time.time()
-    dens, X,y, temp_x_list, temp_y_list, temp_z_list, temp_n_list, MCSH_tuple = load_data_each_block(molecule,functional,i,j,k, setup["dataset_setup"], data_dir_full)
+    dens, X,y, temp_x_list, temp_y_list, temp_z_list, temp_n_list = load_data_each_block(molecule,functional,i,j,k, setup["dataset_setup"], data_dir_full)
     original_y, predict_y = predict_each_block(setup, dens, X, y)
     dv = h*h*h
     y = original_y * dv*27.2114
@@ -275,7 +275,7 @@ def process_each_block(molecule, i,j,k, setup, data_dir_full):
 
     os.chdir(setup["model_save_dir"])
 
-    return sum_error, y_predict_sum, y_sum, temp_x_list, temp_y_list, temp_z_list, temp_n_list, temp_original_y_list, temp_predict_y_list, MCSH_tuple
+    return sum_error, y_predict_sum, y_sum, temp_x_list, temp_y_list, temp_z_list, temp_n_list, temp_original_y_list, temp_predict_y_list
 
 
 
