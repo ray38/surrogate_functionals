@@ -195,10 +195,6 @@ def process_one_molecule(molecule, functional,h,L,N,r_list):
         raise NotImplementedError
     
     os.chdir(cwd + '/' + dir_name)
-    #stencil_list,pad_list = prepare_integral_stencils(r_list,h)
-    #asym_stencil_list,asym_pad_list = prepare_asym_integral_stencils(r_list,h)
-
-    #harmonic_stencil_dict = prepare_harmonic_stencil_stencils(r_list,h)
     MC_surface_harmonic_stencil_dict = prepare_MC_surface_harmonic_stencil_stencils(r_list,h)
     
     
